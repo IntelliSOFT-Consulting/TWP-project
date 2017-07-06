@@ -1,5 +1,5 @@
 <%
-	ui.decorateWith("kenyaui", "panel", [ heading: "Search for a Patient" ])
+	ui.decorateWith("kenyaui", "panel", [ heading: "Search for a Client" ])
 
 	ui.includeJavascript("kenyaemr", "controllers/patient.js")
 
