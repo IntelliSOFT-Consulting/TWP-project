@@ -14,14 +14,10 @@
 
 package org.openmrs.module.kenyaemr.metadata;
 
-import org.openmrs.PatientIdentifierType.LocationBehavior;
-import org.openmrs.module.kenyaemr.Dictionary;
 import org.openmrs.module.kenyaemr.Metadata;
 import org.openmrs.module.metadatadeploy.bundle.AbstractMetadataBundle;
 import org.openmrs.module.metadatadeploy.bundle.Requires;
 import org.springframework.stereotype.Component;
-
-import static org.openmrs.module.metadatadeploy.bundle.CoreConstructors.*;
 
 /**
  * TB metadata bundle
@@ -57,20 +53,20 @@ public class TbMetadata extends AbstractMetadataBundle {
 	 */
 	@Override
 	public void install() {
-		install(encounterType("TB Screening", "Screening of patient for TB", _EncounterType.TB_SCREENING));
-		install(encounterType("TB Enrollment", "Enrollment onto TB program", _EncounterType.TB_ENROLLMENT));
-		install(encounterType("TB Discontinuation", "Discontinuation from TB program", _EncounterType.TB_DISCONTINUATION));
-		install(encounterType("TB FollowUp", "Consultation in TB Program", _EncounterType.TB_CONSULTATION));
+		//install(encounterType("TB Screening", "Screening of patient for TB", _EncounterType.TB_SCREENING));
+		//install(encounterType("TB Enrollment", "Enrollment onto TB program", _EncounterType.TB_ENROLLMENT));
+		//install(encounterType("TB Discontinuation", "Discontinuation from TB program", _EncounterType.TB_DISCONTINUATION));
+		//install(encounterType("TB FollowUp", "Consultation in TB Program", _EncounterType.TB_CONSULTATION));
 
-		install(form("TB Screening", null, _EncounterType.TB_SCREENING, "1", _Form.TB_SCREENING));
-		install(form("TB Enrollment", null, _EncounterType.TB_ENROLLMENT, "1", _Form.TB_ENROLLMENT));
-		install(form("TB Discontinuation", null, _EncounterType.TB_DISCONTINUATION, "1", _Form.TB_COMPLETION));
-		install(form("TB FollowUp" ,null, _EncounterType.TB_CONSULTATION, "1", _Form.TB_FOLLOW_UP));
+		//install(form("TB Screening", null, _EncounterType.TB_SCREENING, "1", _Form.TB_SCREENING));
+		//install(form("TB Enrollment", null, _EncounterType.TB_ENROLLMENT, "1", _Form.TB_ENROLLMENT));
+		//install(form("TB Discontinuation", null, _EncounterType.TB_DISCONTINUATION, "1", _Form.TB_COMPLETION));
+		//install(form("TB FollowUp" ,null, _EncounterType.TB_CONSULTATION, "1", _Form.TB_FOLLOW_UP));
 
-		install(patientIdentifierType("District Registration Number", "Assigned to every TB patient",
+		/*install(patientIdentifierType("District Registration Number", "Assigned to every TB patient",
 				null, null, null,
-				LocationBehavior.NOT_USED, false, _PatientIdentifierType.DISTRICT_REG_NUMBER));
+				LocationBehavior.NOT_USED, false, _PatientIdentifierType.DISTRICT_REG_NUMBER));*/
 
-		install(program("TB", "Treatment for TB patients", Dictionary.TUBERCULOSIS_TREATMENT_PROGRAM, _Program.TB));
+		//install(program("TB", "Treatment for TB patients", Dictionary.TUBERCULOSIS_TREATMENT_PROGRAM, _Program.TB));
 	}
 }

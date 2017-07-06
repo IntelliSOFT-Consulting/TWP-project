@@ -12,22 +12,11 @@
 		<property name="defaultCompletionForm" ref="kenyaemr.hiv.form.completion" />
 		<property name="visitForms">
 			<set>
-				<ref bean="kenyaemr.hiv.form.clinicalEncounterAddendum" />
-				<ref bean="kenyaemr.common.form.tbScreening" />
+				<ref bean="kenyaemr.common.form.labResults" />
 			</set>
 		</property>
 		<property name="reports">
 			<set>
-				<ref bean="kenyaemr.hiv.report.qi.adult.c.tx" />
-				<ref bean="kenyaemr.hiv.report.qi.peds.c.tx" />
-				<!--<ref bean="kenyaemr.hiv.report.qi.adult.emtct" />-->
-				<ref bean="kenyaemr.hiv.report.dueForCd4" />
-				<ref bean="kenyaemr.hiv.report.decliningCd4" />
-				<ref bean="kenyaemr.hiv.report.lostToFollowUp" />
-				<ref bean="kenyaemr.hiv.report.neverScreenedForTb" />
-				<ref bean="kenyaemr.hiv.report.eligibleForArt" />
-				<ref bean="kenyaemr.hiv.report.onSecondLineArt" />
-				<ref bean="kenyaemr.hiv.report.neverTakenCtxOrDapsone" />
 				<ref bean="kenyaemr.hiv.report.needsViralLoad" />
 			</set>
 		</property>
@@ -57,9 +46,6 @@
 		<property name="apps">
 			<set>
 				<ref bean="kenyaemr.app.registration" />
-				<ref bean="kenyaemr.app.intake" />
-				<ref bean="kenyaemr.app.clinician" />
-				<ref bean="kenyaemr.app.chart" />
 			</set>
 		</property>
 		<property name="icon" value="kenyaui:forms/generic.png" />
@@ -86,9 +72,6 @@
 		<property name="apps">
 			<set>
 				<ref bean="kenyaemr.app.registration" />
-				<ref bean="kenyaemr.app.intake" />
-				<ref bean="kenyaemr.app.clinician" />
-				<ref bean="kenyaemr.app.chart" />
 			</set>
 		</property>
 		<property name="icon" value="kenyaui:forms/completion.png" />
