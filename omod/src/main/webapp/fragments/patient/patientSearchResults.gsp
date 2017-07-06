@@ -1,7 +1,7 @@
 <%
 	ui.includeJavascript("kenyaemr", "controllers/patient.js")
 
-	def heading = config.heading ?: "Matching Patients"
+	def heading = config.heading ?: "Matching Clients"
 %>
 <div class="ke-panel-frame" ng-controller="PatientSearchResults" ng-init="init('${ currentApp.id }', '${ config.pageProvider }', '${ config.page }')">
 	<div class="ke-panel-heading">${ heading }</div>
