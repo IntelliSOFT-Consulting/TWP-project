@@ -4,14 +4,14 @@
 	<parent>
 		<groupId>org.openmrs.module</groupId>
 		<artifactId>kenyaemr</artifactId>
-		<version>15.1.2</version>
+		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>kenyaemr-install</artifactId>
-  <version>15.1.2</version>
+  <version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>KenyaEMR Installation (optional)</name>
-	<description>Installation tools for KenyaEMR</description>
+	<name>Wellness Installation (optional)</name>
+	<description>Installation tools for Wellness</description>
 
 	<properties>
 		<dbUser>openmrs</dbUser>
