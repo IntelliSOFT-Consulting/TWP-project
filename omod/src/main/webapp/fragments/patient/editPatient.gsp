@@ -3,57 +3,27 @@
 
     def nameFields = [
             [
-                    [object: command, property: "personName.familyName", label: "Surname *"],
-                    [object: command, property: "personName.givenName", label: "First name *"],
-                    [object: command, property: "personName.middleName", label: "Other name(s)"]
+                    [object: command, property: "personName.givenName", label: "First Name *"],
+                    [object: command, property: "personName.middleName", label: "Middle Name"],
+                    [object: command, property: "personName.familyName", label: "Last Name *"]
             ],
-    ]
-
-    def otherDemogFieldRows = [
-            [
-                    [object: command, property: "maritalStatus", label: "Marital status", config: [style: "list", options: maritalStatusOptions]],
-                    [object: command, property: "occupation", label: "Occupation", config: [style: "list", answerTo: occupationConcept]],
-                    [object: command, property: "education", label: "Education", config: [style: "list", options: educationOptions]]
-            ],
-            [
-                    [object: command, property: "dead", label: "Deceased"],
-                    [object: command, property: "deathDate", label: "Date of death"]
-            ]
-    ]
-
-    def nextOfKinFieldRows = [
-            [
-                    [object: command, property: "nameOfNextOfKin", label: "Next of kin name"],
-                    [object: command, property: "nextOfKinRelationship", label: "Next of kin relationship"]
-            ],
-            [
-                    [object: command, property: "nextOfKinContact", label: "Next of kin contact"],
-                    [object: command, property: "nextOfKinAddress", label: "Next of kin address"]
-            ]
     ]
 
     def addressFieldRows = [
             [
-                    [object: command, property: "telephoneContact", label: "Telephone contact"]
+                    [object: command, property: "telephoneContact", label: "Mobile Number"],
+                    [object: command, property: "nextOfKinContact", label: "Other Number"]
+
             ],
             [
                     [object: command, property: "personAddress.address1", label: "Postal Address", config: [size: 60]],
-                    [object: command, property: "personAddress.country", label: "County", config: [size: 60]],
-                    [object: command, property: "subChiefName", label: "Subchief name"]
+                    [object: command, property: "personAddress.cityVillage", label: "Town/City"]
+
+
             ],
             [
-                    [object: command, property: "personAddress.address3", label: "School/Employer Address", config: [size: 60]],
-                    [object: command, property: "personAddress.countyDistrict", label: "District"],
-                    [object: command, property: "personAddress.stateProvince", label: "Province", config: [size: 60]]
-            ],
-            [[object: command, property: "personAddress.address6", label: "Location"],
-             [object: command, property: "personAddress.address5", label: "Sub-location"],
-             [object: command, property: "personAddress.address4", label: "Division", config: [size: 60]]
-            ],
-            [
-                    [object: command, property: "personAddress.cityVillage", label: "Village/Estate"],
-                    [object: command, property: "personAddress.address2", label: "Landmark"],
-                    [object: command, property: "personAddress.postalCode", label: "House/Plot Number"]
+                    [object: command, property: "personAddress.address2", label: "Delivery Address"],
+                    [object: command, property: "personAddress.address3", label: "Email Address", config: [size: 100]],
             ]
     ]
 %>
@@ -72,26 +42,17 @@
         </div>
 
         <fieldset>
-            <legend>ID Numbers</legend>
+            <legend>Identifiers</legend>
 
             <table>
-                <% if (command.inHivProgram) { %>
                 <tr>
-                    <td class="ke-field-label">Unique Patient Number</td>
-                    <td>${
-                            ui.includeFragment("kenyaui", "widget/field", [object: command, property: "uniquePatientNumber"])}</td>
-                    <td class="ke-field-instructions">(HIV program<% if (!command.uniquePatientNumber) { %>, if assigned<%
-                            } %>)</td>
-                </tr>
-                <% } %>
-                <tr>
-                    <td class="ke-field-label">Patient Clinic Number</td>
+                    <td class="ke-field-label">Account Number</td>
                     <td>${ui.includeFragment("kenyaui", "widget/field", [object: command, property: "patientClinicNumber"])}</td>
                     <td class="ke-field-instructions"><% if (!command.patientClinicNumber) { %>(if available)<%
                         } %></td>
                 </tr>
                 <tr>
-                    <td class="ke-field-label">National ID Number</td>
+                    <td class="ke-field-label">ID/PP Number</td>
                     <td>${ui.includeFragment("kenyaui", "widget/field", [object: command, property: "nationalIdNumber"])}</td>
                     <td class="ke-field-instructions"><% if (!command.nationalIdNumber) { %>(if available)<% } %></td>
                 </tr>
@@ -138,11 +99,6 @@
                     </td>
                 </tr>
             </table>
-
-            <% otherDemogFieldRows.each { %>
-            ${ui.includeFragment("kenyaui", "widget/rowOfFields", [fields: it])}
-            <% } %>
-
         </fieldset>
 
         <fieldset>
@@ -154,20 +110,11 @@
 
         </fieldset>
 
-        <fieldset>
-            <legend>Next of Kin Details</legend>
-
-            <% nextOfKinFieldRows.each { %>
-            ${ui.includeFragment("kenyaui", "widget/rowOfFields", [fields: it])}
-            <% } %>
-
-        </fieldset>
-
     </div>
 
     <div class="ke-panel-footer">
         <button type="submit">
-            <img src="${ui.resourceLink("kenyaui", "images/glyphs/ok.png")}"/> ${command.original ? "Save Changes" : "Create Patient"}
+            <img src="${ui.resourceLink("kenyaui", "images/glyphs/ok.png")}"/> ${command.original ? "Save Changes" : "Create Client"}
         </button>
         <% if (config.returnUrl) { %>
         <button type="button" class="cancel-button"><img
@@ -214,7 +161,7 @@ ${ui.includeFragment("kenyaui", "widget/dialogForm", [
                     ui.navigate('kenyaemr', 'registration/registrationViewPatient', {patientId: data.id});
                     <% } %>
                 } else {
-                    kenyaui.notifyError('Saving patient was successful, but unexpected response');
+                    kenyaui.notifyError('Saving client was successful, but unexpected response');
                 }
             }
         });

@@ -9,7 +9,7 @@
 %>
 
 <div class="ke-page-sidebar">
-	${ ui.includeFragment("kenyaui", "widget/panelMenu", [ heading: "Create Patient", items: menuItems ]) }
+	${ ui.includeFragment("kenyaui", "widget/panelMenu", [ heading: "Create Client", items: menuItems ]) }
 
 	<div class="ke-panel-frame">
 		<div class="ke-panel-heading">Help</div>
@@ -50,7 +50,7 @@
 			<tr>
 				<td style="width: 50%; text-align: left; vertical-align: middle">
 					<button type="button" onclick="ke_useNewPerson()">
-						<img src="${ ui.resourceLink("kenyaui", "images/buttons/account_add.png") }" /> Register new Patient
+						<img src="${ ui.resourceLink("kenyaui", "images/buttons/account_add.png") }" /> Register new Client
 					</button>
 				</td>
 				<td style="width: 50%; text-align: right; vertical-align: middle">

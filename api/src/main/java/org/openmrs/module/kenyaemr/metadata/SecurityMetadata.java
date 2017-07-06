@@ -96,9 +96,7 @@ public class SecurityMetadata extends AbstractMetadataBundle {
 		install(role(_Role.REGISTRATION, "Can access the registration app",
 				idSet(_Role.API_PRIVILEGES_VIEW_AND_EDIT),
 				idSet(
-						app(EmrConstants.APP_REGISTRATION),
-						app(EmrConstants.APP_DIRECTORY),
-						app(EmrConstants.APP_FACILITIES)
+						app(EmrConstants.APP_REGISTRATION)
 				)
 		));
 
@@ -131,12 +129,10 @@ public class SecurityMetadata extends AbstractMetadataBundle {
 				idSet(_Role.API_PRIVILEGES_VIEW_AND_EDIT),
 				idSet(
 						app(EmrConstants.APP_REGISTRATION),
-						app(EmrConstants.APP_INTAKE),
 						app(EmrConstants.APP_CLINICIAN),
 						app(EmrConstants.APP_CHART),
-						app(EmrConstants.APP_REPORTS),
-						app(EmrConstants.APP_DIRECTORY),
-						app(EmrConstants.APP_FACILITIES)
+						app(EmrConstants.APP_REPORTS)
+
 				)
 		));
 

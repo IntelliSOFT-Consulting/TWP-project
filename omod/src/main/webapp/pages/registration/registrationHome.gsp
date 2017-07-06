@@ -4,12 +4,9 @@
 	ui.includeJavascript("kenyaemr", "controllers/visit.js")
 
 	def menuItems = [
-			[ label: "Find or create patient", iconProvider: "kenyaui", icon: "buttons/patient_search.png", href: ui.pageLink("kenyaemr", "registration/registrationSearch") ]
+			[ label: "Find or create client", iconProvider: "kenyaui", icon: "buttons/patient_search.png", href: ui.pageLink("kenyaemr", "registration/registrationSearch") ]
 	]
 
-	def menuItemsNew = [
-			[ label: "Seen Patients", iconProvider: "kenyaui", icon: "buttons/patients.png", href: ui.pageLink("kenyaemr", "registration/registrationSearchSeen") ]
-	]
 %>
 
 <style type="text/css">
@@ -40,24 +37,7 @@
 <div class="ke-page-sidebar">
 	${ ui.includeFragment("kenyaui", "widget/panelMenu", [ heading: "Tasks", items: menuItems ]) }
 
-	${ ui.decorate("kenyaui", "panel", [ heading: "Select Day to View Scheduled Patients" ], """<div id="calendar"></div>""") }
-
-	<div class="ke-panel-frame" ng-controller="ActiveVisits" ng-init="init()">
-		<div class="ke-panel-heading">Active Visits</div>
-
-		<div class="ke-panel-content">
-			<div class="ke-stack-item" ng-repeat="type in activeTypes">
-				<input type="checkbox" name="{{ type.id }}" ng-model="type.selected" /> {{ type.name }} ({{ type.count }})
-			</div>
-			<span ng-if="activeTypes.length == 0"><em>None</em></span>
-		</div>
-
-		<div class="ke-panel-controls" ng-show="activeTypes.length > 0">
-			<button type="button" ng-click="closeSelected()"><img src="${ ui.resourceLink("kenyaui", "images/glyphs/checkout.png") }" /> Close Visits</button>
-		</div>
-	</div>
-	${ ui.includeFragment("kenyaui", "widget/panelMenu", [ heading: "", items: menuItemsNew ]) }
-</div>
+	${ ui.decorate("kenyaui", "panel", [ heading: "Select day to view scheduled clients" ], """<div id="calendar"></div>""") }
 
 <div class="ke-page-content">
 	${ ui.includeFragment("kenyaemr", "patient/dailySchedule", [ pageProvider: "kenyaemr", page: "registration/registrationViewPatient", date: scheduleDate ]) }

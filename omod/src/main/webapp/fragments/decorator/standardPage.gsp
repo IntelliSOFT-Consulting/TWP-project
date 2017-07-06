@@ -8,8 +8,6 @@
 
 	config.beforeContent = ui.includeFragment("kenyaemr", "header/pageHeader", config)
 
-	config.beforeContent += ui.includeFragment("kenyaemr", "header/systemHeader", config)
-
 	config.beforeContent += ui.includeFragment("kenyaemr", "header/headerMenu", config)
 
 	if (config.patient) {
@@ -19,11 +17,11 @@
 		config.beforeContent += ui.includeFragment("kenyaemr", "header/visitHeader", [ visit: config.visit ])
 	}
 
-	config.pageTitle = "KenyaEMR"
+	config.pageTitle = "The Wellness"
 	config.faviconIco = ui.resourceLink("kenyaemr", "images/logos/favicon.ico")
 	config.faviconPng = ui.resourceLink("kenyaemr", "images/logos/favicon.png")
 	config.angularApp = "kenyaemr"
-	
+
 	ui.decorateWith("kenyaui", "standardPage", config)
 %>
 
@@ -32,9 +30,9 @@
 <style type="text/css">
 
 <% if (config.layout == "sidebar") { %>
-	html {
-		background: #FFF url('${ ui.resourceLink("kenyaui", "images/background.png") }') repeat-y;
-	}
+html {
+	background: #FFF url('${ ui.resourceLink("kenyaui", "images/background.png") }') repeat-y;
+}
 <% } %>
 
 </style>
