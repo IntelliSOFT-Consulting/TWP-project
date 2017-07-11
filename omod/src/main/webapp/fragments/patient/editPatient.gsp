@@ -52,10 +52,17 @@
                         } %></td>
                 </tr>
                 <tr>
-                    <td class="ke-field-label">ID/PP Number</td>
+                    <td class="ke-field-label">ID Number</td>
                     <td>${ui.includeFragment("kenyaui", "widget/field", [object: command, property: "nationalIdNumber"])}</td>
                     <td class="ke-field-instructions"><% if (!command.nationalIdNumber) { %>(if available)<% } %></td>
                 </tr>
+
+                <tr>
+                    <td class="ke-field-label">Passport Number</td>
+                    <td>${ui.includeFragment("kenyaui", "widget/field", [object: command, property: "uniquePatientNumber"])}</td>
+                    <td class="ke-field-instructions"><% if (!command.uniquePatientNumber) { %>(if available)<% } %></td>
+                </tr>
+
             </table>
 
         </fieldset>

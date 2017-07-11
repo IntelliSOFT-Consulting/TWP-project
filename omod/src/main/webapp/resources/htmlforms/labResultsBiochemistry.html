@@ -1,0 +1,126 @@
+<!--
+  ~ The contents of this file are subject to the OpenMRS Public License
+  ~ Version 1.0 (the "License"); you may not use this file except in
+  ~ compliance with the License. You may obtain a copy of the License at
+  ~ http://license.openmrs.org
+  ~
+  ~ Software distributed under the License is distributed on an "AS IS"
+  ~ basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+  ~ License for the specific language governing rights and limitations
+  ~ under the License.
+  ~
+  ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
+-->
+<htmlform>
+
+    <div class="ke-form-header">
+		<span style="display: none">
+					<encounterLocation default="GlobalProperty:kenyaemr.defaultLocation" />
+			</span>
+        <table width="100%">
+            <tr>
+                <td>Encounter Date: <encounterDate id="encounter-date" showTime="true" /></td>
+                <td>Provider: <encounterProvider default="currentUser" /></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="ke-form-content">
+        <fieldset>
+            <legend>ENDOCRINOLOGY</legend>
+            <table>
+                <tr>
+                    <td>
+                        <table>
+                            <tr><td>Lab Ref:<!--<obs conceptId="" />--></td></tr>
+                            <tr><td>MRI #:<!--<obs conceptid="" />--></td></tr>
+                            <tr><td>Specimen #<!--<obs conceptId="" />--></td></tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table>
+                            <tr><td>Collection Date:<!--<obs conceptId="" />--></td></tr>
+                            <tr><td>Received Date:<!--<obs conceptId="" />--></td></tr>
+                            <tr><td>Report Date:<!--<obs conceptId="" />--></td></tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Test</th>
+                    <th>Result</th>
+                </tr>
+                <tr>
+                    <td>SODIUM, serum</td>
+                    <td><!--<obs conceptId="" showUnits="true" />--></td>
+                </tr>
+                <tr>
+                    <td>S-POTASSIUM</td>
+                    <td><!--<obs conceptId="" showUnits="true" />--></td>
+                </tr>
+                <tr>
+                    <td>S-CHLORIDE</td>
+                    <td><!--<obs conceptId="" showUnits="true" />--></td>
+                </tr>
+                <tr>
+                    <td>S-UREA</td>
+                    <td><!--<obs conceptId="" showUnits="true" />--></td>
+                </tr>
+                <tr>
+                    <td>S-CREATININE</td>
+                    <td><!--<obs conceptId="" showUnits="true" />--></td>
+                </tr>
+                <tr>
+                    <td>S-CHOLESTEROL</td>
+                    <td><!--<obs conceptId="" showUnits="true" />--></td>
+                </tr>
+                <tr>
+                    <td>S-LDL CHOLESTEROL</td>
+                    <td><!--<obs conceptId="" showUnits="true" />--></td>
+                </tr>
+                <tr>
+                    <td>S-HDL CHOLESTEROL</td>
+                    <td><!--<obs conceptId="" showUnits="true" />--></td>
+                </tr>
+                <tr>
+                    <td>S-NON HDL CHOLESTEROL</td>
+                    <td><!--<obs conceptId="" showUnits="true" />--></td>
+                </tr>
+                <tr>
+                    <td>S-CHOL./HDL RATIO</td>
+                    <td><!--<obs conceptId="" showUnits="true" />--></td>
+                </tr>
+                <tr>
+                    <td>S-TRIGLYCERIDE</td>
+                    <td><!--<obs conceptId="" showUnits="true" />--></td>
+                </tr>
+                <tr>
+                    <td>UREA:CREATININE RATIO</td>
+                    <td><!--<obs conceptId="" showUnits="true" />--></td>
+                </tr>
+                <tr>
+                    <td>eGFR-(CKD-EPI)</td>
+                    <td><!--<obs conceptId="" showUnits="true" />--></td>
+                </tr>
+                <tr>
+                    <td>S-g-GLUTAMYL TRANSFERASE</td>
+                    <td><!--<obs conceptId="" showUnits="true" />--></td>
+                </tr>
+                <tr>
+                    <td>P-GLUCOSE fasting</td>
+                    <td><!--<obs conceptId="" showUnits="true" />--></td>
+                </tr>
+            </table>
+            <table>
+                <tr>
+                    <td colspan="2">COMMENT<br />
+                        <obs conceptId=""/>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </div>
+    <div class="ke-form-footer">
+        <submit />
+    </div>
+
+</htmlform>

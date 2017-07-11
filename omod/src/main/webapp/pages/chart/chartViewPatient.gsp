@@ -10,13 +10,6 @@
 					icon: "buttons/patient_overview.png"
 			],
 			[
-					label: "MOH 257",
-					href: ui.pageLink("kenyaemr", "chart/chartViewPatient", [ patientId: currentPatient.id, section: "moh257" ]),
-					active: (selection == "section-moh257"),
-					iconProvider: "kenyaui",
-					icon: "forms/moh257.png"
-			],
-			[
 					label: "Patient summary",
 					href: ui.pageLink("kenyaemr", "chart/chartViewPatient", [ patientId: currentPatient.id, section: "summaries" ]),
 					active: (selection == "section-summaries"),
@@ -80,7 +73,6 @@
 	${ ui.includeFragment("kenyaemr", "visitSummary", [ visit: visit ]) }
 	<% if (!visit.voided) { %>
 	${ ui.includeFragment("kenyaemr", "visitCompletedForms", [ visit: visit ]) }
-	${ ui.includeFragment("kenyaemr", "visitAvailableForms", [ visit: visit ]) }
 	<% } %>
 
 	<% } else if (form) { %>
@@ -105,10 +97,6 @@
 	<% } else if (section == "overview") { %>
 
 	${ ui.includeFragment("kenyaemr", "program/programCarePanels", [ patient: currentPatient, complete: true, activeOnly: false ]) }
-
-	<% } else if (section == "moh257") { %>
-
-	${ ui.includeFragment("kenyaemr", "moh257", [ patient: currentPatient ]) }
 
 	<% }else if (section == "summaries") { %>
 

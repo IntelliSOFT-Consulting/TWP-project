@@ -16,11 +16,13 @@
 		<property name="commonVisitForms">
 			<set>
 				<ref bean="kenyaemr.common.form.labResults" />
+				<ref bean="kenyaemr.common.form.labResults1" />
+				<ref bean="kenyaemr.common.form.labResults2" />
 			</set>
 		</property>
 	</bean>
 
-	<bean id="kenyaemr.config.report" class="org.openmrs.module.kenyacore.report.ReportConfiguration">
+	<!--<bean id="kenyaemr.config.report" class="org.openmrs.module.kenyacore.report.ReportConfiguration">
 		<property name="commonReports">
 			<set>
 				<ref bean="kenyaemr.common.report.artDrug" />
@@ -36,7 +38,7 @@
 				<ref bean="kenyaemr.common.report.clients.transferred.out" />
 			</set>
 		</property>
-	</bean>
+	</bean>-->
 
 	<bean id="kenyaemr.config.regimen" class="org.openmrs.module.kenyaemr.regimen.RegimenConfiguration">
 		<property name="definitionsPath" value="regimens.xml" />
@@ -149,6 +151,30 @@
 		<property name="icon" value="kenyaui:forms/labresults.png" />
 		<property name="htmlform" value="kenyaemr:labResults.html" />
 		<property name="order" value="200030" />
+	</bean>
+
+	<bean id="kenyaemr.common.form.labResults1" class="org.openmrs.module.kenyacore.form.FormDescriptor">
+		<property name="targetUuid" value="3fae7594-6578-11e7-922a-507b9dc4c741" />
+		<property name="apps">
+			<set>
+				<ref bean="kenyaemr.app.registration" />
+			</set>
+		</property>
+		<property name="icon" value="kenyaui:forms/labresults.png" />
+		<property name="htmlform" value="kenyaemr:labResultsBiochemistry.html" />
+		<property name="order" value="200040" />
+	</bean>
+
+	<bean id="kenyaemr.common.form.labResults2" class="org.openmrs.module.kenyacore.form.FormDescriptor">
+		<property name="targetUuid" value="4f643244-6578-11e7-8fb4-507b9dc4c741" />
+		<property name="apps">
+			<set>
+				<ref bean="kenyaemr.app.registration" />
+			</set>
+		</property>
+		<property name="icon" value="kenyaui:forms/labresults.png" />
+		<property name="htmlform" value="kenyaemr:labResultsHaematology.html" />
+		<property name="order" value="200050" />
 	</bean>
 
 	<!-- Other Medications -->

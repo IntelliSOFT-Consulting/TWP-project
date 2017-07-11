@@ -93,10 +93,13 @@ public class SecurityMetadata extends AbstractMetadataBundle {
 				null, getApiPrivileges(false))
 		);
 
-		install(role(_Role.REGISTRATION, "Can access the registration app",
+		install(role(_Role.REGISTRATION, "Can access the registration app, summaries and reports",
 				idSet(_Role.API_PRIVILEGES_VIEW_AND_EDIT),
 				idSet(
-						app(EmrConstants.APP_REGISTRATION)
+						app(EmrConstants.APP_REGISTRATION),
+						app(EmrConstants.APP_CHART),
+						app(EmrConstants.APP_REPORTS)
+
 				)
 		));
 

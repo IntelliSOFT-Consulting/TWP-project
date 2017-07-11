@@ -14,16 +14,47 @@
 <htmlform>
 
 	<div class="ke-form-header">
+		<span style="display: none">
+					<encounterLocation default="GlobalProperty:kenyaemr.defaultLocation" />
+			</span>
 		<table width="100%">
 			<tr>
-				<td>Date: <encounterDate id="encounter-date" showTime="true" /></td>
-				<td>Location: <encounterLocation default="GlobalProperty:kenyaemr.defaultLocation" /></td>
+				<td>Encounter Date: <encounterDate id="encounter-date" showTime="true" /></td>
 				<td>Provider: <encounterProvider default="currentUser" /></td>
 			</tr>
 		</table>
 	</div>
 
 	<div class="ke-form-content">
+		<fieldset>
+			<legend>ENDOCRINOLOGY</legend>
+			<table>
+				<tr>
+					<td>
+						<table>
+							<tr><td>Lab Ref:<!--<obs conceptId="" />--></td></tr>
+							<tr><td>MRI #:<!--<obs conceptid="" />--></td></tr>
+							<tr><td>Specimen #<!--<obs conceptId="" />--></td></tr>
+						</table>
+					</td>
+					<td>
+						<table>
+							<tr><td>Collection Date:<!--<obs conceptId="" />--></td></tr>
+							<tr><td>Received Date:<!--<obs conceptId="" />--></td></tr>
+							<tr><td>Report Date:<!--<obs conceptId="" />--></td></tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<th>Test</th>
+					<th>Result</th>
+				</tr>
+				<tr>
+					<td>Thyrotropin (TSH) -S</td>
+					<td><!--<obs conceptId="" showUnits="true" />--></td>
+				</tr>
+			</table>
+		</fieldset>
 	</div>
 	<div class="ke-form-footer">
 		<submit />

@@ -14,11 +14,6 @@
 
 package org.openmrs.module.kenyaemr.page.controller.reports;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.openmrs.Program;
 import org.openmrs.module.appframework.domain.AppDescriptor;
 import org.openmrs.module.kenyacore.program.ProgramDescriptor;
@@ -33,6 +28,11 @@ import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.page.PageModel;
 import org.openmrs.ui.framework.page.PageRequest;
+
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Homepage for the reports app
@@ -50,7 +50,7 @@ public class ReportsHomePageController {
 
 		Map<String, List<SimpleObject>> reportsByProgram = new LinkedHashMap<String, List<SimpleObject>>();
 
-		List<SimpleObject> common = new ArrayList<SimpleObject>();
+		/*List<SimpleObject> common = new ArrayList<SimpleObject>();
 		for (ReportDescriptor report : reportManager.getCommonReports(currentApp)) {
 			common.add(ui.simplifyObject(report));
 		}
@@ -59,7 +59,7 @@ public class ReportsHomePageController {
 			cohortAnalysis.add(ui.simplifyObject(report));
 		}
 		reportsByProgram.put("Common", common);
-		reportsByProgram.put("Cohort Analysis", cohortAnalysis);
+		reportsByProgram.put("Cohort Analysis", cohortAnalysis);*/
 
 		for (ProgramDescriptor programDescriptor : programManager.getAllProgramDescriptors()) {
 			Program program = programDescriptor.getTarget();

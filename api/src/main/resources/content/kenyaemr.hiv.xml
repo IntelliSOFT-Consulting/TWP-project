@@ -13,11 +13,13 @@
 		<property name="visitForms">
 			<set>
 				<ref bean="kenyaemr.common.form.labResults" />
+				<ref bean="kenyaemr.common.form.labResults1" />
+				<ref bean="kenyaemr.common.form.labResults2" />
 			</set>
 		</property>
 		<property name="reports">
 			<set>
-				<ref bean="kenyaemr.hiv.report.needsViralLoad" />
+				<ref bean="kenyaemr.common.report.allPatients" />
 			</set>
 		</property>
 		<property name="fragments">

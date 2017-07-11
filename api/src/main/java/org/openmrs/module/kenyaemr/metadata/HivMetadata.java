@@ -59,19 +59,19 @@ public class HivMetadata extends AbstractMetadataBundle {
 	 */
 	@Override
 	public void install() {
-		install(encounterType("HIV Enrollment", "Enrollment onto HIV program", _EncounterType.HIV_ENROLLMENT));
-		install(encounterType("HIV Consultation", "Collection of HIV-specific data during the main consultation", _EncounterType.HIV_CONSULTATION));
-		install(encounterType("HIV Discontinuation", "Discontinuation from HIV program", _EncounterType.HIV_DISCONTINUATION));
+		install(encounterType("Nutrition Enrollment", "Enrollment onto Nutrition program", _EncounterType.HIV_ENROLLMENT));
+		//install(encounterType("HIV Consultation", "Collection of HIV-specific data during the main consultation", _EncounterType.HIV_CONSULTATION));
+		install(encounterType("Nutrition Discontinuation", "Discontinuation from Nutrition program", _EncounterType.HIV_DISCONTINUATION));
 
-		install(form("HIV Enrollment", null, _EncounterType.HIV_ENROLLMENT, "1", _Form.HIV_ENROLLMENT));
+		install(form("Nutrition Enrollment", null, _EncounterType.HIV_ENROLLMENT, "1", _Form.HIV_ENROLLMENT));
 		//install(form("Clinical Encounter - HIV addendum", null, _EncounterType.HIV_CONSULTATION, "1", _Form.CLINICAL_ENCOUNTER_HIV_ADDENDUM));
 		//install(form("Family History", null, CommonMetadata._EncounterType.REGISTRATION, "1", _Form.FAMILY_HISTORY));
 		//install(form("MOH 257 Face Page", null, _EncounterType.HIV_ENROLLMENT, "1", _Form.MOH_257_FACE_PAGE));
 		//install(form("MOH 257 ARV Therapy", null, _EncounterType.HIV_ENROLLMENT, "1", _Form.MOH_257_ARV_THERAPY));
 		//install(form("MOH 257 Visit Summary", null, _EncounterType.HIV_CONSULTATION, "1", _Form.MOH_257_VISIT_SUMMARY));
-		install(form("HIV Discontinuation", null, _EncounterType.HIV_DISCONTINUATION, "1", _Form.HIV_DISCONTINUATION));
+		install(form("Nutrition Discontinuation", null, _EncounterType.HIV_DISCONTINUATION, "1", _Form.HIV_DISCONTINUATION));
 
-		install(patientIdentifierType("Unique Patient Number", "Assigned to every HIV patient", "\\d+", "Facility code followed by sequential number",
+		install(patientIdentifierType("Passport Number", "Assigned to every HIV patient", "^[a-zA-Z0-9_.-]*$", "Client's passport number",
 				null, LocationBehavior.NOT_USED, false, _PatientIdentifierType.UNIQUE_PATIENT_NUMBER));
 
 		install(program("Nutrition", "Patients to monitor their diets", Dictionary.HIV_PROGRAM, _Program.HIV));
