@@ -10,7 +10,7 @@
 					icon: "buttons/patient_overview.png"
 			],
 			[
-					label: "Patient summary",
+					label: "Client's Summary",
 					href: ui.pageLink("kenyaemr", "chart/chartViewPatient", [ patientId: currentPatient.id, section: "summaries" ]),
 					active: (selection == "section-summaries"),
 					iconProvider: "kenyaui",
