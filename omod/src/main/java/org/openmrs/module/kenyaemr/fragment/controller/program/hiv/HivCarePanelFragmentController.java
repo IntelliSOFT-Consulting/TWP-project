@@ -94,8 +94,8 @@ public class HivCarePanelFragmentController {
 		model.addAttribute("date", datesRequired);
 
 		Concept medSet = regimenManager.getMasterSetConcept("ARV");
-		RegimenChangeHistory history = RegimenChangeHistory.forPatient(patient, medSet);
-		model.addAttribute("regimenHistory", history);
+		//RegimenChangeHistory history = RegimenChangeHistory.forPatient(patient, medSet);
+		//model.addAttribute("regimenHistory", history);
 
 		model.addAttribute("graphingConcepts", Dictionary.getConcepts(Dictionary.WEIGHT_KG));
 	}

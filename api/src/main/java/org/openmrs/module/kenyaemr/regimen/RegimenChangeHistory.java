@@ -48,12 +48,11 @@ public class RegimenChangeHistory {
 	 * @param medSet the medset concept defining the list of relevant drug concepts
 	 * @return the regimen history
 	 */
-	public static RegimenChangeHistory forPatient(Patient patient, Concept medSet) {
+	/*public static RegimenChangeHistory forPatient(Patient patient, Concept medSet) {
 		Set<Concept> relevantGenerics = new HashSet<Concept>(medSet.getSetMembers());
-		@SuppressWarnings("deprecation")
 		List<DrugOrder> allDrugOrders = Context.getOrderService().getDrugOrdersByPatient(patient);
-		return new RegimenChangeHistory(relevantGenerics, allDrugOrders);
-	}
+		return null*//*new RegimenChangeHistory(*//**//*relevantGenerics, allDrugOrders*//**//*)*//*;
+	}*/
 	
 	/**
 	 * Constructs a regimen order history
@@ -69,12 +68,12 @@ public class RegimenChangeHistory {
 		// Collect changes for each individual drug orders
 		List<DrugOrderChange> tempChanges = new ArrayList<DrugOrderChange>();
 		for (DrugOrder o : relevantDrugOrders) {
-			tempChanges.add(new DrugOrderChange(ChangeType.START, o, o.getStartDate()));
+			/*tempChanges.add(new DrugOrderChange(ChangeType.START, o, o.getStartDate()));
 			if (o.getDiscontinuedDate() != null) {
 				tempChanges.add(new DrugOrderChange(ChangeType.END, o, o.getDiscontinuedDate()));
 			} else if (o.getAutoExpireDate() != null) {
 				tempChanges.add(new DrugOrderChange(ChangeType.END, o, o.getAutoExpireDate()));
-			}
+			}*/
 		}
 
 		// Gather changes together by common dates
@@ -102,12 +101,12 @@ public class RegimenChangeHistory {
 				} else { // ChangeType.END
 					DrugOrder o = rc.getDrugOrder();
 					runningOrders.remove(o);
-					if (o.getDiscontinuedReason() != null) {
+					/*if (o.getDiscontinuedReason() != null) {
 						changeReasons.add(o.getDiscontinuedReason());
 					}
 					if (o.getDiscontinuedReasonNonCoded() != null) {
 						changeReasonsNonCoded.add(o.getDiscontinuedReasonNonCoded());
-					}
+					}*/
 				}
 			}
 
@@ -141,14 +140,14 @@ public class RegimenChangeHistory {
 
 		// Un-discontinue the regimen that may have been stopped
 		if (lastChange.getStopped() != null) {
-			for (DrugOrder order : lastChange.getStopped().getDrugOrders()) {
+			/*for (DrugOrder order : lastChange.getStopped().getDrugOrders()) {
 				order.setDiscontinued(false);
 				order.setDiscontinuedDate(null);
 				order.setDiscontinuedBy(null);
 				order.setDiscontinuedReason(null);
 				order.setDiscontinuedReasonNonCoded(null);
 				Context.getOrderService().saveOrder(order);
-			}
+			}*/
 		}
 
 		// Remove last change from history

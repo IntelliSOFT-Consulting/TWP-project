@@ -104,7 +104,7 @@ public class EmrUiUtils {
 				boolean hasDecimals = Math.floor(o.getDose()) != o.getDose();
 				String dose = hasDecimals ? ui.format(o.getDose()) : ui.format(o.getDose().intValue());
 
-				sb.append(" " + dose + o.getUnits());
+				//sb.append(" " + dose + o.getUnits());
 			}
 			if (o.getFrequency() != null) {
 				sb.append(" " + o.getFrequency());

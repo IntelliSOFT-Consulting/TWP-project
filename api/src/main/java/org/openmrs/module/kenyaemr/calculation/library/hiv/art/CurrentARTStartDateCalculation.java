@@ -56,10 +56,10 @@ public class CurrentARTStartDateCalculation extends AbstractPatientCalculation {
 				RegimenOrder currentRegimen = (RegimenOrder) currentArvResult.getValue();
 				Set<DrugOrder> drugs = currentRegimen.getDrugOrders();
 				for (DrugOrder o : drugs) {
-					if (o.getStartDate() != null) {
+					/*f (o.getStartDate() != null) {
 						currentStartDate = o.getStartDate();
 						break;
-					}
+					}*/
 				}
 			}
 			ret.put(ptId, new SimpleResult(currentStartDate, this));

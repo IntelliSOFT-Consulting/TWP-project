@@ -50,12 +50,12 @@ public class EmrTestUtils {
 			DrugOrder order = new DrugOrder();
 			order.setOrderType(Context.getOrderService().getOrderType(2));
 			order.setPatient(patient);
-			order.setOrderer(Context.getUserService().getUser(1));
+			//order.setOrderer(Context.getUserService().getUser(1));
 			order.setConcept(concept);
-			order.setStartDate(start);
-			order.setDiscontinued(end != null);
-			order.setDiscontinuedDate(end);
-			orders.add((DrugOrder) Context.getOrderService().saveOrder(order));
+			//order.setStartDate(start);
+			//order.setDiscontinued(end != null);
+			//order.setDiscontinuedDate(end);
+			//orders.add((DrugOrder) Context.getOrderService().saveOrder(order));
 		}
 
 		return new RegimenOrder(orders);

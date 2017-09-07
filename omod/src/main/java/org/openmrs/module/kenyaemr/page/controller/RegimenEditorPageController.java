@@ -48,15 +48,15 @@ public class RegimenEditorPageController {
 		model.addAttribute("returnUrl", returnUrl);
 
 		Concept masterSet = regimenManager.getMasterSetConcept(category);
-		RegimenChangeHistory history = RegimenChangeHistory.forPatient(patient, masterSet);
-		model.addAttribute("history", history);
+		/*RegimenChangeHistory history = RegimenChangeHistory.forPatient(patient, masterSet);
+		model.addAttribute("history", history);*/
 
-		RegimenChange lastChange = history.getLastChange();
-		Date lastChangeDate =  (lastChange != null) ? lastChange.getDate() : null;
+		/*RegimenChange lastChange = history.getLastChange();
+		Date lastChangeDate =  (lastChange != null) ? lastChange.getDate() : null;*/
 		Date now = new Date();
-		boolean futureChanges = OpenmrsUtil.compareWithNullAsEarliest(lastChangeDate, now) >= 0;
+		//boolean futureChanges = OpenmrsUtil.compareWithNullAsEarliest(lastChangeDate, now) >= 0;
 
-		model.addAttribute("initialDate", futureChanges ? lastChangeDate : now);
+		//model.addAttribute("initialDate", futureChanges ? lastChangeDate : now);
 
 		try {
 			boolean isManager = false;

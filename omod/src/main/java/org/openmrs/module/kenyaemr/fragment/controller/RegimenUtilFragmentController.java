@@ -72,8 +72,8 @@ public class RegimenUtilFragmentController {
 	 */
 	public void undoLastChange(@RequestParam("patient") Patient patient, HttpSession session, @RequestParam("category") String category, @SpringBean RegimenManager regimenManager, @SpringBean KenyaUiUtils kenyaUi) {
 		Concept masterSet = regimenManager.getMasterSetConcept(category);
-		RegimenChangeHistory history = RegimenChangeHistory.forPatient(patient, masterSet);
-		history.undoLastChange();
+		/*RegimenChangeHistory history = RegimenChangeHistory.forPatient(patient, masterSet);
+		history.undoLastChange();*/
 
 		kenyaUi.notifySuccess(session, "Removed last regimen change");
 	}
@@ -147,19 +147,19 @@ public class RegimenUtilFragmentController {
 			if (category != null && changeDate != null) {
 				// Get patient regimen history
 				Concept masterSet = regimenManager.getMasterSetConcept(category);
-				RegimenChangeHistory history = RegimenChangeHistory.forPatient(patient, masterSet);
+				/*RegimenChangeHistory history = RegimenChangeHistory.forPatient(patient, masterSet);
 				RegimenChange lastChange = history.getLastChange();
-				boolean onRegimen = lastChange != null && lastChange.getStarted() != null;
+				boolean onRegimen = lastChange != null && lastChange.getStarted() != null;*/
 
 				// Can't start if already started
-				if ((changeType == RegimenChangeType.START || changeType == RegimenChangeType.RESTART) && onRegimen) {
+				/*if ((changeType == RegimenChangeType.START || changeType == RegimenChangeType.RESTART) && onRegimen) {
 					errors.reject("Can't start regimen for patient who is already on a regimen");
-				}
+				}*/
 
 				// Changes must be in order
-				if (lastChange != null && OpenmrsUtil.compare(changeDate, lastChange.getDate()) <= 0) {
+				/*if (lastChange != null && OpenmrsUtil.compare(changeDate, lastChange.getDate()) <= 0) {
 					errors.rejectValue("changeDate", "Change date must be after all other changes");
-				}
+				}*/
 
 				// Don't allow future dates
 				if (OpenmrsUtil.compare(changeDate, new Date()) > 0) {
@@ -183,17 +183,17 @@ public class RegimenUtilFragmentController {
 		 */
 		public void apply() {
 			Concept masterSet = regimenManager.getMasterSetConcept(category);
-			RegimenChangeHistory history = RegimenChangeHistory.forPatient(patient, masterSet);
-			RegimenChange lastChange = history.getLastChange();
-			RegimenOrder baseline = lastChange != null ? lastChange.getStarted() : null;
+//			RegimenChangeHistory history = RegimenChangeHistory.forPatient(patient, masterSet);
+//			RegimenChange lastChange = history.getLastChange();
+//			RegimenOrder baseline = lastChange != null ? lastChange.getStarted() : null;
 
-			if (baseline == null) {
+			/*if (baseline == null) {
 				for (RegimenComponent component : regimen.getComponents()) {
 					DrugOrder o = component.toDrugOrder(patient, changeDate);
 					Context.getOrderService().saveOrder(o);
 				}
-			}
-			else {
+			}*/
+			/*else {
 				List<DrugOrder> noChanges = new ArrayList<DrugOrder>();
 				List<DrugOrder> toChangeDose = new ArrayList<DrugOrder>();
 				List<DrugOrder> toStart = new ArrayList<DrugOrder>();
@@ -226,7 +226,7 @@ public class RegimenUtilFragmentController {
 					o.setOrderType(os.getOrderType(OpenmrsConstants.ORDERTYPE_DRUG));
 					os.saveOrder(o);
 				}
-			}
+			}*/
 		}
 		
 		/**
@@ -357,12 +357,12 @@ public class RegimenUtilFragmentController {
 
 		boolean anyDoseChanges = false;
 		for (DrugOrder o : sameGeneric) {
-			if (o.getDose().equals(component.getDose()) && o.getUnits().equals(component.getUnits()) && OpenmrsUtil.nullSafeEquals(o.getFrequency(), component.getFrequency())) {
+			/*if (o.getDose().equals(component.getDose()) && o.getUnits().equals(component.getUnits()) && OpenmrsUtil.nullSafeEquals(o.getFrequency(), component.getFrequency())) {
 				noChanges.add(o);
 			} else {
 				toChangeDose.add(o);
 				anyDoseChanges = true;
-			}
+			}*/
 		}
 		if (anyDoseChanges || sameGeneric.size() == 0) {
 			toStart.add(component.toDrugOrder(null, null));

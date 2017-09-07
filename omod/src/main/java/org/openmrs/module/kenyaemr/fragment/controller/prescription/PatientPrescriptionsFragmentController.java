@@ -30,17 +30,17 @@ public class PatientPrescriptionsFragmentController {
 
 	public void controller(@FragmentParam("patient") Patient patient, FragmentModel model) {
 
-		List<DrugOrder> allOrders = Context.getOrderService().getDrugOrdersByPatient(patient);
+		//List<DrugOrder> allOrders = Context.getOrderService().getDrugOrdersByPatient(patient);
 		List<DrugOrder> currentAndFutureOrders = new ArrayList<DrugOrder>();
 		List<DrugOrder> completedOrders = new ArrayList<DrugOrder>();
 
-		for (DrugOrder order : allOrders) {
+		/*for (DrugOrder order : allOrders) {
 			if (order.isCurrent() || order.isFuture()) {
 				currentAndFutureOrders.add(order);
 			} else {
 				completedOrders.add(order);
 			}
-		}
+		}*/
 
 		model.put("currentAndFutureOrders", currentAndFutureOrders);
 		model.put("completedOrders", completedOrders);

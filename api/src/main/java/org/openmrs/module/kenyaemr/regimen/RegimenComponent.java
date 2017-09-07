@@ -135,12 +135,12 @@ public class RegimenComponent {
 		DrugOrder order = new DrugOrder();
 		order.setOrderType(Context.getOrderService().getOrderType(OpenmrsConstants.ORDERTYPE_DRUG));
 		order.setPatient(patient);
-		order.setStartDate(start);
+		//order.setStartDate(start);
 		order.setConcept(drugRef.getConcept());
 		order.setDrug(drugRef.getDrug());
 		order.setDose(dose);
-		order.setUnits(units);
-		order.setFrequency(frequency);
+		//order.setUnits(units);
+		//order.setFrequency(frequency);
 		return order;
 	}
 

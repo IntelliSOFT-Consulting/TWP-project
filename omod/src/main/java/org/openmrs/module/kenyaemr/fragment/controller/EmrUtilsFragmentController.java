@@ -119,16 +119,16 @@ public class EmrUtilsFragmentController {
 	 * @param now the current time reference
 	 * @return the regimen and duration
 	 */
-	public SimpleObject currentArvRegimen(@RequestParam("patientId") Patient patient, @RequestParam("now") Date now, @SpringBean RegimenManager regimenManager, @SpringBean EmrUiUtils kenyaEmrUi, @SpringBean KenyaUiUtils kenyaUi, UiUtils ui) {
+	/*public SimpleObject currentArvRegimen(@RequestParam("patientId") Patient patient, @RequestParam("now") Date now, @SpringBean RegimenManager regimenManager, @SpringBean EmrUiUtils kenyaEmrUi, @SpringBean KenyaUiUtils kenyaUi, UiUtils ui) {
 		Concept arvs = regimenManager.getMasterSetConcept("ARV");
-		RegimenChangeHistory history = RegimenChangeHistory.forPatient(patient, arvs);
-		RegimenChange current = history.getLastChangeBeforeDate(now);
+		*//*RegimenChangeHistory history = RegimenChangeHistory.forPatient(patient, arvs);
+		RegimenChange current = history.getLastChangeBeforeDate(now);*//*
 
 		return SimpleObject.create(
 				"regimen", current != null ? kenyaEmrUi.formatRegimenShort(current.getStarted(), ui) : null,
 				"duration", current != null ? kenyaUi.formatInterval(current.getDate(), now) : null
 		);
-	}
+	}*/
 
 	/**
 	 * Gets the duration since patient started ART

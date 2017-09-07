@@ -79,8 +79,8 @@ public class Moh257FragmentController {
 		model.addAttribute("page2Encounters", moh257VisitSummaryEncounters);
 
 		Concept masterSet = regimenManager.getMasterSetConcept("ARV");
-		RegimenChangeHistory arvHistory = RegimenChangeHistory.forPatient(patient, masterSet);
-		model.addAttribute("arvHistory", arvHistory);
+		//RegimenChangeHistory arvHistory = RegimenChangeHistory.forPatient(patient, masterSet);
+		//model.addAttribute("arvHistory", arvHistory);
 		Program hivProgram = MetadataUtils.existing(Program.class, HivMetadata._Program.HIV);
 		model.addAttribute("inHivProgram", Context.getProgramWorkflowService().getPatientPrograms(patient, hivProgram, null, null, null, null, true));
 	}
