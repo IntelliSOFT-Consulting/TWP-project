@@ -14,9 +14,9 @@
     </organization>
 
     <scm>
-        <connection>scm:git:https://github.com/IntelliSOFT-Consulting/openmrs-wellness.git</connection>
-        <developerConnection>scm:git:https://github.com/IntelliSOFT-Consulting/openmrs-wellness.gitt</developerConnection>
-        <url>https://github.com/IntelliSOFT-Consulting/openmrs-wellness.git</url>
+        <connection>scm:git:https://github.com/ningosi/well.git</connection>
+        <developerConnection>scm:git:https://github.com/ningosi/well.git</developerConnection>
+        <url>https://github.com/ningosi/well</url>
         <tag>HEAD</tag>
     </scm>
 
