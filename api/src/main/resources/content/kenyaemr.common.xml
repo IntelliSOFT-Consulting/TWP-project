@@ -22,24 +22,6 @@
 		</property>
 	</bean>
 
-	<!--<bean id="kenyaemr.config.report" class="org.openmrs.module.kenyacore.report.ReportConfiguration">
-		<property name="commonReports">
-			<set>
-				<ref bean="kenyaemr.common.report.artDrug" />
-				<ref bean="kenyaemr.common.report.missedAppointment" />
-				<ref bean="kenyaemr.common.report.moh711" />
-				<ref bean="kenyaemr.common.report.moh731" />
-				<ref bean="kenyaemr.common.report.dhis2" />
-				<ref bean="kenyaemr.common.report.recordedDeceased" />
-				<ref bean="kenyaemr.common.report.allPatients" />
-                <ref bean="kenyaemr.common.report.rdqaReport" />
-				<ref bean="kenyaemr.common.report.clients.died" />
-				<ref bean="kenyaemr.common.report.clients.transferred.in" />
-				<ref bean="kenyaemr.common.report.clients.transferred.out" />
-			</set>
-		</property>
-	</bean>-->
-
 	<bean id="kenyaemr.config.regimen" class="org.openmrs.module.kenyaemr.regimen.RegimenConfiguration">
 		<property name="definitionsPath" value="regimens.xml" />
 	</bean>
@@ -79,37 +61,6 @@
 
 	<!-- ===================== Forms ===================== -->
 
-	<!-- Family History -->
-	<bean id="kenyaemr.common.form.hivFamilyHistory" class="org.openmrs.module.kenyacore.form.FormDescriptor">
-		<property name="targetUuid" value="${metadata.form.HIV_FAMILY_HISTORY}" />
-		<property name="apps">
-			<set>
-				<ref bean="kenyaemr.app.clinician" />
-				<ref bean="kenyaemr.app.chart" />
-			</set>
-		</property>
-		<property name="icon" value="kenyaui:forms/family_history.png" />
-		<property name="htmlform" value="kenyaemr:hiv/hivFamilyHistory.html" />
-		<property name="order" value="100010" />
-	</bean>
-
-	<!-- Obstetric History -->
-	<bean id="kenyaemr.common.form.obstetricHistory" class="org.openmrs.module.kenyacore.form.FormDescriptor">
-		<property name="targetUuid" value="${metadata.form.OBSTETRIC_HISTORY}" />
-		<property name="gender" value="FEMALE" />
-		<property name="apps">
-			<set>
-				<ref bean="kenyaemr.app.registration" />
-				<ref bean="kenyaemr.app.intake" />
-				<ref bean="kenyaemr.app.clinician" />
-				<ref bean="kenyaemr.app.chart" />
-			</set>
-		</property>
-		<property name="icon" value="kenyaui:forms/obstetric.png" />
-		<property name="htmlform" value="kenyaemr:obstetricHistory.html" />
-		<property name="order" value="100020" />
-	</bean>
-
 	<!-- Triage -->
 	<bean id="kenyaemr.common.form.triage" class="org.openmrs.module.kenyacore.form.FormDescriptor">
 		<property name="targetUuid" value="${metadata.form.TRIAGE}" />
@@ -126,20 +77,6 @@
 		<property name="order" value="200010" />
 	</bean>
 
-	<!-- Clinical Encounter -->
-	<bean id="kenyaemr.common.form.clinicalEncounter" class="org.openmrs.module.kenyacore.form.FormDescriptor">
-		<property name="targetUuid" value="${metadata.form.CLINICAL_ENCOUNTER}" />
-		<property name="apps">
-			<set>
-				<ref bean="kenyaemr.app.clinician" />
-				<ref bean="kenyaemr.app.chart" />
-			</set>
-		</property>
-		<property name="icon" value="kenyaui:forms/generic.png" />
-		<property name="htmlform" value="kenyaemr:clinicalEncounter.html" />
-		<property name="order" value="200020" />
-	</bean>
-
 	<!-- Lab Results -->
 	<bean id="kenyaemr.common.form.labResults" class="org.openmrs.module.kenyacore.form.FormDescriptor">
 		<property name="targetUuid" value="7e603909-9ed5-4d0c-a688-26ecb05d8b6e" />
@@ -149,7 +86,7 @@
 			</set>
 		</property>
 		<property name="icon" value="kenyaui:forms/labresults.png" />
-		<property name="htmlform" value="kenyaemr:labResults.html" />
+		<property name="htmlform" value="kenyaemr:labResultsEndocrinology.html" />
 		<property name="order" value="200030" />
 	</bean>
 
@@ -177,65 +114,6 @@
 		<property name="order" value="200050" />
 	</bean>
 
-	<!-- Other Medications -->
-	<bean id="kenyaemr.common.form.otherMedications" class="org.openmrs.module.kenyacore.form.FormDescriptor">
-		<property name="targetUuid" value="d4ff8ad1-19f8-484f-9395-04c755de9a47" />
-		<property name="apps">
-			<set>
-				<ref bean="kenyaemr.app.clinician" />
-				<ref bean="kenyaemr.app.chart" />
-			</set>
-		</property>
-		<property name="icon" value="kenyaui:forms/generic.png" />
-		<property name="htmlform" value="kenyaemr:otherMedications.html" />
-		<property name="order" value="200040" />
-	</bean>
-
-	<!-- Progress Note -->
-	<bean id="kenyaemr.common.form.progressNote" class="org.openmrs.module.kenyacore.form.FormDescriptor">
-		<property name="targetUuid" value="${metadata.form.PROGRESS_NOTE}" />
-		<property name="apps">
-			<set>
-				<ref bean="kenyaemr.app.intake" />
-				<ref bean="kenyaemr.app.clinician" />
-				<ref bean="kenyaemr.app.chart" />
-			</set>
-		</property>
-		<property name="icon" value="kenyaui:forms/generic.png" />
-		<property name="htmlform" value="kenyaemr:progressNote.html" />
-		<property name="order" value="200050" />
-	</bean>
-
-	<!-- TB Screening -->
-	<bean id="kenyaemr.common.form.tbScreening" class="org.openmrs.module.kenyacore.form.FormDescriptor">
-		<property name="targetUuid" value="${metadata.form.TB_SCREENING}" />
-		<property name="apps">
-			<set>
-				<ref bean="kenyaemr.app.intake" />
-				<ref bean="kenyaemr.app.clinician" />
-				<ref bean="kenyaemr.app.chart" />
-			</set>
-		</property>
-		<property name="icon" value="kenyaui:forms/generic.png" />
-		<property name="htmlform" value="kenyaemr:tb/tbScreening.html" />
-		<property name="order" value="201020" />
-	</bean>
-
-	<!-- Medical and Surgical History -->
-	<!--<bean id="kenyaemr.common.form.medicalAndSurgicalHistory" class="org.openmrs.module.kenyacore.form.FormDescriptor">
-		<property name="targetUuid" value="${metadata.form.SURGICAL_AND_MEDICAL_HISTORY}" />
-		<property name="apps">
-			<set>
-				<ref bean="kenyaemr.app.registration" />
-				<ref bean="kenyaemr.app.intake" />
-				<ref bean="kenyaemr.app.clinician" />
-				<ref bean="kenyaemr.app.chart" />
-			</set>
-		</property>
-		<property name="icon" value="kenyaui:forms/generic.png" />
-		<property name="htmlform" value="kenyaemr:medicalAndSurgicalHistory.html" />
-		<property name="order" value="100030" />
-	</bean>-->
 
 	<!-- ===================== Reports ===================== -->
 
