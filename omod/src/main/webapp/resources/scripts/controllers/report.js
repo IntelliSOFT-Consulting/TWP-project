@@ -33,12 +33,12 @@ kenyaemrApp.controller('ReportController', ['$scope', '$http', '$timeout', funct
 	 * @param oneoff true if method should not request to be called again
 	 */
 	$scope.refresh = function(oneoff) {
-		$http.get(ui.fragmentActionLink('kenyaemr', 'report/reportUtils', 'getQueuedRequests', { reportUuid: $scope.reportUuid })).
+		$http.get(ui.fragmentActionLink('wellness', 'report/reportUtils', 'getQueuedRequests', { reportUuid: $scope.reportUuid })).
 			success(function(data) {
 				$scope.queued = data;
 			});
 
-		$http.get(ui.fragmentActionLink('kenyaemr', 'report/reportUtils', 'getFinishedRequests', { reportUuid: $scope.reportUuid })).
+		$http.get(ui.fragmentActionLink('wellness', 'report/reportUtils', 'getFinishedRequests', { reportUuid: $scope.reportUuid })).
 			success(function(data) {
 				$scope.finished = data;
 				if (!oneoff) {
@@ -55,7 +55,7 @@ kenyaemrApp.controller('ReportController', ['$scope', '$http', '$timeout', funct
 		var params = { appId: $scope.appId, reportUuid: $scope.reportUuid };
 		angular.extend(params, reportParams); // Add report parameters
 
-		$http.post(ui.fragmentActionLink('kenyaemr', 'report/reportUtils', 'requestReport', params))
+		$http.post(ui.fragmentActionLink('wellness', 'report/reportUtils', 'requestReport', params))
 			.success(defaultSuccessHandler)
 			.error(defaultErrorHandler);
 
@@ -70,7 +70,7 @@ kenyaemrApp.controller('ReportController', ['$scope', '$http', '$timeout', funct
 			heading: "Report",
 			message: "Cancel this report request?",
 			okCallback: function() {
-				$http.post(ui.fragmentActionLink('kenyaemr', 'report/reportUtils', 'cancelRequest', { requestId: requestId }))
+				$http.post(ui.fragmentActionLink('wellness', 'report/reportUtils', 'cancelRequest', { requestId: requestId }))
 					.success(defaultSuccessHandler)
 					.error(defaultErrorHandler);
 			}
@@ -82,7 +82,7 @@ kenyaemrApp.controller('ReportController', ['$scope', '$http', '$timeout', funct
 	 * @param requestId the report request id
 	 */
 	$scope.viewReportData = function(requestId) {
-		ui.navigate('kenyaemr', 'reportView', { appId: $scope.appId, request: requestId, returnUrl: location.href });
+		ui.navigate('wellness', 'reportView', { appId: $scope.appId, request: requestId, returnUrl: location.href });
 	};
 
 	/**
@@ -91,7 +91,7 @@ kenyaemrApp.controller('ReportController', ['$scope', '$http', '$timeout', funct
 	 * @param type the export type
 	 */
 	$scope.exportReportData = function(requestId, type) {
-		ui.navigate('kenyaemr', 'reportExport', { appId: $scope.appId, request: requestId, type: type });
+		ui.navigate('wellness', 'reportExport', { appId: $scope.appId, request: requestId, type: type });
 	};
 
 	/**
@@ -99,7 +99,7 @@ kenyaemrApp.controller('ReportController', ['$scope', '$http', '$timeout', funct
 	 * @param requestId the request id
 	 */
 	$scope.viewReportError = function(requestId) {
-		var contentUrl = ui.pageLink('kenyaemr', 'dialog/reportErrorDialog', { appId: $scope.appId, request: requestId });
+		var contentUrl = ui.pageLink('wellness', 'dialog/reportErrorDialog', { appId: $scope.appId, request: requestId });
 		kenyaui.openDynamicDialog({ heading: 'View Error', url: contentUrl, width: 90, height: 90 });
 	};
 

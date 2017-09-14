@@ -1,10 +1,10 @@
 <%
-	ui.includeJavascript("kenyaemr", "controllers/patient.js")
+	ui.includeJavascript("wellness", "controllers/patient.js")
 
-	ui.decorateWith("kenyaemr", "standardPage", [ layout: "sidebar" ])
+	ui.decorateWith("wellness", "standardPage", [ layout: "sidebar" ])
 
 	def menuItems = [
-			[ iconProvider: "kenyaui", icon: "buttons/patient_search.png", label: "Find a client", href: ui.pageLink("kenyaemr", "chart/chartSearch") ]
+			[ iconProvider: "kenyaui", icon: "buttons/patient_search.png", label: "Find a client", href: ui.pageLink("wellness", "chart/chartSearch") ]
 	]
 %>
 
@@ -18,7 +18,7 @@
 		<div class="ke-panel-heading">Recently Viewed</div>
 		<div class="ke-panel-content">
 			<div class="ke-stack-item ke-navigable" ng-repeat="patient in recent" ng-click="onResultClick(patient)">
-				${ ui.includeFragment("kenyaemr", "patient/result.full") }
+				${ ui.includeFragment("wellness", "patient/result.full") }
 			</div>
 			<div ng-if="recent.length == 0" style="text-align: center; font-style: italic">None</div>
 		</div>

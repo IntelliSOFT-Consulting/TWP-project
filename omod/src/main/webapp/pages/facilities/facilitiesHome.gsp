@@ -1,7 +1,7 @@
 <%
-	ui.includeJavascript("kenyaemr", "controllers/facility.js")
+	ui.includeJavascript("wellness", "controllers/facility.js")
 
-	ui.decorateWith("kenyaemr", "standardPage", [ layout: "sidebar" ])
+	ui.decorateWith("wellness", "standardPage", [ layout: "sidebar" ])
 %>
 <div class="ke-page-sidebar">
 	<div class="ke-panel-frame">
@@ -30,7 +30,7 @@
 		<div class="ke-panel-heading">Matching Facilities</div>
 		<div class="ke-panel-content">
 			<div class="ke-stack-item" ng-repeat="facility in results">
-				${ ui.includeFragment("kenyaemr", "facility/result.full") }
+				${ ui.includeFragment("wellness", "facility/result.full") }
 			</div>
 			<div ng-if="results.length == 0" style="text-align: center; font-style: italic">None</div>
 		</div>

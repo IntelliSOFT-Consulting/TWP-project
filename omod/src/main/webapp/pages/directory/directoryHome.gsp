@@ -1,14 +1,14 @@
 <%
-	ui.includeJavascript("kenyaemr", "controllers/account.js")
+	ui.includeJavascript("wellness", "controllers/account.js")
 
-	ui.decorateWith("kenyaemr", "standardPage", [ layout: "sidebar" ])
+	ui.decorateWith("wellness", "standardPage", [ layout: "sidebar" ])
 %>
 <div class="ke-page-sidebar">
-	${ ui.includeFragment("kenyaemr", "account/accountSearchForm", [ defaultWhich: "all" ]) }
+	${ ui.includeFragment("wellness", "account/accountSearchForm", [ defaultWhich: "all" ]) }
 </div>
 
 <div class="ke-page-content">
-	${ ui.includeFragment("kenyaemr", "account/accountSearchResults") }
+	${ ui.includeFragment("wellness", "account/accountSearchResults") }
 </div>
 
 <script type="text/javascript">

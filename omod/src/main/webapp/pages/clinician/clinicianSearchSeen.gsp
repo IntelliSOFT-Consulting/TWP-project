@@ -1,7 +1,7 @@
 <%
-    ui.decorateWith("kenyaemr", "standardPage", [ layout: "sidebar" ])
+    ui.decorateWith("wellness", "standardPage", [ layout: "sidebar" ])
 
-    ui.includeJavascript("kenyaemr", "controllers/visit.js")
+    ui.includeJavascript("wellness", "controllers/visit.js")
 
 %>
 
@@ -24,7 +24,7 @@
             defaultDate: '${ kenyaui.formatDateParam(seenDate) }',
             gotoCurrent: true,
             onSelect: function(dateText) {
-                ui.navigate('kenyaemr', 'clinician/clinicianSearchSeen', { seenDate: dateText });
+                ui.navigate('wellness', 'clinician/clinicianSearchSeen', { seenDate: dateText });
             }
         });
     });
@@ -33,7 +33,7 @@
     ${ ui.decorate("kenyaui", "panel", [ heading: "Select Day to View Seen Patients" ], """<div id="calendar"></div>""") }
 </div>
 <div class="ke-page-content">
-    ${ ui.includeFragment("kenyaemr", "patient/dailySeen", [ pageProvider: "kenyaemr", page: "clinician/clinicianHome", date: seenDate ]) }
+    ${ ui.includeFragment("wellness", "patient/dailySeen", [ pageProvider: "wellness", page: "clinician/clinicianHome", date: seenDate ]) }
 </div>
 
 

@@ -1,17 +1,17 @@
 <%
-	ui.decorateWith("kenyaemr", "standardPage", [ patient: currentPatient, layout: "sidebar" ])
+	ui.decorateWith("wellness", "standardPage", [ patient: currentPatient, layout: "sidebar" ])
 
 	def menuItems = [
 			[
 					label: "Overview",
-					href: ui.pageLink("kenyaemr", "chart/chartViewPatient", [ patientId: currentPatient.id, section: "overview" ]),
+					href: ui.pageLink("wellness", "chart/chartViewPatient", [ patientId: currentPatient.id, section: "overview" ]),
 					active: (selection == "section-overview"),
 					iconProvider: "kenyaui",
 					icon: "buttons/patient_overview.png"
 			],
 			[
 					label: "Client's Summary",
-					href: ui.pageLink("kenyaemr", "chart/chartViewPatient", [ patientId: currentPatient.id, section: "summaries" ]),
+					href: ui.pageLink("wellness", "chart/chartViewPatient", [ patientId: currentPatient.id, section: "summaries" ]),
 					active: (selection == "section-summaries"),
 					iconProvider: "kenyaui",
 					icon: "buttons/summary.png"
@@ -22,7 +22,7 @@
 	oneTimeForms.each { form ->
 		menuItems << [
 				label: form.name,
-				href: ui.pageLink("kenyaemr", "chart/chartViewPatient", [ patientId: currentPatient.id, formUuid: form.formUuid ]),
+				href: ui.pageLink("wellness", "chart/chartViewPatient", [ patientId: currentPatient.id, formUuid: form.formUuid ]),
 				active: (selection == "form-" + form.formUuid),
 				iconProvider: form.iconProvider,
 				icon: form.icon,
@@ -33,7 +33,7 @@
 		menuItems << [
 				label: ui.format(program.target),
 				extra: programSummaries[program.target],
-				href: ui.pageLink("kenyaemr", "chart/chartViewPatient", [ patientId: currentPatient.id, programId: program.target.id ]),
+				href: ui.pageLink("wellness", "chart/chartViewPatient", [ patientId: currentPatient.id, programId: program.target.id ]),
 				active: (selection == "program-" + program.target.id)
 		]
 	}
@@ -56,7 +56,7 @@
 			visits.each { visit ->
 				print ui.includeFragment("kenyaui", "widget/panelMenuItem", [
 						label: ui.format(visit.visitType),
-						href: ui.pageLink("kenyaemr", "chart/chartViewPatient", [ patientId: currentPatient.id, visitId: visit.id ]),
+						href: ui.pageLink("wellness", "chart/chartViewPatient", [ patientId: currentPatient.id, visitId: visit.id ]),
 						extra: kenyaui.formatVisitDates(visit),
 						active: (selection == "visit-" + visit.id)
 				])
@@ -70,9 +70,9 @@
 
 	<% if (visit) { %>
 
-	${ ui.includeFragment("kenyaemr", "visitSummary", [ visit: visit ]) }
+	${ ui.includeFragment("wellness", "visitSummary", [ visit: visit ]) }
 	<% if (!visit.voided) { %>
-	${ ui.includeFragment("kenyaemr", "visitCompletedForms", [ visit: visit ]) }
+	${ ui.includeFragment("wellness", "visitCompletedForms", [ visit: visit ]) }
 	<% } %>
 
 	<% } else if (form) { %>
@@ -82,7 +82,7 @@
 		<div class="ke-panel-content">
 
 			<% if (encounter) { %>
-			${ ui.includeFragment("kenyaemr", "form/viewHtmlForm", [ encounter: encounter ]) }
+			${ ui.includeFragment("wellness", "form/viewHtmlForm", [ encounter: encounter ]) }
 			<% } else { %>
 			<em>Not filled out</em>
 			<% } %>
@@ -92,15 +92,15 @@
 
 	<% } else if (program) { %>
 
-	${ ui.includeFragment("kenyaemr", "program/programHistory", [ patient: currentPatient, program: program, showClinicalData: true ]) }
+	${ ui.includeFragment("wellness", "program/programHistory", [ patient: currentPatient, program: program, showClinicalData: true ]) }
 
 	<% } else if (section == "overview") { %>
 
-	${ ui.includeFragment("kenyaemr", "program/programCarePanels", [ patient: currentPatient, complete: true, activeOnly: false ]) }
+	${ ui.includeFragment("wellness", "program/programCarePanels", [ patient: currentPatient, complete: true, activeOnly: false ]) }
 
 	<% }else if (section == "summaries") { %>
 
-	${ ui.includeFragment("kenyaemr", "summaries", [ patient: currentPatient ]) }
+	${ ui.includeFragment("wellness", "summaries", [ patient: currentPatient ]) }
 
 	<%} %>
 

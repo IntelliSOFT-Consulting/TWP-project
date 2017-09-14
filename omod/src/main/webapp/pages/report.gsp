@@ -41,7 +41,7 @@
 			<% } %>
 		</div>
 	</div>
-	${ ui.includeFragment("kenyaemr", "report/reportQueue", [ allowCancel: false ]) }
+	${ ui.includeFragment("wellness", "report/reportQueue", [ allowCancel: false ]) }
 
 	<div class="ke-panel-frame">
 		<div class="ke-panel-heading">Finished</div>

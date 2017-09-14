@@ -25,7 +25,7 @@
 		<property name="fragments">
 			<map>
 				<entry key="enrollment-summary" value="wellness:program/nutrition/nutritionEnrollmentSummary" />
-				<entry key="care-panel" value="wellness:program/nutrition/hivCarePanel" />
+				<entry key="care-panel" value="wellness:program/nutrition/nutritionCarePanel" />
 				<entry key="completion-summary" value="wellness:program/nutrition/nutritionCompletionSummary" />
 			</map>
 		</property>

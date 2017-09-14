@@ -21,7 +21,7 @@
 
 	<bean id="wellness.app.intake" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
 		<constructor-arg value="wellness.intake" />
-		<constructor-arg value="Triage" />
+		<constructor-arg value="Appointments" />
 		<constructor-arg value="wellness/intake/intakeHome.page" />
 		<constructor-arg value="kenyaui:apps/intake.png" />
 		<constructor-arg value="200" />
