@@ -74,7 +74,7 @@ kenyaemrApp.controller('PatientSearchResults', ['$scope', '$http', function($sco
 	 * Refreshes the person search
 	 */
 	$scope.refresh = function() {
-		$http.get(ui.fragmentActionLink('kenyaemr', 'search', 'patients', { appId: $scope.appId, q: $scope.query, which: $scope.which })).
+		$http.get(ui.fragmentActionLink('wellness', 'search', 'patients', { appId: $scope.appId, q: $scope.query, which: $scope.which })).
 			success(function(data) {
 				$scope.results = data;
 			});
@@ -116,7 +116,7 @@ kenyaemrApp.controller('SimilarPatients', ['$scope', '$http', function($scope, $
 	 */
 	$scope.refresh = function() {
 		var query = $scope.givenName + ' ' + $scope.familyName;
-		$http.get(ui.fragmentActionLink('kenyaemr', 'search', 'patients', { appId: $scope.appId, q: query, which: 'all' })).
+		$http.get(ui.fragmentActionLink('wellness', 'search', 'patients', { appId: $scope.appId, q: query, which: 'all' })).
 			success(function(data) {
 				$scope.results = data;
 			});
@@ -159,7 +159,7 @@ kenyaemrApp.controller('DailySchedule', ['$scope', '$http', function($scope, $ht
 	 * Refreshes the schedule
 	 */
 	$scope.fetch = function() {
-		$http.get(ui.fragmentActionLink('kenyaemr', 'patient/patientUtils', 'getScheduled', { appId: $scope.appId, date: $scope.date })).
+		$http.get(ui.fragmentActionLink('wellness', 'patient/patientUtils', 'getScheduled', { appId: $scope.appId, date: $scope.date })).
 			success(function(data) {
 				$scope.scheduled = data;
 			});
@@ -201,7 +201,7 @@ kenyaemrApp.controller('DailySeen', ['$scope', '$http', function($scope, $http) 
 	 * Refreshes the seen patients
 	 */
 	$scope.fetch = function() {
-		$http.get(ui.fragmentActionLink('kenyaemr', 'patient/patientUtils', 'getSeenPatients', { appId: $scope.appId, date: $scope.date })).
+		$http.get(ui.fragmentActionLink('wellness', 'patient/patientUtils', 'getSeenPatients', { appId: $scope.appId, date: $scope.date })).
 			success(function(data) {
 				$scope.seen = data;
 			});
@@ -229,7 +229,7 @@ kenyaemrApp.controller('RecentlyViewed', ['$scope', '$http', function($scope, $h
 	 * @param page
 	 */
 	$scope.init = function() {
-		$http.get(ui.fragmentActionLink('kenyaemr', 'patient/patientUtils', 'recentlyViewed')).
+		$http.get(ui.fragmentActionLink('wellness', 'patient/patientUtils', 'recentlyViewed')).
 			success(function(data) {
 				$scope.recent = data;
 			});
@@ -240,6 +240,6 @@ kenyaemrApp.controller('RecentlyViewed', ['$scope', '$http', function($scope, $h
 	 * @param patient the clicked patient
 	 */
 	$scope.onResultClick = function(patient) {
-		ui.navigate('kenyaemr', 'chart/chartViewPatient', { patientId: patient.id });
+		ui.navigate('wellness', 'chart/chartViewPatient', { patientId: patient.id });
 	};
 }]);
