@@ -52,7 +52,7 @@
 			</set>
 		</property>
 		<property name="icon" value="kenyaui:forms/generic.png" />
-		<property name="htmlform" value="kenyaemr:nutrition/nutritionEnrollment.html" />
+		<property name="htmlform" value="wellness:nutrition/nutritionEnrollment.html" />
 	</bean>
 
 
@@ -63,10 +63,11 @@
 		<property name="apps">
 			<set>
 				<ref bean="wellness.app.registration" />
+				<ref bean="wellness.app.chart" />
 			</set>
 		</property>
 		<property name="icon" value="kenyaui:forms/completion.png" />
-		<property name="htmlform" value="kenyaemr:nutrition/nutritionDiscontinuation.html" />
+		<property name="htmlform" value="wellness:nutrition/nutritionDiscontinuation.html" />
 	</bean>
 
 	<!-- ===================== Reports ===================== -->
