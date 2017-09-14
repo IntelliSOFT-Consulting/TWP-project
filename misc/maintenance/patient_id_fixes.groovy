@@ -23,7 +23,7 @@ def openmrsIdType = Context.patientService.getPatientIdentifierTypeByUuid("dfacd
 
 def idgenSvc = Context.getService(Context.loadClass("org.openmrs.module.idgen.service.IdentifierSourceService"))
 
-def defaultLocationGP = Context.administrationService.getGlobalProperty("kenyaemr.defaultLocation")
+def defaultLocationGP = Context.administrationService.getGlobalProperty("wellness.defaultLocation")
 def defaultLocation = defaultLocationGP ? Context.locationService.getLocation(defaultLocationGP.toInteger()) : null
 
 // Check script can be run on this installation

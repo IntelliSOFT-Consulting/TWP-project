@@ -28,7 +28,7 @@
     ]
 %>
 
-<form id="edit-patient-form" method="post" action="${ui.actionLink("kenyaemr", "patient/editPatient", "savePatient")}">
+<form id="edit-patient-form" method="post" action="${ui.actionLink("wellness", "patient/editPatient", "savePatient")}">
     <% if (command.original) { %>
     <input type="hidden" name="personId" value="${command.original.id}"/>
     <% } %>
@@ -142,7 +142,7 @@ ${ui.includeFragment("kenyaui", "widget/dialogForm", [
                         class: java.util.Date, initialValue: new java.text.SimpleDateFormat("yyyy-MM-dd").parse((new Date().getYear() + 1900) + "-06-15")
                 ]
         ],
-        fragmentProvider : "kenyaemr",
+        fragmentProvider : "wellness",
         fragment         : "emrUtils",
         action           : "birthdateFromAge",
         onSuccessCallback: "updateBirthdate(data);",
@@ -165,7 +165,7 @@ ${ui.includeFragment("kenyaui", "widget/dialogForm", [
                     <% if (config.returnUrl) { %>
                     ui.navigate('${ config.returnUrl }');
                     <% } else { %>
-                    ui.navigate('kenyaemr', 'registration/registrationViewPatient', {patientId: data.id});
+                    ui.navigate('wellness', 'registration/registrationViewPatient', {patientId: data.id});
                     <% } %>
                 } else {
                     kenyaui.notifyError('Saving client was successful, but unexpected response');

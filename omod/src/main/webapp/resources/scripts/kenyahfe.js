@@ -11,7 +11,7 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  *
- * Html Form Entry support for KenyaEMR
+ * Html Form Entry support for wellness
  */
 
 (function(kenyahfe, $) {
@@ -30,7 +30,7 @@
 		submitting = true;
 
 		// Show login dialog if user not authenticated
-		kenyaemr.ensureUserAuthenticated(function() {
+		wellness.ensureUserAuthenticated(function() {
 
 			if (validateForm()) {
 				doFormSubmission(returnUrl);

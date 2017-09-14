@@ -6,79 +6,79 @@
 
 	<!-- ===================== Content ===================== -->
 
-	<import resource="content/kenyaemr.common.xml" />
-	<import resource="content/kenyaemr.hiv.xml" />
+	<import resource="content/wellness.common.xml" />
+	<import resource="content/wellness.nutrition.xml" />
 
 	<!-- ===================== App descriptors ===================== -->
 
-	<bean id="kenyaemr.app.registration" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
-		<constructor-arg value="kenyaemr.registration" />
+	<bean id="wellness.app.registration" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
+		<constructor-arg value="wellness.registration" />
 		<constructor-arg value="Registration" />
-		<constructor-arg value="kenyaemr/registration/registrationHome.page" />
+		<constructor-arg value="wellness/registration/registrationHome.page" />
 		<constructor-arg value="kenyaui:apps/registration.png" />
 		<constructor-arg value="100" />
 	</bean>
 
-	<bean id="kenyaemr.app.intake" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
-		<constructor-arg value="kenyaemr.intake" />
+	<bean id="wellness.app.intake" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
+		<constructor-arg value="wellness.intake" />
 		<constructor-arg value="Triage" />
-		<constructor-arg value="kenyaemr/intake/intakeHome.page" />
+		<constructor-arg value="wellness/intake/intakeHome.page" />
 		<constructor-arg value="kenyaui:apps/intake.png" />
 		<constructor-arg value="200" />
 	</bean>
 
-	<bean id="kenyaemr.app.clinician" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
-		<constructor-arg value="kenyaemr.medicalEncounter" />
+	<bean id="wellness.app.clinician" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
+		<constructor-arg value="wellness.medicalEncounter" />
 		<constructor-arg value="Clinician" />
-		<constructor-arg value="kenyaemr/clinician/clinicianHome.page" />
+		<constructor-arg value="wellness/clinician/clinicianHome.page" />
 		<constructor-arg value="kenyaui:apps/clinician.png" />
 		<constructor-arg value="300" />
 	</bean>
 
-	<bean id="kenyaemr.app.chart" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
-		<constructor-arg value="kenyaemr.medicalChart" />
+	<bean id="wellness.app.chart" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
+		<constructor-arg value="wellness.medicalChart" />
 		<constructor-arg value="Summaries" />
-		<constructor-arg value="kenyaemr/chart/chartHome.page" />
+		<constructor-arg value="wellness/chart/chartHome.page" />
 		<constructor-arg value="kenyaui:apps/chart.png" />
 		<constructor-arg value="400" />
 	</bean>
 
-	<bean id="kenyaemr.app.reports" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
-		<constructor-arg value="kenyaemr.reports" />
+	<bean id="wellness.app.reports" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
+		<constructor-arg value="wellness.reports" />
 		<constructor-arg value="Reports" />
-		<constructor-arg value="kenyaemr/reports/reportsHome.page" />
+		<constructor-arg value="wellness/reports/reportsHome.page" />
 		<constructor-arg value="kenyaui:apps/reports.png" />
 		<constructor-arg value="500" />
 	</bean>
 
-	<bean id="kenyaemr.app.directory" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
-		<constructor-arg value="kenyaemr.directory" />
+	<bean id="wellness.app.directory" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
+		<constructor-arg value="wellness.directory" />
 		<constructor-arg value="Directory" />
-		<constructor-arg value="kenyaemr/directory/directoryHome.page" />
+		<constructor-arg value="wellness/directory/directoryHome.page" />
 		<constructor-arg value="kenyaui:apps/directory.png" />
 		<constructor-arg value="600" />
 	</bean>
 
-	<bean id="kenyaemr.app.facilities" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
-		<constructor-arg value="kenyaemr.facilities" />
+	<bean id="wellness.app.facilities" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
+		<constructor-arg value="wellness.facilities" />
 		<constructor-arg value="Facilities" />
-		<constructor-arg value="kenyaemr/facilities/facilitiesHome.page" />
+		<constructor-arg value="wellness/facilities/facilitiesHome.page" />
 		<constructor-arg value="kenyaui:apps/facilities.png" />
 		<constructor-arg value="700" />
 	</bean>
 
-	<bean id="kenyaemr.app.admin" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
-		<constructor-arg value="kenyaemr.admin" />
+	<bean id="wellness.app.admin" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
+		<constructor-arg value="wellness.admin" />
 		<constructor-arg value="Admin" />
-		<constructor-arg value="kenyaemr/admin/adminHome.page" />
+		<constructor-arg value="wellness/admin/adminHome.page" />
 		<constructor-arg value="kenyaui:apps/admin.png" />
 		<constructor-arg value="800" />
 	</bean>
 
-	<bean id="kenyaemr.app.developer" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
-		<constructor-arg value="kenyaemr.developer" />
+	<bean id="wellness.app.developer" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
+		<constructor-arg value="wellness.developer" />
 		<constructor-arg value="Developer" />
-		<constructor-arg value="kenyaemr/developer/developerHome.page" />
+		<constructor-arg value="wellness/developer/developerHome.page" />
 		<constructor-arg value="kenyaui:apps/developer.png" />
 		<constructor-arg value="1000000" />
 	</bean>
@@ -135,9 +135,9 @@
 			<ref bean="transactionManager" />
 		</property>
 		<property name="target">
-			<bean class="org.openmrs.module.kenyaemr.api.impl.KenyaEmrServiceImpl">
+			<bean class="org.openmrs.module.wellness.api.impl.KenyaEmrServiceImpl">
 				<property name="kenyaEmrDAO">
-					<bean class="org.openmrs.module.kenyaemr.api.db.hibernate.HibernateKenyaEmrDAO">
+					<bean class="org.openmrs.module.wellness.api.db.hibernate.HibernateKenyaEmrDAO">
 						<property name="sessionFactory"><ref bean="sessionFactory"/></property>
 					</bean>
 				</property>
@@ -156,7 +156,7 @@
 	<bean parent="serviceContext">
 		<property name="moduleService">
 			<list>
-				<value>org.openmrs.module.kenyaemr.api.KenyaEmrService</value>
+				<value>org.openmrs.module.wellness.api.KenyaEmrService</value>
 				<ref local="kenyaEmrService"/>
 			</list>
 		</property>
@@ -164,7 +164,7 @@
 
 	<!-- External requirements -->
 
-	<bean id="cielRequirement" class="org.openmrs.module.kenyaemr.system.CielRequirement">
+	<bean id="cielRequirement" class="org.openmrs.module.wellness.system.CielRequirement">
 		<property name="requiredVersion" value="${cielVersion}" />
 	</bean>
 
@@ -174,7 +174,7 @@
 		<constructor-arg value="yyyy-MM-dd'T'HH:mm:ssZ" />
 	</bean>
 
-	<bean id="kenyaEmrBuildProperties" class="org.openmrs.module.kenyaemr.util.BuildProperties">
+	<bean id="kenyaEmrBuildProperties" class="org.openmrs.module.wellness.util.BuildProperties">
 		<property name="version" value="${project.version}" />
 		<property name="buildDate">
 			<bean factory-bean="iso8601DateFactory" factory-method="parse">

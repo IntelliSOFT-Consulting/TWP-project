@@ -53,11 +53,11 @@
 				jq(frequencyFields[c]).val(component.frequency);
 			}
 
-			kenyaemr.updateRegimenFromDisplay('${ config.id }');
+			wellness.updateRegimenFromDisplay('${ config.id }');
 		});
 
 		jq('#${ config.id }-container .regimen-component-drug, #${ config.id }-container .regimen-component-dose, #${ config.id }-container .regimen-component-units, #${ config.id }-container .regimen-component-frequency').blur(function() {
-			kenyaemr.updateRegimenFromDisplay('${ config.id }');
+			wellness.updateRegimenFromDisplay('${ config.id }');
 		});
 	});
 </script>

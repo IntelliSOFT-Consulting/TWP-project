@@ -1,5 +1,5 @@
 <%
-	ui.decorateWith("kenyaemr", "standardPage", [ layout: "sidebar" ])
+	ui.decorateWith("wellness", "standardPage", [ layout: "sidebar" ])
 %>
 <script type="text/javascript">
 	function showChangePasswordDialog() {
@@ -27,7 +27,7 @@
 </div>
 
 <div class="ke-page-content">
-	${ ui.includeFragment("kenyaemr", "account/personDetails", [ person: person ]) }
+	${ ui.includeFragment("wellness", "account/personDetails", [ person: person ]) }
 
-	${ ui.includeFragment("kenyaemr", "profileLoginDetails", [ tempPassword: tempPassword ]) }
+	${ ui.includeFragment("wellness", "profileLoginDetails", [ tempPassword: tempPassword ]) }
 </div>

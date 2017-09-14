@@ -2,11 +2,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.openmrs.module</groupId>
-		<artifactId>kenyaemr</artifactId>
+		<artifactId>wellness</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>kenyaemr-api</artifactId>
+	<artifactId>wellness-api</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>Wellness Module API</name>

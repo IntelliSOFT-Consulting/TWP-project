@@ -1,7 +1,7 @@
 <%
 	ui.decorateWith("kenyaui", "panel", [ heading: "Search for an Account" ])
 
-	ui.includeJavascript("kenyaemr", "controllers/account.js")
+	ui.includeJavascript("wellness", "controllers/account.js")
 
 	def defaultWhich = config.defaultWhich ?: "all"
 

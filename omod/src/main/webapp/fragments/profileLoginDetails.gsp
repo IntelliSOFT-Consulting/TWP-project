@@ -13,7 +13,7 @@ ${ ui.includeFragment("kenyaui", "widget/dataPoint", [ label: "Secret question",
 ${ ui.includeFragment("kenyaui", "widget/dialogForm", [
 		id: "change_password",
 		dialogConfig: [ heading: "Change Password" ],
-		fragmentProvider: "kenyaemr",
+		fragmentProvider: "wellness",
 		fragment: "profileLoginDetails",
 		action: "changePassword",
 		prefix: "changePasswordForm",
@@ -33,7 +33,7 @@ ${ ui.includeFragment("kenyaui", "widget/dialogForm", [
 ${ ui.includeFragment("kenyaui", "widget/dialogForm", [
 		id: "change_secret_question",
 		dialogConfig: [ heading: "Change Secret Question" ],
-		fragmentProvider: "kenyaemr",
+		fragmentProvider: "wellness",
 		fragment: "profileLoginDetails",
 		action: "changeSecretQuestion",
 		prefix: "changeSecretQuestionForm",

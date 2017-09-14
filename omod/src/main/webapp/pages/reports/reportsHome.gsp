@@ -1,9 +1,9 @@
 <%
-	ui.decorateWith("kenyaemr", "standardPage")
+	ui.decorateWith("wellness", "standardPage")
 
 	def onReportClick = { report ->
 		def opts = [ appId: currentApp.id, reportUuid: report.definitionUuid, returnUrl: ui.thisUrl() ]
-		"""ui.navigate('${ ui.pageLink('kenyaemr', 'report', opts) }');"""
+		"""ui.navigate('${ ui.pageLink('wellness', 'report', opts) }');"""
 	}
 
 	def programs = reportsByProgram.keySet()
@@ -32,7 +32,7 @@
 						<div class="ke-panel-frame">
 							<div class="ke-panel-heading">Indicator Reports</div>
 							<div class="ke-panel-content">
-								${ ui.includeFragment("kenyaemr", "widget/reportStack", [ reports: indicatorReports(reports), onReportClick: onReportClick ]) }
+								${ ui.includeFragment("wellness", "widget/reportStack", [ reports: indicatorReports(reports), onReportClick: onReportClick ]) }
 							</div>
 						</div>
 					</td>
@@ -40,7 +40,7 @@
 						<div class="ke-panel-frame">
 							<div class="ke-panel-heading">Client's Follow-Up Reports</div>
 							<div class="ke-panel-content">
-								${ ui.includeFragment("kenyaemr", "widget/reportStack", [ reports: cohortReports(reports), onReportClick: onReportClick ]) }
+								${ ui.includeFragment("wellness", "widget/reportStack", [ reports: cohortReports(reports), onReportClick: onReportClick ]) }
 							</div>
 						</div>
 					</td>

@@ -74,7 +74,7 @@ kenyaemrApp.controller('AccountSearchResults', ['$scope', '$http', function($sco
 	 * Refreshes the person search
 	 */
 	$scope.refresh = function() {
-		$http.get(ui.fragmentActionLink('kenyaemr', 'search', 'accounts', { appId: $scope.appId, q: $scope.query, which: $scope.which })).
+		$http.get(ui.fragmentActionLink('wellness', 'search', 'accounts', { appId: $scope.appId, q: $scope.query, which: $scope.which })).
 			success(function(data) {
 				$scope.results = data;
 			});

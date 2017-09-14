@@ -15,7 +15,7 @@
 	]
 %>
 
-<form id="edit-relationship-form" method="post" action="${ ui.actionLink("kenyaemr", "patient/editRelationship", "saveRelationship") }">
+<form id="edit-relationship-form" method="post" action="${ ui.actionLink("wellness", "patient/editRelationship", "saveRelationship") }">
 	<% if (command.existing) { %>
 		<input type="hidden" name="existingId" value="${ command.existing.id }"/>
 	<% } %>

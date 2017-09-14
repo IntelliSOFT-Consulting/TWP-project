@@ -1,5 +1,5 @@
 <%
-	ui.decorateWith("kenyaemr", "standardPage", [ layout: "sidebar" ])
+	ui.decorateWith("wellness", "standardPage", [ layout: "sidebar" ])
 
 	def menuItems = [
 			[ iconProvider: "kenyaui", icon: "buttons/back.png", label: "Back", href: returnUrl ]
@@ -17,8 +17,8 @@
 
 <div class="ke-page-content">
 	<% if (isIndicator) { %>
-	${ ui.includeFragment("kenyaemr", "report/indicatorReportData", [ reportRequest: reportRequest, reportData: reportData ]) }
+	${ ui.includeFragment("wellness", "report/indicatorReportData", [ reportRequest: reportRequest, reportData: reportData ]) }
 	<% } else { %>
-	${ ui.includeFragment("kenyaemr", "report/patientListReportData", [ reportData: reportData ]) }
+	${ ui.includeFragment("wellness", "report/patientListReportData", [ reportData: reportData ]) }
 	<% } %>
 </div>

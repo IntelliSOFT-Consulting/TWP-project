@@ -1,17 +1,17 @@
 <%
-	ui.decorateWith("kenyaemr", "standardPage", [ layout: "sidebar" ])
+	ui.decorateWith("wellness", "standardPage", [ layout: "sidebar" ])
 
-	ui.includeJavascript("kenyaemr", "controllers/patient.js")
+	ui.includeJavascript("wellness", "controllers/patient.js")
 
 	def menuItems = [
-			[ label: "Back to previous step", iconProvider: "kenyaui", icon: "buttons/back.png", href: ui.pageLink("kenyaemr", "registration/createPatient2") ]
+			[ label: "Back to previous step", iconProvider: "kenyaui", icon: "buttons/back.png", href: ui.pageLink("wellness", "registration/createPatient2") ]
 	]
 %>
 <div class="ke-page-sidebar">
 	${ ui.includeFragment("kenyaui", "widget/panelMenu", [ heading: "Create Client", items: menuItems ]) }
 
 	<% if (!person) { %>
-	<div class="ke-panel-frame" id="ng-similarpatients" ng-controller="SimilarPatients" ng-init="init('${ currentApp.id }', 'kenyaemr', 'registration/registrationViewPatient')">
+	<div class="ke-panel-frame" id="ng-similarpatients" ng-controller="SimilarPatients" ng-init="init('${ currentApp.id }', 'wellness', 'registration/registrationViewPatient')">
 		<script type="text/javascript">
 			jQuery(function() {
 				jQuery('input[name="personName.givenName"], input[name="personName.familyName"]').change(function() {
@@ -29,7 +29,7 @@
 		<div class="ke-panel-heading">Similar Clients</div>
 		<div class="ke-panel-content">
 			<div class="ke-stack-item ke-navigable" ng-repeat="patient in results" ng-click="onResultClick(patient)">
-				${ ui.includeFragment("kenyaemr", "patient/result.mini") }
+				${ ui.includeFragment("wellness", "patient/result.mini") }
 			</div>
 			<div ng-if="results.length == 0" style="text-align: center; font-style: italic">None</div>
 		</div>
@@ -38,5 +38,5 @@
 </div>
 
 <div class="ke-page-content">
-	${ ui.includeFragment("kenyaemr", "patient/editPatient", [ person: person, heading: "Register Client" ]) }
+	${ ui.includeFragment("wellness", "patient/editPatient", [ person: person, heading: "Register Client" ]) }
 </div>

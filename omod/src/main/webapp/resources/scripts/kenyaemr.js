@@ -3,19 +3,19 @@
  */
 
 kenyaui.configureSearch('concept', {
-	searchProvider: 'kenyaemr',
+	searchProvider: 'wellness',
 	searchFragment: 'search',
 	format: function(concept) { return concept.name; }
 });
 
 kenyaui.configureSearch('location', {
-	searchProvider: 'kenyaemr',
+	searchProvider: 'wellness',
 	searchFragment: 'search',
 	format: function(location) { return location.name + ' <span style="color: #999">' + location.code + '</span>'; }
 });
 
 kenyaui.configureSearch('person', {
-	searchProvider: 'kenyaemr',
+	searchProvider: 'wellness',
 	searchFragment: 'search',
 	format: function(person) {
 		var icon = ui.resourceLink('kenyaui', 'images/glyphs/' + ((person.isPatient ? 'patient' : 'person') + '_' + person.gender) + '.png');
@@ -28,7 +28,7 @@ kenyaui.configureSearch('person', {
 });
 
 kenyaui.configureSearch('patient', {
-	searchProvider: 'kenyaemr',
+	searchProvider: 'wellness',
 	searchFragment: 'search',
 	format: function(patient) {
 		var icon = ui.resourceLink('kenyaui', 'images/glyphs/patient_' + patient.gender + '.png');
@@ -41,7 +41,7 @@ kenyaui.configureSearch('patient', {
 });
 
 kenyaui.configureSearch('provider', {
-	searchProvider: 'kenyaemr',
+	searchProvider: 'wellness',
 	searchFragment: 'search',
 	format: function(provider) { return provider.person.name; }
 });
@@ -49,19 +49,19 @@ kenyaui.configureSearch('provider', {
 /**
  * Configure AngularJS
  */
-var kenyaemrApp = angular.module('kenyaemr', [ 'kenyaui' ]);
+var kenyaemrApp = angular.module('wellness', [ 'kenyaui' ]);
 
 /**
  * Utility methods
  */
-(function(kenyaemr, $) {
+(function(wellness, $) {
 	/**
 	 * Opens a dialog displaying the given encounter
 	 * @param appId the app id
 	 * @param encounterId the encounter id
 	 */
-	kenyaemr.openEncounterDialog = function(appId, encounterId) {
-		var contentUrl = ui.pageLink('kenyaemr', 'dialog/formDialog', { appId: appId, encounterId: encounterId, currentUrl: location.href });
+	wellness.openEncounterDialog = function(appId, encounterId) {
+		var contentUrl = ui.pageLink('wellness', 'dialog/formDialog', { appId: appId, encounterId: encounterId, currentUrl: location.href });
 		kenyaui.openDynamicDialog({ heading: 'View Form', url: contentUrl, width: 90, height: 90, scrolling: true });
 	};
 
@@ -69,7 +69,7 @@ var kenyaemrApp = angular.module('kenyaemr', [ 'kenyaui' ]);
 	 * Updates the value of a regimen field from its displayed controls
 	 * @param fieldId the regimen field id
 	 */
-	kenyaemr.updateRegimenFromDisplay = function(fieldId) {
+	wellness.updateRegimenFromDisplay = function(fieldId) {
 		var regimenStr = '';
 
 		$('#' + fieldId +  '-container .regimen-component').each(function() {
@@ -94,10 +94,10 @@ var kenyaemrApp = angular.module('kenyaemr', [ 'kenyaui' ]);
 	 * @param initialValue the initial field value (may be null)
 	 * @param readOnly true if control should be read only
 	 */
-	kenyaemr.dynamicObsField = function(parentId, fieldName, conceptId, initialValue, readOnly) {
+	wellness.dynamicObsField = function(parentId, fieldName, conceptId, initialValue, readOnly) {
 		var placeHolderId = kenyaui.generateId();
 		$('#' + parentId).append('<div id="' + placeHolderId + '" class="ke-loading ke-form-dynamic-field">&nbsp;</div>');
-		$.get('/' + OPENMRS_CONTEXT_PATH + '/kenyaemr/generateField.htm', { name: fieldName, conceptId: conceptId, initialValue: initialValue, readOnly : readOnly })
+		$.get('/' + OPENMRS_CONTEXT_PATH + '/wellness/generateField.htm', { name: fieldName, conceptId: conceptId, initialValue: initialValue, readOnly : readOnly })
 			.done(function (html) {
 				$('#' + placeHolderId).removeClass('ke-loading');
 				$('#' + placeHolderId).html(html);
@@ -108,8 +108,8 @@ var kenyaemrApp = angular.module('kenyaemr', [ 'kenyaui' ]);
 	 * Ensures user authentication before invoking the passed callback
 	 * @param callback the callback to invoke
 	 */
-	kenyaemr.ensureUserAuthenticated = function(callback) {
-		$.getJSON(ui.fragmentActionLink('kenyaemr', 'emrUtils', 'isAuthenticated'), function(result) {
+	wellness.ensureUserAuthenticated = function(callback) {
+		$.getJSON(ui.fragmentActionLink('wellness', 'emrUtils', 'isAuthenticated'), function(result) {
 			if (result.authenticated) {
 				callback();
 			}
@@ -128,7 +128,7 @@ var kenyaemrApp = angular.module('kenyaemr', [ 'kenyaui' ]);
 					var password = $('#authdialog-password').val();
 
 					// Try authenticating and then submitting again...
-					$.getJSON(ui.fragmentActionLink('kenyaemr', 'emrUtils', 'authenticate', { username: username, password: password }), function(result) {
+					$.getJSON(ui.fragmentActionLink('wellness', 'emrUtils', 'authenticate', { username: username, password: password }), function(result) {
 						if (result.authenticated) {
 							kenyaui.closeDialog();
 							callback();
@@ -150,7 +150,7 @@ var kenyaemrApp = angular.module('kenyaemr', [ 'kenyaui' ]);
 	 * @param appId the current app id (may be null)
 	 * @param callback function to call with fetched resources
 	 */
-	kenyaemr.fetchHelpResources = function(helpSiteUrl, appId, callback) {
+	wellness.fetchHelpResources = function(helpSiteUrl, appId, callback) {
 		$.getJSON(helpSiteUrl + '/content.json')
 			.success(function(data) {
 				// Filter resources by current app
@@ -185,4 +185,4 @@ var kenyaemrApp = angular.module('kenyaemr', [ 'kenyaui' ]);
 		return d >= 0 && string.indexOf(pattern, d) === d;
 	}
 
-}( window.kenyaemr = window.kenyaemr || {}, jQuery ));
+}( window.wellness = window.wellness || {}, jQuery ));

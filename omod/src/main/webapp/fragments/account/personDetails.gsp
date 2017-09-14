@@ -16,7 +16,7 @@
 				],
 				dialogConfig: [ heading: "Edit personal details" ],
 				fragment: "account/personDetails",
-				fragmentProvider: "kenyaemr",
+				fragmentProvider: "wellness",
 				action: "submit",
 				prefix: "person",
 				commandObject: form,

@@ -1,10 +1,10 @@
 <%
-	ui.decorateWith("kenyaemr", "standardPage", [ layout: "sidebar" ])
+	ui.decorateWith("wellness", "standardPage", [ layout: "sidebar" ])
 
-	ui.includeJavascript("kenyaemr", "controllers/visit.js")
+	ui.includeJavascript("wellness", "controllers/visit.js")
 
 	def menuItems = [
-			[ label: "Find or create client", iconProvider: "kenyaui", icon: "buttons/patient_search.png", href: ui.pageLink("kenyaemr", "registration/registrationSearch") ]
+			[ label: "Find or create client", iconProvider: "kenyaui", icon: "buttons/patient_search.png", href: ui.pageLink("wellness", "registration/registrationSearch") ]
 	]
 %>
 
@@ -27,7 +27,7 @@
 			defaultDate: '${ kenyaui.formatDateParam(scheduleDate) }',
 			gotoCurrent: true,
 			onSelect: function(dateText) {
-				ui.navigate('kenyaemr', 'registration/registrationHome', { scheduleDate: dateText });
+				ui.navigate('wellness', 'registration/registrationHome', { scheduleDate: dateText });
 			}
 		});
 	});
@@ -40,5 +40,5 @@
 </div>
 
 <div class="ke-page-content">
-	${ ui.includeFragment("kenyaemr", "patient/dailySchedule", [ pageProvider: "kenyaemr", page: "registration/registrationViewPatient", date: scheduleDate ]) }
+	${ ui.includeFragment("wellness", "patient/dailySchedule", [ pageProvider: "wellness", page: "registration/registrationViewPatient", date: scheduleDate ]) }
 </div>

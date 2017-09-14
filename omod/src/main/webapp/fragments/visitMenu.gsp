@@ -8,7 +8,7 @@
 						[ hiddenInputName: "appId", value: currentApp.id ],
 						[ label: "End Date and Time", formFieldName: "stopDatetime", class: java.util.Date, initialValue: new Date(), showTime: true ]
 			],
-			fragmentProvider: "kenyaemr",
+			fragmentProvider: "wellness",
 			fragment: "registrationUtil",
 			action: "stopVisit",
 			onSuccessCallback: "ui.reloadPage()",
@@ -33,7 +33,7 @@
 					"visitType": [ label: "Visit Type" ],
 					"startDatetime": [ showTime: true ]
 			],
-			fragmentProvider: "kenyaemr",
+			fragmentProvider: "wellness",
 			fragment: "registrationUtil",
 			action: "startVisit",
 			onSuccessCallback: "ui.reloadPage()",

@@ -27,7 +27,7 @@ kenyaemrApp.controller('ActiveVisits', ['$scope', '$http', '$timeout', function(
 	 * Refreshes the visit types with active visits
 	 */
 	$scope.refresh = function(repeat) {
-		$http.get(ui.fragmentActionLink('kenyaemr', 'registrationUtil', 'getActiveVisitTypes'))
+		$http.get(ui.fragmentActionLink('wellness', 'registrationUtil', 'getActiveVisitTypes'))
 			.success(function(data) {
 				$scope.activeTypes = data;
 				if (repeat) {
@@ -45,7 +45,7 @@ kenyaemrApp.controller('ActiveVisits', ['$scope', '$http', '$timeout', function(
 			var selected = _.filter($scope.activeTypes, function(type) { return type.selected; });
 			var selectedIds = _.map(selected, function(type) { return type.id; });
 
-			$http.get(ui.fragmentActionLink('kenyaemr', 'registrationUtil', 'closeActiveVisits', { typeIds: selectedIds }))
+			$http.get(ui.fragmentActionLink('wellness', 'registrationUtil', 'closeActiveVisits', { typeIds: selectedIds }))
 				.success(function(data) {
 					kenyaui.notifySuccess(data.message);
 					$scope.refresh(false);

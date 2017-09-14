@@ -1,5 +1,5 @@
 <%
-	ui.decorateWith("kenyaemr", "standardPage", [ patient: currentPatient, layout: "sidebar" ])
+	ui.decorateWith("wellness", "standardPage", [ patient: currentPatient, layout: "sidebar" ])
 
 	def allowNew = !history.changes
 	def allowChange = history.changes && history.changes.last().started
@@ -12,7 +12,7 @@
 	}
 
 	def regimenField = {
-		[ label: "Regimen", formFieldName: "regimen", class: "org.openmrs.module.kenyaemr.regimen.Regimen", fieldFragment: "field/Regimen", category: category ]
+		[ label: "Regimen", formFieldName: "regimen", class: "org.openmrs.module.wellness.regimen.Regimen", fieldFragment: "field/Regimen", category: category ]
 	}
 
 	def reasonFields = { reasonType ->
@@ -100,7 +100,7 @@
 				<legend>Start New Regimen</legend>
 
 				${ ui.includeFragment("kenyaui", "widget/form", [
-					fragmentProvider: "kenyaemr",
+					fragmentProvider: "wellness",
 					fragment: "regimenUtil",
 					action: "changeRegimen",
 					fields: [
@@ -123,7 +123,7 @@
 				<legend>Change Regimen</legend>
 
 				${ ui.includeFragment("kenyaui", "widget/form", [
-					fragmentProvider: "kenyaemr",
+					fragmentProvider: "wellness",
 					fragment: "regimenUtil",
 					action: "changeRegimen",
 					fields: [
@@ -145,7 +145,7 @@
 				<legend>Stop Regimen</legend>
 
 				${ ui.includeFragment("kenyaui", "widget/form", [
-					fragmentProvider: "kenyaemr",
+					fragmentProvider: "wellness",
 					fragment: "regimenUtil",
 					action: "changeRegimen",
 					fields: [
@@ -168,7 +168,7 @@
 				<legend>Restart Regimen</legend>
 
 				${ ui.includeFragment("kenyaui", "widget/form", [
-					fragmentProvider: "kenyaemr",
+					fragmentProvider: "wellness",
 					fragment: "regimenUtil",
 					action: "changeRegimen",
 					fields: [

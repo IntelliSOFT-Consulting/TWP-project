@@ -11,7 +11,7 @@
 		}
 
 		userMenuItems << """<span>Logged in as <i>${ context.authenticatedUser.personName }</i></span>"""
-		userMenuItems << """<a href="${ ui.pageLink("kenyaemr", "profile") }">My Profile</a>"""
+		userMenuItems << """<a href="${ ui.pageLink("wellness", "profile") }">My Profile</a>"""
 		userMenuItems << """<a href="javascript:ke_logout()">Log Out</a>"""
 	} else {
 		userMenuItems << "<span><em>Not Logged In</em></span>"

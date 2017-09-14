@@ -1,5 +1,5 @@
 <%
-	ui.includeJavascript("kenyaemr", "controllers/header.js")
+	ui.includeJavascript("wellness", "controllers/header.js")
 
 	def closeChartUrl = config.closeChartUrl ?: appHomepageUrl
 %>

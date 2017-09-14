@@ -23,7 +23,7 @@
 		<require_module version="${uiframeworkVersion}">org.openmrs.module.uiframework</require_module>
 	</require_modules>
 
-	<activator>org.openmrs.module.kenyaemr.EmrActivator</activator>
+	<activator>org.openmrs.module.wellness.EmrActivator</activator>
 
 	<advice>
 		<point>org.openmrs.api.EncounterService</point>

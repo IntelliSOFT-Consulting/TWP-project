@@ -16,7 +16,7 @@
 
 // Source of the concept identifiers. Can be a class name or a collection. The identifiers themselves can be database
 // ids, UUIDs or mappings
-def identifierSource = "org.openmrs.module.kenyaemr.Dictionary"
+def identifierSource = "org.openmrs.module.wellness.Dictionary"
 
 // Include only names for these locales. Set null or empty to include all locales
 def includeLocales = [ "en" ]

@@ -1,7 +1,7 @@
 <%
-	ui.decorateWith("kenyaemr", "standardPage", [ layout: "sidebar" ])
+	ui.decorateWith("wellness", "standardPage", [ layout: "sidebar" ])
 
-	ui.includeJavascript("kenyaemr", "controllers/report.js")
+	ui.includeJavascript("wellness", "controllers/report.js")
 
 	def menuItems =  [
 			[ iconProvider: "kenyaui", icon: "buttons/report_generate.png", label: "Request report", onClick: "requestReport()" ],
@@ -112,5 +112,5 @@
 </div>
 
 <div id="request-dialog-template" title="Request Report" style="display: none">
-	${ ui.includeFragment("kenyaemr", "report/reportRequestForm", [ definition: definition, onRequestCallback: "onReportRequest" ]) }
+	${ ui.includeFragment("wellness", "report/reportRequestForm", [ definition: definition, onRequestCallback: "onReportRequest" ]) }
 </div>

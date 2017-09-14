@@ -1,7 +1,7 @@
 <%
 	ui.decorateWith("kenyaui", "panel", [ heading: "Report profiling", frameOnly: true ])
 
-	ui.includeJavascript("kenyaemr", "controllers/developer.js")
+	ui.includeJavascript("wellness", "controllers/developer.js")
 %>
 
 <div ng-controller="ReportProfiling" ng-init="init()">

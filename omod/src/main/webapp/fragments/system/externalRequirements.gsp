@@ -1,5 +1,5 @@
 <%
-	ui.decorateWith("kenyaui", "panel", [ heading: ui.message("kenyaemr.admin.externalRequirements") ])
+	ui.decorateWith("kenyaui", "panel", [ heading: ui.message("wellness.admin.externalRequirements") ])
 %>
 <table class="ke-table-vertical">
 	<thead>

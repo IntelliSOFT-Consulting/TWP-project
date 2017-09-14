@@ -1,26 +1,26 @@
 <%
-	ui.includeCss("kenyaemr", "kenyaemr.css", 50)
-	ui.includeJavascript("kenyaemr", "kenyaemr.js", 50)
+	ui.includeCss("wellness", "kenyaemr.css", 50)
+	ui.includeJavascript("wellness", "kenyaemr.js", 50)
 
 	if (config.patient) {
 		config.context = "patientId=${ config.patient.id }"
 	}
 
-	config.beforeContent = ui.includeFragment("kenyaemr", "header/pageHeader", config)
+	config.beforeContent = ui.includeFragment("wellness", "header/pageHeader", config)
 
-	config.beforeContent += ui.includeFragment("kenyaemr", "header/headerMenu", config)
+	config.beforeContent += ui.includeFragment("wellness", "header/headerMenu", config)
 
 	if (config.patient) {
-		config.beforeContent += ui.includeFragment("kenyaemr", "header/patientHeader", [ patient: config.patient, closeChartUrl: config.closeChartUrl ])
+		config.beforeContent += ui.includeFragment("wellness", "header/patientHeader", [ patient: config.patient, closeChartUrl: config.closeChartUrl ])
 	}
 	if (config.visit) {
-		config.beforeContent += ui.includeFragment("kenyaemr", "header/visitHeader", [ visit: config.visit ])
+		config.beforeContent += ui.includeFragment("wellness", "header/visitHeader", [ visit: config.visit ])
 	}
 
 	config.pageTitle = "The Wellness"
-	config.faviconIco = ui.resourceLink("kenyaemr", "images/logos/favicon.ico")
-	config.faviconPng = ui.resourceLink("kenyaemr", "images/logos/favicon.png")
-	config.angularApp = "kenyaemr"
+	config.faviconIco = ui.resourceLink("wellness", "images/logos/favicon.ico")
+	config.faviconPng = ui.resourceLink("wellness", "images/logos/favicon.png")
+	config.angularApp = "wellness"
 
 	ui.decorateWith("kenyaui", "standardPage", config)
 %>
@@ -39,7 +39,7 @@ html {
 
 <%= config.content %>
 
-<!-- Required for the kenyaemr.ensureUserAuthenticated(...) method -->
+<!-- Required for the wellness.ensureUserAuthenticated(...) method -->
 <div id="authdialog" title="Login Required" style="display: none">
 	<div class="ke-panel-content">
 		<table border="0" align="center">

@@ -1,7 +1,7 @@
 <%
 	ui.decorateWith("kenyaui", "panel", [ heading: "Database Summary" ])
 
-	ui.includeJavascript("kenyaemr", "controllers/system.js")
+	ui.includeJavascript("wellness", "controllers/system.js")
 %>
 <div ng-controller="DatabaseSummary" ng-init="init('${ currentApp.id }')">
 	<table class="ke-table-vertical">

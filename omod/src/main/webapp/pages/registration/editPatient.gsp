@@ -1,6 +1,6 @@
 <%
-	ui.decorateWith("kenyaemr", "standardPage")
+	ui.decorateWith("wellness", "standardPage")
 %>
 <div class="ke-page-content">
-	${ ui.includeFragment("kenyaemr", "patient/editPatient", [ patient: currentPatient, returnUrl: returnUrl ]) }
+	${ ui.includeFragment("wellness", "patient/editPatient", [ patient: currentPatient, returnUrl: returnUrl ]) }
 </div>

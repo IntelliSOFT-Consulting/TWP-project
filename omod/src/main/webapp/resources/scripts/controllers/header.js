@@ -33,14 +33,14 @@ kenyaemrApp.controller('PatientHeader', ['$scope', '$http', '$timeout', function
 	 * Refreshes the flags
 	 */
 	$scope.refresh = function() {
-		$http.get(ui.fragmentActionLink('kenyaemr', 'search', 'patient', { id: $scope.patientId })).
+		$http.get(ui.fragmentActionLink('wellness', 'search', 'patient', { id: $scope.patientId })).
 			success(function(patient) {
 				$scope.patient = patient;
 				$scope.iconUrl = ui.resourceLink('kenyaui', 'images/buttons/patient_' + patient.gender + '.png');
 
 				// Only lookup flags for alive and non-voided patients, and if there is a current app
 				if (!patient.dead && !patient.voided && $scope.appId) {
-					$http.get(ui.fragmentActionLink('kenyaemr', 'patient/patientUtils', 'getFlags', { appId: $scope.appId, patientId: $scope.patientId }))
+					$http.get(ui.fragmentActionLink('wellness', 'patient/patientUtils', 'getFlags', { appId: $scope.appId, patientId: $scope.patientId }))
 						.success(function(flags) {
 							$scope.flags = flags;
 						});

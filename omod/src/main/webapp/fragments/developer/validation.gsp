@@ -1,7 +1,7 @@
 <%
 	ui.decorateWith("kenyaui", "panel", [ heading: "Patient Validation", frameOnly: true ])
 
-	ui.includeJavascript("kenyaemr", "controllers/developer.js")
+	ui.includeJavascript("wellness", "controllers/developer.js")
 %>
 <div ng-controller="PatientValidation">
 	<div class="ke-panel-content">
@@ -16,7 +16,7 @@
 				<tr ng-repeat="result in results">
 					<td>
 						<img ng-src="${ ui.resourceLink("kenyaui", "images/glyphs/patient_") }{{ result.patient.gender }}.png" class="ke-glyph" />
-						<a ng-href="${ ui.pageLink("kenyaemr", "chart/chartViewPatient") }?patientId={{ result.patient.id }}">{{ result.patient.name }}</a>
+						<a ng-href="${ ui.pageLink("wellness", "chart/chartViewPatient") }?patientId={{ result.patient.id }}">{{ result.patient.name }}</a>
 					</td>
 					<td>
 						<div ng-repeat="error in result.errors">{{ error }}</div>

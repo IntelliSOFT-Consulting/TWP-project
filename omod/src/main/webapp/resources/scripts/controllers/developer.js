@@ -21,7 +21,7 @@ kenyaemrApp.controller('ReportProfiling', ['$scope', '$http', function($scope, $
 	 * Initializes the controller
 	 */
 	$scope.init = function() {
-		$http.get(ui.fragmentActionLink('kenyaemr', 'developer/developerUtils', 'getReportProfilingEnabled')).
+		$http.get(ui.fragmentActionLink('wellness', 'developer/developerUtils', 'getReportProfilingEnabled')).
 			success(function(data) {
 				$scope.enabled = data.enabled;
 			});
@@ -32,7 +32,7 @@ kenyaemrApp.controller('ReportProfiling', ['$scope', '$http', function($scope, $
 	 */
 	$scope.setEnabled = function(enabled) {
 		$scope.results = [];
-		$http.get(ui.fragmentActionLink('kenyaemr', 'developer/developerUtils', 'setReportProfilingEnabled', { enabled: enabled })).
+		$http.get(ui.fragmentActionLink('wellness', 'developer/developerUtils', 'setReportProfilingEnabled', { enabled: enabled })).
 			success(function() {
 				$scope.enabled = enabled;
 			});
@@ -54,7 +54,7 @@ kenyaemrApp.controller('PatientValidation', ['$scope', '$http', function($scope,
 	$scope.run = function() {
 		$scope.results = [];
 		$scope.loading = true;
-		$http.get(ui.fragmentActionLink('kenyaemr', 'developer/developerUtils', 'validatePatients', {})).
+		$http.get(ui.fragmentActionLink('wellness', 'developer/developerUtils', 'validatePatients', {})).
 			success(function(data) {
 				$scope.results = data;
 				$scope.loading = false;
@@ -91,7 +91,7 @@ kenyaemrApp.controller('GroovyConsole', ['$scope', '$http', '$window', function(
 		$scope.stacktrace = ' ';
 
 		var script = $window.codeMirrorEditor.getValue();
-		var actionUrl = ui.fragmentActionLink('kenyaemr', 'developer/developerUtils', 'executeGroovy', { returnFormat: 'json' });
+		var actionUrl = ui.fragmentActionLink('wellness', 'developer/developerUtils', 'executeGroovy', { returnFormat: 'json' });
 		var postData = jQuery.param({ script: script });
 
 		$http({ method: 'POST', url: actionUrl, data: postData, headers: { 'Content-Type': 'application/x-www-form-urlencoded'}})

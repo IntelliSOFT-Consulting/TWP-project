@@ -22,7 +22,7 @@ import org.openmrs.api.context.Context
 def nationalIdAttrType = Context.personService.getPersonAttributeTypeByUuid("73d34479-2f9e-4de3-a5e6-1f79a17459bb")
 def nationalIdIdentifierType = Context.patientService.getPatientIdentifierTypeByUuid("49af6cdc-7968-4abb-bf46-de10d7f4859f")
 
-def defaultLocationGP = Context.administrationService.getGlobalProperty("kenyaemr.defaultLocation")
+def defaultLocationGP = Context.administrationService.getGlobalProperty("wellness.defaultLocation")
 def defaultLocation = defaultLocationGP ? Context.locationService.getLocation(defaultLocationGP.toInteger()) : null
 
 // Check script can be run on this installation

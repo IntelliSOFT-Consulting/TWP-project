@@ -27,7 +27,7 @@ kenyaemrApp.controller('ServerInformation', ['$scope', '$http', '$timeout', func
 	 * Refreshes the server information
 	 */
 	$scope.refresh = function() {
-		$http.get(ui.fragmentActionLink('kenyaemr', 'system/systemUtils', 'getServerInformation')).
+		$http.get(ui.fragmentActionLink('wellness', 'system/systemUtils', 'getServerInformation')).
 			success(function(data) {
 				$scope.infos = data;
 				$timeout($scope.refresh, 5000);
@@ -46,7 +46,7 @@ kenyaemrApp.controller('DatabaseSummary', ['$scope', '$http', function($scope, $
 	$scope.init = function(appId) {
 		$scope.appId = appId;
 
-		$http.get(ui.fragmentActionLink('kenyaemr', 'system/systemUtils', 'getDatabaseSummary', { appId: $scope.appId })).
+		$http.get(ui.fragmentActionLink('wellness', 'system/systemUtils', 'getDatabaseSummary', { appId: $scope.appId })).
 			success(function(data) {
 				$scope.infos = data;
 			});

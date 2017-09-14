@@ -1,11 +1,11 @@
 <%
 	def onFormClick = { form ->
 		def opts = [ appId: currentApp.id, patientId: currentPatient.id, formUuid: form.formUuid, returnUrl: ui.thisUrl() ]
-		"""ui.navigate('${ ui.pageLink('kenyaemr', 'enterForm', opts) }');"""
+		"""ui.navigate('${ ui.pageLink('wellness', 'enterForm', opts) }');"""
 	}
 
 	def onEncounterClick = { encounter ->
-		"""kenyaemr.openEncounterDialog('${ currentApp.id }', ${ encounter.id });"""
+		"""wellness.openEncounterDialog('${ currentApp.id }', ${ encounter.id });"""
 	}
 %>
 <div class="ke-panel-frame">
@@ -20,7 +20,7 @@
 		<br />
 		<fieldset>
 			<legend>Previously Completed Forms</legend>
-			${ ui.includeFragment("kenyaemr", "widget/encounterStack", [ encounters: page1Encounters, onEncounterClick: onEncounterClick ]) }
+			${ ui.includeFragment("wellness", "widget/encounterStack", [ encounters: page1Encounters, onEncounterClick: onEncounterClick ]) }
 		</fieldset>
 	</div>
 </div>
@@ -28,7 +28,7 @@
 <div class="ke-panel-frame">
 	<div class="ke-panel-heading">Page 2 (Initial and Followup Visits)</div>
 	<div class="ke-panel-content" style="background-color: #F3F9FF">
-		${ ui.includeFragment("kenyaemr", "widget/encounterStack", [ encounters: page2Encounters, onEncounterClick: onEncounterClick ]) }
+		${ ui.includeFragment("wellness", "widget/encounterStack", [ encounters: page2Encounters, onEncounterClick: onEncounterClick ]) }
 		<br />
 		<% if (inHivProgram) { %>
 			<div align="center">
@@ -37,7 +37,7 @@
 						extra: "From column",
 						iconProvider: "kenyaui",
 						icon: "buttons/visit_retrospective.png",
-						href: ui.pageLink("kenyaemr", "enterForm", [ appId: currentApp.id, patientId: currentPatient, formUuid: page2Form.uuid, returnUrl: ui.thisUrl() ])
+						href: ui.pageLink("wellness", "enterForm", [ appId: currentApp.id, patientId: currentPatient, formUuid: page2Form.uuid, returnUrl: ui.thisUrl() ])
 				]) }
 			</div>
 		<%}%>
@@ -52,7 +52,7 @@
 <div class="ke-panel-frame">
 	<div class="ke-panel-heading">ARV Regimen History</div>
 	<div class="ke-panel-content" style="background-color: #F3F9FF">
-		${ ui.includeFragment("kenyaemr", "regimenHistory", [ history: arvHistory ]) }
+		${ ui.includeFragment("wellness", "regimenHistory", [ history: arvHistory ]) }
 		<br />
 		<% if (inHivProgram) { %>
 			<div align="center">
@@ -62,7 +62,7 @@
 						iconProvider: "kenyaui",
 						icon: "buttons/regimen.png",
 						classes: [ "padded" ],
-						href: ui.pageLink("kenyaemr", "regimenEditor", [ appId: currentApp.id, patientId: currentPatient, category: "ARV", returnUrl: ui.thisUrl() ])
+						href: ui.pageLink("wellness", "regimenEditor", [ appId: currentApp.id, patientId: currentPatient, category: "ARV", returnUrl: ui.thisUrl() ])
 				]) }
 			</div>
 		<%}%>

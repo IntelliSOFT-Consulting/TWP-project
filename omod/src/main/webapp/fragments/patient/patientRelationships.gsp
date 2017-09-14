@@ -5,13 +5,13 @@
 	function onVoidRelationship(relId) {
 		kenyaui.openConfirmDialog({
 			heading: 'Void Relationship',
-			message: '${ ui.message("kenyaemr.confirmVoidRelationship") }',
+			message: '${ ui.message("wellness.confirmVoidRelationship") }',
 			okCallback: function() { doRelationshipVoid(relId); }
 		});
 	}
 
 	function doRelationshipVoid(relId) {
-		ui.getFragmentActionAsJson('kenyaemr', 'emrUtils', 'voidRelationship', { relationshipId: relId, reason: 'Data entry error' }, function() {
+		ui.getFragmentActionAsJson('wellness', 'emrUtils', 'voidRelationship', { relationshipId: relId, reason: 'Data entry error' }, function() {
 			ui.reloadPage();
 		});
 	}
@@ -24,7 +24,7 @@
 	<div class="ke-stack-item">
 		<button type="button" class="ke-compact" onclick="onVoidRelationship(${ rel.relationshipId })"><img src="${ ui.resourceLink("kenyaui", "images/glyphs/void.png") }" /></button>
 
-		<button type="button" class="ke-compact" onclick="ui.navigate('${ ui.pageLink("kenyaemr", "registration/editRelationship", [ patientId: patient.id, relationshipId: rel.relationshipId, appId: currentApp.id, returnUrl: ui.thisUrl() ]) }')">
+		<button type="button" class="ke-compact" onclick="ui.navigate('${ ui.pageLink("wellness", "registration/editRelationship", [ patientId: patient.id, relationshipId: rel.relationshipId, appId: currentApp.id, returnUrl: ui.thisUrl() ]) }')">
 			<img src="${ ui.resourceLink("kenyaui", "images/glyphs/edit.png") }" />
 		</button>
 
@@ -43,7 +43,7 @@
 <% } %>
 
 <div class="ke-panel-footer">
-	<button type="button" onclick="ui.navigate('${ ui.pageLink("kenyaemr", "registration/editRelationship", [ patientId: patient.id, appId: currentApp.id, returnUrl: ui.thisUrl() ])}')">
+	<button type="button" onclick="ui.navigate('${ ui.pageLink("wellness", "registration/editRelationship", [ patientId: patient.id, appId: currentApp.id, returnUrl: ui.thisUrl() ])}')">
 		<img src="${ ui.resourceLink("kenyaui", "images/glyphs/add.png") }" /> Add
 	</button>
 </div>

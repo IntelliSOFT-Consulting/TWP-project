@@ -4,7 +4,7 @@
 	<% if (user) { %>
 	<div class="ke-panel-content">
 		<% if (user.retired) { %>
-		<div class="ke-warning" style="margin-bottom: 5px">${ ui.message("kenyaemr.loginIsDisabled") }</div>
+		<div class="ke-warning" style="margin-bottom: 5px">${ ui.message("wellness.loginIsDisabled") }</div>
 		<% } %>
 
 		${ ui.includeFragment("kenyaui", "widget/dataPoint", [ label: "Username", value: user.username ]) }
@@ -32,7 +32,7 @@
 				],
 				dialogConfig: [ heading: "Edit login details for ${ kenyaui.formatPersonName(person) }", width: 90, height: 90 ],
 				fragment: "account/userDetails",
-				fragmentProvider: "kenyaemr",
+				fragmentProvider: "wellness",
 				action: "submit",
 				prefix: "user",
 				commandObject: form,
@@ -64,7 +64,7 @@
 				],
 				dialogConfig: [ heading: "New Login Account for ${ kenyaui.formatPersonName(person) }", width: 90, height: 90 ],
 				fragment: "account/userDetails",
-				fragmentProvider: "kenyaemr",
+				fragmentProvider: "wellness",
 				action: "submit",
 				prefix: "user",
 				commandObject: form,

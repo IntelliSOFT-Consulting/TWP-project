@@ -39,7 +39,7 @@
 			<tr>
 				<td>
 					<img src="${ ui.resourceLink("kenyaui", "images/glyphs/patient_" + personGender + ".png") }" class="ke-glyph" />
-					<a href="${ ui.pageLink("kenyaemr", "chart/chartViewPatient", [ patientId: patientId ]) }">${ personName }</a>
+					<a href="${ ui.pageLink("wellness", "chart/chartViewPatient", [ patientId: patientId ]) }">${ personName }</a>
 				</td>
 
 			<% nonIdOrNameColumns.each { col -> %>

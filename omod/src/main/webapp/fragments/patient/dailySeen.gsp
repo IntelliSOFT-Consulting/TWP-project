@@ -1,5 +1,5 @@
 <%
-    ui.includeJavascript("kenyaemr", "controllers/patient.js")
+    ui.includeJavascript("wellness", "controllers/patient.js")
 
     def heading = "patients seen on "
     if (isToday)
@@ -14,7 +14,7 @@
     <div class="ke-panel-heading">{{ seen.length }} ${ heading }</div>
     <div class="ke-panel-content">
         <div class="ke-stack-item ke-navigable" ng-repeat="patient in seen" ng-click="onResultClick(patient)">
-            ${ ui.includeFragment("kenyaemr", "patient/results.full.more") }
+            ${ ui.includeFragment("wellness", "patient/results.full.more") }
         </div>
         <div ng-if="seen.length == 0" style="text-align: center; font-style: italic">None</div>
     </div>

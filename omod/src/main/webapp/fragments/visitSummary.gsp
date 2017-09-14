@@ -7,9 +7,9 @@
 	function ke_deleteVisit(visitId) {
 		kenyaui.openConfirmDialog({
 			heading: 'Visit',
-			message: '${ ui.message("kenyaemr.confirmVoidVisit") }',
+			message: '${ ui.message("wellness.confirmVoidVisit") }',
 			okCallback: function() {
-				ui.getFragmentActionAsJson('kenyaemr', 'emrUtils', 'voidVisit', { visitId: visitId, reason: 'Data entry error' }, function() {
+				ui.getFragmentActionAsJson('wellness', 'emrUtils', 'voidVisit', { visitId: visitId, reason: 'Data entry error' }, function() {
 					ui.reloadPage();
 				});
 			}

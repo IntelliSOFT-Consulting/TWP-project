@@ -1,11 +1,11 @@
 <%
 	ui.decorateWith("kenyaui", "panel", [ heading: "Groovy Console", frameOnly: true ]);
 
-	ui.includeJavascript("kenyaemr", "codemirror.js");
-	ui.includeJavascript("kenyaemr", "codemirror-groovy.js");
-	ui.includeCss("kenyaemr", "codemirror.css");
+	ui.includeJavascript("wellness", "codemirror.js");
+	ui.includeJavascript("wellness", "codemirror-groovy.js");
+	ui.includeCss("wellness", "codemirror.css");
 
-	ui.includeJavascript("kenyaemr", "controllers/developer.js");
+	ui.includeJavascript("wellness", "controllers/developer.js");
 %>
 <style type="text/css">
 	.CodeMirror {

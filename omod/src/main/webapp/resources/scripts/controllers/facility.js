@@ -62,7 +62,7 @@ kenyaemrApp.controller('FacilitySearchResults', ['$scope', '$http', function($sc
 	 */
 	$scope.refresh = function() {
 		if ($scope.query.length >= 3) {
-			$http.get(ui.fragmentActionLink('kenyaemr', 'search', 'locations', { q: $scope.query })).
+			$http.get(ui.fragmentActionLink('wellness', 'search', 'locations', { q: $scope.query })).
 				success(function(data) {
 					$scope.results = data;
 				});

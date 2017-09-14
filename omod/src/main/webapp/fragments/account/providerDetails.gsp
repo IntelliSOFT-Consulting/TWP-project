@@ -17,7 +17,7 @@
 						icon: "glyphs/edit.png"
 				],
 				dialogConfig: [ heading: "Edit Provider account for ${ kenyaui.formatPersonName(person) }", width: 50, height: 30 ],
-				fragmentProvider: "kenyaemr",
+				fragmentProvider: "wellness",
 				fragment: "account/providerDetails",
 				action: "submit",
 				prefix: "provider",
@@ -41,7 +41,7 @@
 						icon: "buttons/provider_${ person.gender == "F" ? 'f' : 'm' }.png"
 				],
 				dialogConfig: [ heading: "New Provider account for ${ kenyaui.formatPersonName(person) }", width: 50, height: 30 ],
-				fragmentProvider: "kenyaemr",
+				fragmentProvider: "wellness",
 				fragment: "account/providerDetails",
 				action: "submit",
 				prefix: "provider",

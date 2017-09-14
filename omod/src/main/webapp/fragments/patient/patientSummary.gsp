@@ -4,7 +4,7 @@
 <div class="ke-panel-content">
 	<div class="ke-stack-item">
 
-		<button type="button" class="ke-compact" onclick="ui.navigate('${ ui.pageLink("kenyaemr", "registration/editPatient", [ patientId: patient.id, returnUrl: ui.thisUrl() ]) }')">
+		<button type="button" class="ke-compact" onclick="ui.navigate('${ ui.pageLink("wellness", "registration/editPatient", [ patientId: patient.id, returnUrl: ui.thisUrl() ]) }')">
 			<img src="${ ui.resourceLink("kenyaui", "images/glyphs/edit.png") }" />
 		</button>
 
@@ -21,7 +21,7 @@
 				icon: form.icon,
 				label: form.name,
 				extra: "Edit form",
-				href: ui.pageLink("kenyaemr", "editPatientForm", [
+				href: ui.pageLink("wellness", "editPatientForm", [
 					appId: currentApp.id,
 					patientId: patient.id,
 					formUuid: form.formUuid,

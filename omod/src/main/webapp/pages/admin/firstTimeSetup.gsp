@@ -1,5 +1,5 @@
 <%
-	ui.decorateWith("kenyaemr", "standardPage")
+	ui.decorateWith("wellness", "standardPage")
 
 	def fields = [
 			[
@@ -42,13 +42,13 @@
 
 	<% if (isSuperUser) { %>
 
-	${ ui.includeFragment("kenyaemr", "system/externalRequirements") }
+	${ ui.includeFragment("wellness", "system/externalRequirements") }
 
 	<div class="ke-panel-frame">
-		<div class="ke-panel-heading">${ ui.message("kenyaemr.admin.firstTimeSetup") }</div>
+		<div class="ke-panel-heading">${ ui.message("wellness.admin.firstTimeSetup") }</div>
 
 		<div class="ke-panel-content">
-			<form id="settings-form" action="${ ui.pageLink("kenyaemr", "admin/firstTimeSetup") }">
+			<form id="settings-form" action="${ ui.pageLink("wellness", "admin/firstTimeSetup") }">
 				<% if (defaultLocation) { %>
 					<div class="ke-warning" style="margin-bottom: 5px">Ensure that all visits are closed before changing the default location</div>
 				<% } %>

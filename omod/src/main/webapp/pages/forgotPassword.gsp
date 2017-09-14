@@ -1,5 +1,5 @@
 <%
-	ui.decorateWith("kenyaemr", "standardPage")
+	ui.decorateWith("wellness", "standardPage")
 %>
 <style type="text/css">
 	body {
@@ -7,7 +7,7 @@
 	}
 </style>
 
-<form method="post" action="${ ui.pageLink("kenyaemr", "forgotPassword") }" style="padding: 20px; width: 500px">
+<form method="post" action="${ ui.pageLink("wellness", "forgotPassword") }" style="padding: 20px; width: 500px">
 
 	If you have saved a secret question and answer, you can use this form to reset your password.
 	If not then you will have to contact your system administrator. Misuse of this form is a

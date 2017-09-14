@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- ===================== Program ===================== -->
+
+	<bean id="wellness.nutrition.program" class="org.openmrs.module.kenyacore.program.ProgramDescriptor">
+		<property name="targetUuid" value="${metadata.program.HIV}" />
+		<property name="eligibilityCalculation" value="org.openmrs.module.wellness.calculation.library.nutrition.EligibleForNutritionProgramCalculation" />
+		<property name="defaultEnrollmentForm" ref="wellness.nutrition.form.enrollment" />
+		<property name="defaultCompletionForm" ref="wellness.nutrition.form.completion" />
+		<property name="visitForms">
+			<set>
+				<ref bean="wellness.common.form.labResults" />
+				<ref bean="wellness.common.form.labResults1" />
+				<ref bean="wellness.common.form.labResults2" />
+			</set>
+		</property>
+		<property name="reports">
+			<set>
+				<ref bean="wellness.common.report.allPatients" />
+			</set>
+		</property>
+		<property name="fragments">
+			<map>
+				<entry key="enrollment-summary" value="wellness:program/nutrition/nutritionEnrollmentSummary" />
+				<entry key="care-panel" value="wellness:program/nutrition/hivCarePanel" />
+				<entry key="completion-summary" value="wellness:program/nutrition/nutritionCompletionSummary" />
+			</map>
+		</property>
+		<property name="order" value="100" />
+	</bean>
+
+	<!-- ===================== Identifiers ===================== -->
+
+	<!-- Unique Patient Number -->
+	<bean id="kenyaemr.hiv.identifier.upn" class="org.openmrs.module.kenyacore.identifier.IdentifierDescriptor">
+		<property name="targetUuid" value="${metadata.identifiertype.UNIQUE_PATIENT_NUMBER}" />
+		<property name="order" value="50" />
+	</bean>
+
+	<!-- ===================== Forms ===================== -->
+
+	<!-- Nutrition enrollment -->
+	<bean id="wellness.nutrition.form.enrollment" class="org.openmrs.module.kenyacore.form.FormDescriptor">
+		<property name="targetUuid" value="e4b506c1-7379-42b6-a374-284469cba8da" />
+		<property name="apps">
+			<set>
+				<ref bean="wellness.app.registration" />
+				<ref bean="wellness.app.chart" />
+			</set>
+		</property>
+		<property name="icon" value="kenyaui:forms/generic.png" />
+		<property name="htmlform" value="kenyaemr:nutrition/nutritionEnrollment.html" />
+	</bean>
+
+
+
+	<!-- Nutrition Completion -->
+	<bean id="wellness.nutrition.form.completion" class="org.openmrs.module.kenyacore.form.FormDescriptor">
+		<property name="targetUuid" value="e3237ede-fa70-451f-9e6c-0908bc39f8b9" />
+		<property name="apps">
+			<set>
+				<ref bean="wellness.app.registration" />
+			</set>
+		</property>
+		<property name="icon" value="kenyaui:forms/completion.png" />
+		<property name="htmlform" value="kenyaemr:nutrition/nutritionDiscontinuation.html" />
+	</bean>
+
+	<!-- ===================== Reports ===================== -->
+
+	<!--<bean id="kenyaemr.hiv.report.lostToFollowUp" class="org.openmrs.module.kenyacore.report.CalculationReportDescriptor">
+		<property name="targetUuid" value="70bca1e5-7c68-4500-bfb8-0795549f35a4" />
+		<property name="name" value="Patients who are lost to followup" />
+		<property name="calculation" value="org.openmrs.module.wellness.calculation.library.hiv.LostToFollowUpCalculation" />
+		&lt;!&ndash;<property name="displayIdentifier" ref="wellness.nutrition.identifier.upn" />&ndash;&gt;
+		<property name="apps"><set><ref bean="kenyaemr.app.reports" /></set></property>
+	</bean>-->
+
+</beans>

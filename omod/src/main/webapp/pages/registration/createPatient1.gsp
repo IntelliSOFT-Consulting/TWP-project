@@ -1,10 +1,10 @@
 <%
-	ui.decorateWith("kenyaemr", "standardPage", [ layout: "sidebar" ])
+	ui.decorateWith("wellness", "standardPage", [ layout: "sidebar" ])
 
-	ui.includeJavascript("kenyaemr", "controllers/account.js")
+	ui.includeJavascript("wellness", "controllers/account.js")
 
 	def menuItems = [
-			[ label: "Back to home", iconProvider: "kenyaui", icon: "buttons/back.png", label: "Back to home", href: ui.pageLink("kenyaemr", "registration/createPatient") ]
+			[ label: "Back to home", iconProvider: "kenyaui", icon: "buttons/back.png", label: "Back to home", href: ui.pageLink("wellness", "registration/createPatient") ]
 	]
 %>
 
@@ -32,9 +32,9 @@
 				</tr>
 			</table>
 		</div>
-		<div class="ke-panel-content" ng-controller="AccountSearchResults" ng-init="init('${ currentApp.id }', 'kenyaemr', 'registration/createPatient2')">
+		<div class="ke-panel-content" ng-controller="AccountSearchResults" ng-init="init('${ currentApp.id }', 'wellness', 'registration/createPatient2')">
 			<div class="ke-stack-item ke-navigable" ng-repeat="account in results" ng-click="onResultClick(account)">
-				${ ui.includeFragment("kenyaemr", "account/result.full") }
+				${ ui.includeFragment("wellness", "account/result.full") }
 			</div>
 		</div>
 	</div>

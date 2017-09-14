@@ -9,7 +9,7 @@
 
 			def providers = encounter.providersByRoles.values().collectAll { ui.format(it) }.flatten().join(", ")
 
-			def form = encounter.form ? ui.simplifyObject(encounter.form) : [ iconProvider : "kenyaemr", icon : "forms/generic.png" ]
+			def form = encounter.form ? ui.simplifyObject(encounter.form) : [ iconProvider : "wellness", icon : "forms/generic.png" ]
 
 			def onClick = config.onEncounterClick instanceof Closure ? config.onEncounterClick(encounter) : config.onEncounterClick
 %>

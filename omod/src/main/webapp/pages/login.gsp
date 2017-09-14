@@ -1,5 +1,5 @@
 <%
-	ui.decorateWith("kenyaemr", "standardPage")
+	ui.decorateWith("wellness", "standardPage")
 %>
 <style type="text/css">
 body {

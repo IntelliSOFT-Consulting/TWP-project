@@ -1,10 +1,10 @@
 <%
-	ui.decorateWith("kenyaemr", "standardPage", [ layout: "sidebar" ])
+	ui.decorateWith("wellness", "standardPage", [ layout: "sidebar" ])
 
-	ui.includeJavascript("kenyaemr", "controllers/account.js")
+	ui.includeJavascript("wellness", "controllers/account.js")
 
 	def menuItems = [
-			[ label: "Back to home", iconProvider: "kenyaui", icon: "buttons/back.png", label: "Back to home", href: ui.pageLink("kenyaemr", "registration/registrationHome") ]
+			[ label: "Back to home", iconProvider: "kenyaui", icon: "buttons/back.png", label: "Back to home", href: ui.pageLink("wellness", "registration/registrationHome") ]
 	]
 %>
 
@@ -35,11 +35,11 @@
 	<script type="text/javascript">
 
 		function ke_useNewPerson() {
-			ui.navigate('kenyaemr', 'registration/createPatient2');
+			ui.navigate('wellness', 'registration/createPatient2');
 		}
 
 		function ke_useExistingPerson() {
-			ui.navigate('kenyaemr', 'registration/createPatient1');
+			ui.navigate('wellness', 'registration/createPatient1');
 		}
 
 	</script>

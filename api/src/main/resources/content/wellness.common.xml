@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- ===================== Configurations ===================== -->
+
+	<bean id="wellness.config.form" class="org.openmrs.module.kenyacore.form.FormConfiguration">
+		<property name="commonPatientForms">
+			<set>
+
+			</set>
+		</property>
+		<property name="commonVisitForms">
+			<set>
+				<ref bean="wellness.common.form.labResults" />
+				<ref bean="wellness.common.form.labResults1" />
+				<ref bean="wellness.common.form.labResults2" />
+			</set>
+		</property>
+	</bean>
+
+	<bean id="kenyaemr.config.regimen" class="org.openmrs.module.wellness.regimen.RegimenConfiguration">
+		<property name="definitionsPath" value="regimens.xml" />
+	</bean>
+
+	<bean id="kenyaemr.config.lab" class="org.openmrs.module.kenyacore.lab.LabConfiguration">
+		<property name="commonCatalogs">
+			<set>
+				<ref bean="kenyaemr.common.lab.standardcatalog" />
+			</set>
+		</property>
+	</bean>
+
+	<!-- ===================== Identifiers ===================== -->
+
+	<!-- National Identification Number -->
+	<bean id="kenyaemr.common.identifier.national" class="org.openmrs.module.kenyacore.identifier.IdentifierDescriptor">
+		<property name="targetUuid" value="${metadata.identifiertype.NATIONAL_ID}" />
+		<property name="order" value="100" />
+	</bean>
+
+	<!-- Patient Clinic Number -->
+	<bean id="kenyaemr.common.identifier.pcn" class="org.openmrs.module.kenyacore.identifier.IdentifierDescriptor">
+		<property name="targetUuid" value="${metadata.identifiertype.PATIENT_CLINIC_NUMBER}" />
+		<property name="order" value="200" />
+	</bean>
+
+	<!-- Old Identification Number -->
+	<bean id="kenyaemr.common.identifier.old" class="org.openmrs.module.kenyacore.identifier.IdentifierDescriptor">
+		<property name="targetUuid" value="${metadata.identifiertype.OLD}" />
+		<property name="order" value="300" />
+	</bean>
+
+	<!-- OpenMRS ID -->
+	<bean id="kenyaemr.common.identifier.mrn" class="org.openmrs.module.kenyacore.identifier.IdentifierDescriptor">
+		<property name="targetUuid" value="${metadata.identifiertype.MEDICAL_RECORD_NUMBER}" />
+	</bean>
+
+	<!-- ===================== Forms ===================== -->
+
+	<!-- Lab Results -->
+	<bean id="wellness.common.form.labResults" class="org.openmrs.module.kenyacore.form.FormDescriptor">
+		<property name="targetUuid" value="7e603909-9ed5-4d0c-a688-26ecb05d8b6e" />
+		<property name="apps">
+			<set>
+				<ref bean="wellness.app.registration" />
+			</set>
+		</property>
+		<property name="icon" value="kenyaui:forms/labresults.png" />
+		<property name="htmlform" value="wellness:labResultsEndocrinology.html" />
+		<property name="order" value="200030" />
+	</bean>
+
+	<bean id="wellness.common.form.labResults1" class="org.openmrs.module.kenyacore.form.FormDescriptor">
+		<property name="targetUuid" value="3fae7594-6578-11e7-922a-507b9dc4c741" />
+		<property name="apps">
+			<set>
+				<ref bean="wellness.app.registration" />
+			</set>
+		</property>
+		<property name="icon" value="kenyaui:forms/labresults.png" />
+		<property name="htmlform" value="wellness:labResultsBiochemistry.html" />
+		<property name="order" value="200040" />
+	</bean>
+
+	<bean id="wellness.common.form.labResults2" class="org.openmrs.module.kenyacore.form.FormDescriptor">
+		<property name="targetUuid" value="4f643244-6578-11e7-8fb4-507b9dc4c741" />
+		<property name="apps">
+			<set>
+				<ref bean="wellness.app.registration" />
+			</set>
+		</property>
+		<property name="icon" value="kenyaui:forms/labresults.png" />
+		<property name="htmlform" value="wellness:labResultsHaematology.html" />
+		<property name="order" value="200050" />
+	</bean>
+
+
+	<!-- ===================== Reports ===================== -->
+
+	<bean id="wellness.common.report.missedAppointment" class="org.openmrs.module.kenyacore.report.CalculationReportDescriptor">
+		<property name="targetUuid" value="d1e3d16f-74d8-47c7-9475-849e9d82408b" />
+		<property name="name" value="Patients who missed their last appointment" />
+		<property name="calculation" value="org.openmrs.module.wellness.calculation.library.MissedLastAppointmentCalculation" />
+		<property name="apps"><set><ref bean="wellness.app.reports" /></set></property>
+	</bean>
+
+	<bean id="wellness.common.report.allPatients" class="org.openmrs.module.kenyacore.report.CalculationReportDescriptor">
+		<property name="targetUuid" value="9e2ed586-130b-11e4-929a-8746415b715a" />
+		<property name="name" value="All Clients List" />
+		<property name="calculation" value="org.openmrs.module.wellness.calculation.library.nutrition.AllPatientsCalculation" />
+		<property name="apps"><set><ref bean="wellness.app.reports" /></set></property>
+	</bean>
+
+</beans>

@@ -58,7 +58,7 @@
 	]
 %>
 
-<form id="create-account-form" method="post" action="${ ui.actionLink("kenyaemr", "account/newAccount", "submit") }">
+<form id="create-account-form" method="post" action="${ ui.actionLink("wellness", "account/newAccount", "submit") }">
 	<div class="ke-form-globalerrors" style="display: none"></div>
 
 	<% if (command.original) { %>
@@ -116,7 +116,7 @@
 		kenyaui.setupAjaxPost('create-account-form', {
 			onSuccess: function(data) {
 				if (data.personId) {
-					ui.navigate('kenyaemr', 'admin/manageAccounts');
+					ui.navigate('wellness', 'admin/manageAccounts');
 				} else {
 					kenyaui.notifyError('Creating user was successful, but unexpected response');
 				}
