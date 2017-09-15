@@ -165,6 +165,8 @@ public class EditPatientFragmentController {
 		private String nationalIdNumber;
 		private String patientClinicNumber;
 		private String uniquePatientNumber;
+		private String mobileNumber;
+		private String otherNumber;
 
 		private String telephoneContact;
 		private String nameOfNextOfKin;
@@ -224,6 +226,8 @@ public class EditPatientFragmentController {
 			patientClinicNumber = wrapper.getPatientClinicNumber();
 			uniquePatientNumber = wrapper.getUniquePatientNumber();
 			nationalIdNumber = wrapper.getNationalIdNumber();
+			mobileNumber = wrapper.getMobileNumber();
+			otherNumber = wrapper.getOtherMobileNumber();
 
 			nameOfNextOfKin = wrapper.getNextOfKinName();
 			nextOfKinRelationship = wrapper.getNextOfKinRelationship();
@@ -296,6 +300,8 @@ public class EditPatientFragmentController {
 			validateIdentifierField(errors, "nationalIdNumber", CommonMetadata._PatientIdentifierType.NATIONAL_ID);
 			validateIdentifierField(errors, "patientClinicNumber", CommonMetadata._PatientIdentifierType.PATIENT_CLINIC_NUMBER);
 			validateIdentifierField(errors, "uniquePatientNumber", HivMetadata._PatientIdentifierType.UNIQUE_PATIENT_NUMBER);
+			validateIdentifierField(errors, "mobileNumber", CommonMetadata._PatientIdentifierType.MOBILE_NUMBER);
+			validateIdentifierField(errors, "otherNumber", CommonMetadata._PatientIdentifierType.OTHER_MOBILE_NUMBER);
 
 			// check birth date against future dates and really old dates
 			if (birthdate != null) {
@@ -383,6 +389,10 @@ public class EditPatientFragmentController {
 			wrapper.setNationalIdNumber(nationalIdNumber, location);
 			wrapper.setPatientClinicNumber(patientClinicNumber, location);
 			wrapper.setUniquePatientNumber(uniquePatientNumber, location);
+			wrapper.setMobileNumber(mobileNumber, location);
+			wrapper.setOtherMobileNumber(mobileNumber, location);
+			wrapper.setMobileNumber(mobileNumber, location);
+			wrapper.setOtherMobileNumber(otherNumber, location);
 			wrapper.setNextOfKinName(nameOfNextOfKin);
 			wrapper.setNextOfKinRelationship(nextOfKinRelationship);
 			wrapper.setNextOfKinContact(nextOfKinContact);
@@ -419,11 +429,11 @@ public class EditPatientFragmentController {
 			handleOncePerPatientObs(ret, obsToSave, obsToVoid, Dictionary.getConcept(Dictionary.EDUCATION), savedEducation, education);
 
 			for (Obs o : obsToVoid) {
-				Context.getObsService().voidObs(o, "KenyaEMR edit patient");
+				Context.getObsService().voidObs(o, "Wellness edit patient");
 			}
 
 			for (Obs o : obsToSave) {
-				Context.getObsService().saveObs(o, "KenyaEMR edit patient");
+				Context.getObsService().saveObs(o, "Wellness edit patient");
 			}
 
 			return ret;
@@ -541,6 +551,34 @@ public class EditPatientFragmentController {
 		public void setNationalIdNumber(String nationalIdNumber) {
 
 			this.nationalIdNumber = nationalIdNumber;
+		}
+
+		/**
+		 * @return the mobile number
+		 *
+		 */
+		public String getOtherNumber() {
+			return otherNumber;
+		}
+		/**
+		 * @param otherNumber
+		 */
+		public void setOtherNumber(String otherNumber) {
+			this.otherNumber = otherNumber;
+		}
+
+		/**
+		 * @return the mobile number
+		 *
+		 */
+		public String getMobileNumber() {
+			return mobileNumber;
+		}
+		/**
+		 * @param mobileNumber
+		 */
+		public void setMobileNumber(String mobileNumber) {
+			this.mobileNumber = mobileNumber;
 		}
 
 		/**

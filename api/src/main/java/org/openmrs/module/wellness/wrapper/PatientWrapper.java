@@ -183,4 +183,32 @@ public class PatientWrapper extends AbstractPatientWrapper {
 	public void setSubChiefName(String value) {
 		setAsAttribute(CommonMetadata._PersonAttributeType.SUBCHIEF_NAME, value);
 	}
+
+	/**
+	 * Set the mobile number of a a patients
+	 */
+	public void setMobileNumber(String mobileNumber, Location location) {
+		setAsIdentifier(CommonMetadata._PatientIdentifierType.MOBILE_NUMBER, mobileNumber, location);
+	}
+
+	/**
+	 * Get the mobile number of the patient
+	 */
+	public String getMobileNumber(){
+		return getAsIdentifier(CommonMetadata._PatientIdentifierType.MOBILE_NUMBER);
+	}
+
+	/**
+	 * Set the mobile number of a a patients
+	 */
+	public void setOtherMobileNumber(String mobileNumber, Location location) {
+		setAsIdentifier(CommonMetadata._PatientIdentifierType.OTHER_MOBILE_NUMBER, mobileNumber, location);
+	}
+
+	/**
+	 * Get the mobile number of the patient
+	 */
+	public String getOtherMobileNumber(){
+		return getAsIdentifier(CommonMetadata._PatientIdentifierType.OTHER_MOBILE_NUMBER);
+	}
 }

@@ -5,7 +5,7 @@
 		</a>
 	</div>
 	<div style="float: right">
-		<span style="font-size: 10px; color: #7f7b72;">${ moduleVersion }, powered by OpenMRS</span>
+		<span style="font-size: 10px; color: #7f7b72;">powered by OpenMRS</span>
 		<br/>
 	</div>
 

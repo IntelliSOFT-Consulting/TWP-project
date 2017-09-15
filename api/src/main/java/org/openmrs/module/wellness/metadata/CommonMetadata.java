@@ -60,6 +60,8 @@ public class CommonMetadata extends AbstractMetadataBundle {
 		public static final String OLD_ID = Metadata.IdentifierType.OLD;
 		public static final String OPENMRS_ID = Metadata.IdentifierType.MEDICAL_RECORD_NUMBER;
 		public static final String PATIENT_CLINIC_NUMBER = Metadata.IdentifierType.PATIENT_CLINIC_NUMBER;
+		public static final String MOBILE_NUMBER = "ecd2dd34-9947-11e7-b2c2-d76c96444830";
+		public static final String OTHER_MOBILE_NUMBER = "f94ea700-9947-11e7-8438-93de4e5d377e";
 	}
 
 	public static final class _PersonAttributeType {
@@ -124,6 +126,8 @@ public class CommonMetadata extends AbstractMetadataBundle {
 		install(patientIdentifierType("National ID", "Kenyan national identity card number",
 				"\\d{5,10}", "Between 5 and 10 consecutive digits", null,
 				LocationBehavior.NOT_USED, false, _PatientIdentifierType.NATIONAL_ID));
+		install(patientIdentifierType("Phone Number", "The clients mobile number", "\\d{5,15}", "Minimum of 5 and max of 15", null, LocationBehavior.NOT_USED, false, _PatientIdentifierType.MOBILE_NUMBER));
+		install(patientIdentifierType("Other phone Number", "The clients alternative mobile number", "\\d{5,15}", "Minimum of 5 and max of 15", null, LocationBehavior.NOT_USED, false, _PatientIdentifierType.OTHER_MOBILE_NUMBER));
 
 		install(personAttributeType("Telephone contact", "Telephone contact number",
 				String.class, null, false, 1.0, _PersonAttributeType.TELEPHONE_CONTACT));

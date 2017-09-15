@@ -11,11 +11,6 @@
 
     def addressFieldRows = [
             [
-                    [object: command, property: "telephoneContact", label: "Mobile Number"],
-                    [object: command, property: "nextOfKinContact", label: "Other Number"]
-
-            ],
-            [
                     [object: command, property: "personAddress.address1", label: "Postal Address", config: [size: 60]],
                     [object: command, property: "personAddress.cityVillage", label: "Town/City"]
 
@@ -46,21 +41,46 @@
 
             <table>
                 <tr>
-                    <td class="ke-field-label">Account Number</td>
-                    <td>${ui.includeFragment("kenyaui", "widget/field", [object: command, property: "patientClinicNumber"])}</td>
-                    <td class="ke-field-instructions"><% if (!command.patientClinicNumber) { %>(if available)<%
-                        } %></td>
-                </tr>
-                <tr>
-                    <td class="ke-field-label">ID Number</td>
-                    <td>${ui.includeFragment("kenyaui", "widget/field", [object: command, property: "nationalIdNumber"])}</td>
-                    <td class="ke-field-instructions"><% if (!command.nationalIdNumber) { %>(if available)<% } %></td>
-                </tr>
+                    <td>
+                        <table>
+                            <tr>
+                                <td class="ke-field-label">Account Number</td>
+                                <td>${ui.includeFragment("kenyaui", "widget/field", [object: command, property: "patientClinicNumber"])}</td>
+                                <td class="ke-field-instructions"><% if (!command.patientClinicNumber) { %>(if available)<%
+                                    } %></td>
+                            </tr>
+                            <tr>
+                                <td class="ke-field-label">ID Number</td>
+                                <td>${ui.includeFragment("kenyaui", "widget/field", [object: command, property: "nationalIdNumber"])}</td>
+                                <td class="ke-field-instructions"><% if (!command.nationalIdNumber) { %>(if available)<% } %></td>
+                            </tr>
 
-                <tr>
-                    <td class="ke-field-label">Passport Number</td>
-                    <td>${ui.includeFragment("kenyaui", "widget/field", [object: command, property: "uniquePatientNumber"])}</td>
-                    <td class="ke-field-instructions"><% if (!command.uniquePatientNumber) { %>(if available)<% } %></td>
+                            <tr>
+                                <td class="ke-field-label">Passport Number</td>
+                                <td>${ui.includeFragment("kenyaui", "widget/field", [object: command, property: "uniquePatientNumber"])}</td>
+                                <td class="ke-field-instructions"><% if (!command.uniquePatientNumber) { %>(if available)<% } %></td>
+                            </tr>
+                            <tr>
+                                <td class="ke-field-label">Mobile Number</td>
+                                <td>${ui.includeFragment("kenyaui", "widget/field", [object: command, property: "mobileNumber"])}</td>
+                                <td class="ke-field-instructions"><% if (!command.mobileNumber) { %>(if available)<% } %></td>
+                            </tr>
+                            <tr>
+                                <td class="ke-field-label">Other Number</td>
+                                <td>${ui.includeFragment("kenyaui", "widget/field", [object: command, property: "otherNumber"])}</td>
+                                <td class="ke-field-instructions"><% if (!command.otherNumber) { %>(if available)<% } %></td>
+                            </tr>
+                        </table>
+                    </td>
+                    <td>
+                        <table>
+                            <tr>
+                                <td rowspan="3" align="right">
+                                    passport here
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
                 </tr>
 
             </table>
@@ -131,29 +151,8 @@
 
 </form>
 
-<!-- You can't nest forms in HTML, so keep the dialog box form down here -->
-${ui.includeFragment("kenyaui", "widget/dialogForm", [
-        buttonConfig     : [id: "from-age-button", label: "from age", iconProvider: "kenyaui", icon: "glyphs/calculate.png"],
-        dialogConfig     : [heading: "Calculate Birthdate", width: 40, height: 40],
-        fields           : [
-                [label: "Age in years", formFieldName: "age", class: java.lang.Integer],
-                [
-                        label: "On date", formFieldName: "now",
-                        class: java.util.Date, initialValue: new java.text.SimpleDateFormat("yyyy-MM-dd").parse((new Date().getYear() + 1900) + "-06-15")
-                ]
-        ],
-        fragmentProvider : "wellness",
-        fragment         : "emrUtils",
-        action           : "birthdateFromAge",
-        onSuccessCallback: "updateBirthdate(data);",
-        onOpenCallback   : """jQuery('input[name="age"]').focus()""",
-        submitLabel      : ui.message("general.submit"),
-        cancelLabel      : ui.message("general.cancel")
-])}
-
 <script type="text/javascript">
     jQuery(function () {
-        jQuery('#from-age-button').appendTo(jQuery('#from-age-button-placeholder'));
 
         jQuery('#edit-patient-form .cancel-button').click(function () {
             ui.navigate('${ config.returnUrl }');

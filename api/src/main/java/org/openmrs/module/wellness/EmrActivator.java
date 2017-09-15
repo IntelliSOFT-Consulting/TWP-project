@@ -40,14 +40,14 @@ public class EmrActivator implements ModuleActivator {
 	 * @see ModuleActivator#willRefreshContext()
 	 */
 	public void willRefreshContext() {
-		log.info("KenyaEMR context refreshing...");
+		log.info("Wellness context refreshing...");
 	}
 
 	/**
 	 * @see ModuleActivator#willStart()
 	 */
 	public void willStart() {
-		log.info("KenyaEMR starting...");
+		log.info("Wellness starting...");
 	}
 
 	/**
@@ -74,20 +74,20 @@ public class EmrActivator implements ModuleActivator {
 	 */
 	public void started() {
 		Context.getService(ReportService.class).deleteOldReportRequests();
-		log.info("KenyaEMR started");
+		log.info("Wellness started");
 	}
 
 	/**
 	 * @see ModuleActivator#willStop()
 	 */
 	public void willStop() {
-		log.info("KenyaEMR stopping...");
+		log.info("Wellness stopping...");
 	}
 
 	/**
 	 * @see ModuleActivator#stopped()
 	 */
 	public void stopped() {
-		log.info("KenyaEMR stopped");
+		log.info("Wellness stopped");
 	}
 }
