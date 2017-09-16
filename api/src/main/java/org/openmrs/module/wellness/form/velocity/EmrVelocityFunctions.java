@@ -24,7 +24,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.htmlformentry.FormEntrySession;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.wellness.Dictionary;
-import org.openmrs.module.wellness.metadata.HivMetadata;
+import org.openmrs.module.wellness.metadata.NutritionMetadata;
 import org.openmrs.module.reporting.common.DateUtil;
 
 /**
@@ -50,7 +50,7 @@ public class EmrVelocityFunctions {
 		if (session.getPatient() == null) {
 			return false;
 		} else {
-			PatientIdentifierType pit = MetadataUtils.existing(PatientIdentifierType.class, HivMetadata._PatientIdentifierType.UNIQUE_PATIENT_NUMBER);
+			PatientIdentifierType pit = MetadataUtils.existing(PatientIdentifierType.class, NutritionMetadata._PatientIdentifierType.NUTRITION_NUMBER);
 			return session.getPatient().getPatientIdentifier(pit) != null;
 		}
 	}

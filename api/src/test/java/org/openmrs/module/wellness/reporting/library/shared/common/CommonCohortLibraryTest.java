@@ -22,7 +22,7 @@ import org.openmrs.Program;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.wellness.Dictionary;
 import org.openmrs.module.wellness.metadata.CommonMetadata;
-import org.openmrs.module.wellness.metadata.HivMetadata;
+import org.openmrs.module.wellness.metadata.NutritionMetadata;
 import org.openmrs.module.kenyacore.test.ReportingTestUtils;
 import org.openmrs.module.kenyacore.test.TestUtils;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
@@ -45,7 +45,7 @@ public class CommonCohortLibraryTest extends BaseModuleContextSensitiveTest {
 	private CommonMetadata commonMetadata;
 
 	@Autowired
-	private HivMetadata hivMetadata;
+	private NutritionMetadata nutritionMetadata;
 
 	@Autowired
 	private CommonCohortLibrary commonCohortLibrary;
@@ -60,7 +60,7 @@ public class CommonCohortLibraryTest extends BaseModuleContextSensitiveTest {
 		executeDataSet("dataset/test-concepts.xml");
 
 		commonMetadata.install();
-		hivMetadata.install();
+		nutritionMetadata.install();
 
 		List<Integer> cohort = Arrays.asList(2, 6, 7, 8, 999);
 		context = ReportingTestUtils.reportingContext(cohort, TestUtils.date(2012, 6, 1), TestUtils.date(2012, 6, 30));
@@ -158,7 +158,7 @@ public class CommonCohortLibraryTest extends BaseModuleContextSensitiveTest {
 	 */
 	@Test
 	public void enrolled() throws Exception {
-		Program hivProgram = MetadataUtils.existing(Program.class, HivMetadata._Program.HIV);
+		Program hivProgram = MetadataUtils.existing(Program.class, NutritionMetadata._Program.NUTRITION);
 
 		// Enroll patient 2 on May 31st
 		TestUtils.enrollInProgram(Context.getPatientService().getPatient(2), hivProgram, TestUtils.date(2012, 5, 31));
@@ -220,7 +220,7 @@ public class CommonCohortLibraryTest extends BaseModuleContextSensitiveTest {
 	 */
 	@Test
 	public void enrolledExcludingTransfers() throws Exception {
-		Program hivProgram = MetadataUtils.existing(Program.class, HivMetadata._Program.HIV);
+		Program hivProgram = MetadataUtils.existing(Program.class, NutritionMetadata._Program.NUTRITION);
 		Concept transferInDate = Dictionary.getConcept(Dictionary.TRANSFER_IN_DATE);
 
 		// Enroll #6 on June 1st

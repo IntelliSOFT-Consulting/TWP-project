@@ -24,7 +24,7 @@ import org.openmrs.module.kenyacore.identifier.IdentifierManager;
 import org.openmrs.module.kenyacore.program.ProgramManager;
 import org.openmrs.module.kenyacore.test.TestUtils;
 import org.openmrs.module.wellness.metadata.CommonMetadata;
-import org.openmrs.module.wellness.metadata.HivMetadata;
+import org.openmrs.module.wellness.metadata.NutritionMetadata;
 import org.openmrs.module.wellness.metadata.SecurityMetadata;
 import org.openmrs.module.metadatadeploy.bundle.MetadataBundle;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
@@ -46,7 +46,7 @@ public class MetadataIntegrationTest extends BaseModuleContextSensitiveTest {
 	private CommonMetadata commonMetadata;
 
 	@Autowired
-	private HivMetadata hivMetadata;
+	private NutritionMetadata nutritionMetadata;
 
 	@Autowired
 	private IdentifierManager identifierManager;
@@ -79,7 +79,7 @@ public class MetadataIntegrationTest extends BaseModuleContextSensitiveTest {
 	public void loadAllMetadataProvidersAndRefreshManagers() throws Exception {
 		installBundleWithFlush(securityMetadata);
 		installBundleWithFlush(commonMetadata);
-		installBundleWithFlush(hivMetadata);
+		installBundleWithFlush(nutritionMetadata);
 
 		// Easiest way to check that we're not missing any identifiers, programs, forms or encounter types
 		identifierManager.refresh();
@@ -89,7 +89,7 @@ public class MetadataIntegrationTest extends BaseModuleContextSensitiveTest {
 		// And then load them again to simulate startup on an up-to-date database
 		installBundleWithFlush(securityMetadata);
 		installBundleWithFlush(commonMetadata);
-		installBundleWithFlush(hivMetadata);
+		installBundleWithFlush(nutritionMetadata);
 	}
 
 	protected void installBundleWithFlush(MetadataBundle bundle) throws Exception {

@@ -23,7 +23,7 @@ import org.openmrs.PatientIdentifierType;
 import org.openmrs.api.PatientService;
 import org.openmrs.module.kenyacore.test.TestUtils;
 import org.openmrs.module.wellness.metadata.CommonMetadata;
-import org.openmrs.module.wellness.metadata.HivMetadata;
+import org.openmrs.module.wellness.metadata.NutritionMetadata;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +39,7 @@ public class PatientWrapperTest extends BaseModuleContextSensitiveTest {
 	private CommonMetadata commonMetadata;
 
 	@Autowired
-	private HivMetadata hivMetadata;
+	private NutritionMetadata nutritionMetadata;
 
 	@Autowired
 	private PatientService patientService;
@@ -56,7 +56,7 @@ public class PatientWrapperTest extends BaseModuleContextSensitiveTest {
 		executeDataSet("dataset/test-concepts.xml");
 
 		commonMetadata.install();
-		hivMetadata.install();
+		nutritionMetadata.install();
 
 		patient = TestUtils.getPatient(7);
 		wrapper = new PatientWrapper(patient);

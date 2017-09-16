@@ -20,7 +20,7 @@ import org.openmrs.Form;
 import org.openmrs.Patient;
 import org.openmrs.Program;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.wellness.metadata.HivMetadata;
+import org.openmrs.module.wellness.metadata.NutritionMetadata;
 import org.openmrs.module.wellness.regimen.RegimenManager;
 import org.openmrs.module.wellness.wrapper.PatientWrapper;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
@@ -45,42 +45,17 @@ public class Moh257FragmentController {
 						   UiUtils ui,
 						   @SpringBean RegimenManager regimenManager) {
 
-		String[] page1FormUuids = {
-				HivMetadata._Form.MOH_257_FACE_PAGE,
-				/*HivMetadata._Form.MOH_257_ARV_THERAPY,*/
-				HivMetadata._Form.FAMILY_HISTORY
-		};
+
 
 		List<SimpleObject> page1AvailableForms = new ArrayList<SimpleObject>();
 		List<Encounter> page1Encounters = new ArrayList<Encounter>();
 
 		PatientWrapper patientWrapper = new PatientWrapper(patient);
 
-		for (String page1FormUuid : page1FormUuids) {
-			Form page1Form = MetadataUtils.existing(Form.class, page1FormUuid);
-			List<Encounter> formEncounters = patientWrapper.allEncounters(page1Form);
-
-			if (formEncounters.size() == 0) {
-				page1AvailableForms.add(ui.simplifyObject(page1Form));
-			}
-			else {
-				page1Encounters.addAll(formEncounters);
-			}
-		}
-
-		Form moh257VisitForm = MetadataUtils.existing(Form.class, HivMetadata._Form.MOH_257_VISIT_SUMMARY);
-		List<Encounter> moh257VisitSummaryEncounters = patientWrapper.allEncounters(moh257VisitForm);
-		Collections.reverse(moh257VisitSummaryEncounters);
-
-		model.addAttribute("page1AvailableForms", page1AvailableForms);
-		model.addAttribute("page1Encounters", page1Encounters);
-		model.addAttribute("page2Form", moh257VisitForm);
-		model.addAttribute("page2Encounters", moh257VisitSummaryEncounters);
-
 		Concept masterSet = regimenManager.getMasterSetConcept("ARV");
 		//RegimenChangeHistory arvHistory = RegimenChangeHistory.forPatient(patient, masterSet);
 		//model.addAttribute("arvHistory", arvHistory);
-		Program hivProgram = MetadataUtils.existing(Program.class, HivMetadata._Program.HIV);
+		Program hivProgram = MetadataUtils.existing(Program.class, NutritionMetadata._Program.NUTRITION);
 		model.addAttribute("inHivProgram", Context.getProgramWorkflowService().getPatientPrograms(patient, hivProgram, null, null, null, null, true));
 	}
 }

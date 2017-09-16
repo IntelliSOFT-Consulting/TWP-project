@@ -18,7 +18,7 @@ import org.openmrs.Location;
 import org.openmrs.Patient;
 import org.openmrs.module.kenyacore.wrapper.AbstractPatientWrapper;
 import org.openmrs.module.wellness.metadata.CommonMetadata;
-import org.openmrs.module.wellness.metadata.HivMetadata;
+import org.openmrs.module.wellness.metadata.NutritionMetadata;
 
 /**
  * Wrapper class for patients. Unfortunately this can't extend both AbstractPatientWrapper and PersonWrapper so we add a
@@ -59,7 +59,7 @@ public class PatientWrapper extends AbstractPatientWrapper {
 	 * @return the identifier value
 	 */
 	public String getPatientClinicNumber() {
-		return getAsIdentifier(CommonMetadata._PatientIdentifierType.PATIENT_CLINIC_NUMBER);
+		return getAsIdentifier(CommonMetadata._PatientIdentifierType.CLIENT_ACCOUNT_NUMBER);
 	}
 
 	/**
@@ -68,7 +68,7 @@ public class PatientWrapper extends AbstractPatientWrapper {
 	 * @param location the identifier location
 	 */
 	public void setPatientClinicNumber(String value, Location location) {
-		setAsIdentifier(CommonMetadata._PatientIdentifierType.PATIENT_CLINIC_NUMBER, value, location);
+		setAsIdentifier(CommonMetadata._PatientIdentifierType.CLIENT_ACCOUNT_NUMBER, value, location);
 	}
 
 	/**
@@ -76,7 +76,7 @@ public class PatientWrapper extends AbstractPatientWrapper {
 	 * @return the identifier value
 	 */
 	public String getUniquePatientNumber() {
-		return getAsIdentifier(HivMetadata._PatientIdentifierType.UNIQUE_PATIENT_NUMBER);
+		return getAsIdentifier(NutritionMetadata._PatientIdentifierType.NUTRITION_NUMBER);
 	}
 
 	/**
@@ -85,7 +85,7 @@ public class PatientWrapper extends AbstractPatientWrapper {
 	 * @param location the identifier location
 	 */
 	public void setUniquePatientNumber(String value, Location location) {
-		setAsIdentifier(HivMetadata._PatientIdentifierType.UNIQUE_PATIENT_NUMBER, value, location);
+		setAsIdentifier(NutritionMetadata._PatientIdentifierType.NUTRITION_NUMBER, value, location);
 	}
 
 	/**
@@ -210,5 +210,19 @@ public class PatientWrapper extends AbstractPatientWrapper {
 	 */
 	public String getOtherMobileNumber(){
 		return getAsIdentifier(CommonMetadata._PatientIdentifierType.OTHER_MOBILE_NUMBER);
+	}
+
+	/**
+	 * Set the passport number
+	 */
+	public void setPassportNumber(String passportNumber, Location location){
+		setAsIdentifier(CommonMetadata._PatientIdentifierType.PASSPORT_NUMBER, passportNumber, location);
+	}
+
+	/**
+	 * Get the mobile number of the patient
+	 */
+	public String getPassportNumber(){
+		return getAsIdentifier(CommonMetadata._PatientIdentifierType.PASSPORT_NUMBER);
 	}
 }

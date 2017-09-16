@@ -34,21 +34,21 @@ public class CommonMetadata extends AbstractMetadataBundle {
 
 	public static final class _EncounterType {
 		public static final String CONSULTATION = "465a92f2-baf8-42e9-9612-53064be868e8";
-		public static final String LAB_RESULTS = "17a381d1-7e29-406a-b782-aa903b963c28";
+		public static final String LAB_RESULTS_INDOCRINOLOGY = "17a381d1-7e29-406a-b782-aa903b963c28";
 		public static final String REGISTRATION = "de1f9d67-b73e-4e1b-90d0-036166fc6995";
 		public static final String TRIAGE = "d1059fb9-a079-4feb-a749-eedd709ae542";
+		public static final String LAB_RESULTS_BIOCHEMISTRY = "1f00bc6c-99f8-11e7-8e56-274a3284a492";
+		public static final String LAB_RESULTS_HAEMATOLOGY = "2e8f7286-99f8-11e7-bed5-435bfe5a6d7d";
+		public static final String CLIENT_APPOINTMENTS = "e752a694-99f8-11e7-8eab-9f0b21e054db";
 	}
 
 	public static final class _Form {
 		public static final String CLINICAL_ENCOUNTER = Metadata.Form.CLINICAL_ENCOUNTER;
-		public static final String LAB_RESULTS = Metadata.Form.LAB_RESULTS;
-		public static final String OBSTETRIC_HISTORY = Metadata.Form.OBSTETRIC_HISTORY;
-		public static final String OTHER_MEDICATIONS = Metadata.Form.OTHER_MEDICATIONS;
-		public static final String PROGRESS_NOTE = Metadata.Form.PROGRESS_NOTE;
-		public static final String SURGICAL_AND_MEDICAL_HISTORY = Metadata.Form.SURGICAL_AND_MEDICAL_HISTORY;
+		public static final String LAB_RESULTS_INDOCRINOLOGY = Metadata.Form.LAB_RESULTS_INDOCRINOLOGY;
+		public static final String APPOINTMENTS = Metadata.Form.APPOINTMENTS;
 		public static final String TRIAGE = Metadata.Form.TRIAGE;
-		public static final String LAB_RESULTS_BIOCHEMISTRY = "3fae7594-6578-11e7-922a-507b9dc4c741";
-		public static final String LAB_RESULTS_HAEMATOLOGY = "4f643244-6578-11e7-8fb4-507b9dc4c741";
+		public static final String LAB_RESULTS_BIOCHEMISTRY = Metadata.Form.LAB_RESULTS_BIOCHEMISTRY;
+		public static final String LAB_RESULTS_HAEMATOLOGY = Metadata.Form.LAB_RESULTS_HAEMATOLOGY;
 	}
 
 	public static final class _OrderType {
@@ -59,9 +59,10 @@ public class CommonMetadata extends AbstractMetadataBundle {
 		public static final String NATIONAL_ID = Metadata.IdentifierType.NATIONAL_ID;
 		public static final String OLD_ID = Metadata.IdentifierType.OLD;
 		public static final String OPENMRS_ID = Metadata.IdentifierType.MEDICAL_RECORD_NUMBER;
-		public static final String PATIENT_CLINIC_NUMBER = Metadata.IdentifierType.PATIENT_CLINIC_NUMBER;
-		public static final String MOBILE_NUMBER = "ecd2dd34-9947-11e7-b2c2-d76c96444830";
-		public static final String OTHER_MOBILE_NUMBER = "f94ea700-9947-11e7-8438-93de4e5d377e";
+		public static final String CLIENT_ACCOUNT_NUMBER = Metadata.IdentifierType.CLIENT_ACCOUNT_NUMBER;
+		public static final String MOBILE_NUMBER = Metadata.IdentifierType.PHONE_NUMBER;
+		public static final String OTHER_MOBILE_NUMBER = Metadata.IdentifierType.OTHER_MOBILE_NUMBER;
+		public static final String PASSPORT_NUMBER = Metadata.IdentifierType.PASSPORT_NUMBER;
 	}
 
 	public static final class _PersonAttributeType {
@@ -97,19 +98,21 @@ public class CommonMetadata extends AbstractMetadataBundle {
 	@Override
 	public void install() {
 		install(encounterType("Consultation", "Collection of clinical data during the main consultation", _EncounterType.CONSULTATION));
-		install(encounterType("Lab Results", "Collection of laboratory results", _EncounterType.LAB_RESULTS));
+		install(encounterType("Lab Results - Indocrinology", "Collection of laboratory results indocrinology", _EncounterType.LAB_RESULTS_INDOCRINOLOGY));
 		install(encounterType("Registration", "Initial data collection for a patient, not specific to any program", _EncounterType.REGISTRATION));
 		install(encounterType("Triage", "Collection of limited data prior to a more thorough examination", _EncounterType.TRIAGE));
+		install(encounterType("Lab Results - Biochemistry", "Collection of laboratory results biochemistry", _EncounterType.LAB_RESULTS_BIOCHEMISTRY));
+		install(encounterType("Lab Results - Haematology", "Collection of laboratory results haematology", _EncounterType.LAB_RESULTS_HAEMATOLOGY));
+		install(encounterType("Appointments", "Collection of appointment information", _EncounterType.CLIENT_APPOINTMENTS));
+
 
 		install(form("Clinical Encounter", null, _EncounterType.CONSULTATION, "1", _Form.CLINICAL_ENCOUNTER));
-		install(form("Lab Results - Endocrinology", null, _EncounterType.LAB_RESULTS, "1", _Form.LAB_RESULTS));
-		install(form("Obstetric History", null, _EncounterType.REGISTRATION, "1", _Form.OBSTETRIC_HISTORY));
-		install(form("Other Medications", "Recording of non-regimen medications", _EncounterType.CONSULTATION, "1", _Form.OTHER_MEDICATIONS));
-		install(form("Progress Note", "For additional information - mostly complaints and examination findings.", _EncounterType.CONSULTATION, "1", _Form.PROGRESS_NOTE));
-		install(form("Surgical and Medical History", null, _EncounterType.REGISTRATION, "1", _Form.SURGICAL_AND_MEDICAL_HISTORY));
+		install(form("Lab Results - Endocrinology", null, _EncounterType.LAB_RESULTS_INDOCRINOLOGY, "1", _Form.LAB_RESULTS_INDOCRINOLOGY));
 		install(form("Triage", null, _EncounterType.TRIAGE, "1", _Form.TRIAGE));
-		install(form("Lab Results - Haematology", "Used to collect haematology lab results",  _EncounterType.LAB_RESULTS, "1.0", _Form.LAB_RESULTS_HAEMATOLOGY ));
-		install(form("Lab Results - Biochemistry", "Used to collect biochemistry lab results",  _EncounterType.LAB_RESULTS, "1.0", _Form.LAB_RESULTS_BIOCHEMISTRY ));
+		install(form("Lab Results - Haematology", "Used to collect haematology lab results",  _EncounterType.LAB_RESULTS_HAEMATOLOGY, "1.0", _Form.LAB_RESULTS_HAEMATOLOGY ));
+		install(form("Lab Results - Biochemistry", "Used to collect biochemistry lab results",  _EncounterType.LAB_RESULTS_BIOCHEMISTRY, "1.0", _Form.LAB_RESULTS_BIOCHEMISTRY ));
+		install(form("Appointments", "Used to collect client's appointments",  _EncounterType.CLIENT_APPOINTMENTS, "1.0", _Form.APPOINTMENTS ));
+
 
 		install(globalProperty(EmrConstants.GP_DEFAULT_LOCATION, "The facility for which this installation is configured",
 				LocationDatatype.class, null, null));
@@ -122,12 +125,13 @@ public class CommonMetadata extends AbstractMetadataBundle {
 				LocationBehavior.REQUIRED, true, _PatientIdentifierType.OPENMRS_ID));
 		install(patientIdentifierType("Account Number", "Assigned to the patient at a clinic service (not globally unique)",
 				".{1,15}", "At most 15 characters long", null,
-				LocationBehavior.REQUIRED, false, _PatientIdentifierType.PATIENT_CLINIC_NUMBER));
+				LocationBehavior.REQUIRED, false, _PatientIdentifierType.CLIENT_ACCOUNT_NUMBER));
 		install(patientIdentifierType("National ID", "Kenyan national identity card number",
 				"\\d{5,10}", "Between 5 and 10 consecutive digits", null,
 				LocationBehavior.NOT_USED, false, _PatientIdentifierType.NATIONAL_ID));
 		install(patientIdentifierType("Phone Number", "The clients mobile number", "\\d{5,15}", "Minimum of 5 and max of 15", null, LocationBehavior.NOT_USED, false, _PatientIdentifierType.MOBILE_NUMBER));
 		install(patientIdentifierType("Other phone Number", "The clients alternative mobile number", "\\d{5,15}", "Minimum of 5 and max of 15", null, LocationBehavior.NOT_USED, false, _PatientIdentifierType.OTHER_MOBILE_NUMBER));
+		install(patientIdentifierType("Passport Number", "The clients passport number", "\\d{5,15}", "Minimum of 5 and max of 15", null, LocationBehavior.NOT_USED, false, _PatientIdentifierType.PASSPORT_NUMBER));
 
 		install(personAttributeType("Telephone contact", "Telephone contact number",
 				String.class, null, false, 1.0, _PersonAttributeType.TELEPHONE_CONTACT));

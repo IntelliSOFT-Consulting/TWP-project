@@ -35,6 +35,6 @@ public class MetadataTest {
 		Assert.assertThat(Metadata.Concept.ABACAVIR, is("70056AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"));
 		Assert.assertThat(Metadata.Form.CLINICAL_ENCOUNTER, is("e958f902-64df-4819-afd4-7fb061f59308"));
 		Assert.assertThat(Metadata.IdentifierType.OLD, is("8d79403a-c2cc-11de-8d13-0010c6dffd0f"));
-		Assert.assertThat(Metadata.Program.HIV, is("dfdc6d40-2f2f-463d-ba90-cc97350441a8"));
+		Assert.assertThat(Metadata.Program.NUTRITION, is("dfdc6d40-2f2f-463d-ba90-cc97350441a8"));
 	}
 }

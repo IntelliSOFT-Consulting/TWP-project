@@ -20,7 +20,7 @@ import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- * Tests for {@link HivMetadata}
+ * Tests for {@link NutritionMetadata}
  */
 public class HivMetadataTest extends BaseModuleContextSensitiveTest {
 
@@ -28,7 +28,7 @@ public class HivMetadataTest extends BaseModuleContextSensitiveTest {
 	private CommonMetadata commonMetadata;
 
 	@Autowired
-	private HivMetadata hivMetadata;
+	private NutritionMetadata nutritionMetadata;
 
 	/**
 	 * Setup each test
@@ -39,11 +39,11 @@ public class HivMetadataTest extends BaseModuleContextSensitiveTest {
 	}
 
 	/**
-	 * @see HivMetadata#install()
+	 * @see NutritionMetadata#install()
 	 */
 	@Test
 	public void install_shouldInstallAllMetadata() {
 		commonMetadata.install();
-		hivMetadata.install();
+		nutritionMetadata.install();
 	}
 }

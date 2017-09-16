@@ -43,6 +43,15 @@
                 <tr>
                     <td>
                         <table>
+                        <% if (command.inNutritionProgram) { %>
+                        <tr>
+                            <td class="ke-field-label">Nutrition Number</td>
+                            <td>${
+                                    ui.includeFragment("kenyaui", "widget/field", [object: command, property: "uniquePatientNumber"])}</td>
+                            <td class="ke-field-instructions">(Nutrition program<% if (!command.uniquePatientNumber) { %>, if assigned<%
+                                    } %>)</td>
+                        </tr>
+                        <% } %>
                             <tr>
                                 <td class="ke-field-label">Account Number</td>
                                 <td>${ui.includeFragment("kenyaui", "widget/field", [object: command, property: "patientClinicNumber"])}</td>
@@ -57,8 +66,8 @@
 
                             <tr>
                                 <td class="ke-field-label">Passport Number</td>
-                                <td>${ui.includeFragment("kenyaui", "widget/field", [object: command, property: "uniquePatientNumber"])}</td>
-                                <td class="ke-field-instructions"><% if (!command.uniquePatientNumber) { %>(if available)<% } %></td>
+                                <td>${ui.includeFragment("kenyaui", "widget/field", [object: command, property: "passportNumber"])}</td>
+                                <td class="ke-field-instructions"><% if (!command.passportNumber) { %>(if available)<% } %></td>
                             </tr>
                             <tr>
                                 <td class="ke-field-label">Mobile Number</td>

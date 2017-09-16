@@ -28,7 +28,7 @@ import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.wellness.api.KenyaEmrService;
 import org.openmrs.module.kenyacore.test.TestUtils;
 import org.openmrs.module.wellness.metadata.CommonMetadata;
-import org.openmrs.module.wellness.metadata.HivMetadata;
+import org.openmrs.module.wellness.metadata.NutritionMetadata;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -48,7 +48,7 @@ public class KenyaEmrServiceImplTest extends BaseModuleContextSensitiveTest {
 	private FacilityMetadata facilityMetadata;
 
 	@Autowired
-	private HivMetadata hivMetadata;
+	private NutritionMetadata nutritionMetadata;
 
 	@Autowired
 	private KenyaEmrService service;
@@ -62,7 +62,7 @@ public class KenyaEmrServiceImplTest extends BaseModuleContextSensitiveTest {
 
 		commonMetadata.install();
 		facilityMetadata.install(false); // Don't do full facility sync
-		hivMetadata.install();
+		nutritionMetadata.install();
 
 		LocationAttributeType mflCode = MetadataUtils.existing(LocationAttributeType.class, FacilityMetadata._LocationAttributeType.MASTER_FACILITY_CODE);
 

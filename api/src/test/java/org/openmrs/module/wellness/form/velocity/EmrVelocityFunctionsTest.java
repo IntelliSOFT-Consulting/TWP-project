@@ -27,7 +27,7 @@ import org.openmrs.module.kenyacore.test.TestUtils;
 import org.openmrs.module.wellness.Dictionary;
 import org.openmrs.module.wellness.EmrConstants;
 import org.openmrs.module.wellness.metadata.CommonMetadata;
-import org.openmrs.module.wellness.metadata.HivMetadata;
+import org.openmrs.module.wellness.metadata.NutritionMetadata;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpSession;
@@ -46,7 +46,7 @@ public class EmrVelocityFunctionsTest extends BaseModuleContextSensitiveTest {
 	private CommonMetadata commonMetadata;
 
 	@Autowired
-	private HivMetadata hivMetadata;
+	private NutritionMetadata nutritionMetadata;
 
 	private EmrVelocityFunctions functionsForSession1, functionsForSession2;
 
@@ -58,7 +58,7 @@ public class EmrVelocityFunctionsTest extends BaseModuleContextSensitiveTest {
 		executeDataSet("dataset/test-concepts.xml");
 
 		commonMetadata.install();
-		hivMetadata.install();
+		nutritionMetadata.install();
 
 		HttpSession httpSession = new MockHttpSession();
 		String formXml = "<htmlform></htmlform>";
@@ -78,7 +78,7 @@ public class EmrVelocityFunctionsTest extends BaseModuleContextSensitiveTest {
 	@Test
 	public void hasHivUniquePatientNumber() {
 		// Give patient #7 a UPN
-		PatientIdentifierType upn = MetadataUtils.existing(PatientIdentifierType.class, HivMetadata._PatientIdentifierType.UNIQUE_PATIENT_NUMBER);
+		PatientIdentifierType upn = MetadataUtils.existing(PatientIdentifierType.class, NutritionMetadata._PatientIdentifierType.NUTRITION_NUMBER);
 		TestUtils.savePatientIdentifier(TestUtils.getPatient(7), upn, "1234567890");
 
 		// Patient #7 now has a UPN

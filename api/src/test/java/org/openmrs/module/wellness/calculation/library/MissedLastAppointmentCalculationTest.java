@@ -24,7 +24,7 @@ import org.openmrs.calculation.patient.PatientCalculationService;
 import org.openmrs.calculation.result.CalculationResultMap;
 import org.openmrs.module.kenyacore.test.TestUtils;
 import org.openmrs.module.wellness.metadata.CommonMetadata;
-import org.openmrs.module.wellness.metadata.HivMetadata;
+import org.openmrs.module.wellness.metadata.NutritionMetadata;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +44,7 @@ public class MissedLastAppointmentCalculationTest extends BaseModuleContextSensi
 	private CommonMetadata commonMetadata;
 
 	@Autowired
-	private HivMetadata hivMetadata;
+	private NutritionMetadata nutritionMetadata;
 
 	/**
 	 * Setup each test
@@ -54,7 +54,7 @@ public class MissedLastAppointmentCalculationTest extends BaseModuleContextSensi
 		executeDataSet("dataset/test-concepts.xml");
 
 		commonMetadata.install();
-		hivMetadata.install();
+		nutritionMetadata.install();
 	}
 
 	/**
@@ -70,7 +70,7 @@ public class MissedLastAppointmentCalculationTest extends BaseModuleContextSensi
 	 */
 	@Test
 	public void evaluate_shouldDetermineWhetherPatientsWhoMissedAppointmentsOrDefaulted() throws Exception {
-		Program hivProgram = MetadataUtils.existing(Program.class, HivMetadata._Program.HIV);
+		Program hivProgram = MetadataUtils.existing(Program.class, NutritionMetadata._Program.NUTRITION);
 		TestUtils.enrollInProgram(TestUtils.getPatient(7), hivProgram, TestUtils.date(2000, 6, 1));
 		// Give patient #7 a return visit obs of 10 days ago
 		Concept returnVisit = Context.getConceptService().getConcept(5096);

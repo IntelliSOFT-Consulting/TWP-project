@@ -23,7 +23,7 @@ import org.openmrs.module.kenyacore.report.cohort.definition.CalculationCohortDe
 import org.openmrs.module.kenyacore.report.cohort.definition.DateObsValueBetweenCohortDefinition;
 import org.openmrs.module.wellness.Dictionary;
 import org.openmrs.module.wellness.calculation.library.InProgramCalculation;
-import org.openmrs.module.wellness.metadata.HivMetadata;
+import org.openmrs.module.wellness.metadata.NutritionMetadata;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.reporting.cohort.definition.AgeCohortDefinition;
 import org.openmrs.module.reporting.cohort.definition.CodedObsCohortDefinition;
@@ -266,7 +266,7 @@ public class CommonCohortLibrary {
 		ProgramEnrollmentCohortDefinition cd = new ProgramEnrollmentCohortDefinition();
 		cd.setName("Those patients who completed program on date");
 		cd.addParameter(new Parameter("completedOnOrBefore", "Complete Date", Date.class));
-		cd.setPrograms(Arrays.asList(MetadataUtils.existing(Program.class, HivMetadata._Program.HIV)));
+		cd.setPrograms(Arrays.asList(MetadataUtils.existing(Program.class, NutritionMetadata._Program.NUTRITION)));
 		return cd;
 	}
 

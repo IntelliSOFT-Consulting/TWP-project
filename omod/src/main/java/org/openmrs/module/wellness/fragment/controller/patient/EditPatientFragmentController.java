@@ -32,7 +32,7 @@ import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.wellness.Dictionary;
 import org.openmrs.module.wellness.api.KenyaEmrService;
 import org.openmrs.module.wellness.metadata.CommonMetadata;
-import org.openmrs.module.wellness.metadata.HivMetadata;
+import org.openmrs.module.wellness.metadata.NutritionMetadata;
 import org.openmrs.module.wellness.validator.TelephoneNumberValidator;
 import org.openmrs.module.wellness.wrapper.PatientWrapper;
 import org.openmrs.module.wellness.wrapper.PersonWrapper;
@@ -167,6 +167,7 @@ public class EditPatientFragmentController {
 		private String uniquePatientNumber;
 		private String mobileNumber;
 		private String otherNumber;
+		private String passportNumber;
 
 		private String telephoneContact;
 		private String nameOfNextOfKin;
@@ -228,6 +229,7 @@ public class EditPatientFragmentController {
 			nationalIdNumber = wrapper.getNationalIdNumber();
 			mobileNumber = wrapper.getMobileNumber();
 			otherNumber = wrapper.getOtherMobileNumber();
+			passportNumber = wrapper.getPassportNumber();
 
 			nameOfNextOfKin = wrapper.getNextOfKinName();
 			nextOfKinRelationship = wrapper.getNextOfKinRelationship();
@@ -298,10 +300,11 @@ public class EditPatientFragmentController {
 			validateField(errors, "personAddress");
 
 			validateIdentifierField(errors, "nationalIdNumber", CommonMetadata._PatientIdentifierType.NATIONAL_ID);
-			validateIdentifierField(errors, "patientClinicNumber", CommonMetadata._PatientIdentifierType.PATIENT_CLINIC_NUMBER);
-			validateIdentifierField(errors, "uniquePatientNumber", HivMetadata._PatientIdentifierType.UNIQUE_PATIENT_NUMBER);
+			validateIdentifierField(errors, "patientClinicNumber", CommonMetadata._PatientIdentifierType.CLIENT_ACCOUNT_NUMBER);
+			validateIdentifierField(errors, "passportNumber", CommonMetadata._PatientIdentifierType.PASSPORT_NUMBER);
 			validateIdentifierField(errors, "mobileNumber", CommonMetadata._PatientIdentifierType.MOBILE_NUMBER);
 			validateIdentifierField(errors, "otherNumber", CommonMetadata._PatientIdentifierType.OTHER_MOBILE_NUMBER);
+			//validateIdentifierField(errors, "otherNumber", CommonMetadata._PatientIdentifierType.OTHER_MOBILE_NUMBER);
 
 			// check birth date against future dates and really old dates
 			if (birthdate != null) {
@@ -398,6 +401,7 @@ public class EditPatientFragmentController {
 			wrapper.setNextOfKinContact(nextOfKinContact);
 			wrapper.setNextOfKinAddress(nextOfKinAddress);
 			wrapper.setSubChiefName(subChiefName);
+			wrapper.setPassportNumber(passportNumber, location);
 
 			// Make sure everyone gets an OpenMRS ID
 			PatientIdentifierType openmrsIdType = MetadataUtils.existing(PatientIdentifierType.class, CommonMetadata._PatientIdentifierType.OPENMRS_ID);
@@ -468,13 +472,13 @@ public class EditPatientFragmentController {
 			}
 		}
 
-		public boolean isInHivProgram() {
+		public boolean isInNutritionProgram() {
 			if (original == null || !original.isPatient()) {
 				return false;
 			}
 			ProgramWorkflowService pws = Context.getProgramWorkflowService();
-			Program hivProgram = MetadataUtils.existing(Program.class, HivMetadata._Program.HIV);
-			for (PatientProgram pp : pws.getPatientPrograms((Patient) original, hivProgram, null, null, null, null, false)) {
+			Program nutrition = MetadataUtils.existing(Program.class, NutritionMetadata._Program.NUTRITION);
+			for (PatientProgram pp : pws.getPatientPrograms((Patient) original, nutrition, null, null, null, null, false)) {
 				if (pp.getActive()) {
 					return true;
 				}
@@ -777,6 +781,20 @@ public class EditPatientFragmentController {
 		 */
 		public void setSubChiefName(String subChiefName) {
 			this.subChiefName = subChiefName;
+		}
+
+		/**
+		 * @return the passportNumber
+		 */
+		public String getPassportNumber(){
+			return passportNumber;
+		}
+		/**
+		 * Set the passportNumber
+		 * @param passportNumber
+		 */
+		public void setPassportNumber(String passportNumber){
+			this.passportNumber = passportNumber;
 		}
 	}
 }
