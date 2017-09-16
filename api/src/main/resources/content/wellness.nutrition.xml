@@ -6,20 +6,20 @@
 	<!-- ===================== Program ===================== -->
 
 	<bean id="wellness.nutrition.program" class="org.openmrs.module.kenyacore.program.ProgramDescriptor">
-		<property name="targetUuid" value="${metadata.program.HIV}" />
+		<property name="targetUuid" value="${metadata.program.NUTRITION}" />
 		<property name="eligibilityCalculation" value="org.openmrs.module.wellness.calculation.library.nutrition.EligibleForNutritionProgramCalculation" />
 		<property name="defaultEnrollmentForm" ref="wellness.nutrition.form.enrollment" />
 		<property name="defaultCompletionForm" ref="wellness.nutrition.form.completion" />
 		<property name="visitForms">
 			<set>
-				<ref bean="wellness.common.form.labResults" />
-				<ref bean="wellness.common.form.labResults1" />
-				<ref bean="wellness.common.form.labResults2" />
+				<ref bean="wellness.nutrition.form.consultation" />
 			</set>
 		</property>
 		<property name="reports">
 			<set>
 				<ref bean="wellness.common.report.allPatients" />
+				<ref bean="wellness.nutrition.report.lostToFollowUp" />
+				<ref bean="wellness.common.report.missedAppointment" />
 			</set>
 		</property>
 		<property name="fragments">
@@ -34,9 +34,9 @@
 
 	<!-- ===================== Identifiers ===================== -->
 
-	<!-- Unique Patient Number -->
-	<bean id="kenyaemr.hiv.identifier.upn" class="org.openmrs.module.kenyacore.identifier.IdentifierDescriptor">
-		<property name="targetUuid" value="${metadata.identifiertype.UNIQUE_PATIENT_NUMBER}" />
+	<!-- Unique client's Number -->
+	<bean id="wellness.nutrition.identifier.upn" class="org.openmrs.module.kenyacore.identifier.IdentifierDescriptor">
+		<property name="targetUuid" value="${metadata.identifiertype.NUTRITION_NUMBER}" />
 		<property name="order" value="50" />
 	</bean>
 
@@ -70,14 +70,25 @@
 		<property name="htmlform" value="wellness:nutrition/nutritionDiscontinuation.html" />
 	</bean>
 
+	<bean id="wellness.nutrition.form.consultation" class="org.openmrs.module.kenyacore.form.FormDescriptor">
+		<property name="targetUuid" value="${metadata.form.CLINICAL_ENCOUNTER}" />
+		<property name="apps">
+			<set>
+				<ref bean="wellness.app.intake" />
+				<ref bean="wellness.app.clinician" />
+			</set>
+		</property>
+		<property name="icon" value="kenyaui:forms/generic.png" />
+		<property name="htmlform" value="wellness:nutrition/nutritionConsultations.html" />
+	</bean>
+
 	<!-- ===================== Reports ===================== -->
 
-	<!--<bean id="kenyaemr.hiv.report.lostToFollowUp" class="org.openmrs.module.kenyacore.report.CalculationReportDescriptor">
+	<bean id="wellness.nutrition.report.lostToFollowUp" class="org.openmrs.module.kenyacore.report.CalculationReportDescriptor">
 		<property name="targetUuid" value="70bca1e5-7c68-4500-bfb8-0795549f35a4" />
-		<property name="name" value="Patients who are lost to followup" />
-		<property name="calculation" value="org.openmrs.module.wellness.calculation.library.hiv.LostToFollowUpCalculation" />
-		&lt;!&ndash;<property name="displayIdentifier" ref="wellness.nutrition.identifier.upn" />&ndash;&gt;
-		<property name="apps"><set><ref bean="kenyaemr.app.reports" /></set></property>
-	</bean>-->
+		<property name="name" value="Clients who are lost to followup" />
+		<property name="calculation" value="org.openmrs.module.wellness.calculation.library.nutrition.LostToFollowUpCalculation" />
+		<property name="apps"><set><ref bean="wellness.app.reports" /></set></property>
+	</bean>
 
 </beans>

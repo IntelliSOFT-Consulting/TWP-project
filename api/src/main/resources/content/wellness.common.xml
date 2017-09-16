@@ -16,6 +16,7 @@
 				<ref bean="wellness.common.form.labResults" />
 				<ref bean="wellness.common.form.labResults1" />
 				<ref bean="wellness.common.form.labResults2" />
+				<ref bean="wellness.nutrition.form.appointment" />
 			</set>
 		</property>
 	</bean>
@@ -41,8 +42,8 @@
 	</bean>
 
 	<!-- Patient Clinic Number -->
-	<bean id="kenyaemr.common.identifier.pcn" class="org.openmrs.module.kenyacore.identifier.IdentifierDescriptor">
-		<property name="targetUuid" value="${metadata.identifiertype.PATIENT_CLINIC_NUMBER}" />
+	<bean id="wellness.common.identifier.pcn" class="org.openmrs.module.kenyacore.identifier.IdentifierDescriptor">
+		<property name="targetUuid" value="${metadata.identifiertype.CLIENT_ACCOUNT_NUMBER}" />
 		<property name="order" value="200" />
 	</bean>
 
@@ -94,6 +95,30 @@
 		<property name="icon" value="kenyaui:forms/labresults.png" />
 		<property name="htmlform" value="wellness:labResultsHaematology.html" />
 		<property name="order" value="200050" />
+	</bean>
+
+	<bean id="wellness.nutrition.form.triage" class="org.openmrs.module.kenyacore.form.FormDescriptor">
+		<property name="targetUuid" value="${metadata.form.TRIAGE}" />
+		<property name="apps">
+			<set>
+				<ref bean="wellness.app.intake" />
+				<ref bean="wellness.app.clinician" />
+			</set>
+		</property>
+		<property name="icon" value="kenyaui:forms/generic.png" />
+		<property name="htmlform" value="wellness:nutrition/nutritionTriage.html" />
+	</bean>
+
+	<bean id="wellness.nutrition.form.appointment" class="org.openmrs.module.kenyacore.form.FormDescriptor">
+		<property name="targetUuid" value="${metadata.form.APPOINTMENTS}" />
+		<property name="apps">
+			<set>
+				<ref bean="wellness.app.intake" />
+				<ref bean="wellness.app.clinician" />
+			</set>
+		</property>
+		<property name="icon" value="kenyaui:forms/generic.png" />
+		<property name="htmlform" value="wellness:nutrition/nutritionAppointment.html" />
 	</bean>
 
 

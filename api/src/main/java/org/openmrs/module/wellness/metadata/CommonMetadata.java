@@ -106,7 +106,7 @@ public class CommonMetadata extends AbstractMetadataBundle {
 		install(encounterType("Appointments", "Collection of appointment information", _EncounterType.CLIENT_APPOINTMENTS));
 
 
-		install(form("Clinical Encounter", null, _EncounterType.CONSULTATION, "1", _Form.CLINICAL_ENCOUNTER));
+		install(form("Consultation Encounter", null, _EncounterType.CONSULTATION, "1", _Form.CLINICAL_ENCOUNTER));
 		install(form("Lab Results - Endocrinology", null, _EncounterType.LAB_RESULTS_INDOCRINOLOGY, "1", _Form.LAB_RESULTS_INDOCRINOLOGY));
 		install(form("Triage", null, _EncounterType.TRIAGE, "1", _Form.TRIAGE));
 		install(form("Lab Results - Haematology", "Used to collect haematology lab results",  _EncounterType.LAB_RESULTS_HAEMATOLOGY, "1.0", _Form.LAB_RESULTS_HAEMATOLOGY ));
@@ -129,8 +129,8 @@ public class CommonMetadata extends AbstractMetadataBundle {
 		install(patientIdentifierType("National ID", "Kenyan national identity card number",
 				"\\d{5,10}", "Between 5 and 10 consecutive digits", null,
 				LocationBehavior.NOT_USED, false, _PatientIdentifierType.NATIONAL_ID));
-		install(patientIdentifierType("Phone Number", "The clients mobile number", "\\d{5,15}", "Minimum of 5 and max of 15", null, LocationBehavior.NOT_USED, false, _PatientIdentifierType.MOBILE_NUMBER));
-		install(patientIdentifierType("Other phone Number", "The clients alternative mobile number", "\\d{5,15}", "Minimum of 5 and max of 15", null, LocationBehavior.NOT_USED, false, _PatientIdentifierType.OTHER_MOBILE_NUMBER));
+		install(patientIdentifierType("Mobile Number", "The clients mobile number", "\\d{5,15}", "Minimum of 5 and max of 15", null, LocationBehavior.NOT_USED, false, _PatientIdentifierType.MOBILE_NUMBER));
+		install(patientIdentifierType("Other Mobile Number", "The clients alternative mobile number", "\\d{5,15}", "Minimum of 5 and max of 15", null, LocationBehavior.NOT_USED, false, _PatientIdentifierType.OTHER_MOBILE_NUMBER));
 		install(patientIdentifierType("Passport Number", "The clients passport number", "\\d{5,15}", "Minimum of 5 and max of 15", null, LocationBehavior.NOT_USED, false, _PatientIdentifierType.PASSPORT_NUMBER));
 
 		install(personAttributeType("Telephone contact", "Telephone contact number",

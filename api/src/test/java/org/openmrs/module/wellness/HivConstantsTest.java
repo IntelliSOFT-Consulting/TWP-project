@@ -17,12 +17,12 @@ package org.openmrs.module.wellness;
 import org.junit.Test;
 
 /**
- * Tests for {@link HivConstants}
+ * Tests for {@link NutritionConstants}
  */
 public class HivConstantsTest {
 
 	@Test
 	public void integration() {
-		new HivConstants();
+		new NutritionConstants();
 	}
 }

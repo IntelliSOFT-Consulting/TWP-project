@@ -39,7 +39,7 @@
         <fieldset>
             <legend>Identifiers</legend>
 
-            <table>
+            <table width="100%">
                 <tr>
                     <td>
                         <table>
@@ -81,14 +81,8 @@
                             </tr>
                         </table>
                     </td>
-                    <td>
-                        <table>
-                            <tr>
-                                <td rowspan="3" align="right">
-                                    passport here
-                                </td>
-                            </tr>
-                        </table>
+                    <td align="right">
+                        Passport photo will go here
                     </td>
                 </tr>
 

@@ -29,7 +29,7 @@
 
 	<bean id="wellness.app.clinician" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
 		<constructor-arg value="wellness.medicalEncounter" />
-		<constructor-arg value="Clinician" />
+		<constructor-arg value="Consultant" />
 		<constructor-arg value="wellness/clinician/clinicianHome.page" />
 		<constructor-arg value="kenyaui:apps/clinician.png" />
 		<constructor-arg value="300" />

@@ -15,22 +15,13 @@
 package org.openmrs.module.wellness;
 
 /**
- * Constants related to HIV care
+ * Constants related to Nutrition care
  */
-public class HivConstants {
+public class NutritionConstants {
 
 	/**
 	 * Number of days without an encounter before a patient is consider lost to follow up
 	 */
 	public static final int LOST_TO_FOLLOW_UP_THRESHOLD_DAYS = 90;
 
-	/**
-	 * Number of days between old CD4 count and need for new CD4 count
-	 */
-	public static final int NEEDS_CD4_COUNT_AFTER_DAYS = 180;
-
-	/**
-	 * Number of days between old CD4 count and current CD4 count to determine declining status
-	 */
-	public static final int DECLINING_CD4_COUNT_ACROSS_DAYS = 180;
 }
