@@ -25,6 +25,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 import org.openmrs.module.wellness.Dictionary;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class LabSummaryFragmentController {
     public void controller(FragmentModel model, @FragmentParam("patient") Patient patient){
@@ -44,39 +46,39 @@ public class LabSummaryFragmentController {
         Encounter haematologyEncounter = EmrCalculationUtils.encounterResultForPatient(haematologyData, patient.getId());
         Encounter indocrinologyEncounter = EmrCalculationUtils.encounterResultForPatient(indocrinologyData, patient.getId());
 
+        model.addAttribute("biochemistryMap", biochemistryEncounter);
+        model.addAttribute("haematologyMap", haematologyEncounter);
+        model.addAttribute("indocrinologyMap", indocrinologyEncounter);
+
 
         if(biochemistryEncounter != null && biochemistryEncounter.getObs().size() > 0) {
 
             Set<Obs> bioObs = biochemistryEncounter.getObs();
-            Map<String, Obs> bioActualData = new HashMap<String, Obs>();
+            Map<String, String> bioActualData = new HashMap<String, String>();
             for(Obs obs:bioObs){
-                bioActualData.put(translateConceptsToNames(obs.getConcept()), obs);
+                bioActualData.put(translateConceptsToNames(obs.getConcept()), translateObs(obs));
             }
-
-            model.addAttribute("biochemistryMap", biochemistryEncounter);
             model.addAttribute("bioObs", bioActualData);
         }
 
         if(haematologyEncounter != null && haematologyEncounter.getObs().size() > 0) {
             Set<Obs> haematologyObs = haematologyEncounter.getObs();
 
-            Map<String, Obs> haematologyActualData = new HashMap<String, Obs>();
+            Map<String, String> haematologyActualData = new HashMap<String, String>();
             for(Obs obs:haematologyObs){
-                haematologyActualData.put(translateConceptsToNames(obs.getConcept()), obs);
+                haematologyActualData.put(translateConceptsToNames(obs.getConcept()), translateObs(obs));
             }
-            model.addAttribute("haematologyMap", haematologyEncounter);
             model.addAttribute("haematologyObs", haematologyActualData);
         }
 
         if(indocrinologyEncounter != null && indocrinologyEncounter.getObs().size() > 0) {
 
             Set<Obs> indocrinologyObs = indocrinologyEncounter.getObs();
-            Map<String, Obs> indocrinologyObsActualData = new HashMap<String, Obs>();
+            Map<String, String> indocrinologyObsActualData = new HashMap<String, String>();
             for(Obs obs:indocrinologyObs){
-                indocrinologyObsActualData.put(translateConceptsToNames(obs.getConcept()), obs);
+                indocrinologyObsActualData.put(translateConceptsToNames(obs.getConcept()), translateObs(obs));
             }
 
-            model.addAttribute("indocrinologyMap", indocrinologyEncounter);
             model.addAttribute("indocrinologyObs", indocrinologyObsActualData);
         }
     }
@@ -106,7 +108,85 @@ public class LabSummaryFragmentController {
         else if(concept.equals(Dictionary.getConcept("161505AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"))){
             name = "Thyrotropin (TSH) -S";
         }
+        else if(concept.equals(Dictionary.getConcept("679AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"))){
+            name = "RBC";
+        }
+        else if(concept.equals(Dictionary.getConcept("21AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"))){
+            name = "Hb (HAEMOGLOBIN)";
+        }
+        else if(concept.equals(Dictionary.getConcept("1015AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"))){
+            name = "HAEMATOCTRIT";
+        }
+        else if(concept.equals(Dictionary.getConcept("851AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"))){
+            name = "MCV";
+        }
+        else if(concept.equals(Dictionary.getConcept("1018AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"))){
+            name = "MCH";
+        }
+        else if(concept.equals(Dictionary.getConcept("1017AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"))){
+            name = "MCHC";
+        }
+        else if(concept.equals(Dictionary.getConcept("1016AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"))){
+            name = "RDW";
+        }
+        else if(concept.equals(Dictionary.getConcept("1132AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"))){
+            name = "SODIUM, serum";
+        }
+        else if(concept.equals(Dictionary.getConcept("1133AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"))){
+            name = "S-POTASSIUM";
+        }
+        else if(concept.equals(Dictionary.getConcept("1134AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"))){
+            name = "S-CHLORIDE";
+        }
+        else if(concept.equals(Dictionary.getConcept("857AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"))){
+            name = "S-UREA";
+        }
+        else if(concept.equals(Dictionary.getConcept("790AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"))){
+            name = "S-CREATININE";
+        }
+        else if(concept.equals(Dictionary.getConcept("160912AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"))){
+            name = "P-GLUCOSE fasting";
+        }
+        else if(concept.equals(Dictionary.getConcept("1006AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"))){
+            name = "S-CHOLESTEROL";
+        }
+        else if(concept.equals(Dictionary.getConcept("1008AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"))){
+            name = "S-LDL CHOLESTEROL";
+        }
+        else if(concept.equals(Dictionary.getConcept("085b780e-b4f7-4827-bb55-feb17841203e"))){
+            name = "S-NON HDL CHOLESTEROL";
+        }
+        else if(concept.equals(Dictionary.getConcept("049325f7-337e-4608-a58d-a694040ce8a3"))){
+            name = "S-CHOL./HDL RATIO";
+        }
+        else if(concept.equals(Dictionary.getConcept("1009AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"))){
+            name = "S-TRIGLYCERIDE";
+        }
+        else if(concept.equals(Dictionary.getConcept("820629aa-18c4-4d17-a160-15f4c04a5263"))){
+            name = "UREA:CREATININE RATIO";
+        }
+        else if(concept.equals(Dictionary.getConcept("161132AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"))){
+            name = "eGFR-(CKD-EPI)";
+        }
+        else if(concept.equals(Dictionary.getConcept("159829AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"))){
+            name = "S-g-GLUTAMYL TRANSFERASE";
+        }
 
         return name;
+    }
+
+    private String translateObs(Obs obs){
+        String results = "";
+        if (obs.getValueDatetime() != null) {
+            results = formatDate(obs.getValueDatetime());
+        }
+        else if (obs.getValueNumeric() != null) {
+            results = obs.getValueNumeric().toString();
+        }
+        return results;
+    }
+    private String formatDate(Date date) {
+        DateFormat dateFormatter = new SimpleDateFormat("dd/MM/yyyy");
+        return date == null?"":dateFormatter.format(date);
     }
 }

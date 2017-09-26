@@ -8,7 +8,7 @@
             <tr>
                 <th colspan="2">Biochemistry on: ${ biochemistryMap.encounterDatetime }
             </tr>
-            <% bioObs.each { name, value -> e%>
+            <% bioObs.each { name, value -> %>
                 <tr>
                     <td>${name}</td>
                     <td>${value}</td>
@@ -25,9 +25,12 @@
         <tr>
             <th colspan="2">Haematology on: ${ haematologyMap.encounterDatetime }
         </tr>
-        <tr>
-            <td>${haematologyObs}</td>
-        </tr>
+        <% haematologyObs.each { name, value -> %>
+            <tr>
+                <td>${name}</td>
+                <td>${value}</td>
+            </tr>
+        <%}%>
 
     </table>
  </div>
@@ -38,9 +41,12 @@
         <tr>
             <th colspan="2">Indocrinology on: ${ indocrinologyMap.encounterDatetime }
         </tr>
-        <tr>
-            <td>${indocrinologyObs}</td>
-        </tr>
+        <% indocrinologyObs.each { name, value -> %>
+            <tr>
+                <td>${name}</td>
+                <td>${value}</td>
+            </tr>
+        <%}%>
 
     </table>
   </div>
