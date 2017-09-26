@@ -49,6 +49,8 @@
 			<set>
 				<ref bean="wellness.app.registration" />
 				<ref bean="wellness.app.chart" />
+				<ref bean="wellness.app.clinician" />
+				<ref bean="wellness.app.intake" />
 			</set>
 		</property>
 		<property name="icon" value="kenyaui:forms/generic.png" />
@@ -64,6 +66,8 @@
 			<set>
 				<ref bean="wellness.app.registration" />
 				<ref bean="wellness.app.chart" />
+				<ref bean="wellness.app.clinician" />
+				<ref bean="wellness.app.intake" />
 			</set>
 		</property>
 		<property name="icon" value="kenyaui:forms/completion.png" />
@@ -74,7 +78,6 @@
 		<property name="targetUuid" value="${metadata.form.CLINICAL_ENCOUNTER}" />
 		<property name="apps">
 			<set>
-				<ref bean="wellness.app.intake" />
 				<ref bean="wellness.app.clinician" />
 			</set>
 		</property>

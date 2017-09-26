@@ -66,8 +66,6 @@ public class SecurityMetadata extends AbstractMetadataBundle {
 				EmrConstants.APP_CLINICIAN,
 				EmrConstants.APP_CHART,
 				EmrConstants.APP_REPORTS,
-				EmrConstants.APP_DIRECTORY,
-				EmrConstants.APP_FACILITIES,
 				EmrConstants.APP_ADMIN,
 				DqConstants.APP_DATAQUALITY,
 				DqConstants.APP_DATAMANAGER
@@ -108,9 +106,7 @@ public class SecurityMetadata extends AbstractMetadataBundle {
 				idSet(_Role.API_PRIVILEGES_VIEW_AND_EDIT),
 				idSet(
 						app(EmrConstants.APP_REGISTRATION),
-						app(EmrConstants.APP_INTAKE),
-						app(EmrConstants.APP_DIRECTORY),
-						app(EmrConstants.APP_FACILITIES)
+						app(EmrConstants.APP_INTAKE)
 				)
 		));
 
@@ -122,8 +118,6 @@ public class SecurityMetadata extends AbstractMetadataBundle {
 						app(EmrConstants.APP_CLINICIAN),
 						app(EmrConstants.APP_CHART),
 						app(EmrConstants.APP_REPORTS),
-						app(EmrConstants.APP_DIRECTORY),
-						app(EmrConstants.APP_FACILITIES),
 						app(DqConstants.APP_DATAQUALITY),
 						app(DqConstants.APP_DATAMANAGER)
 				)

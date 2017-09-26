@@ -225,4 +225,19 @@ public class PatientWrapper extends AbstractPatientWrapper {
 	public String getPassportNumber(){
 		return getAsIdentifier(CommonMetadata._PatientIdentifierType.PASSPORT_NUMBER);
 	}
+
+	/**
+	 * set the patient image
+	 */
+	public void setPatientImage(String patientImage) {
+		setAsAttribute(CommonMetadata._PersonAttributeType.PATIENT_IMAGE, patientImage);
+	}
+
+	/**
+	 * Get the patient image
+	 * @return patient_image
+	 */
+	public String getPatientImage() {
+		return getAsAttribute(CommonMetadata._PersonAttributeType.PATIENT_IMAGE);
+	}
 }

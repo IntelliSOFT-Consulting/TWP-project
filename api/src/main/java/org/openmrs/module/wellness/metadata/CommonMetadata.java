@@ -73,6 +73,7 @@ public class CommonMetadata extends AbstractMetadataBundle {
 		public static final String SUBCHIEF_NAME = "40fa0c9c-7415-43ff-a4eb-c7c73d7b1a7a";
 		public static final String TELEPHONE_CONTACT = "b2c38640-2603-4629-aebd-3b54f33f1e3a";
 		public static final String EMAIL_ADDRESS = "b8d0b331-1d2d-4a9a-b741-1816f498bdb6";
+		public static final String PATIENT_IMAGE = "8ebdc3ac-a1ea-11e7-8dbf-d3167fc0cc32";
 	}
 
 	public static final class _Provider {

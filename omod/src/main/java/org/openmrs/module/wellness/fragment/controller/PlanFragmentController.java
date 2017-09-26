@@ -22,7 +22,7 @@ import java.util.Date;
  * Created by codehub on 10/30/15.
  * A fragment controller for a patient summary details
  */
-public class SummariesFragmentController {
+public class PlanFragmentController {
 
     public void controller(@FragmentParam("patient") Patient patient,
                            FragmentModel model){

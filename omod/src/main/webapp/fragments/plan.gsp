@@ -22,7 +22,7 @@ table.moh257 > tbody > tr > td, table.moh257 > tbody > tr > th {
         <div>
             <p>
                 More information is needed for complete program generation. Go to Registartion, enroll the patient into nutrition program
-                ,check the patient in then fill at least the <b>Lab results - Boichemistry</b> form. Provide the required values for this
+                ,check the patient in then fill in the required lab results that will provide the required values for this
                 Compuations.
             </p>
         </div>

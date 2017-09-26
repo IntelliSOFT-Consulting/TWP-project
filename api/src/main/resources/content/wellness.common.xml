@@ -21,14 +21,14 @@
 		</property>
 	</bean>
 
-	<bean id="kenyaemr.config.regimen" class="org.openmrs.module.wellness.regimen.RegimenConfiguration">
+	<bean id="wellness.config.regimen" class="org.openmrs.module.wellness.regimen.RegimenConfiguration">
 		<property name="definitionsPath" value="regimens.xml" />
 	</bean>
 
-	<bean id="kenyaemr.config.lab" class="org.openmrs.module.kenyacore.lab.LabConfiguration">
+	<bean id="wellness.config.lab" class="org.openmrs.module.kenyacore.lab.LabConfiguration">
 		<property name="commonCatalogs">
 			<set>
-				<ref bean="kenyaemr.common.lab.standardcatalog" />
+				<ref bean="wellness.common.lab.standardcatalog" />
 			</set>
 		</property>
 	</bean>
@@ -36,7 +36,7 @@
 	<!-- ===================== Identifiers ===================== -->
 
 	<!-- National Identification Number -->
-	<bean id="kenyaemr.common.identifier.national" class="org.openmrs.module.kenyacore.identifier.IdentifierDescriptor">
+	<bean id="wellness.common.identifier.national" class="org.openmrs.module.kenyacore.identifier.IdentifierDescriptor">
 		<property name="targetUuid" value="${metadata.identifiertype.NATIONAL_ID}" />
 		<property name="order" value="100" />
 	</bean>
@@ -48,13 +48,13 @@
 	</bean>
 
 	<!-- Old Identification Number -->
-	<bean id="kenyaemr.common.identifier.old" class="org.openmrs.module.kenyacore.identifier.IdentifierDescriptor">
+	<bean id="wellness.common.identifier.old" class="org.openmrs.module.kenyacore.identifier.IdentifierDescriptor">
 		<property name="targetUuid" value="${metadata.identifiertype.OLD}" />
 		<property name="order" value="300" />
 	</bean>
 
 	<!-- OpenMRS ID -->
-	<bean id="kenyaemr.common.identifier.mrn" class="org.openmrs.module.kenyacore.identifier.IdentifierDescriptor">
+	<bean id="wellness.common.identifier.mrn" class="org.openmrs.module.kenyacore.identifier.IdentifierDescriptor">
 		<property name="targetUuid" value="${metadata.identifiertype.MEDICAL_RECORD_NUMBER}" />
 	</bean>
 
@@ -66,6 +66,8 @@
 		<property name="apps">
 			<set>
 				<ref bean="wellness.app.registration" />
+				<ref bean="wellness.app.intake" />
+				<ref bean="wellness.app.clinician" />
 			</set>
 		</property>
 		<property name="icon" value="kenyaui:forms/labresults.png" />
@@ -78,6 +80,8 @@
 		<property name="apps">
 			<set>
 				<ref bean="wellness.app.registration" />
+				<ref bean="wellness.app.intake" />
+				<ref bean="wellness.app.clinician" />
 			</set>
 		</property>
 		<property name="icon" value="kenyaui:forms/labresults.png" />
@@ -90,6 +94,8 @@
 		<property name="apps">
 			<set>
 				<ref bean="wellness.app.registration" />
+				<ref bean="wellness.app.intake" />
+				<ref bean="wellness.app.clinician" />
 			</set>
 		</property>
 		<property name="icon" value="kenyaui:forms/labresults.png" />

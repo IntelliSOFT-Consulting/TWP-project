@@ -31,11 +31,21 @@
     <div class="ke-panel-content">
 
         <div class="ke-form-globalerrors" style="display: none"></div>
+        <fieldset>
+            <table align="right">
+                <tr>
+                    <td>
+                        <img id="passport" src="${ui.resourceLink("wellness", "images/logos/passport.png")}" />
 
-        <div class="ke-form-instructions">
-            <strong>*</strong> indicates a required field
-        </div>
-
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type='file' name="photo" onchange="readURL(this);" />
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
         <fieldset>
             <legend>Identifiers</legend>
 
@@ -80,9 +90,6 @@
                                 <td class="ke-field-instructions"><% if (!command.otherNumber) { %>(if available)<% } %></td>
                             </tr>
                         </table>
-                    </td>
-                    <td align="right">
-                        Passport photo will go here
                     </td>
                 </tr>
 
@@ -153,7 +160,6 @@
     </div>
 
 </form>
-
 <script type="text/javascript">
     jQuery(function () {
 
@@ -182,4 +188,19 @@
         kenyaui.setDateField('patient-birthdate', birthdate);
         kenyaui.setRadioField('patient-birthdate-estimated', 'true');
     }
+
+    function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    jQuery('#passport')
+                        .attr('src', e.target.result)
+                        .width(150)
+                        .height(200);
+                };
+
+                reader.readAsDataURL(input.files[0]);
+                alert(reader.readAsDataURL(input.files[0]));
+            }
+        }
 </script>

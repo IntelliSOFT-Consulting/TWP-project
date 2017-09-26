@@ -32,8 +32,6 @@ public class EmrConstants {
 	public static final String APP_CLINICIAN = MODULE_ID + ".medicalEncounter";
 	public static final String APP_CHART = MODULE_ID + ".medicalChart";
 	public static final String APP_REPORTS = MODULE_ID + ".reports";
-	public static final String APP_DIRECTORY = MODULE_ID + ".directory";
-	public static final String APP_FACILITIES = MODULE_ID + ".facilities";
 	public static final String APP_ADMIN = MODULE_ID + ".admin";
 	public static final String APP_DEVELOPER = MODULE_ID + ".developer";
 
@@ -49,7 +47,7 @@ public class EmrConstants {
 	/**
 	 * Default global property values
 	 */
-	public static final String DEFAULT_SUPPORT_PHONE_NUMBER = "0800720701";
+	public static final String DEFAULT_SUPPORT_PHONE_NUMBER = "";
 	public static final String DEFAULT_SUPPORT_EMAIL_ADDRESS = "help@wellness.org";
 	public static final String DEFAULT_EXTERNAL_HELP_URL = "/help";
 }

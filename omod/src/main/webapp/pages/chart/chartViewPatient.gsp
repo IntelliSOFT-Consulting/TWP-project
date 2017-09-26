@@ -10,12 +10,19 @@
 					icon: "buttons/patient_overview.png"
 			],
 			[
-					label: "Client's Summary",
-					href: ui.pageLink("wellness", "chart/chartViewPatient", [ patientId: currentPatient.id, section: "summaries" ]),
-					active: (selection == "section-summaries"),
+					label: "Nutrition Plan",
+					href: ui.pageLink("wellness", "chart/chartViewPatient", [ patientId: currentPatient.id, section: "plan" ]),
+					active: (selection == "section-plan"),
 					iconProvider: "kenyaui",
 					icon: "buttons/summary.png"
-			]
+			],
+			[
+                    label: "Body analysis",
+                    href: ui.pageLink("wellness", "chart/chartViewPatient", [ patientId: currentPatient.id, section: "analysis" ]),
+                    active: (selection == "section-analysis"),
+                    iconProvider: "kenyaui",
+                    icon: "buttons/summary.png"
+            ]
 
 	];
 
@@ -98,10 +105,13 @@
 
 	${ ui.includeFragment("wellness", "program/programCarePanels", [ patient: currentPatient, complete: true, activeOnly: false ]) }
 
-	<% }else if (section == "summaries") { %>
+	<% }else if (section == "plan") { %>
 
-	${ ui.includeFragment("wellness", "summaries", [ patient: currentPatient ]) }
+	${ ui.includeFragment("wellness", "plan", [ patient: currentPatient ]) }
 
-	<%} %>
+	<%} else if (section == "analysis") { %>
+
+	${ ui.includeFragment("wellness", "analysis", [ patient: currentPatient ]) }
+	<%}%>
 
 </div>

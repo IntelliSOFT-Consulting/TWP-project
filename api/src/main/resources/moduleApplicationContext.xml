@@ -51,22 +51,6 @@
 		<constructor-arg value="500" />
 	</bean>
 
-	<bean id="wellness.app.directory" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
-		<constructor-arg value="wellness.directory" />
-		<constructor-arg value="Directory" />
-		<constructor-arg value="wellness/directory/directoryHome.page" />
-		<constructor-arg value="kenyaui:apps/directory.png" />
-		<constructor-arg value="600" />
-	</bean>
-
-	<bean id="wellness.app.facilities" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
-		<constructor-arg value="wellness.facilities" />
-		<constructor-arg value="Facilities" />
-		<constructor-arg value="wellness/facilities/facilitiesHome.page" />
-		<constructor-arg value="kenyaui:apps/facilities.png" />
-		<constructor-arg value="700" />
-	</bean>
-
 	<bean id="wellness.app.admin" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
 		<constructor-arg value="wellness.admin" />
 		<constructor-arg value="Admin" />
@@ -88,7 +72,7 @@
 	<!-- Acts as a base class and means we can avoid specifying the full class name each time -->
 	<bean name="TestDefinition" class="org.openmrs.module.kenyacore.lab.LabTestDefinition" abstract="true" />
 
-	<bean id="kenyaemr.common.lab.standardcatalog" class="org.openmrs.module.kenyacore.lab.LabTestCatalog">
+	<bean id="wellness.common.lab.standardcatalog" class="org.openmrs.module.kenyacore.lab.LabTestCatalog">
 		<property name="tests">
 			<map>
 				<entry key="Urine Tests">

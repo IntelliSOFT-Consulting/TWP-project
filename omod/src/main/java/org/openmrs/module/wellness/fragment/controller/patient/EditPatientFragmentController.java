@@ -175,6 +175,7 @@ public class EditPatientFragmentController {
 		private String nextOfKinContact;
 		private String nextOfKinAddress;
 		private String subChiefName;
+		private String patient_image;
 
 		/**
 		 * Creates an edit form for a new patient
@@ -236,6 +237,7 @@ public class EditPatientFragmentController {
 			nextOfKinContact = wrapper.getNextOfKinContact();
 			nextOfKinAddress = wrapper.getNextOfKinAddress();
 			subChiefName = wrapper.getSubChiefName();
+			patient_image = wrapper.getPatientImage();
 
 			savedMaritalStatus = getLatestObs(patient, Dictionary.CIVIL_STATUS);
 			if (savedMaritalStatus != null) {
@@ -402,6 +404,7 @@ public class EditPatientFragmentController {
 			wrapper.setNextOfKinAddress(nextOfKinAddress);
 			wrapper.setSubChiefName(subChiefName);
 			wrapper.setPassportNumber(passportNumber, location);
+			wrapper.setPatientImage(patient_image);
 
 			// Make sure everyone gets an OpenMRS ID
 			PatientIdentifierType openmrsIdType = MetadataUtils.existing(PatientIdentifierType.class, CommonMetadata._PatientIdentifierType.OPENMRS_ID);
@@ -795,6 +798,21 @@ public class EditPatientFragmentController {
 		 */
 		public void setPassportNumber(String passportNumber){
 			this.passportNumber = passportNumber;
+		}
+
+		/**
+		 * set the patient_iamge
+		 * @param patient_image
+		 */
+		public void setPatient_image(String patient_image) {
+			this.patient_image = patient_image;
+		}
+
+		/**
+		 * @return the patient_iamge
+		 */
+		public String getPatient_image() {
+			return patient_image;
 		}
 	}
 }

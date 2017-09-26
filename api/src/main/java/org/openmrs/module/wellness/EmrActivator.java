@@ -23,6 +23,12 @@ import org.openmrs.module.ModuleActivator;
 import org.openmrs.module.kenyacore.CoreContext;
 import org.openmrs.module.reporting.report.service.ReportService;
 
+import org.openmrs.util.OpenmrsUtil;
+import java.io.File;
+import java.io.IOException;
+
+import org.apache.commons.io.FileUtils;
+
 /**
  * This class contains the logic that is run every time this module is either started or stopped.
  */
@@ -74,6 +80,18 @@ public class EmrActivator implements ModuleActivator {
 	 */
 	public void started() {
 		Context.getService(ReportService.class).deleteOldReportRequests();
+		//create a directory for loading patient image
+		File imgFolder = new File(OpenmrsUtil.getApplicationDataDirectory(), "/patient_images");
+		if (!imgFolder.exists()) {
+			try {
+				FileUtils.forceMkdir(imgFolder);
+				log.info("Created Folder to Store patient_images");
+			} catch (IOException ex) {
+				log.error(ex);
+			}
+		} else {
+			log.info("Folder for patient_images Already Exists");
+		}
 		log.info("Wellness started");
 	}
 

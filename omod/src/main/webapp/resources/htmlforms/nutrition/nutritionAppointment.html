@@ -12,4 +12,28 @@
   ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
 -->
 <htmlform>
+    <div class="ke-form-header">
+			<span style="display: none">
+					<encounterLocation default="GlobalProperty:wellness.defaultLocation" />
+			</span>
+        <table style="width: 100%">
+            <tr>
+                <td>Encounter date: <encounterDate id="encounter-date" showTime="true" /></td>
+            </tr>
+        </table>
+    </div>
+    <div class="ke-form-content">
+        <table>
+            <tr>
+                <td>Appointment date:<obs conceptId="5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"  allowFutureDates="true"/></td>
+                <td>Time:<obs conceptId="163191AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answers="8am,9am,10am,11am,12pm,1pm,2pm,3pm,4pm,5pm,6pm" answerLabels="8am,9am,10am,11am,12pm,1pm,2pm,3pm,4pm,5pm,6pm"/></td>
+                <td>Provider:<encounterProvider default="currentUser" /></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="ke-form-footer">
+        <submit />
+    </div>
+
 </htmlform>

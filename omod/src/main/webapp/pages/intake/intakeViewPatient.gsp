@@ -8,6 +8,7 @@
 			<td width="40%" valign="top">
 				${ ui.includeFragment("wellness", "patient/patientSummary", [ patient: currentPatient ]) }
 				${ ui.includeFragment("wellness", "program/programHistories", [ patient: currentPatient, showClinicalData: true ]) }
+				${ ui.includeFragment("wellness", "patient/labSummary", [ patient: currentPatient ]) }
 			</td>
 			<td width="60%" valign="top" style="padding-left: 5px">
 				${ ui.includeFragment("wellness", "visitMenu", [ patient: currentPatient, visit: activeVisit ]) }
