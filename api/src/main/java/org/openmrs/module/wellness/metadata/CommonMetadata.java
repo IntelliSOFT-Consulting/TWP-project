@@ -132,7 +132,7 @@ public class CommonMetadata extends AbstractMetadataBundle {
 				LocationBehavior.NOT_USED, false, _PatientIdentifierType.NATIONAL_ID));
 		install(patientIdentifierType("Mobile Number", "The clients mobile number", "\\d{5,15}", "Minimum of 5 and max of 15", null, LocationBehavior.NOT_USED, false, _PatientIdentifierType.MOBILE_NUMBER));
 		install(patientIdentifierType("Other Mobile Number", "The clients alternative mobile number", "\\d{5,15}", "Minimum of 5 and max of 15", null, LocationBehavior.NOT_USED, false, _PatientIdentifierType.OTHER_MOBILE_NUMBER));
-		install(patientIdentifierType("Passport Number", "The clients passport number", "\\d{5,15}", "Minimum of 5 and max of 15", null, LocationBehavior.NOT_USED, false, _PatientIdentifierType.PASSPORT_NUMBER));
+		install(patientIdentifierType("Passport Number", "The clients passport number", ".{5,15}", "Minimum of 5 and max of 15", null, LocationBehavior.NOT_USED, false, _PatientIdentifierType.PASSPORT_NUMBER));
 
 		install(personAttributeType("Telephone contact", "Telephone contact number",
 				String.class, null, false, 1.0, _PersonAttributeType.TELEPHONE_CONTACT));

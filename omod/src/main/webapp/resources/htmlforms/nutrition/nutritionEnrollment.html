@@ -12,6 +12,23 @@
   ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
 -->
 <htmlform>
+	<script type="text/javascript">
+        jq(function(){
+            toggleVeg();
+            jq('#veg input:radio').click(function () {
+                toggleVeg();
+            });
+        });
+        function toggleVeg() {
+            var getVegValue = getValue('veg.value');
+            if (getVegValue == 1065 ) {
+                jq('#vegOptions :input').prop('disabled', false);
+            }
+            else {
+                jq('#vegOptions :input').prop('disabled', true)
+            }
+        }
+	</script>
 
 		<div class="ke-form-header">
 			<span style="display: none">
@@ -94,14 +111,15 @@
 			<fieldset>
 				<legend>PLEASE SPECIFY IF YOU ARE</legend>
 
-
+				<includeIf velocityTest="$patient.gender == 'F' ">
 						Pregnant:<obs conceptId="5272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Y,N" style="radio" />
 						Breast Feeding:<obs conceptId="5632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Y,N" style="radio" />
-						Vegetarian:<obs conceptId="ec92b138-058f-4f49-b524-80a7b1042ae1" answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Y,N" style="radio" />
+				</includeIf>
+						Vegetarian:<obs id="veg" conceptId="ec92b138-058f-4f49-b524-80a7b1042ae1" answerConceptIds="1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Y,N" style="radio" />
 			</fieldset>
 			<fieldset>
 					<legend>IF VEGETARIAN PLEASE INDICATE IF YOU EAT ANY OF THE FOLLOWING FOODS</legend>
-
+						<div id="vegOptions">
 
 						 <obs conceptId="162553AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="162546AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="checkbox" answerLabel="Fish" />
 						 <obs conceptId="162553AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="88f033ab-3df0-4c38-9269-95bcd58eeda0" style="checkbox" answerLabel="Chicken" />
@@ -111,6 +129,7 @@
 						 <obs conceptId="162553AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="84e80174-4be2-4c5d-8a08-98a40d28f640" style="checkbox" answerLabel="Tofu" />
 						 <obs conceptId="162553AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptId="162176AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" style="checkbox" answerLabel="Soya" />
 
+						</div>
 			</fieldset>
 			<fieldset>
 				<legend>PLEASE INDICATE HOW YOU HEARD ABOUT US</legend>

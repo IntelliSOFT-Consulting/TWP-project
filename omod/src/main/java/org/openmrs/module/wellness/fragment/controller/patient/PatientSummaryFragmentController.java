@@ -15,6 +15,7 @@
 package org.openmrs.module.wellness.fragment.controller.patient;
 
 import org.openmrs.Patient;
+import org.openmrs.PersonAddress;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.patient.PatientCalculation;
 import org.openmrs.calculation.patient.PatientCalculationService;
@@ -31,8 +32,7 @@ import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.fragment.FragmentModel;
 import org.openmrs.ui.framework.page.PageRequest;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Patient summary fragment
@@ -55,17 +55,38 @@ public class PatientSummaryFragmentController {
 		}
 
 		model.addAttribute("patient", patient);
+		String email = "";
+		String pobox = "";
+		String town = "";
+		String home = "";
+		if(patient.getAddresses().size() > 0) {
+			for(PersonAddress address : patient.getAddresses()) {
+				email = address.getAddress3();
+				pobox = address.getAddress1();
+				town = address.getCityVillage();
+				home = address.getAddress2();
+			}
+
+		}
+
 		//model.addAttribute("recordedAsDeceased", hasBeenRecordedAsDeceased(patient));
 		model.addAttribute("forms", forms);
+		model.addAttribute("email", email);
+		model.addAttribute("box", pobox);
+		model.addAttribute("town", town);
+		model.addAttribute("home", home);
+
+
+
 	}
 
 	/**
 	 * Checks if a patient has been recorded as deceased by a program
-	 * @param patient the patient
 	 * @return true if patient was recorded as deceased
 	 */
 	/*protected boolean hasBeenRecordedAsDeceased(Patient patient) {
 		PatientCalculation calc = CalculationUtils.instantiateCalculation(RecordedDeceasedCalculation.class, null);
 		return ResultUtil.isTrue(Context.getService(PatientCalculationService.class).evaluate(patient.getId(), calc));
 	}*/
+
 }

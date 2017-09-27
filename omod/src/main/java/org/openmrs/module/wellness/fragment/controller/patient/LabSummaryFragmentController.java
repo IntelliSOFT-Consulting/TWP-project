@@ -172,6 +172,10 @@ public class LabSummaryFragmentController {
             name = "S-g-GLUTAMYL TRANSFERASE";
         }
 
+        else if(concept.equals(Dictionary.getConcept("1007AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"))){
+            name = "S-HDL CHOLESTEROL";
+        }
+
         return name;
     }
 
@@ -182,6 +186,9 @@ public class LabSummaryFragmentController {
         }
         else if (obs.getValueNumeric() != null) {
             results = obs.getValueNumeric().toString();
+        }
+        else if (obs.getValueText() != null) {
+            results = obs.getValueText();
         }
         return results;
     }

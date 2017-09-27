@@ -7,10 +7,24 @@
 		<button type="button" class="ke-compact" onclick="ui.navigate('${ ui.pageLink("wellness", "registration/editPatient", [ patientId: patient.id, returnUrl: ui.thisUrl() ]) }')">
 			<img src="${ ui.resourceLink("kenyaui", "images/glyphs/edit.png") }" />
 		</button>
-
-		<% patient.activeAttributes.each { %>
-		${ ui.includeFragment("kenyaui", "widget/dataPoint", [ label: ui.format(it.attributeType), value: it ]) }
-		<% } %>
+			<table width="100%">
+				<tr>
+					<td>Email Address </td>
+					<td>${email}</td>
+				</tr>
+				<tr>
+					<td>Postal Address </td>
+					<td>${box}</td>
+				</tr>
+				<tr>
+					<td>Town/City </td>
+					<td>${town}</td>
+				</tr>
+				<tr>
+					<td>Delivery Address </td>
+					<td>${home}</td>
+				</tr>
+			</table>
 	</div>
 </div>
 <% if (forms) { %>
