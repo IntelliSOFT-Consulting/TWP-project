@@ -3,7 +3,21 @@
 
 	def dataPoints = []
 
+
+	if (calculations.mywellness) {
+		dataPoints << [ label: "My Wellness", value: ui.format(calculations.mywellness.value.valueCoded), extra: calculations.mywellness.value.obsDatetime ]
+	} else {
+		dataPoints << [ label: "My Wellness", value: "None" ]
+	}
+
+	if (calculations.goalWight) {
+		dataPoints << [ label: "Goal Weight", value: ui.format(calculations.goalWight.value.valueNumeric), extra: calculations.mywellness.value.obsDatetime ]
+	} else {
+		dataPoints << [ label: "Goal Weight", value: "None" ]
+	}
 %>
+
+
 
 <% if (config.complete) { %>
 <div class="ke-stack-item">

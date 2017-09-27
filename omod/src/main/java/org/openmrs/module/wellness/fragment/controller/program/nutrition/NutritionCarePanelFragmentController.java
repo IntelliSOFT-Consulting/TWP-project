@@ -18,6 +18,9 @@ import org.openmrs.Concept;
 import org.openmrs.Patient;
 import org.openmrs.calculation.result.CalculationResult;
 import org.openmrs.module.wellness.Dictionary;
+import org.openmrs.module.wellness.calculation.EmrCalculationUtils;
+import org.openmrs.module.wellness.calculation.library.nutrition.GoalWeightCalculation;
+import org.openmrs.module.wellness.calculation.library.nutrition.MywellnessCalculation;
 import org.openmrs.module.wellness.regimen.RegimenManager;
 import org.openmrs.ui.framework.annotation.FragmentParam;
 import org.openmrs.ui.framework.annotation.SpringBean;
@@ -39,6 +42,11 @@ public class NutritionCarePanelFragmentController {
 						   @SpringBean RegimenManager regimenManager) {
 
 		Map<String, CalculationResult> calculationResults = new HashMap<String, CalculationResult>();
+		if (complete != null && complete.booleanValue()) {
+
+		}
+		calculationResults.put("mywellness", EmrCalculationUtils.evaluateForPatient(MywellnessCalculation.class, null, patient));
+		calculationResults.put("goalWight", EmrCalculationUtils.evaluateForPatient(GoalWeightCalculation.class, null, patient));
 
 		String valuesRequired = "";
 		Date datesRequired = null;
@@ -50,9 +58,6 @@ public class NutritionCarePanelFragmentController {
 		model.addAttribute("value", valuesRequired);
 		model.addAttribute("date", datesRequired);
 
-		Concept medSet = regimenManager.getMasterSetConcept("ARV");
-		//RegimenChangeHistory history = RegimenChangeHistory.forPatient(patient, medSet);
-		//model.addAttribute("regimenHistory", history);
 
 		model.addAttribute("graphingConcepts", Dictionary.getConcepts(Dictionary.WEIGHT_KG));
 	}
