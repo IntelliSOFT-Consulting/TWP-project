@@ -6,31 +6,14 @@
 	<% enrollments.reverse().each { enrollment -> %>
 
 		<% if (enrollment.dateCompleted) { %>
-		<div class="ke-stack-item">
-			${ ui.includeFragment("wellness", "program/programCompletion", [ patientProgram: enrollment, showClinicalData: config.showClinicalData ]) }
-		</div>
-		<% } else if (patientForms) { %>
-		<div class="ke-stack-item">
-			<% patientForms.each { form -> %>
-				${ ui.includeFragment("kenyaui", "widget/button", [
-						iconProvider: form.iconProvider,
-						icon: form.icon,
-						label: form.name,
-						extra: "Edit form",
-						href: ui.pageLink("wellness", "editProgramForm", [
-								appId: currentApp.id,
-								patientProgramId: enrollment.id,
-								formUuid: form.formUuid,
-								returnUrl: ui.thisUrl()
-						])
-				]) }
-			<% } %>
-		</div>
+			<div class="ke-stack-item">
+				${ ui.includeFragment("wellness", "program/programCompletion", [ patientProgram: enrollment, showClinicalData: config.showClinicalData ]) }
+			</div>
 		<% } %>
 
-		<div class="ke-stack-item">
-			${ ui.includeFragment("wellness", "program/programEnrollment", [ patientProgram: enrollment, showClinicalData: config.showClinicalData ]) }
-		</div>
+			<div class="ke-stack-item">
+				${ ui.includeFragment("wellness", "program/programEnrollment", [ patientProgram: enrollment, showClinicalData: config.showClinicalData ]) }
+			</div>
 	<% } %>
 </div>
 <% } %>

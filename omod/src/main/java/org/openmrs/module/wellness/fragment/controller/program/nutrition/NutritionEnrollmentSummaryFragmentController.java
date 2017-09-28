@@ -42,20 +42,35 @@ public class NutritionEnrollmentSummaryFragmentController {
 		if (encounter != null) {
 			EncounterWrapper wrapper = new EncounterWrapper(encounter);
 
-			Obs o = wrapper.firstObs(Dictionary.getConcept(Dictionary.METHOD_OF_ENROLLMENT));
+			Obs o = wrapper.firstObs(Dictionary.getConcept("163102AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"));
 			if (o != null) {
-				dataPoints.put("Entry point", o.getValueCoded());
+				dataPoints.put("Goal Weight", o.getValueNumeric());
+			}
+
+			Obs o1 = wrapper.firstObs(Dictionary.getConcept("c3ac2b0b-35ce-4cad-9586-095886f2335a"));
+			if (o1 != null) {
+				dataPoints.put("My Wellness", o1.getValueCoded());
+			}
+			Obs o2 = wrapper.firstObs(Dictionary.getConcept("5272AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"));
+			if (o2 != null && patientProgram.getPatient().getGender().equals("F")) {
+				dataPoints.put("Pregnant?", o2.getValueCoded());
+			}
+
+			Obs o3 = wrapper.firstObs(Dictionary.getConcept("5632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"));
+			if (o3 != null && patientProgram.getPatient().getGender() == "F") {
+				dataPoints.put("Breast feeding?", o3.getValueCoded());
+			}
+			Obs o4 = wrapper.firstObs(Dictionary.getConcept("ec92b138-058f-4f49-b524-80a7b1042ae1"));
+			if (o4 != null) {
+				dataPoints.put("Vegetarian?", o4.getValueCoded());
+			}
+
+			Obs o5 = wrapper.firstObs(Dictionary.getConcept("872cf5b1-dced-4f59-9719-01a55fc573b2"));
+			if (o5 != null) {
+				dataPoints.put("Support period", o5.getValueCoded());
 			}
 		}
 
-		if (showClinicalData) {
-			Enrollment enrollment = new Enrollment(patientProgram);
-
-			Obs o = enrollment.firstObs(Dictionary.getConcept(Dictionary.CURRENT_WHO_STAGE));
-			if (o != null) {
-				dataPoints.put("WHO stage", o.getValueCoded());
-			}
-		}
 
 		model.put("dataPoints", dataPoints);
 		return "view/dataPoints";
