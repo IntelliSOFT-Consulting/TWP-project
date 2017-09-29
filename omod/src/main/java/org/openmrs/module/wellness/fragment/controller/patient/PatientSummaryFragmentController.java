@@ -15,6 +15,7 @@
 package org.openmrs.module.wellness.fragment.controller.patient;
 
 import org.openmrs.Patient;
+import org.openmrs.PatientIdentifier;
 import org.openmrs.PersonAddress;
 import org.openmrs.api.context.Context;
 import org.openmrs.calculation.patient.PatientCalculation;
@@ -25,6 +26,7 @@ import org.openmrs.module.kenyacore.calculation.CalculationUtils;
 import org.openmrs.module.kenyacore.form.FormDescriptor;
 import org.openmrs.module.kenyacore.form.FormManager;
 import org.openmrs.module.kenyaui.KenyaUiUtils;
+import org.openmrs.module.wellness.wrapper.PatientWrapper;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.FragmentParam;
@@ -68,13 +70,15 @@ public class PatientSummaryFragmentController {
 			}
 
 		}
-
-		//model.addAttribute("recordedAsDeceased", hasBeenRecordedAsDeceased(patient));
+		PatientWrapper patientWrapper = new PatientWrapper(patient);
 		model.addAttribute("forms", forms);
 		model.addAttribute("email", email);
 		model.addAttribute("box", pobox);
 		model.addAttribute("town", town);
 		model.addAttribute("home", home);
+		model.addAttribute("mobileNumber", patientWrapper.getMobileNumber());
+		model.addAttribute("otherMobileNumber", patientWrapper.getOtherMobileNumber());
+		model.addAttribute("passport", patientWrapper.getPassportNumber());
 
 
 

@@ -66,6 +66,6 @@ public class NutritionMetadata extends AbstractMetadataBundle {
 		install(patientIdentifierType("Nutrition Number", "Assigned to every client enrolled into nutrition", "^[a-zA-Z0-9_.-]*$", "Client's nutrition number number",
 				null, LocationBehavior.NOT_USED, false, _PatientIdentifierType.NUTRITION_NUMBER));
 
-		install(program("Nutrition", "Patients to monitor their diets", Dictionary.HIV_PROGRAM, _Program.NUTRITION));
+		install(program("Nutrition Program", "Patients to monitor their diets", Dictionary.HIV_PROGRAM, _Program.NUTRITION));
 	}
 }

@@ -8,6 +8,24 @@
 			<img src="${ ui.resourceLink("kenyaui", "images/glyphs/edit.png") }" />
 		</button>
 			<table width="100%">
+				<% if (passport) { %>
+					<tr>
+						<td>Passport Number</td>
+						<td>${passport}</td>
+					</tr>
+				<% } %>
+				<% if (mobileNumber) { %>
+					<tr>
+						<td>Mobile Number</td>
+						<td>${mobileNumber}</td>
+					</tr>
+				<% } %>
+				<% if (otherMobileNumber) { %>
+					<tr>
+						<td>Other Mobile Number</td>
+						<td>${otherMobileNumber}</td>
+					</tr>
+				<% } %>
 				<tr>
 					<td>Email Address </td>
 					<td>${email}</td>
