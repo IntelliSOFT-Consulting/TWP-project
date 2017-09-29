@@ -12,7 +12,7 @@
 			</td>
 			<td width="60%" valign="top" style="padding-left: 5px">
 				${ ui.includeFragment("wellness", "visitMenu", [ patient: currentPatient, visit: activeVisit ]) }
-
+				${ ui.includeFragment("wellness", "appointments", [ patient: currentPatient ]) }
 				<% if (activeVisit) { %>
 				${ ui.includeFragment("wellness", "visitAvailableForms", [ visit: activeVisit ]) }
 				${ ui.includeFragment("wellness", "visitCompletedForms", [ visit: activeVisit ]) }

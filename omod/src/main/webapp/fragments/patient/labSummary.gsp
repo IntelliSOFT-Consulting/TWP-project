@@ -6,6 +6,9 @@
         background-color: #98AFC7;
         text-align: left;
     }
+    tr td {
+        text-align: left;
+    }
     tr:nth-child(even) {
       background-color: #E3E4FA;
     }

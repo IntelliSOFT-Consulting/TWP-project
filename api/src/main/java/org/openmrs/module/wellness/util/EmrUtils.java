@@ -23,6 +23,8 @@ import org.openmrs.User;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.wellness.Dictionary;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
@@ -125,5 +127,15 @@ public class EmrUtils {
 		Person person = user.getPerson();
 		Collection<Provider> providers = Context.getProviderService().getProvidersByPerson(person);
 		return providers.size() > 0 ? providers.iterator().next() : null;
+	}
+
+	public static String formatDates(Date date){
+
+		Format formatter;
+		formatter = new SimpleDateFormat("dd/MM/yyyy");
+		String s = formatter.format(date);
+
+		return s;
+
 	}
 }
