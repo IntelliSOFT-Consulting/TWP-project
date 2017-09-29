@@ -4,16 +4,43 @@
 	def dataPoints = []
 
 
-	if (calculations.mywellness) {
-		dataPoints << [ label: "My Wellness", value: ui.format(calculations.mywellness.value.valueCoded), extra: calculations.mywellness.value.obsDatetime ]
+	if (calculations.bmi) {
+		dataPoints << [ label: "Body Mass Index", value: ui.format(calculations.bmi.value.valueNumeric), extra: calculations.bmi.value.obsDatetime ]
 	} else {
-		dataPoints << [ label: "My Wellness", value: "None" ]
+		dataPoints << [ label: "Body Mass Index", value: "None" ]
 	}
 
-	if (calculations.goalWight) {
-		dataPoints << [ label: "Goal Weight", value: ui.format(calculations.goalWight.value.valueNumeric), extra: calculations.mywellness.value.obsDatetime ]
+	if (calculations.bodyFat) {
+		dataPoints << [ label: "Body Fat", value: ui.format(calculations.bodyFat.value.valueNumeric), extra: calculations.bodyFat.value.obsDatetime ]
 	} else {
-		dataPoints << [ label: "Goal Weight", value: "None" ]
+		dataPoints << [ label: "Body Fat", value: "None" ]
+	}
+
+	if (calculations.bodyFatClassification) {
+		dataPoints << [ label: "Body Fat Classification", value: ui.format(calculations.bodyFatClassification.value.valueCoded), extra: calculations.bodyFatClassification.value.obsDatetime ]
+	} else {
+		dataPoints << [ label: "Body Fat Classification", value: "None" ]
+	}
+
+	if (calculations.bodyWater) {
+		dataPoints << [ label: "Body Water", value: ui.format(calculations.bodyWater.value.valueNumeric), extra: calculations.bodyWater.value.obsDatetime ]
+	} else {
+		dataPoints << [ label: "Body Water", value: "None" ]
+	}
+	if (calculations.metabolicAge) {
+		dataPoints << [ label: "Metabolic age", value: ui.format(calculations.metabolicAge.value.valueNumeric), extra: calculations.metabolicAge.value.obsDatetime ]
+	} else {
+		dataPoints << [ label: "Metabolic age", value: "None" ]
+	}
+	if (calculations.muscleMass) {
+		dataPoints << [ label: "Muscle mass", value: ui.format(calculations.muscleMass.value.valueNumeric), extra: calculations.muscleMass.value.obsDatetime ]
+	} else {
+		dataPoints << [ label: "Muscle mass", value: "None" ]
+	}
+	if (calculations.visceralFat) {
+		dataPoints << [ label: "Visceral fat", value: ui.format(calculations.visceralFat.value.valueNumeric), extra: calculations.visceralFat.value.obsDatetime ]
+	} else {
+		dataPoints << [ label: "Visceral fat", value: "None" ]
 	}
 %>
 

@@ -19,8 +19,7 @@ import org.openmrs.Patient;
 import org.openmrs.calculation.result.CalculationResult;
 import org.openmrs.module.wellness.Dictionary;
 import org.openmrs.module.wellness.calculation.EmrCalculationUtils;
-import org.openmrs.module.wellness.calculation.library.nutrition.GoalWeightCalculation;
-import org.openmrs.module.wellness.calculation.library.nutrition.MywellnessCalculation;
+import org.openmrs.module.wellness.calculation.library.nutrition.*;
 import org.openmrs.module.wellness.regimen.RegimenManager;
 import org.openmrs.ui.framework.annotation.FragmentParam;
 import org.openmrs.ui.framework.annotation.SpringBean;
@@ -45,8 +44,13 @@ public class NutritionCarePanelFragmentController {
 		if (complete != null && complete.booleanValue()) {
 
 		}
-		calculationResults.put("mywellness", EmrCalculationUtils.evaluateForPatient(MywellnessCalculation.class, null, patient));
-		calculationResults.put("goalWight", EmrCalculationUtils.evaluateForPatient(GoalWeightCalculation.class, null, patient));
+		calculationResults.put("bmi", EmrCalculationUtils.evaluateForPatient(BmiCalculation.class, null, patient));
+		calculationResults.put("bodyFat", EmrCalculationUtils.evaluateForPatient(BodyFatCalcultion.class, null, patient));
+		calculationResults.put("bodyFatClassification", EmrCalculationUtils.evaluateForPatient(BodyFatClassificationCalculation.class, null, patient));
+		calculationResults.put("bodyWater", EmrCalculationUtils.evaluateForPatient(BodyWaterCalculation.class, null, patient));
+		calculationResults.put("metabolicAge", EmrCalculationUtils.evaluateForPatient(MetabolicAgeCalculation.class, null, patient));
+		calculationResults.put("muscleMass", EmrCalculationUtils.evaluateForPatient(MuscleMassCalculation.class, null, patient));
+		calculationResults.put("visceralFat", EmrCalculationUtils.evaluateForPatient(VisceralFatCalculation.class, null, patient));
 
 		String valuesRequired = "";
 		Date datesRequired = null;
