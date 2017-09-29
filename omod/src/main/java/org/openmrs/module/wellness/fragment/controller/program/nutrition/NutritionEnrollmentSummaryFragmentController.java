@@ -57,7 +57,7 @@ public class NutritionEnrollmentSummaryFragmentController {
 			}
 
 			Obs o3 = wrapper.firstObs(Dictionary.getConcept("5632AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"));
-			if (o3 != null && patientProgram.getPatient().getGender() == "F") {
+			if (o3 != null && patientProgram.getPatient().getGender().equals("F")) {
 				dataPoints.put("Breast feeding?", o3.getValueCoded());
 			}
 			Obs o4 = wrapper.firstObs(Dictionary.getConcept("ec92b138-058f-4f49-b524-80a7b1042ae1"));
