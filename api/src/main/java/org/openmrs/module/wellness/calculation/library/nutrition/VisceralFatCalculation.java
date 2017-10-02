@@ -13,7 +13,7 @@ public class VisceralFatCalculation extends AbstractPatientCalculation {
     @Override
     public CalculationResultMap evaluate(Collection<Integer> cohort, Map<String, Object> map, PatientCalculationContext context) {
         CalculationResultMap ret = new CalculationResultMap();
-        CalculationResultMap lastObs = Calculations.lastObs(Dictionary.getConcept("c3ac2b0b-35ce-4cad-9586-095886f2335a"), cohort, context);
+        CalculationResultMap lastObs = Calculations.lastObs(Dictionary.getConcept("394db3bf-ccb6-41c2-a929-33e78123e8d5"), cohort, context);
         if(lastObs != null){
             ret.putAll(lastObs);
         }

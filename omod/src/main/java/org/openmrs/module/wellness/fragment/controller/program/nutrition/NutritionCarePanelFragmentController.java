@@ -51,18 +51,11 @@ public class NutritionCarePanelFragmentController {
 		calculationResults.put("metabolicAge", EmrCalculationUtils.evaluateForPatient(MetabolicAgeCalculation.class, null, patient));
 		calculationResults.put("muscleMass", EmrCalculationUtils.evaluateForPatient(MuscleMassCalculation.class, null, patient));
 		calculationResults.put("visceralFat", EmrCalculationUtils.evaluateForPatient(VisceralFatCalculation.class, null, patient));
-
-		String valuesRequired = "";
-		Date datesRequired = null;
+		calculationResults.put("goal", EmrCalculationUtils.evaluateForPatient(GoalWeightCalculation.class, null, patient));
 
 
 		model.addAttribute("calculations", calculationResults);
 
-
-		model.addAttribute("value", valuesRequired);
-		model.addAttribute("date", datesRequired);
-
-
-		model.addAttribute("graphingConcepts", Dictionary.getConcepts(Dictionary.WEIGHT_KG));
+		model.addAttribute("graphingConcepts", Dictionary.getConcepts(Dictionary.WEIGHT_KG, "1342AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA", "3bb55ac7-5933-41db-bc62-811358796226", "8484b61f-a76a-423e-8670-af24e8b7a5fd"));
 	}
 }

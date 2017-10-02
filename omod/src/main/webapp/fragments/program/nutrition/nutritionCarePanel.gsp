@@ -10,6 +10,12 @@
 		dataPoints << [ label: "Body Mass Index", value: "None" ]
 	}
 
+	if (calculations.goal) {
+		dataPoints << [ label: "Goal", value: ui.format(calculations.goal.value.valueNumeric), extra: calculations.goal.value.obsDatetime ]
+	} else {
+		dataPoints << [ label: "Goal", value: "None" ]
+	}
+
 	if (calculations.bodyFat) {
 		dataPoints << [ label: "Body Fat", value: ui.format(calculations.bodyFat.value.valueNumeric), extra: calculations.bodyFat.value.obsDatetime ]
 	} else {

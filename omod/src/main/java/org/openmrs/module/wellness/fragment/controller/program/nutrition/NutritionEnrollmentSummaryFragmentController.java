@@ -42,6 +42,10 @@ public class NutritionEnrollmentSummaryFragmentController {
 		if (encounter != null) {
 			EncounterWrapper wrapper = new EncounterWrapper(encounter);
 
+			Obs w = wrapper.firstObs(Dictionary.getConcept("5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"));
+			if (w != null) {
+				dataPoints.put("Weight", w.getValueNumeric());
+			}
 			Obs o = wrapper.firstObs(Dictionary.getConcept("163102AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"));
 			if (o != null) {
 				dataPoints.put("Goal Weight", o.getValueNumeric());

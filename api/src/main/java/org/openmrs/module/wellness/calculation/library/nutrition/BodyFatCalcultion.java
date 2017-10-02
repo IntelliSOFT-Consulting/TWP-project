@@ -13,7 +13,7 @@ public class BodyFatCalcultion extends AbstractPatientCalculation {
     @Override
     public CalculationResultMap evaluate(Collection<Integer> cohort, Map<String, Object> map, PatientCalculationContext context) {
         CalculationResultMap ret = new CalculationResultMap();
-        CalculationResultMap lastObs = Calculations.lastObs(Dictionary.getConcept("c3ac2b0b-35ce-4cad-9586-095886f2335a"), cohort, context);
+        CalculationResultMap lastObs = Calculations.lastObs(Dictionary.getConcept("1343AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"), cohort, context);
         if(lastObs != null){
             ret.putAll(lastObs);
         }
