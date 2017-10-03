@@ -20,6 +20,7 @@
 				<ref bean="wellness.common.report.allPatients" />
 				<ref bean="wellness.nutrition.report.lostToFollowUp" />
 				<ref bean="wellness.common.report.missedAppointment" />
+				<ref bean="wellness.nutrition.report.onNutritionProgram" />
 			</set>
 		</property>
 		<property name="fragments">
@@ -91,6 +92,13 @@
 		<property name="targetUuid" value="70bca1e5-7c68-4500-bfb8-0795549f35a4" />
 		<property name="name" value="Clients who are lost to followup" />
 		<property name="calculation" value="org.openmrs.module.wellness.calculation.library.nutrition.LostToFollowUpCalculation" />
+		<property name="apps"><set><ref bean="wellness.app.reports" /></set></property>
+	</bean>
+
+	<bean id="wellness.nutrition.report.onNutritionProgram" class="org.openmrs.module.kenyacore.report.CalculationReportDescriptor">
+		<property name="targetUuid" value="5d86be8c-a75e-11e7-84b6-4b1e805bd775" />
+		<property name="name" value="Clients enrolled in program" />
+		<property name="calculation" value="org.openmrs.module.wellness.calculation.library.nutrition.InNutritionProgramCalculation" />
 		<property name="apps"><set><ref bean="wellness.app.reports" /></set></property>
 	</bean>
 
