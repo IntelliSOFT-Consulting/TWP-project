@@ -34,5 +34,15 @@
 
 	<div style="clear: both; height: 5px;"></div>
 
+	<div style="width: 50%; float: left; overflow: auto; text-align: left">
+		<span ng-repeat="flag in flags" class="ke-flagtag" style="margin-right: 5px">{{ flag.message }}</span>
+	</div>
+
+	<div style="width: 50%; float: right; overflow: auto; text-align: right">
+		<span class="ke-tip">Current visit</span>
+		<span ng-if="patient.activeVisit" class="ke-visittag">{{ patient.activeVisit.visitType }} since <strong>{{ patient.activeVisit.startDatetime | keDateAuto }}</strong></span>
+		<span ng-if="!patient.activeVisit" style="font-style: italic">${ ui.message("general.none") }</span>
+	</div>
+
 
 </div>
