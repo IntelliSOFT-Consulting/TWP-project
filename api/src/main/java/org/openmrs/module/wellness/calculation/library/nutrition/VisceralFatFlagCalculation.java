@@ -26,7 +26,12 @@ public class VisceralFatFlagCalculation extends AbstractPatientCalculation imple
         for(Integer ptId: cohort){
             boolean viscearalFat = false;
             Double value = EmrCalculationUtils.numericObsResultForPatient(lastObsMap, ptId);
-            if(value != null){
+            if(value != null && value > 0 && value <= 12){
+                message = "VF - Healthy Level";
+                viscearalFat = true;
+            }
+            else if(value != null && value > 12){
+                message = "VF - Excess Level";
                 viscearalFat = true;
             }
             ret.put(ptId, new BooleanResult(viscearalFat, this));
