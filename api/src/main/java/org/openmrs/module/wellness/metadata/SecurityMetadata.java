@@ -67,6 +67,7 @@ public class SecurityMetadata extends AbstractMetadataBundle {
 				EmrConstants.APP_CHART,
 				EmrConstants.APP_REPORTS,
 				EmrConstants.APP_ADMIN,
+				EmrConstants.APP_MANAGER,
 				DqConstants.APP_DATAQUALITY,
 				DqConstants.APP_DATAMANAGER
 		};
@@ -118,6 +119,7 @@ public class SecurityMetadata extends AbstractMetadataBundle {
 						app(EmrConstants.APP_CLINICIAN),
 						app(EmrConstants.APP_CHART),
 						app(EmrConstants.APP_REPORTS),
+						app(EmrConstants.APP_MANAGER),
 						app(DqConstants.APP_DATAQUALITY),
 						app(DqConstants.APP_DATAMANAGER)
 				)

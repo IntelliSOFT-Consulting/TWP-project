@@ -35,6 +35,14 @@
 		<constructor-arg value="300" />
 	</bean>
 
+	<bean id="wellness.app.manager" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
+		<constructor-arg value="wellness.manager" />
+		<constructor-arg value="Manager" />
+		<constructor-arg value="wellness/manager/managerHome.page" />
+		<constructor-arg value="wellness:apps/datamgr.png" />
+		<constructor-arg value="350" />
+	</bean>
+
 	<bean id="wellness.app.chart" factory-bean="kenyacore.appFactoryBean" factory-method="createInstance">
 		<constructor-arg value="wellness.medicalChart" />
 		<constructor-arg value="Summaries" />
