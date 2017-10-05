@@ -23,6 +23,13 @@
                     active: (selection == "section-analysis"),
                     iconProvider: "kenyaui",
                     icon: "buttons/summary.png"
+            ],
+            [
+                    label: "Provider performance",
+                    href: ui.pageLink("wellness", "manager/managerViewPatient", [ patientId: currentPatient.id, section: "performance" ]),
+                    active: (selection == "section-performance"),
+                    iconProvider: "kenyaui",
+                    icon: "buttons/summary.png"
             ]
     ]
 %>
@@ -48,6 +55,10 @@
     <%} else if (section == "analysis") { %>
 
     ${ ui.includeFragment("wellness", "analysis", [ patient: currentPatient ]) }
+
+    <%} else if (section == "performance") { %>
+
+    ${ ui.includeFragment("wellness", "manager/performance", [ patient: currentPatient ]) }
     <%}%>
 
 </div>
