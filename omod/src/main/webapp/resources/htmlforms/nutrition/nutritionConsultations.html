@@ -27,33 +27,116 @@
                     display = bmi.toFixed(2);
                 }
             }
-            jQuery('#calculated-bmi').html(display);
+            setValue("calculated-bmi.value", display);
+        }
+        function onBodyFatChange(bodyFat) {
+            var pgender    = "<lookup expression="patient.gender" />";
+            var pAge    = "<lookup expression="patient.age" />";
+
+            var bodyFatVal = parseFloat(bodyFat);
+
+            if(pgender = 'F' &amp;&amp; pAge &gt;= 20 &amp;&amp; pAge &lt;= 39){
+                if(bodyFatVal &gt;=0 &amp;&amp; bodyFatVal &lt;=21){
+                    setValue('bodFatClassification.value', "Underfat");
+                }
+                else if(bodyFatVal &gt;21 &amp;&amp; bodyFatVal &lt;=33){
+                    setValue('bodFatClassification.value', "Healthy");
+                }
+                else if(bodyFatVal &gt;33 &amp;&amp; bodyFatVal &lt;=39){
+                    setValue('bodFatClassification.value', "Overfat");
+                }
+                else if(bodyFatVal &gt;39){
+                    setValue('bodFatClassification.value', "Obese");
+                }
+
+            }
+            else if(pgender = 'F' &amp;&amp; pAge &gt;= 40 &amp;&amp; pAge &lt;= 59){
+                if(bodyFatVal &gt;=0 &amp;&amp; bodyFatVal &lt;=23){
+                    setValue('bodFatClassification.value', "Underfat");
+                }
+                else if(bodyFatVal &gt;23 &amp;&amp; bodyFatVal &lt;=34){
+                    setValue('bodFatClassification.value', "Healthy");
+                }
+                else if(bodyFatVal &gt;34 &amp;&amp; bodyFatVal &lt;=40){
+                    setValue('bodFatClassification.value', "Overfat");
+                }
+                else if(bodyFatVal &gt;40){
+                    setValue('bodFatClassification.value', "Obese");
+                }
+
+            }
+            else if(pgender = 'F' &amp;&amp; pAge &gt;= 60 &amp;&amp; pAge &lt;= 79){
+                if(bodyFatVal &gt;=0 &amp;&amp; bodyFatVal &lt;=24){
+                    setValue('bodFatClassification.value', "Underfat");
+                }
+                else if(bodyFatVal &gt;24 &amp;&amp; bodyFatVal &lt;=36){
+                    setValue('bodFatClassification.value', "Healthy");
+                }
+                else if(bodyFatVal &gt;36 &amp;&amp; bodyFatVal &lt;=42){
+                    setValue('bodFatClassification.value', "Overfat");
+                }
+                else if(bodyFatVal &gt;42){
+                    setValue('bodFatClassification.value', "Obese");
+                }
+
+            }
+            else if(pgender = 'M' &amp;&amp; pAge &gt;= 20 &amp;&amp; pAge &lt;= 39){
+                if(bodyFatVal &gt;=0 &amp;&amp; bodyFatVal &lt;=8){
+                    setValue('bodFatClassification.value', "Underfat");
+                }
+                else if(bodyFatVal &gt;8 &amp;&amp; bodyFatVal &lt;=20){
+                    setValue('bodFatClassification.value', "Healthy");
+                }
+                else if(bodyFatVal &gt;20 &amp;&amp; bodyFatVal &lt;=25){
+                    setValue('bodFatClassification.value', "Overfat");
+                }
+                else if(bodyFatVal &gt;25){
+                    setValue('bodFatClassification.value', "Obese");
+                }
+
+            }
+            else if(pgender = 'M' &amp;&amp; pAge &gt;= 40 &amp;&amp; pAge &lt;= 59){
+                if(bodyFatVal &gt;=0 &amp;&amp; bodyFatVal &lt;=11){
+                    setValue('bodFatClassification.value', "Underfat");
+                }
+                else if(bodyFatVal &gt;11 &amp;&amp; bodyFatVal &lt;=22){
+                    setValue('bodFatClassification.value', "Healthy");
+                }
+                else if(bodyFatVal &gt;22 &amp;&amp; bodyFatVal &lt;=28){
+                    setValue('bodFatClassification.value', "Overfat");
+                }
+                else if(bodyFatVal &gt;28){
+                    setValue('bodFatClassification.value', "Obese");
+                }
+
+            }
+            else if(pgender = 'M' &amp;&amp; pAge &gt;= 60 &amp;&amp; pAge &lt;= 79){
+                if(bodyFatVal &gt;=0 &amp;&amp; bodyFatVal &lt;=13){
+                    setValue('bodFatClassification.value', "Underfat");
+                }
+                else if(bodyFatVal &gt;13 &amp;&amp; bodyFatVal &lt;=25){
+                    setValue('bodFatClassification.value', "Healthy");
+                }
+                else if(bodyFatVal &gt;25 &amp;&amp; bodyFatVal &lt;=30){
+                    setValue('bodFatClassification.value', "Overfat");
+                }
+                else if(bodyFatVal &gt;30){
+                    setValue('bodFatClassification.value', "Obese");
+                }
+            }
+
         }
 
-        jQuery(function () {
+        jq(function () {
             getField('weight.value').change(onWeightOrHeightChange);
             getField('height.value').change(onWeightOrHeightChange);
             onWeightOrHeightChange();
 
-            var pbirthdate = new Date("<lookup expression="
-            patient.birthdate
-            " />"
-            ).
-            getTime();
-            var pgender = "<lookup expression="
-            patient.gender
-            " />";
+            jq("#bodFat").change(function () {
+                onBodyFatChange(getValue('bodFat.value'));
+                
+            })
 
-            if (pgender == 'F') {
-                beforeSubmit.push(function () {
-                    var lmpdate = new Date(getValue('lmp-date.value')).getTime();
-                    if (lmpdate &lt; pbirthdate) {
-                        getField('lmp-date.error').html('Should not be earlier than birth date').show();
-                        return false;
-                    }
-                    return true;
-                });
-            }
         });
     </script>
 
@@ -103,9 +186,11 @@
                 </tr>
                 <tr>
                     <td>BMI</td>
-                    <td><span id="calculated-bmi" class="value"></span></td>
                     <td>
-                        <obs conceptId="1342AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+                        <obs  conceptId="1342AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" id="calculated-bmi"/>
+                    </td>
+                    <td>
+                        <recentObs conceptId="1342AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
                     </td>
                 </tr>
                 <tr>
@@ -120,16 +205,16 @@
                 <tr>
                     <td>Body fat%</td>
                     <td>
-                        <obs conceptId="1343AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+                        <obs id="bodFat" conceptId="1343AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
                     </td>
                     <td>
-                        <recentObs conceptId="1343AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"/>
+                        <recentObs conceptId="1343AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
                     </td>
                 </tr>
                 <tr>
                     <td>Body fat classification:</td>
                     <td>
-                        <obs conceptId="02e5963f-f117-4e29-97cd-d5834e584c8a" answerConceptIds="1710ec42-f4fc-48e4-b55f-f118cefbf3eb,1855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,e5556312-9713-44ac-9e7a-41daa1fbf0db,21db7ad4-4984-4767-960e-b0bcf84e6083" answerLabel="Underfat,Healthy,Overfat,Obese" />
+                        <obs id="bodFatClassification" conceptId="02e5963f-f117-4e29-97cd-d5834e584c8a" answerConceptIds="1710ec42-f4fc-48e4-b55f-f118cefbf3eb,1855AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,e5556312-9713-44ac-9e7a-41daa1fbf0db,21db7ad4-4984-4767-960e-b0bcf84e6083" answerLabel="Underfat,Healthy,Overfat,Obese" />
                     </td>
                     <td>
                         <recentObs conceptId="0d9d8544-1d9a-4689-b9c7-b07de839f6db"/>
