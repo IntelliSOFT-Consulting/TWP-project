@@ -11,5 +11,5 @@
 </div>
 
 <div class="ke-page-content">
-    ${ ui.includeFragment("wellness", "performance")}
+    ${ ui.includeFragment("wellness", "admin/performance")}
 </div>

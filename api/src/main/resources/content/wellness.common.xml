@@ -132,7 +132,7 @@
 
 	<bean id="wellness.common.report.missedAppointment" class="org.openmrs.module.kenyacore.report.CalculationReportDescriptor">
 		<property name="targetUuid" value="d1e3d16f-74d8-47c7-9475-849e9d82408b" />
-		<property name="name" value="Patients who missed their last appointment" />
+		<property name="name" value="Clients who missed their last appointment" />
 		<property name="calculation" value="org.openmrs.module.wellness.calculation.library.MissedLastAppointmentCalculation" />
 		<property name="apps"><set><ref bean="wellness.app.reports" /></set></property>
 	</bean>

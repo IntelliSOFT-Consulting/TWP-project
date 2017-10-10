@@ -1,6 +1,3 @@
-<%
-    ui.decorateWith("wellness", "standardPage", [ layout: "sidebar" ])
-%>
 <div class="ke-panel-frame">
     <div class="ke-panel-heading">Provider per client performance</div>
 
@@ -11,7 +8,7 @@
 
             <% providerPatient.each { name, value -> %>
             <tr>
-                <td>${name.person.names} has <b> ${value.size}</b> clients</td>
+        <td><b>${name}</b> has <b> ${value.size}</b> clients</td>
             </tr>
             <tr>
                 <td>

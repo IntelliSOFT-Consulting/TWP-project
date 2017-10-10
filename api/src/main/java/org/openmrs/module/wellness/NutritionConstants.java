@@ -22,6 +22,6 @@ public class NutritionConstants {
 	/**
 	 * Number of days without an encounter before a patient is consider lost to follow up
 	 */
-	public static final int LOST_TO_FOLLOW_UP_THRESHOLD_DAYS = 90;
+	public static final int LOST_TO_FOLLOW_UP_THRESHOLD_DAYS = 30;
 
 }
