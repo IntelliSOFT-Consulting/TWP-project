@@ -31,6 +31,7 @@ public class DailyScheduleFragmentController {
 		Date today = OpenmrsUtil.firstSecondOfDay(new Date());
 		Date tomorrow = CoreUtils.dateAddDays(today, 1);
 		Date yesterday = CoreUtils.dateAddDays(today, -1);
+		boolean beyondTomorrow = date.after(tomorrow);
 
 		// Date defaults to today
 		if (date == null) {
@@ -45,5 +46,6 @@ public class DailyScheduleFragmentController {
 		model.addAttribute("isToday", date.equals(today));
 		model.addAttribute("isTomorrow", date.equals(tomorrow));
 		model.addAttribute("isYesterday", date.equals(yesterday));
+		model.addAttribute("beyondTomorrow", beyondTomorrow);
 	}
 }

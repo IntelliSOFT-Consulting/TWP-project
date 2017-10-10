@@ -8,15 +8,12 @@ import org.openmrs.Provider;
 import org.openmrs.api.EncounterService;
 import org.openmrs.api.ProviderService;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.kenyaui.annotation.AppPage;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
-import org.openmrs.module.wellness.EmrConstants;
 import org.openmrs.module.wellness.metadata.NutritionMetadata;
 import org.openmrs.ui.framework.fragment.FragmentModel;
 
 import java.util.*;
 
-@AppPage(EmrConstants.APP_ADMIN)
 public class PerformanceFragmentController {
 
     public void controller(FragmentModel model) {

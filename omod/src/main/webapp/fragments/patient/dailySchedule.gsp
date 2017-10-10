@@ -8,6 +8,8 @@
 		heading += "Tomorrow"
 	else if (isYesterday)
 		heading = "missed appointments Yesterday"
+	else if(beyondTomorrow)
+		heading += kenyaui.formatDate(date)
 	else
 		heading ="missed appointments on "+ kenyaui.formatDate(date)
 %>
