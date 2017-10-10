@@ -76,7 +76,7 @@ public class EmrUtilsFragmentController {
 	 */
 	public SimpleObject nextHivUniquePatientNumber(@RequestParam(required = false, value = "comment") String comment) {
 		if (comment == null) {
-			comment = "KenyaEMR UI";
+			comment = "Wellness UI";
 		}
 
 		String id = Context.getService(KenyaEmrService.class).getNextHivUniquePatientNumber(comment);

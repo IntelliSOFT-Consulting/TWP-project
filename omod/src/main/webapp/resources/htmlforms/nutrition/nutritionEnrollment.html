@@ -14,6 +14,7 @@
 <htmlform>
 	<script type="text/javascript">
         jq(function(){
+            jq('#generate-hiv-id').click(onUpnGenerateClick);
             toggleVeg();
             jq('#veg input:radio').click(function () {
                 toggleVeg();
@@ -28,6 +29,14 @@
                 jq('#vegOptions :input').prop('disabled', true)
             }
         }
+        function onUpnGenerateClick() {
+            var ctxPath = typeof openmrsContextPath === 'string' ? openmrsContextPath : OPENMRS_CONTEXT_PATH;
+
+            jq.getJSON('/' + ctxPath + '/wellness/emrUtils/nextHivUniquePatientNumber.action', function(data) {
+                jq('#nnb-id input[type=text]').val(data.value);
+                jq('#generate-hiv-id').hide();
+            });
+        }
 	</script>
 
 		<div class="ke-form-header">
@@ -38,14 +47,13 @@
 				<tr>
 					<td>Enrollment date: <encounterDate id="encounter-date" showTime="false" /></td>
 					<td>Enrolled by: <encounterProvider default="currentUser" /></td>
-					<!--<td>Nutrition Number:<patient id="nnb" field="identifier" identifierTypeId="dfdc6d40-2f2f-463d-ba90-cc97350441a8" /></td>-->
 				</tr>
 			</table>
 		</div>
 		<div class="ke-form-content">
 			<fieldset>
 				<legend>Identifiers</legend>
-				Nutrition Number:<patient id="nnb" field="identifier" identifierTypeId="f85081e2-b4be-4e48-b3a4-7994b69bb101" required="false" />
+				Nutrition Number:<span id="nnb-id"><patient field="identifier" identifierTypeId="f85081e2-b4be-4e48-b3a4-7994b69bb101" required="false" /></span>
 				<input type="button" id="generate-hiv-id" value="Generate"/>
 			</fieldset>
 			<fieldset>

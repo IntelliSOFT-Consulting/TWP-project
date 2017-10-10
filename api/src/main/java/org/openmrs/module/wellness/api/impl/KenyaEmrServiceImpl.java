@@ -161,13 +161,13 @@ public class KenyaEmrServiceImpl extends BaseOpenmrsService implements KenyaEmrS
 	@Override
 	public String getNextHivUniquePatientNumber(String comment) {
 		if (comment == null) {
-			comment = "KenyaEMR Service";
+			comment = "Wellness Service";
 		}
 
 		PatientIdentifierType upnType = MetadataUtils.existing(PatientIdentifierType.class, NutritionMetadata._PatientIdentifierType.NUTRITION_NUMBER);
 		IdentifierSource source = identifierManager.getIdentifierSource(upnType);
 
-		String prefix = Context.getService(KenyaEmrService.class).getDefaultLocationMflCode();
+		String prefix = "TWP";
 		String sequentialNumber = Context.getService(IdentifierSourceService.class).generateIdentifier(source, comment);
 		return prefix + sequentialNumber;
 	}
