@@ -73,6 +73,11 @@ public class NutritionEnrollmentSummaryFragmentController {
 			if (o5 != null) {
 				dataPoints.put("Support period", o5.getValueCoded());
 			}
+
+			Obs o6 = wrapper.firstObs(Dictionary.getConcept("88eff02f-df0f-471d-bc74-ca40a9cf54c9"));
+			if (o6 != null) {
+				dataPoints.put("Weight Band", o6.getValueCoded());
+			}
 		}
 
 
