@@ -21,6 +21,7 @@
 				<ref bean="wellness.nutrition.report.lostToFollowUp" />
 				<ref bean="wellness.common.report.missedAppointment" />
 				<ref bean="wellness.nutrition.report.onNutritionProgram" />
+				<ref bean="wellness.nutrition.report.monthly.progress" />
 			</set>
 		</property>
 		<property name="fragments">
@@ -99,6 +100,13 @@
 		<property name="targetUuid" value="5d86be8c-a75e-11e7-84b6-4b1e805bd775" />
 		<property name="name" value="Clients enrolled in program" />
 		<property name="calculation" value="org.openmrs.module.wellness.calculation.library.nutrition.InNutritionProgramCalculation" />
+		<property name="apps"><set><ref bean="wellness.app.reports" /></set></property>
+	</bean>
+
+	<bean id="wellness.nutrition.report.monthly.progress" class="org.openmrs.module.kenyacore.report.IndicatorReportDescriptor">
+		<property name="targetUuid" value="4240c99e-af22-11e7-8203-03a99aee0adb" />
+		<property name="name" value="Monthly Progress Report" />
+		<property name="description" value="Contains all information regarding the clients performance" />
 		<property name="apps"><set><ref bean="wellness.app.reports" /></set></property>
 	</bean>
 
