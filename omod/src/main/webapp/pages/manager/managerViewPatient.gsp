@@ -58,7 +58,7 @@
 
     <%} else if (section == "performance") { %>
 
-    ${ ui.includeFragment("wellness", "manager/performance", [ patient: currentPatient ]) }
+    ${ ui.includeFragment("wellness", "admin/performance", [ patient: currentPatient ]) }
     <%}%>
 
 </div>

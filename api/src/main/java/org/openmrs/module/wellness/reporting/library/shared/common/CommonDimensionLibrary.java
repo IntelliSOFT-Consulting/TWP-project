@@ -14,8 +14,10 @@
 
 package org.openmrs.module.wellness.reporting.library.shared.common;
 
+import org.openmrs.module.kenyacore.report.ReportUtils;
 import org.openmrs.module.reporting.evaluation.parameter.Parameter;
 import org.openmrs.module.reporting.indicator.dimension.CohortDefinitionDimension;
+import org.openmrs.module.wellness.Dictionary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -56,5 +58,21 @@ public class CommonDimensionLibrary {
 		dim.addCohortDefinition("<15", map(commonCohortLibrary.agedAtMost(14), "effectiveDate=${onDate}"));
 		dim.addCohortDefinition("15+", map(commonCohortLibrary.agedAtLeast(15), "effectiveDate=${onDate}"));
 		return dim;
+	}
+
+	public CohortDefinitionDimension programsGiven() {
+		CohortDefinitionDimension dim = new CohortDefinitionDimension();
+		dim.setName("Programs given (Walk, Stroll, sprint, marathon,run)");
+		dim.addParameter(new Parameter("onOrBefore", "Before Date", Date.class));
+		dim.addParameter(new Parameter("onOrAfter", "After Date", Date.class));
+
+		dim.addCohortDefinition("w", ReportUtils.map(commonCohortLibrary.hasObs(Dictionary.getConcept("c3ac2b0b-35ce-4cad-9586-095886f2335a"), Dictionary.getConcept("159310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore}"));
+		dim.addCohortDefinition("st", ReportUtils.map(commonCohortLibrary.hasObs(Dictionary.getConcept("c3ac2b0b-35ce-4cad-9586-095886f2335a"), Dictionary.getConcept("cf6aa2ea-07ea-4707-88b4-abc691d5f3c2")), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore}"));
+		dim.addCohortDefinition("sp", ReportUtils.map(commonCohortLibrary.hasObs(Dictionary.getConcept("c3ac2b0b-35ce-4cad-9586-095886f2335a"), Dictionary.getConcept("70896d5a-a14b-40b0-8a24-8729f883b3e9")), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore}"));
+		dim.addCohortDefinition("m", ReportUtils.map(commonCohortLibrary.hasObs(Dictionary.getConcept("c3ac2b0b-35ce-4cad-9586-095886f2335a"), Dictionary.getConcept("e00e7df6-7752-483a-95a1-56052aecd10e")), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore}"));
+		dim.addCohortDefinition("r", ReportUtils.map(commonCohortLibrary.hasObs(Dictionary.getConcept("c3ac2b0b-35ce-4cad-9586-095886f2335a"), Dictionary.getConcept("e00a0300-880a-4240-bc54-6006d699630e")), "onOrAfter=${onOrAfter},onOrBefore=${onOrBefore}"));
+
+		return dim;
+
 	}
 }

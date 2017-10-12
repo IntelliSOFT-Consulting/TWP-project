@@ -16,7 +16,7 @@
 				<th>Name</th>
 				<th>Age</th>
 				<th>Sex</th>
-				<th>Unique Patient Number</th>
+				<th>Identifier</th>
 			</tr>
 		</thead>
 		<tbody>
