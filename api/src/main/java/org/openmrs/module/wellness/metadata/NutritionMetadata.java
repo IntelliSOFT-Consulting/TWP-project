@@ -34,12 +34,16 @@ public class NutritionMetadata extends AbstractMetadataBundle {
 		public static final String NUTRITION_CONSULTATION = "a0034eee-1940-4e35-847f-97537a35d05e";
 		public static final String NUTRITION_DISCONTINUATION = "2bdada65-4c72-4a48-8730-859890e25cee";
 		public static final String NUTRITION_ENROLLMENT = "de78a6be-bfc5-4634-adc3-5f1a280455cc";
+		public static final String NUTRITION_FEEDBACK = "0f80ca14-af3a-11e7-a8f9-f323456c4a2b";
+		public static final String NUTRITION_KICKOFF = "26849934-af3a-11e7-ab5f-d74d2aefe38f";
 	}
 
 	public static final class _Form {
 		public static final String NUTRITION_CONSULTATION = "bd598114-4ef4-47b1-a746-a616180ccfc0";
 		public static final String NUTRITION_DISCONTINUATION = "e3237ede-fa70-451f-9e6c-0908bc39f8b9";
 		public static final String NUTRITION_ENROLLMENT = "e4b506c1-7379-42b6-a374-284469cba8da";
+		public static final String NUTRITION_FEEDBACK = "3e4728f2-af3a-11e7-937f-bf8310bdc577";
+		public static final String NUTRITION_KICKOFF = "4b9e609c-af3a-11e7-8031-3fec480fd65c";
 	}
 
 	public static final class _PatientIdentifierType {
@@ -58,10 +62,14 @@ public class NutritionMetadata extends AbstractMetadataBundle {
 		install(encounterType("Nutrition Enrollment", "Enrollment onto Nutrition program", _EncounterType.NUTRITION_ENROLLMENT));
 		install(encounterType("Nutrition Discontinuation", "Discontinuation from Nutrition program", _EncounterType.NUTRITION_DISCONTINUATION));
 		install(encounterType("Nutrition Consultations", "Consulatations in nutrition program", _EncounterType.NUTRITION_CONSULTATION));
+		install(encounterType("Nutrition Feedback", "Feedback of the clients", _EncounterType.NUTRITION_FEEDBACK));
+		install(encounterType("Nutrition Kickoff", "Kick off the nutrition program", _EncounterType.NUTRITION_KICKOFF));
 
 		install(form("Nutrition Enrollment", null, _EncounterType.NUTRITION_ENROLLMENT, "1", _Form.NUTRITION_ENROLLMENT));
 		install(form("Nutrition Discontinuation", null, _EncounterType.NUTRITION_DISCONTINUATION, "1", _Form.NUTRITION_DISCONTINUATION));
 		install(form("Nutrition Consultations", null, _EncounterType.NUTRITION_CONSULTATION, "1", _Form.NUTRITION_CONSULTATION));
+		install(form("Nutrition Feedback", null, _EncounterType.NUTRITION_FEEDBACK, "1", _Form.NUTRITION_FEEDBACK));
+		install(form("Nutrition Kickoff", null, _EncounterType.NUTRITION_KICKOFF, "1", _Form.NUTRITION_KICKOFF));
 
 		install(patientIdentifierType("Nutrition Number", "Assigned to every client enrolled into nutrition", "^[a-zA-Z0-9_.-]*$", "Client's nutrition number number",
 				null, LocationBehavior.NOT_USED, false, _PatientIdentifierType.NUTRITION_NUMBER));

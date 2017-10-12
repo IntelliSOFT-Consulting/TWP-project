@@ -10,6 +10,12 @@
 		<property name="eligibilityCalculation" value="org.openmrs.module.wellness.calculation.library.nutrition.EligibleForNutritionProgramCalculation" />
 		<property name="defaultEnrollmentForm" ref="wellness.nutrition.form.enrollment" />
 		<property name="defaultCompletionForm" ref="wellness.nutrition.form.completion" />
+		<property name="patientForms">
+			<set>
+				<ref bean="wellness.nutrition.form.kickoff" />
+				<ref bean="wellness.nutrition.form.feedback" />
+			</set>
+		</property>
 		<property name="visitForms">
 			<set>
 				<ref bean="wellness.nutrition.form.consultation" />
@@ -85,6 +91,30 @@
 		</property>
 		<property name="icon" value="kenyaui:forms/generic.png" />
 		<property name="htmlform" value="wellness:nutrition/nutritionConsultations.html" />
+	</bean>
+
+	<bean id="wellness.nutrition.form.kickoff" class="org.openmrs.module.kenyacore.form.FormDescriptor">
+		<property name="targetUuid" value="94114ad2-af36-11e7-8696-4f338035eb80" />
+		<property name="apps">
+			<set>
+				<ref bean="wellness.app.clinician" />
+				<ref bean="wellness.app.manager" />
+			</set>
+		</property>
+		<property name="icon" value="kenyaui:forms/generic.png" />
+		<property name="htmlform" value="wellness:nutrition/kickoff.html" />
+	</bean>
+
+	<bean id="wellness.nutrition.form.feedback" class="org.openmrs.module.kenyacore.form.FormDescriptor">
+		<property name="targetUuid" value="f16b0a38-af36-11e7-b3ce-cbb5d4e462ab" />
+		<property name="apps">
+			<set>
+				<ref bean="wellness.app.clinician" />
+				<ref bean="wellness.app.manager" />
+			</set>
+		</property>
+		<property name="icon" value="kenyaui:forms/generic.png" />
+		<property name="htmlform" value="wellness:nutrition/feedback.html" />
 	</bean>
 
 	<!-- ===================== Reports ===================== -->

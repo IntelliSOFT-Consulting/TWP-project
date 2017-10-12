@@ -48,6 +48,7 @@ public class MonthlyProgressReportBuilder extends AbstractReportBuilder {
         dsd.setDescription("Clients' performance");
         dsd.addParameter(new Parameter("startDate", "Start Date", Date.class));
         dsd.addParameter(new Parameter("endDate", "End Date", Date.class));
+        String indParams = "startDate=${startDate},endDate=${endDate}";
         return dsd;
     }
 }
