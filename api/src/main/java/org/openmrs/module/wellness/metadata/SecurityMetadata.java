@@ -121,7 +121,8 @@ public class SecurityMetadata extends AbstractMetadataBundle {
 						app(EmrConstants.APP_REPORTS),
 						app(EmrConstants.APP_MANAGER),
 						app(DqConstants.APP_DATAQUALITY),
-						app(DqConstants.APP_DATAMANAGER)
+						app(DqConstants.APP_DATAMANAGER),
+						app(EmrConstants.APP_ADMIN)
 				)
 		));
 
