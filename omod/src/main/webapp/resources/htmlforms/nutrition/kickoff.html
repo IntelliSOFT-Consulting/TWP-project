@@ -12,4 +12,57 @@
   ~ Copyright (C) OpenMRS, LLC.  All Rights Reserved.
 -->
 <htmlform>
+    <div class="ke-form-header">
+			<span style="display: none">
+					<encounterLocation default="GlobalProperty:wellness.defaultLocation" />
+			</span>
+        <table style="width: 100%">
+            <tr>
+                <td>Encounter date: <encounterDate id="encounter-date" showTime="true" /></td>
+                <td>Provider:<encounterProvider default="currentUser" /></td>
+            </tr>
+        </table>
+    </div>
+    <div class="ke-form-content">
+        <table>
+            <tbody>
+            <tr>
+                <td>Program start date:</td>
+                <td><obs conceptId="4a27aebb-9614-4233-8311-9b921a7e9067" /></td>
+            </tr>
+            <tr>
+                <td>General comments</td>
+                <td><obs conceptId="161011AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" rows="5" cols="5"/></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <table cellspacing="0">
+                        <tr>
+                            <th style="color: #888">Drug</th>
+                            <th style="color: #888; text-align: center">Bottles</th>
+                        </tr>
+                        <repeat>
+                            <template>
+                                <obsgroup groupingConceptId="1442AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+                                    <tr>
+                                        <td><obs conceptId="1282AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerConceptIds="74544AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,461AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA,104535AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" answerLabels="Harmony,Multivitamin,Omega" /></td>
+                                        <td><obs conceptId="1444AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" size="5" /></td>
+                                    </tr>
+                                </obsgroup>
+                            </template>
+                            <render n="1" />
+                            <render n="2" />
+                            <render n="3" />
+                        </repeat>
+                    </table>
+                </td>
+            </tr>
+
+            </tbody>
+
+        </table>
+    </div>
+    <div class="ke-form-footer">
+        <submit />
+    </div>
 </htmlform>
