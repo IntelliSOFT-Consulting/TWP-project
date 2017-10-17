@@ -65,11 +65,11 @@ public class NutritionMetadata extends AbstractMetadataBundle {
 		install(encounterType("Nutrition Feedback", "Feedback of the clients", _EncounterType.NUTRITION_FEEDBACK));
 		install(encounterType("Nutrition Kickoff", "Kick off the nutrition program", _EncounterType.NUTRITION_KICKOFF));
 
-		install(form("Nutrition Enrollment", null, _EncounterType.NUTRITION_ENROLLMENT, "1", _Form.NUTRITION_ENROLLMENT));
-		install(form("Nutrition Discontinuation", null, _EncounterType.NUTRITION_DISCONTINUATION, "1", _Form.NUTRITION_DISCONTINUATION));
-		install(form("Nutrition Consultations", null, _EncounterType.NUTRITION_CONSULTATION, "1", _Form.NUTRITION_CONSULTATION));
-		install(form("Nutrition Feedback", "Nutrition Feed back", _EncounterType.NUTRITION_FEEDBACK, "1", _Form.NUTRITION_FEEDBACK));
-		install(form("Nutrition Kickoff", "Kick off details", _EncounterType.NUTRITION_KICKOFF, "1", _Form.NUTRITION_KICKOFF));
+		install(form("Enrollment", null, _EncounterType.NUTRITION_ENROLLMENT, "1", _Form.NUTRITION_ENROLLMENT));
+		install(form("Discontinuation", null, _EncounterType.NUTRITION_DISCONTINUATION, "1", _Form.NUTRITION_DISCONTINUATION));
+		install(form("Consultations", null, _EncounterType.NUTRITION_CONSULTATION, "1", _Form.NUTRITION_CONSULTATION));
+		install(form("Feedback", "Nutrition Feed back", _EncounterType.NUTRITION_FEEDBACK, "1", _Form.NUTRITION_FEEDBACK));
+		install(form("Kickoff", "Kick off details", _EncounterType.NUTRITION_KICKOFF, "1", _Form.NUTRITION_KICKOFF));
 
 		install(patientIdentifierType("Nutrition Number", "Assigned to every client enrolled into nutrition", "^[a-zA-Z0-9_.-]*$", "Client's nutrition number number",
 				null, LocationBehavior.NOT_USED, false, _PatientIdentifierType.NUTRITION_NUMBER));

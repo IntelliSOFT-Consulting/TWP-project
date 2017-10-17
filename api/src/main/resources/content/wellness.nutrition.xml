@@ -98,7 +98,9 @@
 		<property name="apps">
 			<set>
 				<ref bean="wellness.app.clinician" />
-				<ref bean="wellness.app.manager" />
+				<ref bean="wellness.app.registration" />
+				<ref bean="wellness.app.intake" />
+				<ref bean="wellness.app.chart" />
 			</set>
 		</property>
 		<property name="icon" value="kenyaui:forms/generic.png" />
@@ -110,7 +112,9 @@
 		<property name="apps">
 			<set>
 				<ref bean="wellness.app.clinician" />
-				<ref bean="wellness.app.manager" />
+				<ref bean="wellness.app.registration" />
+				<ref bean="wellness.app.intake" />
+				<ref bean="wellness.app.chart" />
 			</set>
 		</property>
 		<property name="icon" value="kenyaui:forms/generic.png" />
