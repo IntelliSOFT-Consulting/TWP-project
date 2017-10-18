@@ -46,7 +46,7 @@
 		<constructor-arg value="wellness.orders" />
 		<constructor-arg value="Orders" />
 		<constructor-arg value="wellness/order/ordersHome.page" />
-		<constructor-arg value="wellness:apps/orders.png" />
+		<constructor-arg value="wellness:apps/orders.jpg" />
 		<constructor-arg value="360" />
 	</bean>
 
