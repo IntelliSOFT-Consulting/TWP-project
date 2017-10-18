@@ -4,7 +4,8 @@
 	ui.includeJavascript("wellness", "controllers/visit.js")
 
 	def menuItems = [
-			[ label: "Find or create client", iconProvider: "kenyaui", icon: "buttons/patient_search.png", href: ui.pageLink("wellness", "registration/registrationSearch") ]
+			[ label: "Find or create client", iconProvider: "kenyaui", icon: "buttons/patient_search.png", href: ui.pageLink("wellness", "registration/registrationSearch") ],
+			[ label: "Provider availability", iconProvider: "wellness", icon: "buttons/patient_search.png", href: ui.pageLink("wellness", "registration/providerAvailability") ]
 	]
 %>
 

@@ -7,7 +7,7 @@
 </div>
 
 <div class="ke-page-content">
-    ${ ui.includeFragment("wellness", "patient/patientSearchResults", [ pageProvider: "wellness", page: "manager/orderViewPatient" ]) }
+    ${ ui.includeFragment("wellness", "patient/patientSearchResults", [ pageProvider: "wellness", page: "order/orderViewPatient" ]) }
 </div>
 
 <script type="text/javascript">

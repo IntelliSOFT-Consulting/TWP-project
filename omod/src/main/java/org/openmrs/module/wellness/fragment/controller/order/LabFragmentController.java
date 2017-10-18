@@ -8,6 +8,6 @@ public class LabFragmentController {
 
     public void controller(@FragmentParam("patient") Patient patient,
                            FragmentModel model){
-        
+
     }
 }
