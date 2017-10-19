@@ -6,8 +6,7 @@
 			heading: "Tasks",
 			items: [
 					[ iconProvider: "kenyaui", icon: "buttons/users_manage.png", label: "Manage accounts", href: ui.pageLink("wellness", "admin/manageAccounts") ],
-					[ iconProvider: "kenyaui", icon: "buttons/report_queue.png", label: "Manage report queue", href: ui.pageLink("wellness", "admin/manageReportQueue") ],
-					[ iconProvider: "kenyaui", icon: "buttons/admin_setup.png", label: "Clients per Provider", href: ui.pageLink("wellness", "admin/performanceHome") ]
+					[ iconProvider: "kenyaui", icon: "buttons/report_queue.png", label: "Manage report queue", href: ui.pageLink("wellness", "admin/manageReportQueue") ]
 			]
 	]) }
 </div>

@@ -7,14 +7,14 @@
                     href: ui.pageLink("wellness", "order/orderViewPatient", [ patientId: currentPatient.id, section: "lab" ]),
                     active: (selection == "section-lab"),
                     iconProvider: "wellness",
-                    icon: "buttons/summary.png"
+                    icon: "buttons/lab.png"
             ],
             [
                     label: "Requested tests",
                     href: ui.pageLink("wellness", "order/orderViewPatient", [ patientId: currentPatient.id, section: "tests" ]),
                     active: (selection == "section-tests"),
                     iconProvider: "wellness",
-                    icon: "buttons/summary.png"
+                    icon: "buttons/results.png"
             ]
     ]
 %>

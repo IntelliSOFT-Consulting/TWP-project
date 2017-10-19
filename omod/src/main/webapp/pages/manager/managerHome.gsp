@@ -4,6 +4,12 @@
 
 <div class="ke-page-sidebar">
     ${ ui.includeFragment("wellness", "patient/patientSearchForm", [ defaultWhich: "checked-in" ]) }
+    ${ ui.includeFragment("kenyaui", "widget/panelMenu", [
+            heading: "Tasks",
+              items: [
+                      [ iconProvider: "kenyaui", icon: "buttons/admin_setup.png", label: "Clients per Provider", href: ui.pageLink("wellness", "admin/performanceHome") ]
+              ]
+    ]) }
 </div>
 
 <div class="ke-page-content">
