@@ -3,11 +3,18 @@
 
     def menuItems = [
             [
-                    label: "Lab request",
+                    label: "Lab requests",
                     href: ui.pageLink("wellness", "order/orderViewPatient", [ patientId: currentPatient.id, section: "lab" ]),
                     active: (selection == "section-lab"),
                     iconProvider: "wellness",
-                    icon: "buttons/orders.png"
+                    icon: "buttons/summary.png"
+            ],
+            [
+                    label: "Requested tests",
+                    href: ui.pageLink("wellness", "order/orderViewPatient", [ patientId: currentPatient.id, section: "tests" ]),
+                    active: (selection == "section-tests"),
+                    iconProvider: "wellness",
+                    icon: "buttons/summary.png"
             ]
     ]
 %>
@@ -23,6 +30,9 @@
     <% if (section == "lab") { %>
 
         ${ ui.includeFragment("wellness", "order/lab", [ patient: currentPatient]) }
+
+    <%} else if (section == "tests") { %>
+        ${ ui.includeFragment("wellness", "order/tests", [ patient: currentPatient]) }
 
     <% } %>
 </div>
