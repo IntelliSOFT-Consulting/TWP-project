@@ -14,22 +14,22 @@
                     label: "Nutrition Plan",
                     href: ui.pageLink("wellness", "manager/managerViewPatient", [ patientId: currentPatient.id, section: "plan" ]),
                     active: (selection == "section-plan"),
-                    iconProvider: "kenyaui",
-                    icon: "buttons/summary.png"
+                    iconProvider: "wellness",
+                    icon: "buttons/plan.png"
             ],
             [
                     label: "Body analysis",
                     href: ui.pageLink("wellness", "manager/managerViewPatient", [ patientId: currentPatient.id, section: "analysis" ]),
                     active: (selection == "section-analysis"),
-                    iconProvider: "kenyaui",
-                    icon: "buttons/summary.png"
+                    iconProvider: "wellness",
+                    icon: "buttons/analysis.png"
             ],
             [
                     label: "Provider performance",
                     href: ui.pageLink("wellness", "manager/managerViewPatient", [ patientId: currentPatient.id, section: "performance" ]),
                     active: (selection == "section-performance"),
-                    iconProvider: "kenyaui",
-                    icon: "buttons/summary.png"
+                    iconProvider: "wellness",
+                    icon: "buttons/perform.png"
             ]
     ]
 %>

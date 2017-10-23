@@ -1,7 +1,6 @@
 <div class="ke-panel-frame">
-
-    <div class="ke-panel-heading">Provider availability calendar</div>
-    <div class="ke-stack-item>
-        <p>Availability information will appear here</p>
+    <div class="ke-panel-heading">Provider Availability Calendar</div>
+    <div class="ke-page-content">
+        The provider availability calendar will appear here
     </div>
 </div>
