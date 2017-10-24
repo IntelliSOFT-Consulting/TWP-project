@@ -5,7 +5,7 @@
 
 	def menuItems = [
 			[ iconProvider: "kenyaui", icon: "buttons/patient_search.png", label: "Find a client", href: ui.pageLink("wellness", "chart/chartSearch") ],
-			[ label: "Provider availability", iconProvider: "wellness", icon: "buttons/providers.png", href: ui.pageLink("wellness", "chart/providerAvailability") ],
+			[ label: "Appointments", iconProvider: "wellness", icon: "buttons/providers.png", href: ui.pageLink("wellness", "chart/providerAvailability") ],
 			[ label: "Photo uploads", iconProvider: "wellness", icon: "buttons/upload.png", href: ui.pageLink("wellness", "chart/photoUpload") ]
 
 	]

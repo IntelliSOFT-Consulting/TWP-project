@@ -3,7 +3,7 @@
 
 	def menuItemsNew = [
 			[ label: "Seen Clients", iconProvider: "kenyaui", icon: "buttons/patients.png", href: ui.pageLink("wellness", "clinician/clinicianSearchSeen") ],
-			[ label: "Provider availability", iconProvider: "wellness", icon: "buttons/providers.png", href: ui.pageLink("wellness", "clinician/providerAvailability") ],
+			[ label: "Appointments", iconProvider: "wellness", icon: "buttons/providers.png", href: ui.pageLink("wellness", "clinician/providerAvailability") ],
 			[ label: "Photo uploads", iconProvider: "wellness", icon: "buttons/upload.png", href: ui.pageLink("wellness", "clinician/photoUpload") ]
 	]
 %>

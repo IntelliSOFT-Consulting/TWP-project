@@ -7,8 +7,8 @@
     ${ ui.includeFragment("kenyaui", "widget/panelMenu", [
             heading: "Tasks",
               items: [
-                      [ iconProvider: "kenyaui", icon: "buttons/admin_setup.png", label: "Clients per Provider", href: ui.pageLink("wellness", "manager/performanceHome") ],
-                      [ label: "Provider availability", iconProvider: "wellness", icon: "buttons/providers.png", href: ui.pageLink("wellness", "manager/providerAvailability") ],
+                      [ iconProvider: "kenyaui", icon: "buttons/admin_setup.png", label: "Performance", href: ui.pageLink("wellness", "manager/performanceHome") ],
+                      [ label: "Appointments", iconProvider: "wellness", icon: "buttons/providers.png", href: ui.pageLink("wellness", "manager/providerAvailability") ],
                       [ label: "Photo uploads", iconProvider: "wellness", icon: "buttons/upload.png", href: ui.pageLink("wellness", "manager/photoUpload") ]
               ]
     ]) }

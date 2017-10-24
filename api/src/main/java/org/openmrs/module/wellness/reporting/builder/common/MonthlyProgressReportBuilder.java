@@ -75,7 +75,7 @@ public class MonthlyProgressReportBuilder extends AbstractReportBuilder {
         dsd.addColumn("TWP1", "Registered clients", ReportUtils.map(nutritionIndicators.registered(), indParams), "");
         dsd.addColumn("TWP2", "Enrolled clients", ReportUtils.map(nutritionIndicators.enrolled(), indParams), "");
         dsd.addColumn("TWP3", "Clients with blood tests", ReportUtils.map(nutritionIndicators.clientsWithBloodTests(), indParams), "");
-        dsd.addColumn("TWP4", "Clients no with blood tests", ReportUtils.map(nutritionIndicators.clientsWithNoBloodTests(), indParams), "");
+        dsd.addColumn("TWP4", "Clients with no blood tests", ReportUtils.map(nutritionIndicators.clientsWithNoBloodTests(), indParams), "");
         EmrReportingUtils.addRow(dsd, "TWP5", "Clients per program", ReportUtils.map(nutritionIndicators.clientsprograms(), indParams), allColumns, Arrays.asList("01", "02", "03", "04", "05", "06"));
 
         return dsd;
