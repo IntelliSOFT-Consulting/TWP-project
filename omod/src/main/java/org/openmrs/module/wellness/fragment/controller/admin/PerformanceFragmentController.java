@@ -108,14 +108,13 @@ public class PerformanceFragmentController {
                                             else if(obs.getConcept().equals(Dictionary.getConcept("c3ac2b0b-35ce-4cad-9586-095886f2335a")) && obs.getValueCoded().equals(Dictionary.getConcept("e00a0300-880a-4240-bc54-6006d699630e"))) {
                                                 run.add(encounter.getPatient());
                                             }
-
                                         }
-                                        listOfProgramsAndPatients.put("Walk", walk);
-                                        listOfProgramsAndPatients.put("Stroll", stroll);
-                                        listOfProgramsAndPatients.put("Sprint", sprint);
-                                        listOfProgramsAndPatients.put("Marathon", marathon);
-                                        listOfProgramsAndPatients.put("Run", run);
                                     }
+                            listOfProgramsAndPatients.put("Walk", walk);
+                            listOfProgramsAndPatients.put("Stroll", stroll);
+                            listOfProgramsAndPatients.put("Sprint", sprint);
+                            listOfProgramsAndPatients.put("Marathon", marathon);
+                            listOfProgramsAndPatients.put("Run", run);
                         }
                     }
 
