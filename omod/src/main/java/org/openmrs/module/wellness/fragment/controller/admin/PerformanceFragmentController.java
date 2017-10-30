@@ -63,61 +63,49 @@ public class PerformanceFragmentController {
         }
         List<Patient> noTestsDone = new ArrayList<Patient>(noTest);
 
-
-
-
-
-        //declare list to handle all the patients in a given program
-        List<Patient> walk = null;
-        List<Patient> marathon = null;
-        List<Patient> stroll = null;
-        List<Patient> sprint = null;
-        List<Patient> run = null;
-
         if (providerService.getAllProviders().size() > 0) {
             for (Provider provider : providerService.getAllProviders()) {
 
                 List<Encounter> providerEncounters = encounterService.getEncounters(null, null, null, null, null, Arrays.asList(enrollment), Arrays.asList(provider), null, null, true);
-                if(provider != null && allEncounters.size() > 0) {
+                if(providerEncounters.size() > 0) {
                     listOfProgramsAndPatients = new HashMap<String, List<Patient>>();
-
+                    List<Patient>  walk = new ArrayList<Patient>();
+                    List<Patient> marathon = new ArrayList<Patient>();
+                    List<Patient> stroll = new ArrayList<Patient>();
+                    List<Patient> sprint = new ArrayList<Patient>();
+                    List<Patient> run = new ArrayList<Patient>();
                     for (Encounter encounter : providerEncounters) {
-                        if (provider.getPerson() != null && encounter.getProvider() != null && provider.getPerson().equals(encounter.getProvider())) {
+
                                 Set<Obs> obsSet = encounter.getAllObs();
-                                    walk = new ArrayList<Patient>();
-                                    marathon = new ArrayList<Patient>();
-                                    stroll = new ArrayList<Patient>();
-                                    sprint = new ArrayList<Patient>();
-                                    run = new ArrayList<Patient>();
                                     if(obsSet.size() > 0) {
                                         for (Obs obs : obsSet) {
-                                            if(obs.getConcept().equals(Dictionary.getConcept("c3ac2b0b-35ce-4cad-9586-095886f2335a")) && obs.getValueCoded().equals(Dictionary.getConcept("159310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"))) {
-                                                walk.add(encounter.getPatient());
-                                            }
-                                            else if(obs.getConcept().equals(Dictionary.getConcept("c3ac2b0b-35ce-4cad-9586-095886f2335a")) && obs.getValueCoded().equals(Dictionary.getConcept("cf6aa2ea-07ea-4707-88b4-abc691d5f3c2"))) {
-                                                stroll.add(encounter.getPatient());
-                                            }
-                                            else if(obs.getConcept().equals(Dictionary.getConcept("c3ac2b0b-35ce-4cad-9586-095886f2335a")) && obs.getValueCoded().equals(Dictionary.getConcept("70896d5a-a14b-40b0-8a24-8729f883b3e9"))) {
-                                                sprint.add(encounter.getPatient());
-                                            }
-                                            else if(obs.getConcept().equals(Dictionary.getConcept("c3ac2b0b-35ce-4cad-9586-095886f2335a")) && obs.getValueCoded().equals(Dictionary.getConcept("e00e7df6-7752-483a-95a1-56052aecd10e"))) {
-                                                marathon.add(encounter.getPatient());
-                                            }
-                                            else if(obs.getConcept().equals(Dictionary.getConcept("c3ac2b0b-35ce-4cad-9586-095886f2335a")) && obs.getValueCoded().equals(Dictionary.getConcept("e00a0300-880a-4240-bc54-6006d699630e"))) {
-                                                run.add(encounter.getPatient());
+                                            if(obs.getConcept().equals(Dictionary.getConcept("c3ac2b0b-35ce-4cad-9586-095886f2335a"))) {
+
+                                                if (obs.getValueCoded().equals(Dictionary.getConcept("159310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"))) {
+                                                    walk.add(encounter.getPatient());
+                                                } else if (obs.getValueCoded().equals(Dictionary.getConcept("cf6aa2ea-07ea-4707-88b4-abc691d5f3c2"))) {
+                                                    stroll.add(encounter.getPatient());
+                                                } else if (obs.getValueCoded().equals(Dictionary.getConcept("70896d5a-a14b-40b0-8a24-8729f883b3e9"))) {
+                                                    sprint.add(encounter.getPatient());
+                                                } else if (obs.getValueCoded().equals(Dictionary.getConcept("e00e7df6-7752-483a-95a1-56052aecd10e"))) {
+                                                    marathon.add(encounter.getPatient());
+                                                } else if (obs.getValueCoded().equals(Dictionary.getConcept("e00a0300-880a-4240-bc54-6006d699630e"))) {
+                                                    run.add(encounter.getPatient());
+                                                }
                                             }
                                         }
+                                        listOfProgramsAndPatients.put("Walk", walk);
+                                        listOfProgramsAndPatients.put("Stroll", stroll);
+                                        listOfProgramsAndPatients.put("Sprint", sprint);
+                                        listOfProgramsAndPatients.put("Marathon", marathon);
+                                        listOfProgramsAndPatients.put("Run", run);
                                     }
-                            listOfProgramsAndPatients.put("Walk", walk);
-                            listOfProgramsAndPatients.put("Stroll", stroll);
-                            listOfProgramsAndPatients.put("Sprint", sprint);
-                            listOfProgramsAndPatients.put("Marathon", marathon);
-                            listOfProgramsAndPatients.put("Run", run);
-                        }
+
                     }
+                    listMap.put(provider.getName(), listOfProgramsAndPatients);
 
                 }
-                listMap.put(provider.getName(), listOfProgramsAndPatients);
+
             }
 
         }

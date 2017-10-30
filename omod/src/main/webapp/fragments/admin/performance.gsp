@@ -50,12 +50,15 @@ table.performance > tbody > tr > td, table.performance > tbody > tr > th{
                                             <tr>
                                                 <td></td>
                                                 <td>
-                                                    <table>
+                                                    <table class="performance" width="100%">
+                                                        <tbody>
                                                         <% value.each { program, clients -> %>
                                                             <tr>
-                                                                <td>${program} - <b>${clients.size}</b></td>
+                                                                <td>${program}</td>
+                                                                <td><b>${clients.size}</b></td>
                                                             </tr>
                                                         <%}%>
+                                                        </tbody>
                                                     </table>
                                                 </td>
                                             </tr>
