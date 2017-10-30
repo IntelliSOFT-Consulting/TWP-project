@@ -77,22 +77,20 @@ public class PerformanceFragmentController {
         if (providerService.getAllProviders().size() > 0) {
             for (Provider provider : providerService.getAllProviders()) {
 
-
-                    String providerName = "";
+                List<Encounter> providerEncounters = encounterService.getEncounters(null, null, null, null, null, Arrays.asList(enrollment), Arrays.asList(provider), null, null, true);
                 if(provider != null && allEncounters.size() > 0) {
-                    providerName = provider.getName();
                     listOfProgramsAndPatients = new HashMap<String, List<Patient>>();
 
-                    for (Encounter encounter : allEncounters) {
+                    for (Encounter encounter : providerEncounters) {
                         if (provider.getPerson() != null && encounter.getProvider() != null && provider.getPerson().equals(encounter.getProvider())) {
                                 Set<Obs> obsSet = encounter.getAllObs();
+                                    walk = new ArrayList<Patient>();
+                                    marathon = new ArrayList<Patient>();
+                                    stroll = new ArrayList<Patient>();
+                                    sprint = new ArrayList<Patient>();
+                                    run = new ArrayList<Patient>();
                                     if(obsSet.size() > 0) {
                                         for (Obs obs : obsSet) {
-                                            walk = new ArrayList<Patient>();
-                                            marathon = new ArrayList<Patient>();
-                                            stroll = new ArrayList<Patient>();
-                                            sprint = new ArrayList<Patient>();
-                                            run = new ArrayList<Patient>();
                                             if(obs.getConcept().equals(Dictionary.getConcept("c3ac2b0b-35ce-4cad-9586-095886f2335a")) && obs.getValueCoded().equals(Dictionary.getConcept("159310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"))) {
                                                 walk.add(encounter.getPatient());
                                             }
@@ -119,7 +117,7 @@ public class PerformanceFragmentController {
                     }
 
                 }
-                listMap.put(providerName, listOfProgramsAndPatients);
+                listMap.put(provider.getName(), listOfProgramsAndPatients);
             }
 
         }
