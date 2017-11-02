@@ -8,7 +8,7 @@
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>kenyaemr-distro</artifactId>
+	<artifactId>wellness-distro</artifactId>
   <version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Wellness Distribution (optional)</name>
@@ -68,7 +68,7 @@
 
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
-			<artifactId>kenyaemr-omod</artifactId>
+			<artifactId>wellness-omod</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
 

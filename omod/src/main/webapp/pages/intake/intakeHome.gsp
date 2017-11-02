@@ -3,7 +3,7 @@
 
 	def menuItems = [
 			[ label: "Appointment types", iconProvider: "wellness", icon: "buttons/appointmenttype.png", href: ui.pageLink("wellness", "intake/appointmentTypes") ],
-			[ label: "Availability calendar", iconProvider: "wellness", icon: "buttons/providers.png", href: ui.pageLink("wellness", "intake/providerAvailability") ],
+			[ label: "Provider scheduling", iconProvider: "wellness", icon: "buttons/providers.png", href: ui.pageLink("wellness", "intake/providerAvailability") ],
 			[ label: "Photo uploads", iconProvider: "wellness", icon: "buttons/upload.png", href: ui.pageLink("wellness", "intake/photoUpload") ]
 	]
 %>
