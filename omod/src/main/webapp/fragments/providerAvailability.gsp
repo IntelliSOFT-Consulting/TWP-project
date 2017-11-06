@@ -169,10 +169,10 @@
 
             </fieldset>
 
-            <input type="text" name="fromDate" id="fromDate" value="${fromDate}" />
-            <input type="text" name="toDate" id="toDate" value="${toDate}" />
-            <input type="text" name="appointmentBlockId" id="appointmentBlockId" />
-            <input type="text" name="action" id="action" value="addNewAppointmentBlock" />
+            <input type="hidden" name="fromDate" id="fromDate" value="${fromDate}" />
+            <input type="hidden" name="toDate" id="toDate" value="${toDate}" />
+            <input type="hidden" name="appointmentBlockId" id="appointmentBlockId" />
+            <input type="hidden" name="action" id="action" value="addNewAppointmentBlock" />
         </form>
         <div id='calendarBlocks'></div>
         <div id="notifyDialog" title="Warning"/>

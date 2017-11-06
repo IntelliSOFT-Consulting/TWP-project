@@ -14,14 +14,19 @@ import java.util.Set;
 
 public class ScheduleProviderFragmentController {
 
-    public void controller(FragmentModel model
+    public void controller(FragmentModel model, HttpServletRequest request
                            ){
+
+        String fromDate = (String) request.getSession().getAttribute("fromDate");
+        String toDate = (String) request.getSession().getAttribute("toDate");
 
         model.addAttribute("appointmentTypeList", Context.getService(AppointmentService.class).getAllAppointmentTypesSorted(false));
         model.addAttribute("providerList", Context.getService(AppointmentService.class).getAllProvidersSorted(false));
+        model.addAttribute("fromDate", fromDate);
+        model.addAttribute("toDate", toDate);
     }
 
-    public void post(HttpServletRequest request,
+    public String post(HttpServletRequest request,
                      @RequestParam(value = "chosenTypeId", required = false) Integer appointmentTypeId,
                      @RequestParam(value = "chosenProviderId", required = false) Integer providerId){
 
@@ -35,6 +40,7 @@ public class ScheduleProviderFragmentController {
         appointmentBlock.setTypes(appointmentTypesSet);
 
         appointmentService.saveAppointmentBlock(appointmentBlock);
+        return "";
 
     }
 }

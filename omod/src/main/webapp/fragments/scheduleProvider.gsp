@@ -5,40 +5,60 @@
             <div>
                 <table>
                     <tr>
-                        <td>Provider:</td>
                         <td>
+                            <label class="ke-field-label">Provider:</label>
+                        <span class="ke-field-content">
                             <select name="chosenProviderId" id="chosenProviderId">
                                 <% providerList.each{%>
                                     <option value="${it.providerId}">${it.name}</option>
                                 <%}%>
                             </select>
-                        </td>
+                        </span>
                     </tr>
                     <tr>
-                        <td>Appointment type:</td>
-                        <td>
+                        <label class="ke-field-label">Appointment type:</label>
+                        <span class="ke-field-content">
                             <select name="chosenTypeId" id="chosenTypeId">
                                 <% appointmentTypeList.each{%>
                                 <option value="${it.appointmentTypeId}">${it.name}</option>
                                 <%}%>
                             </select>
-                        </td>
+                        </span>
                     </tr>
                     <tr>
-                        <td>Time interval</td>
-                        <td>
+                        <td colspan="2">
                             <table>
                                 <tr>
-                                    <td>Start date:<input type="text" id="startDate" name="startDate" /></td>
-                                    <td>End date:<input type="text" id="endDate" name="endDate" /></td>
+                                    <label class="ke-field-label">Time interval</label>
+                                </tr>
+                                <tr>
+                                    <span class="ke-field-content">
+                                        <td>
+                                            Start date:
+                                            <input type="text" id="startDate" name="startDate" value="${fromDate}"  onclick="startDate()"/>
+                                                <img
+                                                src="${ui.resourceLink("wellness", "images/buttons/calendarIcon.png")}"
+                                                class="calendarIcon" alt=""
+                                                onClick="document.getElementById('startDate').focus();" />
+                                        </td>
+                                        <td>
+                                            End date:<input type="text" id="endDate" name="endDate" value="${toDate}"  onclick="endDate()"/>
+                                            <img
+                                                src="${ui.resourceLink("wellness", "images/buttons/calendarIcon.png")}"
+                                                class="calendarIcon" alt=""
+                                                onClick="document.getElementById('endDate').focus();" />
+                                        </td>
+                                    </span>
                                 </tr>
                             </table>
                         </td>
                     </tr>
                     <tr>
-                        <td>Time slot length</td>
                         <td>
-                            <input type="text" name="timeSlot" id="timeSlot" /> minutes
+                            <label class="ke-field-label">Time slot length</label>
+                            <span class="ke-field-content">
+                                <input type="text" name="timeSlot" id="timeSlot" /> minutes
+                            </span>
                         </td>
                     </tr>
                 </table>
@@ -51,3 +71,15 @@
         </form>
     </div>
 </div>
+<script type="text/javascript">
+    function startDate() {
+        jQuery("#startDate").datepicker();
+    }
+    function endDate() {
+        jQuery("#endDate").datepicker();
+    }
+    jQuery(function () {
+        startDate();
+        endDate();
+    });
+</script>
