@@ -23,11 +23,9 @@ public class ProviderAvailabilityFragmentController {
                            @RequestParam(value = "chosenTypeId", required = false) Integer appointmentTypeId,
                            @RequestParam(value = "chosenProviderId", required = false) Integer providerId) throws ParseException {
 
-        model.addAttribute("locationList", Context.getLocationService().getAllLocations());
         model.addAttribute("appointmentTypeList", Context.getService(AppointmentService.class).getAllAppointmentTypesSorted(false));
         model.addAttribute("providerList", Context.getService(AppointmentService.class).getAllProvidersSorted(false));
         //tie in the values to the model
-        model.addAttribute("locationId", locationId);
         model.addAttribute("providerId", providerId);
         model.addAttribute("appointmentTypeId", appointmentTypeId);
 

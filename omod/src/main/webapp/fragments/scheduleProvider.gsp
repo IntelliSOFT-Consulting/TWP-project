@@ -1,3 +1,4 @@
+
 <div class="ke-panel-frame">
     <div class="ke-panel-heading">Schedule provider</div>
     <div class="ke-page-content">
@@ -16,48 +17,41 @@
                         </span>
                     </tr>
                     <tr>
-                        <label class="ke-field-label">Appointment type:</label>
-                        <span class="ke-field-content">
-                            <select name="chosenTypeId" id="chosenTypeId">
-                                <% appointmentTypeList.each{%>
-                                <option value="${it.appointmentTypeId}">${it.name}</option>
-                                <%}%>
-                            </select>
-                        </span>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <table>
-                                <tr>
-                                    <label class="ke-field-label">Time interval</label>
-                                </tr>
-                                <tr>
-                                    <span class="ke-field-content">
-                                        <td>
-                                            Start date:
-                                            <input type="text" id="startDate" name="startDate" value="${fromDate}"  onclick="startDate()"/>
-                                                <img
-                                                src="${ui.resourceLink("wellness", "images/buttons/calendarIcon.png")}"
-                                                class="calendarIcon" alt=""
-                                                onClick="document.getElementById('startDate').focus();" />
-                                        </td>
-                                        <td>
-                                            End date:<input type="text" id="endDate" name="endDate" value="${toDate}"  onclick="endDate()"/>
-                                            <img
-                                                src="${ui.resourceLink("wellness", "images/buttons/calendarIcon.png")}"
-                                                class="calendarIcon" alt=""
-                                                onClick="document.getElementById('endDate').focus();" />
-                                        </td>
-                                    </span>
-                                </tr>
-                            </table>
+                        <td>
+                            <label class="ke-field-label">Appointment type:</label>
+                            <span class="ke-field-content">
+                                <select name="chosenTypeId" id="chosenTypeId">
+                                    <% appointmentTypeList.each{%>
+                                    <option value="${it.appointmentTypeId}">${it.name}</option>
+                                    <%}%>
+                                </select>
+                            </span>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <label class="ke-field-label">Time slot length</label>
+                                <span class="ke-field-content">
+                                    <label class="ke-field-label">Start date</label>
+                                        <input type="text" id="startDate" name="startDate" value="${fromDate}"  onclick="startDate()"/>
+                                            <img
+                                            src="${ui.resourceLink("wellness", "images/buttons/calendarIcon.png")}"
+                                            class="calendarIcon" alt=""
+                                            onClick="document.getElementById('startDate').focus();" />
+
+                                    <label class="ke-field-label">End date</label>
+                                    <input type="text" id="endDate" name="endDate" value="${toDate}"  onclick="endDate()"/>
+                                        <img
+                                            src="${ui.resourceLink("wellness", "images/buttons/calendarIcon.png")}"
+                                            class="calendarIcon" alt=""
+                                            onClick="document.getElementById('endDate').focus();" />
+                                </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label class="ke-field-label">Time slot length(in minutes)</label>
                             <span class="ke-field-content">
-                                <input type="text" name="timeSlot" id="timeSlot" /> minutes
+                                <input type="text" name="timeSlot" id="timeSlot" />
                             </span>
                         </td>
                     </tr>
@@ -73,10 +67,15 @@
 </div>
 <script type="text/javascript">
     function startDate() {
-        jQuery("#startDate").datepicker();
+        jQuery("#startDate").datetimepicker({
+            format:'d/m/Y h:m'
+        });
     }
     function endDate() {
-        jQuery("#endDate").datepicker();
+        jQuery("#endDate").datetimepicker({
+            format:'d/m/Y h:m',
+            current: new Date()
+        });
     }
     jQuery(function () {
         startDate();

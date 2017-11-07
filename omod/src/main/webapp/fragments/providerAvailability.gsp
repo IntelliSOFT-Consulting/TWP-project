@@ -116,20 +116,6 @@
                 <legend>Choose properties</legend>
                 <table>
                         <tr>
-                            <td>Location:</td>
-                            <td>
-
-                               <select name="locationId" id="locationId">
-                                   <% locationList.each{%>
-                                    <option value="${it.locationId}">${it.name}</option>
-                                   <%}%>
-                               </select>
-                            </td>
-                        </tr>
-
-
-
-                        <tr>
                             <td>Provider:</td>
                             <td>
                                 <select name="chosenProviderId" id="chosenProviderId">
