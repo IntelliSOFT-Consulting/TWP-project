@@ -1,0 +1,85 @@
+.dataTable{
+	width:100% !important;
+}
+
+table.display thead th {
+	border-bottom: 1px solid black;
+	cursor: pointer;
+	font-weight: bold;
+	padding: 3px 18px 3px 10px;
+}
+
+.dataTables_wrapper{
+	border:thin gainsboro solid;
+	border-radius:6px;
+}
+
+.dataTables_info{
+	font-weight:normal;
+	padding:3px;
+}
+
+thead tr th{
+	cursor:pointer;
+	font-weight:bold !important;
+}
+
+.dataTables_empty{
+	padding:5px;
+	background-color:#FFFFFF !important;
+}
+
+.even{  	
+	background-color:#FFFFFF;
+	font-size:17px;
+}
+
+.odd{
+	background-color:#D4D4D4;
+	font-size:17px;
+}
+
+.dataTables_paginate{
+	padding:8px;
+	clear:both;
+	float:right;
+}
+
+.dataTables_length{
+	margin-left:5px;
+	margin-top:10px;
+}
+
+.fg-button{
+	margin-left: 10px !important;
+	width:20px !important;
+	height:20px !important;
+}
+
+
+.toolbar{
+	float:left;
+	height:auto;
+	margin-top:5px;
+	margin-left:5px;
+}
+
+.dataTables_filter{
+	margin:5px;
+	margin-top:22px;
+	font-size:14px;
+}
+
+#filtersTable{
+	padding:8px;
+}
+
+#filtersTable td{
+	padding:4px;
+}
+
+.statusDiv{
+	padding:8px;
+	float:right;
+	display:block;
+}

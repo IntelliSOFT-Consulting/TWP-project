@@ -91,7 +91,6 @@
 
     function updateAppointmentBlockCalendar(fromDate,toDate){
         var calendarContent;
-        var locationId = ${locationId};
         var providerId = ${providerId};
         var appointmentTypeId = ${appointmentTypeId};
     }
