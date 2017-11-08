@@ -3,14 +3,14 @@ table.appointmentsTypes tr th {
     background-color: #98AFC7;
     text-align: left;
 }
-table.appointments tr td {
+table.appointmentsTypes tr td {
     text-align: left;
 }
-table.appointments tr:nth-child(even) {
+table.appointmentsTypes tr:nth-child(even) {
     background-color: #E3E4FA;
 }
 
-table.appointments tr:nth-child(odd) {
+table.appointmentsTypes tr:nth-child(odd) {
     background-color: #FDEEF4;
 }
 </style>
@@ -53,10 +53,10 @@ table.appointments tr:nth-child(odd) {
 
         </form>
         <br />
-        <br />
-        <div>
+        <div class="ke-panel-frame">
+            <div class="ke-panel-heading">Available appointment types</div>
+            <div class="ke-page-content">
             <table class="appointmentsTypes" width="100%">
-                <tbody>
                     <% if(allAppointments.size > 0) {%>
                         <tr>
                             <th>Name</th>
@@ -80,8 +80,8 @@ table.appointments tr:nth-child(odd) {
                             </tr>
                         <%}%>
                     <%}%>
-                </tbody>
             </table>
+            </div>
         </div>
     </div>
 </div>
