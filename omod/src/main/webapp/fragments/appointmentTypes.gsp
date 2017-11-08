@@ -1,3 +1,19 @@
+<style>
+table.appointmentsTypes tr th {
+    background-color: #98AFC7;
+    text-align: left;
+}
+table.appointments tr td {
+    text-align: left;
+}
+table.appointments tr:nth-child(even) {
+    background-color: #E3E4FA;
+}
+
+table.appointments tr:nth-child(odd) {
+    background-color: #FDEEF4;
+}
+</style>
 <div class="ke-panel-frame">
     <div class="ke-panel-heading">Appointment types</div>
     <div class="ke-page-content">
@@ -39,7 +55,7 @@
         <br />
         <br />
         <div>
-            <table class="ke-table-vertical">
+            <table class="appointmentsTypes" width="100%">
                 <tbody>
                     <% if(allAppointments.size > 0) {%>
                         <tr>
