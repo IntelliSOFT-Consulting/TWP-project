@@ -4,6 +4,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.appointmentscheduling.AppointmentBlock;
 import org.openmrs.module.appointmentscheduling.AppointmentType;
 import org.openmrs.module.appointmentscheduling.api.AppointmentService;
+import org.openmrs.module.kenyacore.CoreUtils;
 import org.openmrs.module.kenyacore.report.ReportUtils;
 import org.openmrs.module.reporting.report.util.ReportUtil;
 import org.openmrs.module.wellness.api.KenyaEmrService;
@@ -57,7 +58,7 @@ public class ScheduleProviderFragmentController {
 
             Set<AppointmentType> appointmentTypesSet = new HashSet<AppointmentType>();
 
-            DateFormat format = new SimpleDateFormat("dd/mm/yyyy HH:mm");
+            DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
             appointmentTypesSet.add(chosenAppointment);
 
             AppointmentBlock appointmentBlock = new AppointmentBlock();
