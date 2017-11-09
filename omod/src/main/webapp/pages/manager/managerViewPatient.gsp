@@ -23,13 +23,6 @@
                     active: (selection == "section-analysis"),
                     iconProvider: "wellness",
                     icon: "buttons/analysis.png"
-            ],
-            [
-                    label: "Provider performance",
-                    href: ui.pageLink("wellness", "manager/managerViewPatient", [ patientId: currentPatient.id, section: "performance" ]),
-                    active: (selection == "section-performance"),
-                    iconProvider: "wellness",
-                    icon: "buttons/perform.png"
             ]
     ]
 %>
