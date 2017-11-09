@@ -170,13 +170,15 @@ table.appointments tr:nth-child(odd) {
     function startDate() {
         jQuery("#startDate").datepicker({
             dateFormat: 'dd/mm/yy',
-            gotoCurrent: true
+            gotoCurrent: true,
+            minDate: new Date()
         });
     }
     function endDate() {
         jQuery("#endDate").datepicker({
             dateFormat: 'dd/mm/yy',
-            gotoCurrent: true
+            gotoCurrent: true,
+            minDate: new Date()
         });
     }
     function editAppointment() {

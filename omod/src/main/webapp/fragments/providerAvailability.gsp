@@ -71,10 +71,12 @@ table.toggle tr:nth-child(odd) {
         var selectValue = jQuery("#viewSelect").val();
         if(selectValue === "tableView"){
             jQuery("#calendarBlocks").hide();
+            jQuery("#actionButton").show();
             jQuery("#tableBlocks").show();
         }
         else if(selectValue === "calendarView"){
             jQuery("#tableBlocks").hide();
+            jQuery("#actionButton").hide();
             jQuery("#calendarBlocks").show();
 
         }
@@ -122,6 +124,10 @@ table.toggle tr:nth-child(odd) {
         var calendarContent;
         var providerId = ${providerId};
         var appointmentTypeId = ${appointmentTypeId};
+    }
+    
+    function showAddScheduleView() {
+        ui.navigate('wellness', 'intake/appointmentBlock');
     }
 
     jQuery(function () {
@@ -190,6 +196,11 @@ table.toggle tr:nth-child(odd) {
             <input type="hidden" name="action" id="action" value="addNewAppointmentBlock" />
         </form>
         <br />
+        <div id="actionButton" style="display: none" align="right">
+            <button type="button" id="addSchedule" onclick="showAddScheduleView()">
+                <img src="${ui.resourceLink("kenyaui", "images/glyphs/ok.png")}"/> Add Schedule
+            </button>
+        </div>
         <div id="tableBlocks" style="display: none">
             <div class="ke-panel-frame">
                 <div class="ke-panel-heading">Provider Availability</div>
