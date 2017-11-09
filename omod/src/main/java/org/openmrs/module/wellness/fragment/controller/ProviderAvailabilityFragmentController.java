@@ -19,7 +19,7 @@ public class ProviderAvailabilityFragmentController {
 
     public void controller(FragmentModel model,
                            HttpServletRequest request,
-                           @RequestParam(value = "locationId", required = false) Integer locationId,
+                           @RequestParam(value = "viewSelect", required = false) String viewSelect,
                            @RequestParam(value = "chosenTypeId", required = false) Integer appointmentTypeId,
                            @RequestParam(value = "chosenProviderId", required = false) Integer providerId) throws ParseException {
 
@@ -28,6 +28,8 @@ public class ProviderAvailabilityFragmentController {
         //tie in the values to the model
         model.addAttribute("providerId", providerId);
         model.addAttribute("appointmentTypeId", appointmentTypeId);
+        model.addAttribute("viewSelect", viewSelect);
+        model.addAttribute("providerSchedule", Context.getService(AppointmentService.class).getAllAppointmentBlocks());
 
         //Set the date interval from the session
         String fromDate;

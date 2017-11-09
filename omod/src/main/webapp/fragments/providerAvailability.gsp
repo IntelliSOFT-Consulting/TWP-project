@@ -1,3 +1,19 @@
+<style>
+table.toggle tr th {
+    background-color: #98AFC7;
+    text-align: left;
+}
+table.toggle tr td {
+    text-align: left;
+}
+table.toggle tr:nth-child(even) {
+    background-color: #E3E4FA;
+}
+
+table.toggle tr:nth-child(odd) {
+    background-color: #FDEEF4;
+}
+</style>
 <script type="text/javascript">
     function InitializeCalendar(){
         jQuery('#calendarBlocks').fullCalendar({
@@ -51,6 +67,19 @@
         });
     }
 
+    function chooseBetweenFullCalendarAndTableView() {
+        var selectValue = jQuery("#viewSelect").val();
+        if(selectValue === "tableView"){
+            jQuery("#calendarBlocks").hide();
+            jQuery("#tableBlocks").show();
+        }
+        else if(selectValue === "calendarView"){
+            jQuery("#tableBlocks").hide();
+            jQuery("#calendarBlocks").show();
+
+        }
+    }
+
     function initializeDialog(){
         jQuery('#notifyDialog').dialog({
             autoOpen: false,
@@ -101,6 +130,7 @@
         InitializeCalendar();
         refreshCalendar();
         locationInitialize();
+        chooseBetweenFullCalendarAndTableView();
 
     });
 </script>
@@ -147,7 +177,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <input type="button" class="appointmentBlockButton" value="Apply" onClick="refreshCalendar()">
+                            <input type="button" class="appointmentBlockButton" value="Apply" onClick="chooseBetweenFullCalendarAndTableView()">
                         </td>
                     </tr>
                 </table>
@@ -159,6 +189,45 @@
             <input type="hidden" name="appointmentBlockId" id="appointmentBlockId" />
             <input type="hidden" name="action" id="action" value="addNewAppointmentBlock" />
         </form>
+        <br />
+        <div id="tableBlocks" style="display: none">
+            <div class="ke-panel-frame">
+                <div class="ke-panel-heading">Provider Availability</div>
+                <div class="ke-page-content">
+                    <table class="toggle" width="100%">
+                        <tr>
+                            <th>Action</th>
+                            <th>Provider</th>
+                            <th>Start date</th>
+                            <th>End date</th>
+                            <th>Appointment type</th>
+                            <th>Appointment type duration</th>
+                        </tr>
+                        <% providerSchedule.each{%>
+                        <tr>
+                            <td>
+                                <input type="hidden" name="appointmentBlock" id="appointmentBlock" value="${it.appointmentBlockId}" />
+                                <button type="button" class="ke-compact" onclick="editAppointment()">
+                                    <img src="${ ui.resourceLink("kenyaui", "images/glyphs/edit.png") }" />
+                                </button>
+                                <button type="button" class="ke-compact" onclick="deleteAppointment()">
+                                    <img src="${ ui.resourceLink("wellness", "images/buttons/delete.png") }" />
+                                </button>
+                            </td>
+                            <td>${it.provider.name}</td>
+                            <td>${it.startDate}</td>
+                            <td>${it.endDate}</td>
+                            <% it.types.each{%>
+                            <td>${it.name}</td>
+                            <td>${it.duration}</td>
+                            <%}%>
+
+                        </tr>
+                        <%}%>
+                    </table>
+                </div>
+            </div>
+        </div>
         <div id='calendarBlocks'></div>
         <div id="notifyDialog" title="Warning"/>
             <table id='notifyDialogTable' class="dialogTable">
