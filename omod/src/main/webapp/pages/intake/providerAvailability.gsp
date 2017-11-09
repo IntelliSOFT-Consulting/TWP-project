@@ -6,7 +6,7 @@
     ui.includeCss("wellness", "opentip.css", 29)
     ui.includeJavascript("wellness", "moment.min.js", 20)
     ui.includeJavascript("wellness", "fullcalendar.min.js", 19)
-    ui.includeJavascript("wellness", "opentip-jquery-excanvas.js", 18)
+    ui.includeJavascript("wellness", "controllers/appointments.js")
     def menuItems = [
             [ label: "Back to home", iconProvider: "kenyaui", icon: "buttons/back.png", label: "Back to home", href: ui.pageLink("wellness", "intake/intakeHome") ]
     ]
