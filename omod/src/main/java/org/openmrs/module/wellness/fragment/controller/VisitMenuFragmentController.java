@@ -33,6 +33,7 @@ public class VisitMenuFragmentController {
 
 		model.addAttribute("patient", patient);
 		model.addAttribute("visit", visit);
+		model.addAttribute("patientId", patient.getPatientId());
 
 		Visit newVisit = new Visit();
 		newVisit.setPatient(patient);

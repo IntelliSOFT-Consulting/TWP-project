@@ -1,4 +1,7 @@
 <div class="ke-panelbar" style="text-align: right">
+	<button type="button" id="schedule" onclick="redirectToScheduleVisit()">
+		<img src="${ui.resourceLink("wellness", "images/buttons/schedule.jpg")}" width="50" height="30"/> Schedule appointment
+	</button>
 	<% if (visit) { %>
 	<%= ui.includeFragment("kenyaui", "widget/dialogForm", [
 			buttonConfig: [ label: "Check out of visit", iconProvider: "kenyaui", icon: "buttons/visit_end.png" ],
@@ -42,3 +45,8 @@
 	]) %>
 	<% } %>
 </div>
+<script type="text/javascript">
+	function redirectToScheduleVisit() {
+		ui.navigate('wellness',  'intake/scheduleAppointments?patientId=${patientId}');
+    }
+</script>
