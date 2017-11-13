@@ -47,6 +47,6 @@
 </div>
 <script type="text/javascript">
 	function redirectToScheduleVisit() {
-		ui.navigate('wellness',  'intake/scheduleAppointments?patientId=${patientId}');
+        ui.navigate('wellness', 'intake/scheduleAppointments', {patientId: ${patientId}});
     }
 </script>

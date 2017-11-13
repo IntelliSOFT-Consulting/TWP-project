@@ -1,5 +1,5 @@
 <%
-    ui.decorateWith("wellness", "standardPage", [ layout: "sidebar" ])
+    ui.decorateWith("wellness", "standardPage", [ patient: currentPatient ])
 %>
 
 <div class="ke-page-content">
