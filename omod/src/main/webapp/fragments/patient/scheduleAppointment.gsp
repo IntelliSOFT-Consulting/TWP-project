@@ -15,31 +15,13 @@ table.schedules tr:nth-child(odd) {
 }
 </style>
 <script type="text/javascript">
-
-    function timeSlotsFrom() {
-        jQuery("#dateTimeFrom").datepicker({
-            dateFormat: 'dd/mm/yy',
-            gotoCurrent: true,
-            minDate: new Date()
-        });
-    }
-
-    function timeSlotsTo() {
-        jQuery("#dateTimeTo").datepicker({
-            dateFormat: 'dd/mm/yy',
-            gotoCurrent: true,
-            minDate: new Date()
-        });
-    }
     jQuery(function () {
-        timeSlotsFrom();
-        timeSlotsTo();
     });
 </script>
 <div class="ke-panel-frame">
     <div class="ke-panel-heading">Client's appointment scheduling</div>
     <div class="ke-panel-content">
-            <form  id="schedule-client" method="post" action="${ui.actionLink("wellness", "scheduleProvider", "post")}">
+            <form  id="schedule-client" method="post" action="${ui.actionLink("wellness", "patient/scheduleAppointment", "post")}">
                 <table cellpadding="0" cellspacing="0" border="0" width="100%">
                     <tr>
                         <td td width="50%" valign="top">
@@ -66,77 +48,13 @@ table.schedules tr:nth-child(odd) {
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Provider</td>
+                                            <td>Time slots</td>
                                             <td>
-                                                <select name="provider" id="provider">
-                                                    <% provider.each{%>
-                                                    <option value="${it.providerId}">${it.name}</option>
-                                                    <%}%>
-                                                </select>
-                                            </td>
+                                                <select name="timeSlots" id="timeSlots">
+                                                <% appointmentBlocks.each{%>
+                                                    <option value="${it.appointmentBlockId}">${it.provider.name}- ${it.startDate} to ${it.endDate}</option>
 
-                                        </tr>
-                                        <tr>
-                                            <td>From</td>
-                                            <td>
-                                                <input type="text" name="dateTimeFrom" id="dateTimeFrom" value="${defaultDate}" onclick="timeSlotsFrom()">
-                                                <select name="startHours">
-                                                    <option value="08">08</option>
-                                                    <option value="09">09</option>
-                                                    <option value="10">10</option>
-                                                    <option value="11">11</option>
-                                                    <option value="12">12</option>
-                                                    <option value="13">13</option>
-                                                    <option value="14">14</option>
-                                                    <option value="15">15</option>
-                                                    <option value="16">16</option>
-                                                    <option value="17">17</option>
-                                                    <option value="18">18</option>
-                                                </select>
-                                                <select name="startMinutes">
-                                                    <option value="00">00</option>
-                                                    <option value="10">10</option>
-                                                    <option value="15">15</option>
-                                                    <option value="20">20</option>
-                                                    <option value="25">25</option>
-                                                    <option value="30">30</option>
-                                                    <option value="35">35</option>
-                                                    <option value="40">40</option>
-                                                    <option value="45">45</option>
-                                                    <option value="50">50</option>
-                                                    <option value="55">55</option>
-                                                </select>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>To</td>
-                                            <td>
-                                                <input type="text" name="dateTimeTo" id="dateTimeTo" value="${defaultDate}" onclick="timeSlotsFrom()">
-                                                <select name="startHours">
-                                                    <option value="08">08</option>
-                                                    <option value="09">09</option>
-                                                    <option value="10">10</option>
-                                                    <option value="11">11</option>
-                                                    <option value="12">12</option>
-                                                    <option value="13">13</option>
-                                                    <option value="14">14</option>
-                                                    <option value="15">15</option>
-                                                    <option value="16">16</option>
-                                                    <option value="17">17</option>
-                                                    <option value="18">18</option>
-                                                </select>
-                                                <select name="startMinutes">
-                                                    <option value="00">00</option>
-                                                    <option value="10">10</option>
-                                                    <option value="15">15</option>
-                                                    <option value="20">20</option>
-                                                    <option value="25">25</option>
-                                                    <option value="30">30</option>
-                                                    <option value="35">35</option>
-                                                    <option value="40">40</option>
-                                                    <option value="45">45</option>
-                                                    <option value="50">50</option>
-                                                    <option value="55">55</option>
+                                                <%}%>
                                                 </select>
                                             </td>
                                         </tr>
@@ -149,10 +67,11 @@ table.schedules tr:nth-child(odd) {
                                             </td>
                                         </tr>
                                     </table>
+                                    <input type="text" name="patientId" value="${currentPatient.patientId}" />
                                 </div>
 
                                 <div class="ke-panel-footer">
-                                    <button type="submit">
+                                    <button type="submit" name="save" id="save">
                                         <img src="${ui.resourceLink("kenyaui", "images/glyphs/ok.png")}"/>Create appointment
                                     </button>
                                 </div>
@@ -181,7 +100,7 @@ table.schedules tr:nth-child(odd) {
                                 </div>
                             <%}%>
                             <div class="ke-panelbar" style="text-align: right">
-                                <button type="submit" id="checkkTimeSlots" name="checkkTimeSlots">
+                                <button type="button" id="checkkTimeSlots" name="checkkTimeSlots">
                                     <img src="${ui.resourceLink("kenyaui", "images/glyphs/ok.png")}"/>Check time slots
                                 </button>
                             </div>
@@ -220,3 +139,4 @@ table.schedules tr:nth-child(odd) {
         <%}%>
     </div>
 </div>
+
