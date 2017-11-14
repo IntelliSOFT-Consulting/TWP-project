@@ -10,11 +10,18 @@ import org.openmrs.module.appointmentscheduling.Appointment;
 import org.openmrs.module.appointmentscheduling.AppointmentBlock;
 import org.openmrs.module.appointmentscheduling.TimeSlot;
 import org.openmrs.module.appointmentscheduling.api.AppointmentService;
+import org.openmrs.module.wellness.CustomAppointment;
 import org.openmrs.module.wellness.api.KenyaEmrService;
 import org.openmrs.module.wellness.metadata.CommonMetadata;
+import org.openmrs.module.wellness.util.EmrUtils;
 import org.openmrs.ui.framework.fragment.FragmentModel;
+import org.openmrs.web.WebConstants;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,29 +33,45 @@ public class ScheduleAppointmentFragmentController {
                            ){
         AppointmentService service = Context.getService(AppointmentService.class);
         List<Appointment> patientAppointments = new ArrayList<Appointment>();
+        List<CustomAppointment> customAppointments = new ArrayList<CustomAppointment>();
+        String reason = "";
+
         List<Appointment> allAppointments = service.getAllAppointments();
         for(Appointment appointment : allAppointments){
             if(appointment.getPatient().equals(Context.getPatientService().getPatient(Integer.parseInt(patientId)))){
                 patientAppointments.add(appointment);
             }
         }
+        for(Appointment appointment:patientAppointments) {
+            CustomAppointment customAppointment = new CustomAppointment();
+            customAppointment.setProvider(appointment.getTimeSlot().getAppointmentBlock().getProvider());
+            customAppointment.setAppointmentType(appointment.getAppointmentType());
+            customAppointment.setAppointmentDate(EmrUtils.formatDates(appointment.getTimeSlot().getStartDate()));
+            customAppointment.setTimeSlots(EmrUtils.formatTimeFromDate(appointment.getTimeSlot().getStartDate())+"-"+EmrUtils.formatTimeFromDate(appointment.getTimeSlot().getEndDate()));
+            customAppointment.setStatus(appointment.getStatus().getName());
+            if(appointment.getReason() != null){
+                reason = appointment.getReason();
+            }
+            customAppointment.setNotes(reason);
+            customAppointments.add(customAppointment);
+        }
 
         model.addAttribute("appointmentTypes", service.getAllAppointmentTypes());
         model.addAttribute("provider", service.getAllProvidersSorted(false));
-        model.addAttribute("appointments", patientAppointments);
+        model.addAttribute("appointments", customAppointments);
         model.addAttribute("appointmentBlocks", service.getAllAppointmentBlocks());
     }
 
 
 
-    public void post(
+    public void post(HttpServletRequest request,
                      @RequestParam(value = "flow", required = false) String flow,
                      @RequestParam(value = "patientId", required = false) String patientId,
                      @RequestParam(value = "notes", required = false) String notes,
                      @RequestParam(value = "timeSlots", required = false) Integer timeSlots,
                      @RequestParam(value = "type", required = false) Integer type)
                     {
-
+                HttpSession httpSession = request.getSession();
                 AppointmentService appointmentService = Context.getService(AppointmentService.class);
 
                 Appointment appointment = new Appointment();
@@ -87,6 +110,7 @@ public class ScheduleAppointmentFragmentController {
                 appointment.setPatient(patient);
                 appointment.setReason(notes);
                 appointmentService.saveAppointment(appointment);
+                httpSession.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Appointment Created");
             }
             catch (Exception e){
                 log.warn("Provide all input "+e.toString());
@@ -95,4 +119,5 @@ public class ScheduleAppointmentFragmentController {
         }
 
     }
+
 }

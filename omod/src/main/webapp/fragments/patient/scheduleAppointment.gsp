@@ -67,7 +67,7 @@ table.schedules tr:nth-child(odd) {
                                             </td>
                                         </tr>
                                     </table>
-                                    <input type="text" name="patientId" value="${currentPatient.patientId}" />
+                                    <input type="hidden" name="patientId" value="${currentPatient.patientId}" />
                                 </div>
 
                                 <div class="ke-panel-footer">
@@ -111,32 +111,32 @@ table.schedules tr:nth-child(odd) {
     </div>
 </div>
 <br />
+<% if (appointments.size > 0) {%>
 <div class="ke-panel-frame">
     <div class="ke-panel-heading">Available schedules for this client</div>
     <div class="ke-panel-content">
-        <% if (appointments.size > 0) {%>
-            <table class="schedules" align="center">
+
+            <table class="schedules" align="center" width="80%">
                     <tr>
                         <th>Provider</th>
                         <th>Appointment type</th>
                         <th>Appointment date</th>
                         <th>Time</th>
                         <th>Status</th>
+                        <th>Notes</th>
                     </tr>
                 <% appointments.each{%>
                     <tr>
-                        <td>${it}</td>
-                        <% it.appointmentType.each{%>
-                            <td>${it.name}</td>
-                        <%}%>
-                        <td>${it}</td>
-                        <td>${it.timeSlot}</td>
+                        <td>${it.provider.name}</td>
+                        <td>${it.appointmentType.name}</td>
+                        <td>${it.appointmentDate}</td>
+                        <td>${it.timeSlots}</td>
                         <td>${it.status}</td>
+                        <td>${it.notes}</td>
                     </tr>
                 <%}%>
 
             </table>
-        <%}%>
     </div>
 </div>
-
+<%}%>

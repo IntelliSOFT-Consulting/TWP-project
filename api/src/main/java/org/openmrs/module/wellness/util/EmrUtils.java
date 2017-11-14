@@ -138,4 +138,13 @@ public class EmrUtils {
 		return s;
 
 	}
+	public static String formatTimeFromDate(Date date){
+
+		Format formatter;
+		formatter = new SimpleDateFormat("HH:mm");
+		String s = formatter.format(date);
+
+		return s;
+
+	}
 }
