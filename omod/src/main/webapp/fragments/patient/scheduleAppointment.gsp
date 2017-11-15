@@ -15,6 +15,10 @@ table.schedules tr:nth-child(odd) {
 }
 </style>
 <script type="text/javascript">
+    function availableSlots() {
+        jQuery("#showBlocks").show();
+
+    }
     jQuery(function () {
     });
 </script>
@@ -52,7 +56,7 @@ table.schedules tr:nth-child(odd) {
                                             <td>
                                                 <select name="timeSlots" id="timeSlots">
                                                 <% appointmentBlocks.each{%>
-                                                    <option value="${it.appointmentBlockId}">${it.provider.name}- ${it.startDate} to ${it.endDate}</option>
+                                                    <option value="${it.blockId}">${it.provider.name}  ${it.appointmentType.name}  ${it.availableDate}  ${it.timeSlots}</option>
 
                                                 <%}%>
                                                 </select>
@@ -77,9 +81,14 @@ table.schedules tr:nth-child(odd) {
                                 </div>
                         </td>
                         <td width="50%" valign="top" style="padding-left: 5px">
+                            <div class="ke-panelbar" style="text-align: right">
+                                <button type="button" id="checkkTimeSlots" name="checkkTimeSlots" onclick="availableSlots()">
+                                    <img src="${ui.resourceLink("kenyaui", "images/glyphs/ok.png")}"/>Check time slots
+                                </button>
+                            </div>
                             <% if(appointmentBlocks) {%>
-                                <div>
-                                    <table class="schedules">
+                                <div style="display: none" id="showBlocks">
+                                    <table class="schedules" width="80%">
                                         <tr>
                                             <th>Provider</th>
                                             <th>Appointment type</th>
@@ -89,21 +98,14 @@ table.schedules tr:nth-child(odd) {
                                         <% appointmentBlocks.each{%>
                                             <tr>
                                                 <td>${it.provider.name}</td>
-                                                 <% it.types.each{%>
-                                                        <td>${it.name}</td>
-                                                <%}%>
-                                                <td>${it.startDate}</td>
-                                                <td>${it.startDate} - ${it.endDate}</td>
+                                                <td>${it.appointmentType.name}</td>
+                                                <td>${it.availableDate}</td>
+                                                <td>${it.timeSlots}</td>
                                             </tr>
                                         <%}%>
                                     </table>
                                 </div>
                             <%}%>
-                            <div class="ke-panelbar" style="text-align: right">
-                                <button type="button" id="checkkTimeSlots" name="checkkTimeSlots">
-                                    <img src="${ui.resourceLink("kenyaui", "images/glyphs/ok.png")}"/>Check time slots
-                                </button>
-                            </div>
                         </td>
                     </tr>
                  </table>

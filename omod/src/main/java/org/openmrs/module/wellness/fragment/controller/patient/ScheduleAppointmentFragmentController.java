@@ -8,9 +8,11 @@ import org.openmrs.VisitType;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appointmentscheduling.Appointment;
 import org.openmrs.module.appointmentscheduling.AppointmentBlock;
+import org.openmrs.module.appointmentscheduling.AppointmentType;
 import org.openmrs.module.appointmentscheduling.TimeSlot;
 import org.openmrs.module.appointmentscheduling.api.AppointmentService;
 import org.openmrs.module.wellness.CustomAppointment;
+import org.openmrs.module.wellness.CustomAppointmentBlocks;
 import org.openmrs.module.wellness.api.KenyaEmrService;
 import org.openmrs.module.wellness.metadata.CommonMetadata;
 import org.openmrs.module.wellness.util.EmrUtils;
@@ -22,9 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 public class ScheduleAppointmentFragmentController {
     protected final Log log = LogFactory.getLog(getClass());
@@ -34,6 +34,7 @@ public class ScheduleAppointmentFragmentController {
         AppointmentService service = Context.getService(AppointmentService.class);
         List<Appointment> patientAppointments = new ArrayList<Appointment>();
         List<CustomAppointment> customAppointments = new ArrayList<CustomAppointment>();
+        List<CustomAppointmentBlocks> customAppointmentBlocks = new ArrayList<CustomAppointmentBlocks>();
         String reason = "";
 
         List<Appointment> allAppointments = service.getAllAppointments();
@@ -55,11 +56,29 @@ public class ScheduleAppointmentFragmentController {
             customAppointment.setNotes(reason);
             customAppointments.add(customAppointment);
         }
+        //looping through the appointment blocks
+        List<AppointmentBlock> allAppointmentBlocks = service.getAllAppointmentBlocks();
+        List<AppointmentType> appointmentTypeList;
+        for(AppointmentBlock block: allAppointmentBlocks){
+            CustomAppointmentBlocks customBlocks = new CustomAppointmentBlocks();
+
+            if(block != null) {
+                appointmentTypeList = new ArrayList<AppointmentType>(block.getTypes());
+                customBlocks.setBlockId(block.getAppointmentBlockId());
+                customBlocks.setAppointmentType(appointmentTypeList.get(0));
+                customBlocks.setProvider(block.getProvider());
+                customBlocks.setAvailableDate(EmrUtils.formatDates(block.getStartDate()));
+                customBlocks.setTimeSlots(EmrUtils.formatTimeFromDate(block.getStartDate())+"-"+EmrUtils.formatTimeFromDate(block.getEndDate()));
+            }
+
+            customAppointmentBlocks.add(customBlocks);
+
+        }
 
         model.addAttribute("appointmentTypes", service.getAllAppointmentTypes());
         model.addAttribute("provider", service.getAllProvidersSorted(false));
         model.addAttribute("appointments", customAppointments);
-        model.addAttribute("appointmentBlocks", service.getAllAppointmentBlocks());
+        model.addAttribute("appointmentBlocks", customAppointmentBlocks);
     }
 
 
