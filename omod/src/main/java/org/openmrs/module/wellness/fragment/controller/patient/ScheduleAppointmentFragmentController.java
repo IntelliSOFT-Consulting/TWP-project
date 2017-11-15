@@ -22,9 +22,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class ScheduleAppointmentFragmentController {
     protected final Log log = LogFactory.getLog(getClass());
@@ -62,23 +62,26 @@ public class ScheduleAppointmentFragmentController {
         for(AppointmentBlock block: allAppointmentBlocks){
             CustomAppointmentBlocks customBlocks = new CustomAppointmentBlocks();
 
-            if(block != null) {
+            if(block != null && block.getStartDate().after(new Date())) {
                 appointmentTypeList = new ArrayList<AppointmentType>(block.getTypes());
                 customBlocks.setBlockId(block.getAppointmentBlockId());
                 customBlocks.setAppointmentType(appointmentTypeList.get(0));
                 customBlocks.setProvider(block.getProvider());
                 customBlocks.setAvailableDate(EmrUtils.formatDates(block.getStartDate()));
                 customBlocks.setTimeSlots(EmrUtils.formatTimeFromDate(block.getStartDate())+"-"+EmrUtils.formatTimeFromDate(block.getEndDate()));
+
+                customAppointmentBlocks.add(customBlocks);
             }
 
-            customAppointmentBlocks.add(customBlocks);
+
+            model.addAttribute("appointmentBlocks", customAppointmentBlocks);
 
         }
 
         model.addAttribute("appointmentTypes", service.getAllAppointmentTypes());
         model.addAttribute("provider", service.getAllProvidersSorted(false));
         model.addAttribute("appointments", customAppointments);
-        model.addAttribute("appointmentBlocks", customAppointmentBlocks);
+
     }
 
 
@@ -93,46 +96,47 @@ public class ScheduleAppointmentFragmentController {
                 HttpSession httpSession = request.getSession();
                 AppointmentService appointmentService = Context.getService(AppointmentService.class);
 
-                Appointment appointment = new Appointment();
                                 //get the patient to be associate
                 Patient patient = Context.getPatientService().getPatient(Integer.parseInt(patientId));
 
 
 
         if (flow != null && flow.equals("walk")) {
-            appointment.setStatus(Appointment.AppointmentStatus.WALKIN);// this is normal client visit in the facility
-            appointment.setDateCreated(new Date());
+            Appointment appointmentWalk = new Appointment();
+            appointmentWalk.setStatus(Appointment.AppointmentStatus.WALKIN);// this is normal client visit in the facility
+            appointmentWalk.setDateCreated(new Date());
 
             //Start a new visit
             VisitType defaultVisitType = Context.getVisitService().getVisitTypeByUuid(CommonMetadata._VisitType.OUTPATIENT);
             Visit visit = new Visit(patient, defaultVisitType, new Date());
             visit.setLocation(Context.getService(KenyaEmrService.class).getDefaultLocation());
             visit = Context.getVisitService().saveVisit(visit);
-            appointment.setVisit(visit);
+            appointmentWalk.setVisit(visit);
         }
         else {
             //create a time slot for this appointment
+            Appointment appointmentNew = new Appointment();
             try {
                 TimeSlot slot = new TimeSlot();
                 AppointmentBlock appointmentBlock = appointmentService.getAppointmentBlock(timeSlots);
+                List<AppointmentType> appointmentTypeList = new ArrayList<AppointmentType>(appointmentBlock.getTypes());
                 List<TimeSlot> slotsToThisBlock = appointmentService.getTimeSlotsInAppointmentBlock(appointmentBlock);
                 if (slotsToThisBlock.size() > 0) {
                     slot = slotsToThisBlock.get(0);
                 }
 
-                //tie the time slots to the appointment
-
-                appointment.setDateCreated(new Date());
-                appointment.setStatus(Appointment.AppointmentStatus.SCHEDULED);
-                appointment.setAppointmentType(appointmentService.getAppointmentType(type));
-                appointment.setTimeSlot(slot);
-                appointment.setPatient(patient);
-                appointment.setReason(notes);
-                appointmentService.saveAppointment(appointment);
+                //tie the time slots to the appointment;
+                appointmentNew.setDateCreated(new Date());
+                appointmentNew.setStatus(Appointment.AppointmentStatus.SCHEDULED);
+                appointmentNew.setAppointmentType(appointmentTypeList.get(0));
+                appointmentNew.setTimeSlot(slot);
+                appointmentNew.setPatient(patient);
+                appointmentNew.setReason(notes);
+                appointmentService.saveAppointment(appointmentNew);
                 httpSession.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Appointment Created");
-            }
+           }
             catch (Exception e){
-                log.warn("Provide all input "+e.toString());
+                httpSession.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, e.fillInStackTrace());
             }
 
         }

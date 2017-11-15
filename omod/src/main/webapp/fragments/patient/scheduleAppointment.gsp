@@ -88,7 +88,7 @@ table.schedules tr:nth-child(odd) {
                             </div>
                             <% if(appointmentBlocks) {%>
                                 <div style="display: none" id="showBlocks">
-                                    <table class="schedules" width="80%">
+                                    <table class="schedules" width="100%">
                                         <tr>
                                             <th>Provider</th>
                                             <th>Appointment type</th>
