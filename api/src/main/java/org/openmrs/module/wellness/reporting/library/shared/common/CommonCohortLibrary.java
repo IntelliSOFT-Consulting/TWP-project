@@ -21,6 +21,7 @@ import org.openmrs.api.PatientSetService;
 import org.openmrs.module.kenyacore.report.ReportUtils;
 import org.openmrs.module.kenyacore.report.cohort.definition.CalculationCohortDefinition;
 import org.openmrs.module.kenyacore.report.cohort.definition.DateObsValueBetweenCohortDefinition;
+import org.openmrs.module.reporting.common.DurationUnit;
 import org.openmrs.module.wellness.Dictionary;
 import org.openmrs.module.wellness.calculation.library.InProgramCalculation;
 import org.openmrs.module.wellness.metadata.NutritionMetadata;
@@ -78,6 +79,7 @@ public class CommonCohortLibrary {
 		cd.setName("aged at most " + maxAge);
 		cd.addParameter(new Parameter("effectiveDate", "Effective Date", Date.class));
 		cd.setMaxAge(maxAge);
+		cd.setMaxAgeUnit(DurationUnit.HOURS);
 		return cd;
 	}
 

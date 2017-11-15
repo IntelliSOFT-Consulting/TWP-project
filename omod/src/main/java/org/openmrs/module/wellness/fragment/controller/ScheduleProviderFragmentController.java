@@ -3,6 +3,7 @@ package org.openmrs.module.wellness.fragment.controller;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appointmentscheduling.AppointmentBlock;
 import org.openmrs.module.appointmentscheduling.AppointmentType;
+import org.openmrs.module.appointmentscheduling.TimeSlot;
 import org.openmrs.module.appointmentscheduling.api.AppointmentService;
 import org.openmrs.module.kenyacore.CoreUtils;
 import org.openmrs.module.kenyacore.report.ReportUtils;
@@ -10,6 +11,7 @@ import org.openmrs.module.reporting.report.util.ReportUtil;
 import org.openmrs.module.wellness.api.KenyaEmrService;
 import org.openmrs.ui.framework.fragment.FragmentModel;
 import org.openmrs.util.OpenmrsUtil;
+import org.openmrs.web.WebConstants;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
@@ -52,6 +54,7 @@ public class ScheduleProviderFragmentController {
 
             AppointmentService appointmentService = Context.getService(AppointmentService.class);
             AppointmentType chosenAppointment = appointmentService.getAppointmentType(appointmentTypeId);
+            HttpSession httpSession = request.getSession();
 
             String realStartDate = startDate+" "+startHours+":"+startMinutes;
             String realEndDate = endDate+" "+endHours+":"+endMinutes;
@@ -59,16 +62,31 @@ public class ScheduleProviderFragmentController {
             Set<AppointmentType> appointmentTypesSet = new HashSet<AppointmentType>();
 
             DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-            appointmentTypesSet.add(chosenAppointment);
+            try {
+                appointmentTypesSet.add(chosenAppointment);
 
-            AppointmentBlock appointmentBlock = new AppointmentBlock();
-            appointmentBlock.setLocation(Context.getService(KenyaEmrService.class).getDefaultLocation());
-            appointmentBlock.setProvider(Context.getProviderService().getProvider(providerId));
-            appointmentBlock.setTypes(appointmentTypesSet);
-            appointmentBlock.setStartDate(format.parse(realStartDate));
-            appointmentBlock.setEndDate(format.parse(realEndDate));
-            appointmentBlock.setCreator(Context.getAuthenticatedUser());
-            appointmentService.saveAppointmentBlock(appointmentBlock);
+                AppointmentBlock appointmentBlock = new AppointmentBlock();
+                appointmentBlock.setLocation(Context.getService(KenyaEmrService.class).getDefaultLocation());
+                appointmentBlock.setProvider(Context.getProviderService().getProvider(providerId));
+                appointmentBlock.setTypes(appointmentTypesSet);
+                appointmentBlock.setStartDate(format.parse(realStartDate));
+                appointmentBlock.setEndDate(format.parse(realEndDate));
+                appointmentBlock.setCreator(Context.getAuthenticatedUser());
+                appointmentService.saveAppointmentBlock(appointmentBlock);
+
+                //save time slots
+                TimeSlot timeSlot= new TimeSlot();
+                timeSlot.setAppointmentBlock(appointmentBlock);
+                timeSlot.setStartDate(appointmentBlock.getStartDate());
+                timeSlot.setEndDate(appointmentBlock.getEndDate());
+                appointmentService.saveTimeSlot(timeSlot);
+
+                httpSession.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Provider scheduled !");
+
+            }
+            catch (Exception e) {
+                httpSession.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, e.fillInStackTrace().toString());
+            }
 
     }
 }

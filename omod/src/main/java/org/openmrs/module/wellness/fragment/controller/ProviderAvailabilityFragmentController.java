@@ -124,7 +124,7 @@ public class ProviderAvailabilityFragmentController {
         }
 
         //If the user wants to edit an existing appointment block (clicked on an event)
-        else if (action != null && action.equals("editAppointmentBlock")) {
+        else if (action != null && action.equals("editAppointmentBlock.gsp")) {
             return "redirect:appointmentBlockForm.form?appointmentBlockId=" + appointmentBlockId
                     + "&redirectedFrom=appointmentBlockCalendar.list";
         }
