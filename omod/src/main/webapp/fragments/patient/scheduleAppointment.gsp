@@ -93,13 +93,15 @@ table.schedules tr:nth-child(odd) {
                                             <th>Provider</th>
                                             <th>Appointment type</th>
                                             <th>Date</th>
-                                            <th>Time slots</th>
+                                            <th>Actual time
+                                            <th>Available time</th>
                                         </tr>
                                         <% appointmentBlocks.each{%>
                                             <tr>
                                                 <td>${it.provider.name}</td>
                                                 <td>${it.appointmentType.name}</td>
                                                 <td>${it.availableDate}</td>
+                                                <td>${it.timeSlots}</td>
                                                 <td>${it.timeSlots}</td>
                                             </tr>
                                         <%}%>

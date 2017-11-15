@@ -62,7 +62,7 @@ public class ScheduleAppointmentFragmentController {
         for(AppointmentBlock block: allAppointmentBlocks){
             CustomAppointmentBlocks customBlocks = new CustomAppointmentBlocks();
 
-            if(block != null && block.getStartDate().after(new Date())) {
+            if(block != null && block.getEndDate().after(new Date())) {
                 appointmentTypeList = new ArrayList<AppointmentType>(block.getTypes());
                 customBlocks.setBlockId(block.getAppointmentBlockId());
                 customBlocks.setAppointmentType(appointmentTypeList.get(0));

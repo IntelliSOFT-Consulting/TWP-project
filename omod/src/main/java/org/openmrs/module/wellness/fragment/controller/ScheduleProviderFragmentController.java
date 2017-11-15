@@ -9,6 +9,7 @@ import org.openmrs.module.kenyacore.CoreUtils;
 import org.openmrs.module.kenyacore.report.ReportUtils;
 import org.openmrs.module.reporting.report.util.ReportUtil;
 import org.openmrs.module.wellness.api.KenyaEmrService;
+import org.openmrs.module.wellness.util.EmrUtils;
 import org.openmrs.ui.framework.fragment.FragmentModel;
 import org.openmrs.util.OpenmrsUtil;
 import org.openmrs.web.WebConstants;
@@ -36,8 +37,8 @@ public class ScheduleProviderFragmentController {
         model.addAttribute("appointmentTypeList", Context.getService(AppointmentService.class).getAllAppointmentTypesSorted(false));
         model.addAttribute("providerList", Context.getService(AppointmentService.class).getAllProvidersSorted(false));
         model.addAttribute("providerSchedule", Context.getService(AppointmentService.class).getAllAppointmentBlocks());
-        model.addAttribute("fromDate", fromDate);
-        model.addAttribute("toDate", toDate);
+        model.addAttribute("fromDate", EmrUtils.formatDates(new Date()));
+        model.addAttribute("toDate", EmrUtils.formatDates(new Date()));
         model.addAttribute("appointmentBlock", appointmentBlock);
     }
 
