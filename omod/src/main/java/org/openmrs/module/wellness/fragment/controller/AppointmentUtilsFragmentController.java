@@ -1,5 +1,8 @@
 package org.openmrs.module.wellness.fragment.controller;
 
+import org.openmrs.api.context.Context;
+import org.openmrs.module.appointmentscheduling.Appointment;
+import org.openmrs.module.appointmentscheduling.api.AppointmentService;
 import org.openmrs.module.kenyaui.annotation.AppAction;
 import org.openmrs.module.wellness.EmrConstants;
 import org.openmrs.ui.framework.SimpleObject;
@@ -16,6 +19,12 @@ public class AppointmentUtilsFragmentController {
     @AppAction(EmrConstants.APP_INTAKE)
     public List<SimpleObject> getActiveAppointmentBlocks(UiUtils ui) {
         List<SimpleObject> ret = new ArrayList<SimpleObject>();
+        AppointmentService service = Context.getService(AppointmentService.class);
+        List<Appointment> allAppointments = service.getAllAppointments();
+        for(Appointment appointment: allAppointments) {
+            SimpleObject so = ui.simplifyObject(appointment);
+            ret.add(so);
+        }
         return ret;
     }
 }

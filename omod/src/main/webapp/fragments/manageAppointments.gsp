@@ -1,3 +1,22 @@
+<%
+    ui.includeJavascript("wellness", "controllers/appointments.js")
+%>
+<style>
+table.toggle tr th {
+    background-color: #98AFC7;
+    text-align: left;
+}
+table.toggle tr td {
+    text-align: left;
+}
+table.toggle tr:nth-child(even) {
+    background-color: #E3E4FA;
+}
+
+table.toggle tr:nth-child(odd) {
+    background-color: #FDEEF4;
+}
+</style>
 <div class="ke-panel-frame">
     <div class="ke-panel-heading">Appointment Management</div>
     <div class="ke-page-content">
@@ -44,47 +63,35 @@
                 </tr>
                 <tr>
                     <td>
-                        <input type="submit" name="apply" id="apply" value="Apply filters">
+                        <input type="button" name="apply" id="apply" value="Apply filters">
                     </td>
                 </tr>
             </table>
         </fieldset>
-        <fieldset>
-            <legend>Available Appointments</legend>
-            <table id="availableAppointments">
-                <tbody>
-                    <tr>
-                        <th>Client</th>
-                        <th>Date</th>
-                        <th>Time</th>
-                        <th>Provider</th>
-                        <th>Type</th>
-                        <th>Status</th>
-                    </tr>
-                    <tr>
-                        <td>Test</td>
-                        <td>Test</td>
-                        <td>Test</td>
-                        <td>Test</td>
-                        <td>Test</td>
-                        <td>Test</td>
-                    </tr>
-                    <tr>
-                        <td>Test</td>
-                        <td>Test</td>
-                        <td>Test</td>
-                        <td>Test</td>
-                        <td>Test</td>
-                        <td>Test</td>
-                    </tr>
-                </tbody>
-            </table>
-        </fieldset>
+        </div>
+</div>
+<br />
+<div class="ke-panel-frame">
+    <div class="ke-panel-heading">Available Appointments</div>
+    <div class="ke-page-content"  ng-controller="ActiveAppointmentsBlocks" ng-init="init()">
+        {{ activeAppointments }}
+        <table id="availableAppointments" class="toggle" width="100%">
+                <tr>
+                    <th>Client</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Provider</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                </tr>
+                <tr ng-repeat="appointment in activeAppointments">
+                    <td>{{appointment}}</td>
+                    <td>{{appointment}}</td>
+                    <td>{{appointment}}</td>
+                    <td>{{appointment}}</td>
+                    <td>{{appointment}}</td>
+                    <td>{{appointment}}</td>
+                </tr>
+        </table>
     </div>
-
-    <script type="text/javascript">
-        jQuery(function () {
-            jQuery('#availableAppointments').dataTable();
-        })
-    </script>
 </div>

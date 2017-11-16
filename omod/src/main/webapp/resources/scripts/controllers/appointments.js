@@ -20,19 +20,20 @@
  * Controller for all appointments results
  */
 
-kenyaemrApp.controller('ActiveAppointmentsBlocks', ['$scope', '$http', '$timeout', function($scope, $http, $timeout) {
 
-    $scope.activeAppoinmentBlocks = [];
+kenyaemrApp.controller('ActiveAppointmentsBlocks', ['$scope', '$http', '$timeout', function ($scope, $http, $timeout) {
 
-    /**
-     * Refreshes the visit types with active visits
-     */
-    $scope.init = function() {
-        $http.get(ui.fragmentActionLink('wellness', 'AppointmentUtils', 'getActiveAppointmentBlocks'))
-            .success(function(data) {
-                $scope.activeAppoinmentBlocks = data;
+        $scope.activeAppointments = [];
 
-            });
-    };
+        /**
+         * Refreshes the visit types with active visits
+         */
+        $scope.init = function () {
+            $http.get(ui.fragmentActionLink('wellness', 'AppointmentUtils', 'getActiveAppointmentBlocks'))
+                .success(function (data) {
+                    $scope.activeAppointments = data;
+
+                });
+        };
 
 }]);
