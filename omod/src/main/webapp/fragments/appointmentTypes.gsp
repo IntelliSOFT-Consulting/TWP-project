@@ -62,21 +62,12 @@ table.appointmentsTypes tr:nth-child(odd) {
                             <th>Name</th>
                             <th>Description</th>
                             <th>Duration</th>
-                            <th>Action</th>
                          </tr>
                         <% allAppointments.each {%>
                             <tr>
-                                <td>${it.name}</td>
+                                <td><a href="editAppointmentTypes.page?appointmentTypeId=${it.appointmentTypeId}">${it.name}</a></td>
                                 <td>${it.description}</td>
                                 <td>${it.duration}</td>
-                                <td>
-                                    <button type="button" class="ke-compact">
-                                        <img src="${ ui.resourceLink("kenyaui", "images/glyphs/edit.png") }" />
-                                    </button>
-                                    <button type="button" class="ke-compact">
-                                        <img src="${ ui.resourceLink("wellness", "images/buttons/delete.png") }" />
-                                    </button>
-                                </td>
                             </tr>
                         <%}%>
                     <%}%>
