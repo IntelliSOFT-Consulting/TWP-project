@@ -207,7 +207,6 @@ table.toggle tr:nth-child(odd) {
                 <div class="ke-page-content">
                     <table class="toggle" width="100%">
                         <tr>
-                            <th>Action</th>
                             <th>Provider</th>
                             <th>Start date</th>
                             <th>End date</th>
@@ -216,16 +215,7 @@ table.toggle tr:nth-child(odd) {
                         </tr>
                         <% providerSchedule.each{%>
                         <tr>
-                            <td>
-                                <input type="hidden" name="appointmentBlock" id="appointmentBlock" value="${it.appointmentBlockId}" />
-                                <button type="button" class="ke-compact" onclick="editAppointment()">
-                                    <img src="${ ui.resourceLink("kenyaui", "images/glyphs/edit.png") }" />
-                                </button>
-                                <button type="button" class="ke-compact" onclick="deleteAppointment()">
-                                    <img src="${ ui.resourceLink("wellness", "images/buttons/delete.png") }" />
-                                </button>
-                            </td>
-                            <td>${it.provider.name}</td>
+                            <td><a href="editAppointmentBlock.page?blockId=${it.appointmentBlockId}">${it.provider.name}</a></td>
                             <td>${it.startDate}</td>
                             <td>${it.endDate}</td>
                             <% it.types.each{%>
