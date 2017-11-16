@@ -133,7 +133,7 @@ public class ScheduleAppointmentFragmentController {
                 appointmentNew.setPatient(patient);
                 appointmentNew.setReason(notes);
                 appointmentService.saveAppointment(appointmentNew);
-                httpSession.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Appointment Created");
+                httpSession.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Appointment Created");
            }
             catch (Exception e){
                 httpSession.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, e.fillInStackTrace());
