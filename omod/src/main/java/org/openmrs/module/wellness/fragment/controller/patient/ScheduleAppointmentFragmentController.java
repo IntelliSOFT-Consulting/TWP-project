@@ -45,6 +45,7 @@ public class ScheduleAppointmentFragmentController {
         }
         for(Appointment appointment:patientAppointments) {
             CustomAppointment customAppointment = new CustomAppointment();
+            customAppointment.setAppointmentId(appointment.getAppointmentId());
             customAppointment.setProvider(appointment.getTimeSlot().getAppointmentBlock().getProvider());
             customAppointment.setAppointmentType(appointment.getAppointmentType());
             customAppointment.setAppointmentDate(EmrUtils.formatDates(appointment.getTimeSlot().getStartDate()));

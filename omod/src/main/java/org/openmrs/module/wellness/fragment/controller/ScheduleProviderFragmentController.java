@@ -31,9 +31,6 @@ public class ScheduleProviderFragmentController {
                            @RequestParam(value = "appointmentBlock", required = false) String appointmentBlock
                            ){
 
-        String fromDate = (String) request.getSession().getAttribute("fromDate");
-        String toDate = (String) request.getSession().getAttribute("toDate");
-
         model.addAttribute("appointmentTypeList", Context.getService(AppointmentService.class).getAllAppointmentTypesSorted(false));
         model.addAttribute("providerList", Context.getService(AppointmentService.class).getAllProvidersSorted(false));
         model.addAttribute("providerSchedule", Context.getService(AppointmentService.class).getAllAppointmentBlocks());

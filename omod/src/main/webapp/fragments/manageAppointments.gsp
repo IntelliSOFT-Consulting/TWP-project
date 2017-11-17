@@ -73,25 +73,28 @@ table.toggle tr:nth-child(odd) {
 <br />
 <div class="ke-panel-frame">
     <div class="ke-panel-heading">Available Appointments</div>
-    <div class="ke-page-content"  ng-controller="ActiveAppointmentsBlocks" ng-init="init()">
-        {{ activeAppointments }}
-        <table id="availableAppointments" class="toggle" width="100%">
-                <tr>
-                    <th>Client</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Provider</th>
-                    <th>Type</th>
-                    <th>Status</th>
-                </tr>
-                <tr ng-repeat="appointment in activeAppointments">
-                    <td>{{appointment}}</td>
-                    <td>{{appointment}}</td>
-                    <td>{{appointment}}</td>
-                    <td>{{appointment}}</td>
-                    <td>{{appointment}}</td>
-                    <td>{{appointment}}</td>
-                </tr>
-        </table>
-    </div>
+    <% if(allAppointments){%>
+        <div class="ke-page-content">
+            <table id="availableAppointments" class="toggle" width="100%">
+                    <tr>
+                        <th>Client</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Provider</th>
+                        <th>Type</th>
+                        <th>Status</th>
+                    </tr>
+                <% allAppointments.each{%>
+                    <tr>
+                        <td><a href="manageScheduledAppointments.page?appointmentId=${it.id}"> ${it.patient}</a></td>
+                        <td>${it.date}</td>
+                        <td>${it.time}</td>
+                        <td>${it.provider}</td>
+                        <td>${it.type}</td>
+                        <td>${it.status}</td>
+                    </tr>
+                <%}%>
+            </table>
+        </div>
+    <%}%>
 </div>

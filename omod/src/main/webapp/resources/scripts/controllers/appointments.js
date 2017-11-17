@@ -31,6 +31,7 @@ kenyaemrApp.controller('ActiveAppointmentsBlocks', ['$scope', '$http', '$timeout
         $scope.init = function () {
             $http.get(ui.fragmentActionLink('wellness', 'AppointmentUtils', 'getActiveAppointmentBlocks'))
                 .success(function (data) {
+                    console.log("The data is :::"+data);
                     $scope.activeAppointments = data;
 
                 });

@@ -12,6 +12,16 @@ public class CustomAppointment {
     private String status;
     private String notes;
 
+    public Integer getAppointmentId() {
+        return appointmentId;
+    }
+
+    public void setAppointmentId(Integer appointmentId) {
+        this.appointmentId = appointmentId;
+    }
+
+    private Integer appointmentId;
+
     public Provider getProvider() {
         return provider;
     }

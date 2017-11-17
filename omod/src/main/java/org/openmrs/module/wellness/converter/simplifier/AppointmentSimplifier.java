@@ -12,7 +12,7 @@ public class AppointmentSimplifier extends AbstractSimplifier<Appointment> {
     protected SimpleObject simplify(Appointment appointment) {
         SimpleObject ret = new SimpleObject();
         ret.put("id", appointment.getAppointmentId());
-        ret.put("patient", appointment.getPatient());
+        ret.put("patient", appointment.getPatient().getPersonName().getFullName());
         ret.put("status", appointment.getStatus().getName());
         ret.put("type", appointment.getAppointmentType().getName());
         ret.put("provider", appointment.getTimeSlot().getAppointmentBlock().getProvider().getName());

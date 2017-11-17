@@ -1,7 +1,7 @@
 <%
     ui.decorateWith("wellness", "standardPage", [ layout: "sidebar" ])
     def menuItems = [
-            [ label: "Back to home", iconProvider: "kenyaui", icon: "buttons/back.png", label: "Back to home", href: ui.pageLink("wellness", "intake/intakeHome") ]
+            [ label: "Back to home", iconProvider: "kenyaui", icon: "buttons/back.png", label: "Back to home", href: ui.pageLink("wellness", "intake/manageAppointments") ]
     ]
 
 %>
@@ -9,5 +9,5 @@
     ${ ui.includeFragment("kenyaui", "widget/panelMenu", [ heading: "Tasks", items: menuItems ]) }
 </div>
 <div class="ke-page-content">
-    ${ ui.includeFragment("wellness", "manageAppointments") }
+    ${ ui.includeFragment("wellness", "manageScheduledAppointments") }
 </div>

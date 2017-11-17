@@ -129,7 +129,7 @@ table.schedules tr:nth-child(odd) {
                     </tr>
                 <% appointments.each{%>
                     <tr>
-                        <td>${it.provider.name}</td>
+                        <td><a href="manageScheduledAppointments.page?appointmentId=${it.appointmentId}">${it.provider.name}</a></td>
                         <td>${it.appointmentType.name}</td>
                         <td>${it.appointmentDate}</td>
                         <td>${it.timeSlots}</td>
