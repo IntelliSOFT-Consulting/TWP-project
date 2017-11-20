@@ -14,11 +14,18 @@ table.appointmentsTypes tr:nth-child(odd) {
     background-color: #FDEEF4;
 }
 </style>
+<script type="text/javascript">
+    function showFields(){
+        jQuery('#content').show();
+        jQuery('#footer').show();
+        jQuery('#add').hide();
+    }
+</script>
 <div class="ke-panel-frame">
     <div class="ke-panel-heading">Appointment types</div>
     <div class="ke-page-content">
         <form  id="edit-appointment-form" method="post" action="${ui.actionLink("wellness", "appointmentTypes", "post")}">
-            <table>
+            <table id="content" style="display: none">
                 <tr>
                     <td valign="top">
                         <span class="ke-field-content">
@@ -45,14 +52,18 @@ table.appointmentsTypes tr:nth-child(odd) {
                 </tr>
             </table>
 
-            <div class="ke-panel-footer">
+            <div class="ke-panel-footer" id="footer" style="display: none;">
                 <button type="submit">
                     <img src="${ui.resourceLink("kenyaui", "images/glyphs/ok.png")}"/>Save appointment type
                 </button>
             </div>
 
         </form>
-        <br />
+        <div id="add" align="right">
+            <button type="button" onclick="showFields()">
+                <img src="${ui.resourceLink("kenyaui", "images/buttons/add.png")}"/>Add appointment type
+            </button>
+        </div>
         <div class="ke-panel-frame">
             <div class="ke-panel-heading">Available appointment types</div>
             <div class="ke-page-content">
