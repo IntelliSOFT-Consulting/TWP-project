@@ -6,6 +6,7 @@ import org.openmrs.module.appointmentscheduling.api.AppointmentService;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.fragment.FragmentModel;
 import org.openmrs.ui.framework.page.PageModel;
+import org.springframework.web.bind.annotation.RequestParam;
 
 public class EditAppointmentTypesFragmentController {
 
@@ -23,7 +24,21 @@ public class EditAppointmentTypesFragmentController {
 
     }
 
-    public void post(UiUtils ui){
+    public void post(PageModel sharedPageModel,
+                     FragmentModel model,
+                     UiUtils ui,
+                     @RequestParam("name") String name,
+                     @RequestParam("duration") String duration,
+                     @RequestParam("description") String description,
+                     @RequestParam("action") String action){
+
+        AppointmentType appointmentType = new AppointmentType();
+        String appointmentTypeId = (String) sharedPageModel.getAttribute("appointmentTypeId");
+        if(appointmentTypeId != null){
+            appointmentType = Context.getService(AppointmentService.class).getAppointmentType(Integer.parseInt(appointmentTypeId));
+
+        }
+
 
     }
 }

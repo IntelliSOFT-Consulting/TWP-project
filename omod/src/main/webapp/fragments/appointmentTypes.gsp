@@ -45,7 +45,7 @@ table.appointmentsTypes tr:nth-child(odd) {
                 <tr>
                     <td valign="top">
                         <span class="ke-field-content">
-                            <label class="ke-field-label">Duration</label>
+                            <label class="ke-field-label">Description</label>
                             <textarea name="description" id="description" cols="100" rows="5"></textarea>
                         </span>
                     </td>

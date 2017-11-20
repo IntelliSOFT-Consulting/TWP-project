@@ -23,15 +23,26 @@
                     <tr>
                         <td valign="top">
                             <span class="ke-field-content">
-                                <label class="ke-field-label">Duration</label>
+                                <label class="ke-field-label">Description</label>
                                 <textarea name="description" id="description" cols="100" rows="5">${description}</textarea>
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top">
+                            <span class="ke-field-content">
+                                <label class="ke-field-label">Action</label>
+                                <select name="action" id="action">
+                                    <option value="edit">Edit</option>
+                                    <option value="delete">Delete</option>
+                                </select>
                             </span>
                         </td>
                     </tr>
                 </table>
 
                 <div class="ke-panel-footer">
-                    <button type="submit" onclick="saveChangesButton()">
+                    <button type="submit">
                         <img src="${ui.resourceLink("kenyaui", "images/glyphs/ok.png")}"/>Save changes
                     </button>
                     <button type="button" class="cancel-button" onclick="cancelButton()"><img
@@ -48,9 +59,6 @@
 <script type="text/javascript">
 
     function cancelButton() {
-        ui.navigate('wellness', 'intake/appointmentTypes');
-    }
-    function saveChangesButton() {
         ui.navigate('wellness', 'intake/appointmentTypes');
     }
 
