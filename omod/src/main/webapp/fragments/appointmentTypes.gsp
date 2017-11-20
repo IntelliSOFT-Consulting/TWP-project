@@ -61,7 +61,7 @@ table.appointmentsTypes tr:nth-child(odd) {
         </form>
         <div id="add" align="right">
             <button type="button" onclick="showFields()">
-                <img src="${ui.resourceLink("kenyaui", "images/buttons/add.png")}"/>Add appointment type
+                <img src="${ui.resourceLink("wellness", "images/buttons/add.png")}"/>Add appointment type
             </button>
         </div>
         <div class="ke-panel-frame">

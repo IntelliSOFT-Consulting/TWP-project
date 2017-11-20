@@ -10,4 +10,5 @@
     ${ ui.includeFragment("kenyaui", "widget/panelMenu", [ heading: "Tasks", items: menuItems ]) }
 </div>
 <div class="ke-page-content">
+    ${ ui.includeFragment("wellness", "editAppointmentTypes") }
 </div>
