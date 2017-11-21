@@ -79,7 +79,7 @@ public class ScheduleProviderFragmentController {
                 timeSlot.setEndDate(appointmentBlock.getEndDate());
                 appointmentService.saveTimeSlot(timeSlot);
 
-                httpSession.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Provider scheduled !");
+                httpSession.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Provider scheduled !");
 
             }
             catch (Exception e) {

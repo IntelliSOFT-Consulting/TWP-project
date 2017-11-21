@@ -23,7 +23,9 @@ import org.openmrs.User;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.wellness.Dictionary;
 
+import java.text.DateFormat;
 import java.text.Format;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -146,5 +148,10 @@ public class EmrUtils {
 
 		return s;
 
+	}
+
+	public static Date formatDateString(String s) throws ParseException {
+		DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		return format.parse(s);
 	}
 }
