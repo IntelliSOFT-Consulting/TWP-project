@@ -39,6 +39,7 @@
                             </span>
                         </td>
                     </tr>
+                    <input type="hidden" name="appointment" id="appointment" value="${appointmentTypeId}" />
                 </table>
 
                 <div class="ke-panel-footer">
@@ -64,5 +65,13 @@
 
     jQuery(function () {
 
-    })
+        kenyaui.setupAjaxPost('edit-appointment-type-form', {
+
+            onSuccess: function () {
+                ui.navigate('wellness', 'intake/appointmentTypes');
+            }
+
+        });
+
+    });
 </script>
