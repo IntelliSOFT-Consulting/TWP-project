@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class EditAppointmentBlockFragmentController {
@@ -80,6 +81,11 @@ public class EditAppointmentBlockFragmentController {
                     httpSession.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Provider scheduled changed !");
                 }
                 if(action.equals("delete")){
+                    List<TimeSlot> currentTimeSlots = service.getTimeSlotsInAppointmentBlock(block);
+                    for(TimeSlot slot: currentTimeSlots){
+                        service.purgeTimeSlot(slot);
+                    }
+
                     service.purgeAppointmentBlock(block);
                     httpSession.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Schedule deleted");
                 }

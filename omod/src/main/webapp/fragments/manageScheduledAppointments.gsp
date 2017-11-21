@@ -8,11 +8,12 @@
                         <div>
                             <table>
                                 <tr>
-                                    <td>Flow:</td>
+                                    <td>Appointment status</td>
                                     <td>
                                         <select name="flow" id="flow">
-                                            <option value="new">New appointment</option>
-                                            <option value="walk">Walk-in</option>
+                                            <% statusList.each{%>
+                                            <option value="new">${it}</option>
+                                            <%}%>
 
                                         </select>
                                     </td>
