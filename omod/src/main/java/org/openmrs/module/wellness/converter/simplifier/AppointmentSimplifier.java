@@ -11,6 +11,10 @@ public class AppointmentSimplifier extends AbstractSimplifier<Appointment> {
     @Override
     protected SimpleObject simplify(Appointment appointment) {
         SimpleObject ret = new SimpleObject();
+        String notes = appointment.getReason();
+        if(notes == null || notes.equals("null")){
+            notes = "";
+        }
         ret.put("id", appointment.getAppointmentId());
         ret.put("patient", appointment.getPatient().getPersonName().getFullName());
         ret.put("status", appointment.getStatus().getName());
@@ -18,7 +22,7 @@ public class AppointmentSimplifier extends AbstractSimplifier<Appointment> {
         ret.put("provider", appointment.getTimeSlot().getAppointmentBlock().getProvider().getName());
         ret.put("time", EmrUtils.formatTimeFromDate(appointment.getTimeSlot().getStartDate())+"-"+EmrUtils.formatTimeFromDate(appointment.getTimeSlot().getEndDate()));
         ret.put("date", EmrUtils.formatDates(appointment.getTimeSlot().getStartDate()));
-        ret.put("notes", appointment.getReason());
+        ret.put("notes", notes);
         return ret;
     }
 }

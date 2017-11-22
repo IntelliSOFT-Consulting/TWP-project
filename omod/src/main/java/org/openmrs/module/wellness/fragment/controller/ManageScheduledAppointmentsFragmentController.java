@@ -9,7 +9,11 @@ import org.openmrs.module.wellness.CustomAppointmentBlocks;
 import org.openmrs.module.wellness.util.EmrUtils;
 import org.openmrs.ui.framework.fragment.FragmentModel;
 import org.openmrs.ui.framework.page.PageModel;
+import org.openmrs.web.WebConstants;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.*;
 
 public class ManageScheduledAppointmentsFragmentController {
@@ -66,4 +70,52 @@ public class ManageScheduledAppointmentsFragmentController {
     model.addAttribute("notes", notes);
     }
 
+    public void post(@RequestParam(value = "appointmentId") Integer appointmentId,
+                     HttpServletRequest request,
+                     @RequestParam(value = "status") String status,
+                     @RequestParam(value = "type") Integer type,
+                     @RequestParam(value = "timeSlots") Integer timeSlots,
+                     @RequestParam(value = "notes") String notes,
+                     @RequestParam(value = "action") String action){
+        HttpSession session = request.getSession();
+        AppointmentService service = Context.getService(AppointmentService.class);
+        Appointment appointment = service.getAppointment(appointmentId);
+        Appointment.AppointmentStatus appointmentStatus = null;
+
+        String cancelled = Appointment.AppointmentStatus.CANCELLED.getName();
+        String missed = Appointment.AppointmentStatus.MISSED.getName();
+        String scheduled = Appointment.AppointmentStatus.SCHEDULED.getName();
+
+        if(status.equals(cancelled)){
+            appointmentStatus = Appointment.AppointmentStatus.CANCELLED;
+        }
+        else if(status.equals(missed)){
+            appointmentStatus = Appointment.AppointmentStatus.MISSED;
+        }
+        else if(status.equals(scheduled)){
+            appointmentStatus = Appointment.AppointmentStatus.SCHEDULED;
+        }
+
+        try {
+
+            if(action.equals("edit")){
+                appointment.setReason(notes);
+                appointment.setTimeSlot(service.getTimeSlot(timeSlots));
+                appointment.setAppointmentType(service.getAppointmentType(type));
+                appointment.setStatus(appointmentStatus);
+                session.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Appointment Updated !");
+            }
+            else if(action.equals("delete")){
+                session.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Appointment deleted !");
+
+            }
+
+        }
+        catch (Exception e) {
+            session.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Errors occured "+e.fillInStackTrace());
+        }
+
+
+
+    }
 }

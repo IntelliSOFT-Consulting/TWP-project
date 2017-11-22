@@ -10,7 +10,7 @@
                                 <tr>
                                     <td>Appointment status</td>
                                     <td>
-                                        <select name="flow" id="flow">
+                                        <select name="status" id="status">
                                             <option value="${status}">${status}</option>
                                             <option value="cancel">Cancel</option>
                                             <option value="missed">Missed</option>
