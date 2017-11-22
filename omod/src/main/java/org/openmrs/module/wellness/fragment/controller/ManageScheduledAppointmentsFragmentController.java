@@ -19,9 +19,20 @@ public class ManageScheduledAppointmentsFragmentController {
 
         AppointmentService service = Context.getService(AppointmentService.class);
         List<CustomAppointmentBlocks> customAppointmentBlocks = new ArrayList<CustomAppointmentBlocks>();
+        Integer appointmentId = (Integer) sharedModel.getAttribute("appointmentId");
+        //get the appointment with the given id
+        Appointment appointment = service.getAppointment(appointmentId);
+        String status = appointment.getStatus().getName();
+        AppointmentType appointmentType = appointment.getAppointmentType();
+        AppointmentBlock appointmentBlock = appointment.getTimeSlot().getAppointmentBlock();
 
         model.addAttribute("appointmentTypes", service.getAllAppointmentTypes());
-        Set<Appointment.AppointmentStatus> statuses = new HashSet<Appointment.AppointmentStatus>();
+        //available appointment types fromm a block
+        List<AppointmentType> typesInAblock = new ArrayList<AppointmentType>(appointmentBlock.getTypes());
+        String appointmentDate = EmrUtils.formatDates(appointmentBlock.getStartDate());
+        String time = EmrUtils.formatTimeFromDate(appointmentBlock.getStartDate())+"-"+EmrUtils.formatTimeFromDate(appointmentBlock.getEndDate());
+        String notes = appointment.getReason();
+
 
         List<AppointmentBlock> allAppointmentBlocks = service.getAllAppointmentBlocks();
         List<AppointmentType> appointmentTypeList;
@@ -44,11 +55,15 @@ public class ManageScheduledAppointmentsFragmentController {
 
         }
 
-        for (Appointment.AppointmentStatus status : Appointment.AppointmentStatus.values()) {
-            statuses.add(status);
-        }
-    List<Appointment.AppointmentStatus> statusList = new ArrayList<Appointment.AppointmentStatus>(statuses);
 
-    model.addAttribute("statusList", statusList);
+    model.addAttribute("appointmentId", appointmentId);
+    model.addAttribute("status", status);
+    model.addAttribute("appointmentType", appointmentType);
+    model.addAttribute("block", appointmentBlock);
+    model.addAttribute("blockTypes", typesInAblock.get(0));
+    model.addAttribute("appointmentDate", appointmentDate);
+    model.addAttribute("time", time);
+    model.addAttribute("notes", notes);
     }
+
 }

@@ -11,10 +11,12 @@
                                     <td>Appointment status</td>
                                     <td>
                                         <select name="flow" id="flow">
-                                            <% statusList.each{%>
-                                            <option value="new">${it}</option>
-                                            <%}%>
-
+                                            <option value="${status}">${status}</option>
+                                            <option value="cancel">Cancel</option>
+                                            <option value="missed">Missed</option>
+                                            <option value="scheduled">Scheduled</option>
+                                            <option value="reScheduled">Rescheduled</option>
+                                            <option value="completed">Completed</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -22,6 +24,7 @@
                                     <td>Appointment type</td>
                                     <td>
                                         <select name="type" id="type">
+                                            <option value="${appointmentType.appointmentTypeId}">${appointmentType.name} </option>
                                             <% appointmentTypes.each{%>
                                             <option value="${it.appointmentTypeId}">${it.name}</option>
                                             <%}%>
@@ -32,6 +35,7 @@
                                     <td>Time slots</td>
                                     <td>
                                         <select name="timeSlots" id="timeSlots">
+                                            <option value="${block.appointmentBlockId}">${block.provider.name} ${blockTypes.name} ${appointmentDate} ${time}</option>
                                             <% appointmentBlocks.each{%>
                                             <option value="${it.blockId}">${it.provider.name}  ${it.appointmentType.name}  ${it.availableDate}  ${it.timeSlots}</option>
 
@@ -44,11 +48,20 @@
                                 </tr>
                                 <tr>
                                     <td colspan="2">
-                                        <textarea cols="50" rows="5" name="notes" id="notes"></textarea>
+                                        <textarea cols="50" rows="5" name="notes" id="notes">${notes}</textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Action taken</td>
+                                    <td>
+                                        <select name="action" id="action">
+                                            <option value="edit">Edit</option>
+                                            <option value="delete">Delete</option>
+                                        </select>
                                     </td>
                                 </tr>
                             </table>
-                            <input type="text" name="appointmentId" />
+                            <input type="hidden" name="appointmentId" value="${appointmentId}" />
                         </div>
 
                         <div class="ke-panel-footer">

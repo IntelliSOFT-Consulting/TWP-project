@@ -18,6 +18,7 @@ public class AppointmentSimplifier extends AbstractSimplifier<Appointment> {
         ret.put("provider", appointment.getTimeSlot().getAppointmentBlock().getProvider().getName());
         ret.put("time", EmrUtils.formatTimeFromDate(appointment.getTimeSlot().getStartDate())+"-"+EmrUtils.formatTimeFromDate(appointment.getTimeSlot().getEndDate()));
         ret.put("date", EmrUtils.formatDates(appointment.getTimeSlot().getStartDate()));
+        ret.put("notes", appointment.getReason());
         return ret;
     }
 }

@@ -83,6 +83,7 @@ table.toggle tr:nth-child(odd) {
                         <th>Provider</th>
                         <th>Type</th>
                         <th>Status</th>
+                        <th>Notes</th>
                     </tr>
                 <% allAppointments.each{%>
                     <tr>
@@ -92,6 +93,7 @@ table.toggle tr:nth-child(odd) {
                         <td>${it.provider}</td>
                         <td>${it.type}</td>
                         <td>${it.status}</td>
+                        <td>${it.notes}</td>
                     </tr>
                 <%}%>
             </table>

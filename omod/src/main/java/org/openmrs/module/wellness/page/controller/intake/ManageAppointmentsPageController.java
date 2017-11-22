@@ -7,9 +7,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @AppPage(EmrConstants.APP_INTAKE)
 public class ManageAppointmentsPageController {
-    public void controller(PageModel model,
-                           @RequestParam(value = "appointmentId") Integer appointmentId) {
+    public void controller(){
 
-        model.addAttribute("appointmentId", appointmentId);
+       // model.addAttribute("appointmentId", appointmentId);
     }
 }
