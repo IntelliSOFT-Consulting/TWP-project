@@ -4,6 +4,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.appointmentscheduling.Appointment;
 import org.openmrs.module.appointmentscheduling.AppointmentBlock;
 import org.openmrs.module.appointmentscheduling.AppointmentType;
+import org.openmrs.module.appointmentscheduling.TimeSlot;
 import org.openmrs.module.appointmentscheduling.api.AppointmentService;
 import org.openmrs.module.wellness.CustomAppointmentBlocks;
 import org.openmrs.module.wellness.util.EmrUtils;
@@ -28,28 +29,30 @@ public class ManageScheduledAppointmentsFragmentController {
         Appointment appointment = service.getAppointment(appointmentId);
         String status = appointment.getStatus().getName();
         AppointmentType appointmentType = appointment.getAppointmentType();
-        AppointmentBlock appointmentBlock = appointment.getTimeSlot().getAppointmentBlock();
+        AppointmentBlock appointmentBlock = new AppointmentBlock();
+        if(appointment.getTimeSlot() != null) {
+            appointmentBlock =  appointment.getTimeSlot().getAppointmentBlock();
+        }
 
-        model.addAttribute("appointmentTypes", service.getAllAppointmentTypes());
         //available appointment types fromm a block
         List<AppointmentType> typesInAblock = new ArrayList<AppointmentType>(appointmentBlock.getTypes());
         String appointmentDate = EmrUtils.formatDates(appointmentBlock.getStartDate());
         String time = EmrUtils.formatTimeFromDate(appointmentBlock.getStartDate())+"-"+EmrUtils.formatTimeFromDate(appointmentBlock.getEndDate());
         String notes = appointment.getReason();
 
+        List<TimeSlot> timeSlots = service.getAllTimeSlots();
 
-        List<AppointmentBlock> allAppointmentBlocks = service.getAllAppointmentBlocks();
         List<AppointmentType> appointmentTypeList;
-        for(AppointmentBlock block1: allAppointmentBlocks){
+        for(TimeSlot timeSlot: timeSlots){
             CustomAppointmentBlocks customBlocksEdit = new CustomAppointmentBlocks();
 
-            if(block1 != null && block1.getEndDate().after(new Date())) {
-                appointmentTypeList = new ArrayList<AppointmentType>(block1.getTypes());
-                customBlocksEdit.setBlockId(block1.getAppointmentBlockId());
+            if(timeSlot != null && timeSlot.getEndDate().after(new Date())) {
+                appointmentTypeList = new ArrayList<AppointmentType>(timeSlot.getAppointmentBlock().getTypes());
+                customBlocksEdit.setBlockId(timeSlot.getAppointmentBlock().getAppointmentBlockId());
                 customBlocksEdit.setAppointmentType(appointmentTypeList.get(0));
-                customBlocksEdit.setProvider(block1.getProvider());
-                customBlocksEdit.setAvailableDate(EmrUtils.formatDates(block1.getStartDate()));
-                customBlocksEdit.setTimeSlots(EmrUtils.formatTimeFromDate(block1.getStartDate())+"-"+EmrUtils.formatTimeFromDate(block1.getEndDate()));
+                customBlocksEdit.setProvider(timeSlot.getAppointmentBlock().getProvider());
+                customBlocksEdit.setAvailableDate(EmrUtils.formatDates(timeSlot.getAppointmentBlock().getStartDate()));
+                customBlocksEdit.setTimeSlots(EmrUtils.formatTimeFromDate(timeSlot.getAppointmentBlock().getStartDate())+"-"+EmrUtils.formatTimeFromDate(timeSlot.getAppointmentBlock().getEndDate()));
 
                 customAppointmentBlocks.add(customBlocksEdit);
             }
@@ -73,46 +76,55 @@ public class ManageScheduledAppointmentsFragmentController {
     public void post(@RequestParam(value = "appointmentId") Integer appointmentId,
                      HttpServletRequest request,
                      @RequestParam(value = "status") String status,
-                     @RequestParam(value = "type") Integer type,
-                     @RequestParam(value = "timeSlots") Integer timeSlots,
+                     @RequestParam(value = "timeSlots") Integer blcok,
                      @RequestParam(value = "notes") String notes,
                      @RequestParam(value = "action") String action){
         HttpSession session = request.getSession();
         AppointmentService service = Context.getService(AppointmentService.class);
         Appointment appointment = service.getAppointment(appointmentId);
+        AppointmentBlock appointmentBlock = service.getAppointmentBlock(blcok);
+
         Appointment.AppointmentStatus appointmentStatus = null;
 
-        String cancelled = Appointment.AppointmentStatus.CANCELLED.getName();
-        String missed = Appointment.AppointmentStatus.MISSED.getName();
-        String scheduled = Appointment.AppointmentStatus.SCHEDULED.getName();
 
-        if(status.equals(cancelled)){
+        if(status.equals("Cancelled")){
             appointmentStatus = Appointment.AppointmentStatus.CANCELLED;
         }
-        else if(status.equals(missed)){
+        else if(status.equals("Missed")){
             appointmentStatus = Appointment.AppointmentStatus.MISSED;
         }
-        else if(status.equals(scheduled)){
+        else if(status.equals("Scheduled")){
             appointmentStatus = Appointment.AppointmentStatus.SCHEDULED;
+        }
+        else if(status.equals("Completed")){
+            appointmentStatus = Appointment.AppointmentStatus.COMPLETED;
         }
 
         try {
 
-            if(action.equals("edit")){
-                appointment.setReason(notes);
-                appointment.setTimeSlot(service.getTimeSlot(timeSlots));
-                appointment.setAppointmentType(service.getAppointmentType(type));
-                appointment.setStatus(appointmentStatus);
-                session.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Appointment Updated !");
-            }
+            if(action.equals("edit") && appointmentBlock != null){
+                    //populate the time slot for this appointment
+
+                    List<AppointmentType> appointmentTypeList = new ArrayList<AppointmentType>(appointmentBlock.getTypes());
+                    List<TimeSlot> slotList = new ArrayList<TimeSlot>(service.getTimeSlotsInAppointmentBlock(appointmentBlock));
+                    appointment.setReason(notes);
+                    appointment.setAppointmentType(appointmentTypeList.get(0));
+                    appointment.setTimeSlot(slotList.get(0));
+                    appointment.setStatus(appointmentStatus);
+                    service.saveAppointment(appointment);
+
+                    session.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Appointment Updated !");
+                }
+
+
             else if(action.equals("delete")){
+                service.purgeAppointment(appointment);
                 session.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Appointment deleted !");
 
             }
-
         }
         catch (Exception e) {
-            session.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Errors occured "+e.fillInStackTrace());
+            session.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Errors occurred "+e.fillInStackTrace());
         }
 
 

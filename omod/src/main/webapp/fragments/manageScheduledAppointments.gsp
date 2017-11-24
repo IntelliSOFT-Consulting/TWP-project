@@ -12,22 +12,10 @@
                                     <td>
                                         <select name="status" id="status">
                                             <option value="${status}">${status}</option>
-                                            <option value="cancel">Cancel</option>
-                                            <option value="missed">Missed</option>
-                                            <option value="scheduled">Scheduled</option>
-                                            <option value="reScheduled">Rescheduled</option>
-                                            <option value="completed">Completed</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Appointment type</td>
-                                    <td>
-                                        <select name="type" id="type">
-                                            <option value="${appointmentType.appointmentTypeId}">${appointmentType.name} </option>
-                                            <% appointmentTypes.each{%>
-                                            <option value="${it.appointmentTypeId}">${it.name}</option>
-                                            <%}%>
+                                            <option value="Cancelled">Cancel</option>
+                                            <option value="Missed">Missed</option>
+                                            <option value="Scheduled">Scheduled</option>
+                                            <option value="Completed">Completed</option>
                                         </select>
                                     </td>
                                 </tr>
@@ -35,7 +23,9 @@
                                     <td>Time slots</td>
                                     <td>
                                         <select name="timeSlots" id="timeSlots">
-                                            <option value="${block.appointmentBlockId}">${block.provider.name} ${blockTypes.name} ${appointmentDate} ${time}</option>
+                                            <% if(block){%>
+                                                <option value="${block.appointmentBlockId}">${block.provider.name} ${blockTypes.name} ${appointmentDate} ${time}</option>
+                                            <%}%>
                                             <% appointmentBlocks.each{%>
                                             <option value="${it.blockId}">${it.provider.name}  ${it.appointmentType.name}  ${it.availableDate}  ${it.timeSlots}</option>
 
