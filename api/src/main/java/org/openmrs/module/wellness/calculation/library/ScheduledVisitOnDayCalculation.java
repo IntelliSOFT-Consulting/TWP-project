@@ -16,12 +16,18 @@ package org.openmrs.module.wellness.calculation.library;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import org.openmrs.Concept;
+import org.openmrs.Patient;
+import org.openmrs.api.PatientService;
 import org.openmrs.api.PatientSetService.TimeModifier;
+import org.openmrs.api.context.Context;
 import org.openmrs.calculation.patient.PatientCalculationContext;
 import org.openmrs.calculation.result.CalculationResultMap;
+import org.openmrs.module.appointmentscheduling.Appointment;
+import org.openmrs.module.appointmentscheduling.api.AppointmentService;
 import org.openmrs.module.kenyacore.calculation.AbstractPatientCalculation;
 import org.openmrs.module.kenyacore.calculation.CalculationUtils;
 import org.openmrs.module.wellness.Dictionary;
@@ -48,21 +54,25 @@ public class ScheduledVisitOnDayCalculation extends AbstractPatientCalculation {
 
 		Date startOfDay = DateUtil.getStartOfDay(date);
 		Date endOfDay = DateUtil.getEndOfDay(date);
-		Concept returnVisitDate = Dictionary.getConcept(Dictionary.RETURN_VISIT_DATE);
 
-		DateObsCohortDefinition cd = new DateObsCohortDefinition();
-		cd.setTimeModifier(TimeModifier.LAST);
-		cd.setQuestion(returnVisitDate);
-		cd.setOperator1(RangeComparator.GREATER_EQUAL);
-		cd.setValue1(startOfDay);
-		cd.setOperator2(RangeComparator.LESS_EQUAL);
-		cd.setValue2(endOfDay);
-		
-		EvaluatedCohort withScheduledVisit = CalculationUtils.evaluateWithReporting(cd, cohort, null, context);
-		
+		AppointmentService appointmentService = Context.getService(AppointmentService.class);
+		PatientService patientService = Context.getPatientService();
+
+
 		CalculationResultMap ret = new CalculationResultMap();
 		for (Integer ptId : cohort) {
-			ret.put(ptId, new BooleanResult(withScheduledVisit.contains(ptId), this));
+			boolean hasAppointment = false;
+			Patient patient = patientService.getPatient(ptId);
+			List<Appointment> appointmentList = appointmentService.getAppointmentsOfPatient(patient);
+			if(appointmentList.size() > 0){
+				for(Appointment appointment: appointmentList) {
+					if(appointment.getTimeSlot().getStartDate().after(startOfDay) && appointment.getTimeSlot().getStartDate().before(endOfDay)) {
+						hasAppointment = true;
+					}
+				}
+			}
+
+			ret.put(ptId, new BooleanResult(hasAppointment, this));
 		}
 		return ret;
 	}

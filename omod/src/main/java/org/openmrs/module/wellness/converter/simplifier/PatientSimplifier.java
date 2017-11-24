@@ -16,6 +16,9 @@ package org.openmrs.module.wellness.converter.simplifier;
 
 import org.openmrs.Patient;
 import org.openmrs.PatientIdentifier;
+import org.openmrs.api.context.Context;
+import org.openmrs.module.appointmentscheduling.Appointment;
+import org.openmrs.module.appointmentscheduling.api.AppointmentService;
 import org.openmrs.module.kenyacore.identifier.IdentifierManager;
 import org.openmrs.module.kenyaui.simplifier.AbstractSimplifier;
 import org.openmrs.ui.framework.SimpleObject;
@@ -55,7 +58,9 @@ public class PatientSimplifier extends AbstractSimplifier<Patient> {
 			simpleIdentifiers.add(ui.simplifyObject(identifier));
 		}
 
+		List<Appointment> patientAppointments = Context.getService(AppointmentService.class).getAppointmentsOfPatient(patient);
 		ret.put("identifiers", simpleIdentifiers);
+		ret.put("appointment", ui.simplifyObject(patientAppointments.get(patientAppointments.size() -1)));
 		return ret;
 	}
 }
