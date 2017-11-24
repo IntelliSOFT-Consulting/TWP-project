@@ -2,7 +2,6 @@
 <refs type="Form">
 	<ref key="CLINICAL_ENCOUNTER" uuid="e958f902-64df-4819-afd4-7fb061f59308" />
 	<ref key="LAB_RESULTS_INDOCRINOLOGY" uuid="7e603909-9ed5-4d0c-a688-26ecb05d8b6e" />
-	<ref key="APPOINTMENTS" uuid="740b176a-99f9-11e7-8fc4-ff4f7e5aac40" />
 	<ref key="LAB_RESULTS_BIOCHEMISTRY" uuid="3fae7594-6578-11e7-922a-507b9dc4c741" />
 	<ref key="LAB_RESULTS_HAEMATOLOGY" uuid="4f643244-6578-11e7-8fb4-507b9dc4c741" />
 	<ref key="TRIAGE" uuid="37f6bd8d-586a-4169-95fa-5781f987fe62" />

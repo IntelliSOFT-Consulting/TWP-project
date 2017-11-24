@@ -16,7 +16,6 @@
 				<ref bean="wellness.common.form.labResults" />
 				<ref bean="wellness.common.form.labResults1" />
 				<ref bean="wellness.common.form.labResults2" />
-				<ref bean="wellness.nutrition.form.appointment" />
 			</set>
 		</property>
 	</bean>
@@ -113,18 +112,6 @@
 		</property>
 		<property name="icon" value="kenyaui:forms/generic.png" />
 		<property name="htmlform" value="wellness:nutrition/nutritionTriage.html" />
-	</bean>
-
-	<bean id="wellness.nutrition.form.appointment" class="org.openmrs.module.kenyacore.form.FormDescriptor">
-		<property name="targetUuid" value="${metadata.form.APPOINTMENTS}" />
-		<property name="apps">
-			<set>
-				<ref bean="wellness.app.intake" />
-				<ref bean="wellness.app.clinician" />
-			</set>
-		</property>
-		<property name="icon" value="kenyaui:forms/generic.png" />
-		<property name="htmlform" value="wellness:nutrition/nutritionAppointment.html" />
 	</bean>
 
 

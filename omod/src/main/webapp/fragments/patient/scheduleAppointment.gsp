@@ -42,16 +42,6 @@ table.schedules tr:nth-child(odd) {
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Appointment type</td>
-                                            <td>
-                                                <select name="type" id="type">
-                                                    <% appointmentTypes.each{%>
-                                                    <option value="${it.appointmentTypeId}">${it.name}</option>
-                                                    <%}%>
-                                                </select>
-                                            </td>
-                                        </tr>
-                                        <tr>
                                             <td>Time slots</td>
                                             <td>
                                                 <select name="timeSlots" id="timeSlots">

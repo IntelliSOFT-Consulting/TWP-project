@@ -39,13 +39,11 @@ public class CommonMetadata extends AbstractMetadataBundle {
 		public static final String TRIAGE = "d1059fb9-a079-4feb-a749-eedd709ae542";
 		public static final String LAB_RESULTS_BIOCHEMISTRY = "1f00bc6c-99f8-11e7-8e56-274a3284a492";
 		public static final String LAB_RESULTS_HAEMATOLOGY = "2e8f7286-99f8-11e7-bed5-435bfe5a6d7d";
-		public static final String CLIENT_APPOINTMENTS = "e752a694-99f8-11e7-8eab-9f0b21e054db";
 	}
 
 	public static final class _Form {
 		public static final String CLINICAL_ENCOUNTER = Metadata.Form.CLINICAL_ENCOUNTER;
 		public static final String LAB_RESULTS_INDOCRINOLOGY = Metadata.Form.LAB_RESULTS_INDOCRINOLOGY;
-		public static final String APPOINTMENTS = Metadata.Form.APPOINTMENTS;
 		public static final String TRIAGE = Metadata.Form.TRIAGE;
 		public static final String LAB_RESULTS_BIOCHEMISTRY = Metadata.Form.LAB_RESULTS_BIOCHEMISTRY;
 		public static final String LAB_RESULTS_HAEMATOLOGY = Metadata.Form.LAB_RESULTS_HAEMATOLOGY;
@@ -104,7 +102,6 @@ public class CommonMetadata extends AbstractMetadataBundle {
 		install(encounterType("Triage", "Collection of limited data prior to a more thorough examination", _EncounterType.TRIAGE));
 		install(encounterType("Lab Results - Biochemistry", "Collection of laboratory results biochemistry", _EncounterType.LAB_RESULTS_BIOCHEMISTRY));
 		install(encounterType("Lab Results - Haematology", "Collection of laboratory results haematology", _EncounterType.LAB_RESULTS_HAEMATOLOGY));
-		install(encounterType("Appointments", "Collection of appointment information", _EncounterType.CLIENT_APPOINTMENTS));
 
 
 		install(form("Consultation Encounter", null, _EncounterType.CONSULTATION, "1", _Form.CLINICAL_ENCOUNTER));
@@ -112,7 +109,6 @@ public class CommonMetadata extends AbstractMetadataBundle {
 		install(form("Triage", null, _EncounterType.TRIAGE, "1", _Form.TRIAGE));
 		install(form("Lab Results - Haematology", "Used to collect haematology lab results",  _EncounterType.LAB_RESULTS_HAEMATOLOGY, "1.0", _Form.LAB_RESULTS_HAEMATOLOGY ));
 		install(form("Lab Results - Biochemistry", "Used to collect biochemistry lab results",  _EncounterType.LAB_RESULTS_BIOCHEMISTRY, "1.0", _Form.LAB_RESULTS_BIOCHEMISTRY ));
-		install(form("Appointments", "Used to collect client's appointments",  _EncounterType.CLIENT_APPOINTMENTS, "1.0", _Form.APPOINTMENTS ));
 
 
 		install(globalProperty(EmrConstants.GP_DEFAULT_LOCATION, "The facility for which this installation is configured",

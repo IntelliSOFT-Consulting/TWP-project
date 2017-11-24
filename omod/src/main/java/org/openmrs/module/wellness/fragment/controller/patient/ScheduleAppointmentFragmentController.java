@@ -91,8 +91,8 @@ public class ScheduleAppointmentFragmentController {
                      @RequestParam(value = "flow", required = false) String flow,
                      @RequestParam(value = "patientId", required = false) String patientId,
                      @RequestParam(value = "notes", required = false) String notes,
-                     @RequestParam(value = "timeSlots", required = false) Integer timeSlots,
-                     @RequestParam(value = "type", required = false) Integer type)
+                     @RequestParam(value = "timeSlots", required = false) Integer timeSlots
+                     )
                     {
                 HttpSession httpSession = request.getSession();
                 AppointmentService appointmentService = Context.getService(AppointmentService.class);

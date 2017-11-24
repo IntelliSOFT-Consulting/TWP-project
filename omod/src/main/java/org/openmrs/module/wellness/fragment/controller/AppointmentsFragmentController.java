@@ -8,6 +8,8 @@ import org.openmrs.api.context.Context;
 import org.openmrs.calculation.patient.PatientCalculationContext;
 import org.openmrs.calculation.patient.PatientCalculationService;
 import org.openmrs.calculation.result.CalculationResultMap;
+import org.openmrs.module.appointmentscheduling.Appointment;
+import org.openmrs.module.appointmentscheduling.api.AppointmentService;
 import org.openmrs.module.kenyacore.calculation.Calculations;
 import org.openmrs.module.kenyacore.form.FormManager;
 import org.openmrs.module.kenyaui.KenyaUiUtils;
@@ -15,51 +17,35 @@ import org.openmrs.module.wellness.Dictionary;
 import org.openmrs.module.wellness.calculation.EmrCalculationUtils;
 import org.openmrs.module.wellness.metadata.CommonMetadata;
 import org.openmrs.module.wellness.util.EmrUtils;
+import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.FragmentParam;
 import org.openmrs.ui.framework.annotation.SpringBean;
 import org.openmrs.ui.framework.fragment.FragmentModel;
 import org.openmrs.ui.framework.page.PageRequest;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public class AppointmentsFragmentController {
 
     public void controller(@FragmentParam("patient") Patient patient,
-                           @SpringBean FormManager formManager,
-                           @SpringBean KenyaUiUtils kenyaUi,
-                           PageRequest pageRequest,
                            UiUtils ui,
                            FragmentModel model) {
 
-        PatientCalculationContext context = Context.getService(PatientCalculationService.class).createCalculationContext();
-        context.setNow(new Date());
-        EncounterType encounterType = Context.getEncounterService().getEncounterTypeByUuid(CommonMetadata._EncounterType.CLIENT_APPOINTMENTS);
-        CalculationResultMap appontmentEncounter = Calculations.lastEncounter(encounterType, Arrays.asList(patient.getPatientId()), context);
-        CalculationResultMap appontmentDateMap = Calculations.lastObs(Dictionary.getConcept("5096AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"), Arrays.asList(patient.getPatientId()), context);
-        CalculationResultMap appontmentTimeMap = Calculations.lastObs(Dictionary.getConcept("163191AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"), Arrays.asList(patient.getPatientId()), context);
+        AppointmentService appointmentService = Context.getService(AppointmentService.class);
 
-        Encounter encounter = EmrCalculationUtils.encounterResultForPatient(appontmentEncounter, patient.getPatientId());
-        String provider = "";
-        if(encounter != null){
-            provider = encounter.getProvider().getPersonName().getFullName();
+        List<Appointment> appointmentList = appointmentService.getAppointmentsOfPatient(patient);
+        List<Appointment> liveAppointments = new ArrayList<Appointment>();
+        if(appointmentList.size() > 0) {
+            for(Appointment appointment:appointmentList) {
+                if(appointment.getTimeSlot().getStartDate().after(new Date())){
+                    liveAppointments.add(appointment);
+                }
+            }
         }
-        String valueDate = "";
-        String time = "";
-        Date dateOfAppointment = EmrCalculationUtils.datetimeObsResultForPatient(appontmentDateMap, patient.getPatientId());
-        Obs timeObs = EmrCalculationUtils.obsResultForPatient(appontmentTimeMap, patient.getPatientId());
-        if(dateOfAppointment != null){
-            valueDate = EmrUtils.formatDates(dateOfAppointment);
-        }
-        if(timeObs != null){
-            time = timeObs.getValueText();
-        }
-
-
-        model.addAttribute("appointment", encounter);
-        model.addAttribute("date", valueDate);
-        model.addAttribute("time", time);
-        model.addAttribute("provider", provider);
+        model.addAttribute("appointment", ui.simplifyObject(ui.simplifyObject(liveAppointments.get(liveAppointments.size() -1))));
     }
 }
