@@ -30,7 +30,7 @@ table.toggle tr:nth-child(odd) {
                 var startDate = new Date(start);
                 var endDate = new Date(end);
                 var currentDateTime = new Date();
-                if(startDate.getTime()==endDate.getTime()){ //Month view
+                if(startDate.getTime()==endDate.getTime()){ //Month vi
                     currentDateTime.setHours(0,0,0,0);
                 }
 

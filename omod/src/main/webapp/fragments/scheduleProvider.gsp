@@ -130,30 +130,32 @@ table.appointments tr:nth-child(odd) {
 <br />
 <div class="ke-panel-frame">
     <div class="ke-panel-heading">Provider Availability</div>
-    <div class="ke-page-content">
-        <table class="appointments" width="100%">
-            <tr>
-                <th>Provider</th>
-                <th>Start date</th>
-                <th>End date</th>
-                <th>Appointment type</th>
-                <th>Appointment type duration</th>
-            </tr>
-            <% providerSchedule.each{%>
+    <% if(providerSchedule) {%>
+        <div class="ke-page-content">
+            <table class="appointments" width="100%">
                 <tr>
-            <td><a href="editAppointmentBlock.page?blockId=${it.appointmentBlockId}">${it.provider.name}</a></td>
-                    <td>${it.startDate}</td>
-                    <td>${it.endDate}</td>
-                    <% it.types.each{%>
-                        <td>${it.name}</td>
-                        <td>${it.duration}</td>
-                    <%}%>
+                    <th>Provider</th>
+                    <th>Start date</th>
+                    <th>End date</th>
+                    <th>Appointment type</th>
+                    <th>Appointment type duration</th>
+                </tr>
+                <% providerSchedule.each{%>
+                    <tr>
+                <td><a href="editAppointmentBlock.page?blockId=${it.appointmentBlockId}">${it.provider.name}</a></td>
+                        <td>${it.startDate}</td>
+                        <td>${it.endDate}</td>
+                        <% it.types.each{%>
+                            <td>${it.name}</td>
+                            <td>${it.duration}</td>
+                        <%}%>
 
 
-                 </tr>
-            <%}%>
-        </table>
-    </div>
+                     </tr>
+                <%}%>
+            </table>
+        </div>
+    <%}%>
 </div>
 <input type="hidden" id="action" name="action" value="save">
 <script type="text/javascript">

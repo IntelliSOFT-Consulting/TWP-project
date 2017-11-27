@@ -20,9 +20,7 @@ import javax.servlet.http.HttpSession;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class ScheduleProviderFragmentController {
 
@@ -30,10 +28,16 @@ public class ScheduleProviderFragmentController {
                            HttpServletRequest request,
                            @RequestParam(value = "appointmentBlock", required = false) String appointmentBlock
                            ){
+        List<AppointmentBlock> validBlocks = new ArrayList<AppointmentBlock>();
+        for(AppointmentBlock block: Context.getService(AppointmentService.class).getAllAppointmentBlocks()){
+            if(block.getStartDate().after(CoreUtils.dateAddDays(OpenmrsUtil.firstSecondOfDay(new Date()), -1))){
+                validBlocks.add(block);
+            }
+        }
 
         model.addAttribute("appointmentTypeList", Context.getService(AppointmentService.class).getAllAppointmentTypesSorted(false));
         model.addAttribute("providerList", Context.getService(AppointmentService.class).getAllProvidersSorted(false));
-        model.addAttribute("providerSchedule", Context.getService(AppointmentService.class).getAllAppointmentBlocks());
+        model.addAttribute("providerSchedule", validBlocks);
         model.addAttribute("fromDate", EmrUtils.formatDates(new Date()));
         model.addAttribute("toDate", EmrUtils.formatDates(new Date()));
         model.addAttribute("appointmentBlock", appointmentBlock);
