@@ -68,6 +68,7 @@ public class ScheduledVisitOnDayCalculation extends AbstractPatientCalculation {
 				for(Appointment appointment: appointmentList) {
 					if(appointment.getTimeSlot().getStartDate().after(startOfDay) && appointment.getTimeSlot().getStartDate().before(endOfDay)) {
 						hasAppointment = true;
+						break;
 					}
 				}
 			}
