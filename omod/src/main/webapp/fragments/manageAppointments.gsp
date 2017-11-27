@@ -87,7 +87,7 @@ table.toggle tr:nth-child(odd) {
                     </tr>
                 <% allAppointments.each{%>
                     <tr>
-                        <td><a href="manageScheduledAppointments.page?appointmentId=${it.id}"> ${it.patient}</a></td>
+                        <td><a href="manageScheduledAppointments.page?appointmentId=${it.id}"> ${it.names}</a></td>
                         <td>${it.date}</td>
                         <td>${it.time}</td>
                         <td>${it.provider}</td>

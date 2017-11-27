@@ -58,9 +58,9 @@ public class PatientSimplifier extends AbstractSimplifier<Patient> {
 			simpleIdentifiers.add(ui.simplifyObject(identifier));
 		}
 
-		List<Appointment> patientAppointments = Context.getService(AppointmentService.class).getAppointmentsOfPatient(patient);
+		//List<Appointment> patientAppointments = Context.getService(AppointmentService.class).getAppointmentsOfPatient(patient);
 		ret.put("identifiers", simpleIdentifiers);
-		ret.put("appointment", ui.simplifyObject(patientAppointments.get(patientAppointments.size() -1)));
+		//ret.put("appointment", ui.simplifyObject(patientAppointments.get(patientAppointments.size() -1)));
 		return ret;
 	}
 }

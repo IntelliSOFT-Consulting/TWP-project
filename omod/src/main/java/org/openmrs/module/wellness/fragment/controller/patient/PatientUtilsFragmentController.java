@@ -26,6 +26,8 @@ import org.openmrs.calculation.patient.PatientCalculationService;
 import org.openmrs.calculation.result.CalculationResult;
 import org.openmrs.calculation.result.CalculationResultMap;
 import org.openmrs.calculation.result.ListResult;
+import org.openmrs.module.appointmentscheduling.Appointment;
+import org.openmrs.module.appointmentscheduling.api.AppointmentService;
 import org.openmrs.module.kenyacore.calculation.CalculationManager;
 import org.openmrs.module.kenyacore.calculation.CalculationUtils;
 import org.openmrs.module.kenyacore.calculation.PatientFlagCalculation;
@@ -102,22 +104,29 @@ public class PatientUtilsFragmentController {
 		params.put("date", date);
 		PatientCalculationContext calcContext = cs.createCalculationContext();
 
+		Date startOfDay = DateUtil.getStartOfDay(date);
+		Date endOfDay = DateUtil.getEndOfDay(date);
+
 		Set<Integer> scheduled = CalculationUtils.patientsThatPass(cs.evaluate(allPatients, new ScheduledVisitOnDayCalculation(), params, calcContext));
-		CalculationResultMap actual = cs.evaluate(scheduled, new VisitsOnDayCalculation(), params, calcContext);
 
 		// Sort patients and convert to simple objects
 		List<Patient> scheduledPatients = Context.getPatientSetService().getPatients(scheduled);
 		Collections.sort(scheduledPatients, new PersonByNameComparator());
 
 		List<SimpleObject> simplified = new ArrayList<SimpleObject>();
+		Appointment actualAppointment = new Appointment();
 		for (Patient p : scheduledPatients) {
-			SimpleObject so = ui.simplifyObject(p);
+			List<Appointment> allAppointments = Context.getService(AppointmentService.class).getAppointmentsOfPatient(p);
+			if(allAppointments.size() > 0) {
+				for(Appointment appointment:allAppointments) {
+					if (appointment.getTimeSlot().getStartDate().after(startOfDay) && appointment.getTimeSlot().getEndDate().before(endOfDay)) {
+						actualAppointment = appointment;
+						break;
+					}
+				}
+			}
 
-			ListResult visitsResult = (ListResult) actual.get(p.getPatientId());
-			List<Visit> visits = CalculationUtils.extractResultValues(visitsResult);
-			so.put("visits", ui.simplifyCollection(visits));
-
-			simplified.add(so);
+			simplified.add(ui.simplifyObject(actualAppointment));
 		}
 
 		return simplified;
