@@ -21,6 +21,11 @@
                     [object: command, property: "personAddress.address3", label: "Email Address", config: [size: 100]],
             ]
     ]
+    def imageField = [
+            [
+                    [object: command, property: "patient_image", label: "Passport"]
+            ]
+    ]
 %>
 
 <form id="edit-patient-form" method="post" action="${ui.actionLink("wellness", "patient/editPatient", "savePatient")}">
@@ -41,7 +46,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <input type='file' name="photo" onchange="readURL(this);" />
+                        <input type='file' name="passportFile" onchange="readURL(this);" id="passportFile"/>
                     </td>
                 </tr>
             </table>
@@ -148,6 +153,10 @@
         </fieldset>
 
     </div>
+    <span id="client-image" style="display: none">
+        ${ui.includeFragment("kenyaui", "widget/field", [object: command, property: "patient_image"])}
+    </span>
+    <input type="text" name="path" id="path" />
 
     <div class="ke-panel-footer">
         <button type="submit">
@@ -200,7 +209,7 @@
                 };
 
                 reader.readAsDataURL(input.files[0]);
-                alert(reader.readAsDataURL(input.files[0]));
             }
+            jQuery('#client-image :input').val(jQuery('#passportFile').val());
         }
 </script>

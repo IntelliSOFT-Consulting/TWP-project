@@ -177,6 +177,7 @@ public class EditPatientFragmentController {
 		private String subChiefName;
 		private String patient_image;
 
+
 		/**
 		 * Creates an edit form for a new patient
 		 */
@@ -306,7 +307,6 @@ public class EditPatientFragmentController {
 			validateIdentifierField(errors, "passportNumber", CommonMetadata._PatientIdentifierType.PASSPORT_NUMBER);
 			validateIdentifierField(errors, "mobileNumber", CommonMetadata._PatientIdentifierType.MOBILE_NUMBER);
 			validateIdentifierField(errors, "otherNumber", CommonMetadata._PatientIdentifierType.OTHER_MOBILE_NUMBER);
-			//validateIdentifierField(errors, "otherNumber", CommonMetadata._PatientIdentifierType.OTHER_MOBILE_NUMBER);
 
 			// check birth date against future dates and really old dates
 			if (birthdate != null) {
@@ -805,7 +805,8 @@ public class EditPatientFragmentController {
 		 * @param patient_image
 		 */
 		public void setPatient_image(String patient_image) {
-			this.patient_image = patient_image;
+			String [] imageNameParts = StringUtils.split(patient_image, "\\");
+			this.patient_image = imageNameParts[2];
 		}
 
 		/**
