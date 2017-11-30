@@ -1,7 +1,7 @@
 <div class="ke-panel-frame">
     <div class="ke-panel-heading">Client's passport photo</div>
     <div class="ke-panel-content">
-        <form id="upload" method="post" action="${ui.actionLink("wellness", "photoUpload", "savePassportPhoto")}" enctype="multipart/form-data">
+        <form id="upload-passport" method="post" action="${ui.actionLink("wellness", "photoUpload", "savePassportPhoto")}" enctype="multipart/form-data">
             <div align="center">
                 <table>
                     <tr>
@@ -20,8 +20,10 @@
                     <img src="${ui.resourceLink("kenyaui", "images/glyphs/ok.png")}"/> Upload photo
                 </button>
             </div>
+            <input type="text" name="patientId" value="${patientId}" />
         </form>
     </div>
+
 </div>
 <script type="text/javascript">
     function readURL(input) {
@@ -35,5 +37,8 @@
             };
             reader.readAsDataURL(input.files[0]);
         }
+    }
+    function afterSubmit() {
+        ui.navigate('wellness', 'registration/registrationViewPatient.page');
     }
 </script>
