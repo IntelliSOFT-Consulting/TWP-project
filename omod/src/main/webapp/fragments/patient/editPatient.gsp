@@ -28,7 +28,7 @@
     ]
 %>
 
-<form id="edit-patient-form" method="post" action="${ui.actionLink("wellness", "patient/editPatient", "savePatient")}">
+<form id="edit-patient-form" method="post" action="${ui.actionLink("wellness", "patient/editPatient", "savePatient")}" enctype="multipart/form-data">
     <% if (command.original) { %>
     <input type="hidden" name="personId" value="${command.original.id}"/>
     <% } %>
@@ -153,10 +153,9 @@
         </fieldset>
 
     </div>
-    <span id="client-image" style="display: none">
+    <span id="client-image">
         ${ui.includeFragment("kenyaui", "widget/field", [object: command, property: "patient_image"])}
     </span>
-    <input type="text" name="path" id="path" />
 
     <div class="ke-panel-footer">
         <button type="submit">
@@ -191,13 +190,6 @@
         });
     });
 
-    function updateBirthdate(data) {
-        var birthdate = new Date(data.birthdate);
-
-        kenyaui.setDateField('patient-birthdate', birthdate);
-        kenyaui.setRadioField('patient-birthdate-estimated', 'true');
-    }
-
     function readURL(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
@@ -207,7 +199,6 @@
                         .width(150)
                         .height(200);
                 };
-
                 reader.readAsDataURL(input.files[0]);
             }
             jQuery('#client-image :input').val(jQuery('#passportFile').val());

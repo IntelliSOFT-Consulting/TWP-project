@@ -4,9 +4,8 @@
 	def menuItems = [
 			[ label: "Appointment types", iconProvider: "wellness", icon: "buttons/appointmenttype.png", href: ui.pageLink("wellness", "intake/appointmentTypes") ],
 			[ label: "Provider scheduling", iconProvider: "wellness", icon: "buttons/providers.png", href: ui.pageLink("wellness", "intake/providerAvailability") ],
-			[ label: "Manage Appointments", iconProvider: "wellness", icon: "buttons/manage.png", href: ui.pageLink("wellness", "intake/manageAppointments") ],
-			[ label: "Photo uploads", iconProvider: "wellness", icon: "buttons/upload.png", href: ui.pageLink("wellness", "intake/photoUpload") ]
-	]
+			[ label: "Manage Appointments", iconProvider: "wellness", icon: "buttons/manage.png", href: ui.pageLink("wellness", "intake/manageAppointments") ]
+				]
 %>
 
 <div class="ke-page-sidebar">

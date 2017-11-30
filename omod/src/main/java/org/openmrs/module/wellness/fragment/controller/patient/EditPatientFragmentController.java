@@ -14,18 +14,9 @@
 
 package org.openmrs.module.wellness.fragment.controller.patient;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
-import org.openmrs.Concept;
-import org.openmrs.Location;
-import org.openmrs.Obs;
-import org.openmrs.Patient;
-import org.openmrs.PatientIdentifier;
-import org.openmrs.PatientIdentifierType;
-import org.openmrs.PatientProgram;
-import org.openmrs.Person;
-import org.openmrs.PersonAddress;
-import org.openmrs.PersonName;
-import org.openmrs.Program;
+import org.openmrs.*;
 import org.openmrs.api.ProgramWorkflowService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
@@ -33,6 +24,7 @@ import org.openmrs.module.wellness.Dictionary;
 import org.openmrs.module.wellness.api.KenyaEmrService;
 import org.openmrs.module.wellness.metadata.CommonMetadata;
 import org.openmrs.module.wellness.metadata.NutritionMetadata;
+import org.openmrs.module.wellness.util.EmrUtils;
 import org.openmrs.module.wellness.validator.TelephoneNumberValidator;
 import org.openmrs.module.wellness.wrapper.PatientWrapper;
 import org.openmrs.module.wellness.wrapper.PersonWrapper;
@@ -48,6 +40,9 @@ import org.openmrs.util.OpenmrsUtil;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -63,14 +58,16 @@ public class EditPatientFragmentController {
 
 	/**
 	 * Main controller method
+	 *
 	 * @param patient the patient (may be null)
-	 * @param person the person (may be null)
-	 * @param model the model
+	 * @param person  the person (may be null)
+	 * @param model   the model
 	 */
 	public void controller(@FragmentParam(value = "patient", required = false) Patient patient,
 						   @FragmentParam(value = "person", required = false) Person person,
-						   FragmentModel model) {
+						   FragmentModel model) throws IOException {
 
+		PersonWrapper wrapper = new PersonWrapper(person);
 		if (patient != null && person != null) {
 			throw new RuntimeException("A patient or person can be provided, but not both");
 		}
@@ -105,12 +102,14 @@ public class EditPatientFragmentController {
 		List<Concept> causeOfDeathOptions = new ArrayList<Concept>();
 		causeOfDeathOptions.add(Dictionary.getConcept(Dictionary.UNKNOWN));
 		model.addAttribute("causeOfDeathOptions", causeOfDeathOptions);
+
 	}
 
 	/**
 	 * Saves the patient being edited by this form
+	 *
 	 * @param form the edit patient form
-	 * @param ui the UI utils
+	 * @param ui   the UI utils
 	 * @return a simple object { patientId }
 	 */
 	public SimpleObject savePatient(@MethodParam("newEditPatientForm") @BindParams EditPatientForm form, UiUtils ui) {
@@ -128,6 +127,7 @@ public class EditPatientFragmentController {
 
 	/**
 	 * Creates an edit patient form
+	 *
 	 * @param person the person
 	 * @return the form
 	 */
@@ -175,7 +175,6 @@ public class EditPatientFragmentController {
 		private String nextOfKinContact;
 		private String nextOfKinAddress;
 		private String subChiefName;
-		private String patient_image;
 
 
 		/**
@@ -238,7 +237,6 @@ public class EditPatientFragmentController {
 			nextOfKinContact = wrapper.getNextOfKinContact();
 			nextOfKinAddress = wrapper.getNextOfKinAddress();
 			subChiefName = wrapper.getSubChiefName();
-			patient_image = wrapper.getPatientImage();
 
 			savedMaritalStatus = getLatestObs(patient, Dictionary.CIVIL_STATUS);
 			if (savedMaritalStatus != null) {
@@ -268,7 +266,7 @@ public class EditPatientFragmentController {
 
 		/**
 		 * @see org.springframework.validation.Validator#validate(java.lang.Object,
-		 *      org.springframework.validation.Errors)
+		 * org.springframework.validation.Errors)
 		 */
 		@Override
 		public void validate(Object target, Errors errors) {
@@ -325,6 +323,7 @@ public class EditPatientFragmentController {
 
 		/**
 		 * Validates an identifier field
+		 *
 		 * @param errors
 		 * @param field
 		 * @param idTypeUuid
@@ -359,11 +358,9 @@ public class EditPatientFragmentController {
 
 			if (original != null && original.isPatient()) { // Editing an existing patient
 				toSave = (Patient) original;
-			}
-			else if (original != null) {
+			} else if (original != null) {
 				toSave = new Patient(original); // Creating a patient from an existing person
-			}
-			else {
+			} else {
 				toSave = new Patient(); // Creating a new patient and person
 			}
 
@@ -381,7 +378,7 @@ public class EditPatientFragmentController {
 				toSave.addName(personName);
 			}
 
-			if (anyChanges(toSave.getPersonAddress(), personAddress, "address1", "address2", "address5", "address6", "countyDistrict","address3","cityVillage","stateProvince","country","postalCode","address4")) {
+			if (anyChanges(toSave.getPersonAddress(), personAddress, "address1", "address2", "address5", "address6", "countyDistrict", "address3", "cityVillage", "stateProvince", "country", "postalCode", "address4")) {
 				if (toSave.getPersonAddress() != null) {
 					voidData(toSave.getPersonAddress());
 				}
@@ -404,7 +401,6 @@ public class EditPatientFragmentController {
 			wrapper.setNextOfKinAddress(nextOfKinAddress);
 			wrapper.setSubChiefName(subChiefName);
 			wrapper.setPassportNumber(passportNumber, location);
-			wrapper.setPatientImage(patient_image);
 
 			// Make sure everyone gets an OpenMRS ID
 			PatientIdentifierType openmrsIdType = MetadataUtils.existing(PatientIdentifierType.class, CommonMetadata._PatientIdentifierType.OPENMRS_ID);
@@ -448,7 +444,8 @@ public class EditPatientFragmentController {
 
 		/**
 		 * Handles saving a field which is stored as an obs
-		 * @param patient the patient being saved
+		 *
+		 * @param patient   the patient being saved
 		 * @param obsToSave
 		 * @param obsToVoid
 		 * @param question
@@ -456,7 +453,7 @@ public class EditPatientFragmentController {
 		 * @param newValue
 		 */
 		protected void handleOncePerPatientObs(Patient patient, List<Obs> obsToSave, List<Obs> obsToVoid, Concept question,
-											 Obs savedObs, Concept newValue) {
+											   Obs savedObs, Concept newValue) {
 			if (!OpenmrsUtil.nullSafeEquals(savedObs != null ? savedObs.getValueCoded() : null, newValue)) {
 				// there was a change
 				if (savedObs != null && newValue == null) {
@@ -562,11 +559,11 @@ public class EditPatientFragmentController {
 
 		/**
 		 * @return the mobile number
-		 *
 		 */
 		public String getOtherNumber() {
 			return otherNumber;
 		}
+
 		/**
 		 * @param otherNumber
 		 */
@@ -576,11 +573,11 @@ public class EditPatientFragmentController {
 
 		/**
 		 * @return the mobile number
-		 *
 		 */
 		public String getMobileNumber() {
 			return mobileNumber;
 		}
+
 		/**
 		 * @param mobileNumber
 		 */
@@ -789,31 +786,21 @@ public class EditPatientFragmentController {
 		/**
 		 * @return the passportNumber
 		 */
-		public String getPassportNumber(){
+		public String getPassportNumber() {
 			return passportNumber;
 		}
+
 		/**
 		 * Set the passportNumber
+		 *
 		 * @param passportNumber
 		 */
-		public void setPassportNumber(String passportNumber){
+		public void setPassportNumber(String passportNumber) {
 			this.passportNumber = passportNumber;
 		}
 
-		/**
-		 * set the patient_iamge
-		 * @param patient_image
-		 */
-		public void setPatient_image(String patient_image) {
-			String [] imageNameParts = StringUtils.split(patient_image, "\\");
-			this.patient_image = imageNameParts[2];
-		}
-
-		/**
-		 * @return the patient_iamge
-		 */
-		public String getPatient_image() {
-			return patient_image;
-		}
 	}
+
+
 }
+

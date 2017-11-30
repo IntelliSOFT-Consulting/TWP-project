@@ -6,8 +6,15 @@
 
 %>
 <div class="ke-page-sidebar">
+    ${ ui.includeFragment("wellness", "patient/patientSearchForm", [ defaultWhich: "all" ]) }
     ${ ui.includeFragment("kenyaui", "widget/panelMenu", [ heading: "Tasks", items: menuItems ]) }
 </div>
 <div class="ke-page-content">
-    ${ ui.includeFragment("wellness", "photoUpload", [  heading: "Client's photo uploads" ]) }
+    ${ ui.includeFragment("wellness", "patient/patientSearchResults", [ pageProvider: "wellness", page: "registration/passportUpload" ]) }
 </div>
+
+<script type="text/javascript">
+    jQuery(function() {
+        jQuery('input[name="query"]').focus();
+    });
+</script>

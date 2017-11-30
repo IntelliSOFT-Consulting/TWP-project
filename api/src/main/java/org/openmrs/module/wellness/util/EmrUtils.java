@@ -14,15 +14,18 @@
 
 package org.openmrs.module.wellness.util;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
-import org.openmrs.Concept;
-import org.openmrs.Person;
-import org.openmrs.Provider;
-import org.openmrs.User;
+import org.openmrs.*;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.wellness.Dictionary;
+import org.openmrs.util.OpenmrsUtil;
+import sun.misc.BASE64Decoder;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.Format;
 import java.text.ParseException;
