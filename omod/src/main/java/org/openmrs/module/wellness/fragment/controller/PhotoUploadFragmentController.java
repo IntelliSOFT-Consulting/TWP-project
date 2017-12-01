@@ -3,10 +3,8 @@ package org.openmrs.module.wellness.fragment.controller;
 import org.apache.commons.io.FileUtils;
 import org.openmrs.*;
 import org.openmrs.api.PatientService;
-import org.openmrs.api.PersonService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
-import org.openmrs.module.wellness.Metadata;
 import org.openmrs.module.wellness.metadata.CommonMetadata;
 import org.openmrs.ui.framework.fragment.FragmentModel;
 import org.openmrs.ui.framework.page.PageModel;
@@ -31,8 +29,8 @@ public class PhotoUploadFragmentController {
     }
 
     public void savePassportPhoto(@RequestParam(value = "patientId", required = false) Integer patientId,
-                                  @RequestParam(value = "passportFile", required = false) MultipartFile passportFile,
-                                  HttpServletRequest request
+                                          @RequestParam(value = "passportFile", required = false) MultipartFile passportFile,
+                                          HttpServletRequest request
                                   ){
 
         HttpSession session = request.getSession();

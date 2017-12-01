@@ -1,7 +1,7 @@
 <div class="ke-panel-frame">
     <div class="ke-panel-heading">Client's passport photo</div>
     <div class="ke-panel-content">
-        <form id="upload-passport" method="post" action="${ui.actionLink("wellness", "photoUpload", "savePassportPhoto")}" enctype="multipart/form-data">
+        <form id="upload-passport-form" method="post" action="${ui.actionLink("wellness", "photoUpload", "savePassportPhoto")}" enctype="multipart/form-data">
             <div align="center">
                 <table>
                     <tr>
@@ -16,11 +16,14 @@
             </div>
             <br />
             <div class="ke-panel-footer">
-                <button type="submit">
-                    <img src="${ui.resourceLink("kenyaui", "images/glyphs/ok.png")}"/> Upload photo
+                <button type="submit" id="submit">
+                    <img src="${ui.resourceLink("wellness", "images/buttons/upload.png")}"/> Upload photo
+                </button>
+                <button type="button" id="view" onclick="viewProfile()">
+                    <img src="${ui.resourceLink("wellness", "images/buttons/profile.png")}"/> View profile
                 </button>
             </div>
-            <input type="text" name="patientId" value="${patientId}" />
+            <input type="hidden" name="patientId" value="${patientId}" />
         </form>
     </div>
 
@@ -38,7 +41,11 @@
             reader.readAsDataURL(input.files[0]);
         }
     }
-    function afterSubmit() {
-        ui.navigate('wellness', 'registration/registrationViewPatient.page');
+    function viewProfile() {
+       ui.navigate('wellness', 'registration/registrationViewPatient', {patientId:${patientId}})
     }
+
+    jQuery(function () {
+
+    });
 </script>

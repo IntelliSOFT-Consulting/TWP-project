@@ -21,14 +21,9 @@
                     [object: command, property: "personAddress.address3", label: "Email Address", config: [size: 100]],
             ]
     ]
-    def imageField = [
-            [
-                    [object: command, property: "patient_image", label: "Passport"]
-            ]
-    ]
 %>
 
-<form id="edit-patient-form" method="post" action="${ui.actionLink("wellness", "patient/editPatient", "savePatient")}" enctype="multipart/form-data">
+<form id="edit-patient-form" method="post" action="${ui.actionLink("wellness", "patient/editPatient", "savePatient")}">
     <% if (command.original) { %>
     <input type="hidden" name="personId" value="${command.original.id}"/>
     <% } %>
@@ -36,21 +31,6 @@
     <div class="ke-panel-content">
 
         <div class="ke-form-globalerrors" style="display: none"></div>
-        <fieldset>
-            <table align="right">
-                <tr>
-                    <td>
-                        <img id="passport" src="${ui.resourceLink("wellness", "images/logos/passport.png")}" />
-
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type='file' name="passportFile" onchange="readURL(this);" id="passportFile"/>
-                    </td>
-                </tr>
-            </table>
-        </fieldset>
         <fieldset>
             <legend>Identifiers</legend>
 
@@ -153,10 +133,6 @@
         </fieldset>
 
     </div>
-    <span id="client-image">
-        ${ui.includeFragment("kenyaui", "widget/field", [object: command, property: "patient_image"])}
-    </span>
-
     <div class="ke-panel-footer">
         <button type="submit">
             <img src="${ui.resourceLink("kenyaui", "images/glyphs/ok.png")}"/> ${command.original ? "Save Changes" : "Create Client"}
@@ -190,17 +166,4 @@
         });
     });
 
-    function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    jQuery('#passport')
-                        .attr('src', e.target.result)
-                        .width(150)
-                        .height(200);
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
-            jQuery('#client-image :input').val(jQuery('#passportFile').val());
-        }
 </script>
