@@ -16,7 +16,9 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -60,6 +62,12 @@ public class PhotoUploadFragmentController {
             //save the person attribute type in the database for reference
             PersonAttributeType personAttributeType = MetadataUtils.existing(PersonAttributeType.class, CommonMetadata._PersonAttributeType.PATIENT_IMAGE);
             PersonAttribute attribute = patient.getAttribute(personAttributeType);
+            if(attribute == null){
+                attribute = new PersonAttribute();
+                attribute.setAttributeType(personAttributeType);
+                attribute.setValue(identifier+".jpg");
+                attribute.setPerson(Context.getPersonService().getPerson(patient.getPatientId()));
+            }
             attribute.setValue(identifier+".jpg");
             patient.addAttribute(attribute);
             service.savePatient(patient);
