@@ -30,6 +30,7 @@
 <div class="ke-page-sidebar">
 
     <div class="ke-panel-frame">
+        ${ ui.includeFragment("wellness", "patient/patientPassport", [ patient: currentPatient ]) }
         <% menuItems.each { item -> print ui.includeFragment("kenyaui", "widget/panelMenuItem", item) } %>
     </div>
 

@@ -14,6 +14,7 @@
 		<table cellpadding="0" cellspacing="0" border="0" width="100%">
 			<tr>
 				<td width="40%" valign="top">
+					${ ui.includeFragment("wellness", "patient/patientPassport", [ patient: currentPatient ]) }
 					${ ui.includeFragment("wellness", "patient/patientSummary", [ patient: currentPatient ]) }
 					${ ui.includeFragment("wellness", "program/programHistories", [ patient: currentPatient, showClinicalData: true ]) }
 					${ ui.includeFragment("wellness", "patient/labSummary", [ patient: currentPatient ]) }
