@@ -72,6 +72,7 @@ public class CommonMetadata extends AbstractMetadataBundle {
 		public static final String TELEPHONE_CONTACT = "b2c38640-2603-4629-aebd-3b54f33f1e3a";
 		public static final String EMAIL_ADDRESS = "b8d0b331-1d2d-4a9a-b741-1816f498bdb6";
 		public static final String PATIENT_IMAGE = "8ebdc3ac-a1ea-11e7-8dbf-d3167fc0cc32";
+		public static final String FEED_BACK_IMAGE = "fe57cc84-d8b9-11e7-8eb6-ef27cfad58a1";
 	}
 
 	public static final class _Provider {
@@ -104,7 +105,7 @@ public class CommonMetadata extends AbstractMetadataBundle {
 		install(encounterType("Lab Results - Haematology", "Collection of laboratory results haematology", _EncounterType.LAB_RESULTS_HAEMATOLOGY));
 
 
-		install(form("Consultation Encounter", null, _EncounterType.CONSULTATION, "1", _Form.CLINICAL_ENCOUNTER));
+		install(form("Body analysis", null, _EncounterType.CONSULTATION, "1", _Form.CLINICAL_ENCOUNTER));
 		install(form("Lab Results - Endocrinology", null, _EncounterType.LAB_RESULTS_INDOCRINOLOGY, "1", _Form.LAB_RESULTS_INDOCRINOLOGY));
 		install(form("Triage", null, _EncounterType.TRIAGE, "1", _Form.TRIAGE));
 		install(form("Lab Results - Haematology", "Used to collect haematology lab results",  _EncounterType.LAB_RESULTS_HAEMATOLOGY, "1.0", _Form.LAB_RESULTS_HAEMATOLOGY ));
@@ -147,6 +148,7 @@ public class CommonMetadata extends AbstractMetadataBundle {
 		install(personAttributeType("Next of kin address", "Address of patient's next of kin",
 				String.class, null, false, 4.3, _PersonAttributeType.NEXT_OF_KIN_ADDRESS));
 		install(personAttributeType("Passport photo", "The passport of the client", String.class, null, false, 4.4, _PersonAttributeType.PATIENT_IMAGE));
+		install(personAttributeType("Feedback photo", "The feedback photo of the client", String.class, null, false, 4.5, _PersonAttributeType.FEED_BACK_IMAGE));
 
 		install(relationshipType("Guardian", "Dependant", "One that guards, watches over, or protects", _RelationshipType.GUARDIAN_DEPENDANT));
 		install(relationshipType("Partner", "Partner", "A spouse is a partner in a marriage, civil union, domestic partnership or common-law marriage a male spouse is a husband and a female spouse is a wife", _RelationshipType.PARTNER));

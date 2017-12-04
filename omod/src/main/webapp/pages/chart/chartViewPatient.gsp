@@ -13,9 +13,16 @@
                     label: "Body analysis",
                     href: ui.pageLink("wellness", "chart/chartViewPatient", [ patientId: currentPatient.id, section: "analysis" ]),
                     active: (selection == "section-analysis"),
-                    iconProvider: "kenyaui",
-                    icon: "buttons/summary.png"
-            ]
+                    iconProvider: "wellness",
+                    icon: "buttons/analysis.png"
+            ],
+			[
+					label: "Feedback photographs",
+					href: ui.pageLink("wellness", "chart/chartViewPatient", [ patientId: currentPatient.id, section: "feedback" ]),
+					active: (selection == "section-feedback"),
+					iconProvider: "wellness",
+					icon: "buttons/schedule.png"
+			]
 
 	];
 
@@ -102,6 +109,10 @@
 	<%} else if (section == "analysis") { %>
 
 	${ ui.includeFragment("wellness", "analysis", [ patient: currentPatient ]) }
+
+	<%} else if (section == "feedback") { %>
+
+	${ ui.includeFragment("wellness", "feedBack", [ patient: currentPatient ]) }
 	<%}%>
 
 </div>

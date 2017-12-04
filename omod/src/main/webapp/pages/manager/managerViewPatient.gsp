@@ -23,6 +23,13 @@
                     active: (selection == "section-analysis"),
                     iconProvider: "wellness",
                     icon: "buttons/analysis.png"
+            ],
+            [
+                    label: "Feedback photographs",
+                    href: ui.pageLink("wellness", "manager/managerViewPatient", [ patientId: currentPatient.id, section: "feedback" ]),
+                    active: (selection == "section-feedback"),
+                    iconProvider: "wellness",
+                    icon: "buttons/schedule.png"
             ]
     ]
 %>
@@ -53,6 +60,10 @@
     <%} else if (section == "performance") { %>
 
     ${ ui.includeFragment("wellness", "admin/performance", [ patient: currentPatient ]) }
+
+    <%} else if (section == "feedback") { %>
+
+    ${ ui.includeFragment("wellness", "feedBack", [ patient: currentPatient ]) }
     <%}%>
 
 </div>

@@ -32,6 +32,11 @@
 
         <div class="ke-form-globalerrors" style="display: none"></div>
         <fieldset>
+            <p>
+                After successful saving the client demographic details, please remember to upload their passport photograph at registration>>passport photo upload
+            </p>
+        </fieldset>
+        <fieldset>
             <legend>Identifiers</legend>
 
             <table width="100%">
