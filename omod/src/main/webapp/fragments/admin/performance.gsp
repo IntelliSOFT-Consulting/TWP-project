@@ -3,12 +3,19 @@ table.performance {
     border-collapse: collapse;
     background-color: #F3FFFF;
 }
-table.performance > tbody > tr > td, table.performance > tbody > tr > th{
+table.performance > tbody > tr > td{
     border: 1px solid black;
     vertical-align: baseline;
     padding: 4px;
     text-align: left;
     background-color: #F3FFFF;
+}
+table.performance > tbody > tr > th{
+    border: 1px solid black;
+    vertical-align: baseline;
+    padding: 4px;
+    text-align: left;
+    background-color: #ACD244;
 }
 </style>
 <div class="ke-panel-frame">
@@ -45,7 +52,7 @@ table.performance > tbody > tr > td, table.performance > tbody > tr > th{
                                     <table class="performance" width="100%">
                                         <tbody>
                                             <tr>
-                                                <td colspan="2"><b>${name}</b></td>
+                                                <th colspan="2"><b>${name}</b></th>
                                             </tr>
                                             <tr>
                                                 <td></td>
