@@ -7,7 +7,7 @@
 		<button type="button" class="ke-compact" onclick="ui.navigate('${ ui.pageLink("wellness", "registration/editPatient", [ patientId: patient.id, returnUrl: ui.thisUrl() ]) }')">
 			<img src="${ ui.resourceLink("kenyaui", "images/glyphs/edit.png") }" />
 		</button>
-			<table width="100%">
+			<table width="100%" class="toggle">
 				<% if (passport) { %>
 					<tr>
 						<td>Passport Number</td>

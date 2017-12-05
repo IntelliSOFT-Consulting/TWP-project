@@ -1,6 +1,6 @@
 <style>
 table.appointmentsTypes tr th {
-    background-color: #98AFC7;
+    background-color: #ACD244;
     text-align: left;
 }
 table.appointmentsTypes tr td {

@@ -1,6 +1,7 @@
 package org.openmrs.module.wellness.fragment.controller;
 
 import org.openmrs.api.context.Context;
+import org.openmrs.module.appointmentscheduling.AppointmentBlock;
 import org.openmrs.module.appointmentscheduling.api.AppointmentService;
 import org.openmrs.module.wellness.EmrConstants;
 import org.openmrs.ui.framework.UiUtils;
@@ -11,9 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.ParseException;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
+import java.util.*;
 
 public class ProviderAvailabilityFragmentController {
 
@@ -29,7 +28,14 @@ public class ProviderAvailabilityFragmentController {
         model.addAttribute("providerId", providerId);
         model.addAttribute("appointmentTypeId", appointmentTypeId);
         model.addAttribute("viewSelect", viewSelect);
-        model.addAttribute("providerSchedule", Context.getService(AppointmentService.class).getAllAppointmentBlocks());
+        List<AppointmentBlock> appointmentBlocks = new ArrayList<AppointmentBlock>();
+        for(AppointmentBlock block: Context.getService(AppointmentService.class).getAllAppointmentBlocks()){
+            if(block.getEndDate().after(new Date())){
+                appointmentBlocks.add(block);
+            }
+        }
+
+        model.addAttribute("providerSchedule", appointmentBlocks);
 
         //Set the date interval from the session
         String fromDate;

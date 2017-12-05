@@ -1,7 +1,7 @@
 <%
     ui.decorateWith("kenyaui", "panel", [ heading: "Appointments Summary" ])
  %>
-    <table width="100%">
+    <table width="100%" class="toggle">
         <tr>
             <td>Appointment Date</td>
             <td>${date}</td>

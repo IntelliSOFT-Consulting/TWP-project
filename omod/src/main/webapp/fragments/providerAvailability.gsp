@@ -1,6 +1,6 @@
 <style>
 table.toggle tr th {
-    background-color: #98AFC7;
+    background-color: #ACD244;
     text-align: left;
 }
 table.toggle tr td {

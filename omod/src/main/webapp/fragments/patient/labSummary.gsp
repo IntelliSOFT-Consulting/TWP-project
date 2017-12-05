@@ -2,26 +2,26 @@
 	ui.decorateWith("kenyaui", "panel", [ heading: "Latest Lab Results", frameOnly: true ])
 %>
 <style>
-    tr th {
+table.toggle tr th {
         background-color: #ACD244;
         text-align: left;
     }
-    tr td {
+table.toggle tr td {
         text-align: left;
     }
-    tr:nth-child(even) {
+table.toggle tr:nth-child(even) {
       background-color: #E3E4FA;
     }
 
 
-    tr:nth-child(odd) {
+table.toggle  tr:nth-child(odd) {
       background-color: #FDEEF4;
     }
 </style>
 
 <% if (biochemistryMap) { %>
     <div class="ke-panel-content">
-        <table border="0" width="100%">
+        <table border="0" width="100%" class="toggle">
             <tr>
                 <th colspan="2">Biochemistry on: ${ biochemistryMap.encounterDatetime }
             </tr>
@@ -38,7 +38,7 @@
 <% } %>
 <% if (haematologyMap) { %>
 <div class="ke-panel-content">
-    <table border="0" width="100%">
+    <table border="0" width="100%" class="toggle">
         <tr>
             <th colspan="2">Haematology on: ${ haematologyMap.encounterDatetime }
         </tr>
@@ -54,7 +54,7 @@
 <% } %>
 <% if (indocrinologyMap) { %>
 <div class="ke-panel-content">
-    <table border="0" width="100%">
+    <table border="0" width="100%" class="toggle">
         <tr>
             <th colspan="2">Indocrinology on: ${ indocrinologyMap.encounterDatetime }
         </tr>
