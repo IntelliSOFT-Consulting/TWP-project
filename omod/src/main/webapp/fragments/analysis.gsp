@@ -4,18 +4,26 @@ table.analysis {
     border-collapse: collapse;
     background-color: #F3FFFF;
 }
-table.analysis > tbody > tr > td, table.analysis > tbody > tr > th{
+table.analysis > tbody > tr > td{
     border: 1px solid black;
     vertical-align: baseline;
     padding: 4px;
     text-align: left;
     background-color: #F3FFFF;
 }
+table.analysis > tbody > tr > th{
+    border: 1px solid black;
+    vertical-align: baseline;
+    padding: 4px;
+    text-align: left;
+    background-color: #ACD244;
+}
 </style>
 <div class="ke-panel-frame">
-    <div class="ke-panel-heading">Body Analysis Summary - Based on latest results</div>
+    <div class="ke-panel-heading">Body Analysis Summary</div>
     <div class="ke-panel-content">
-        <table class="analysis" align="center">
+        <br />
+        <table class="analysis" align="center" width="75%">
             <tbody>
                 <tr>
                     <th>Value and Date</th>
