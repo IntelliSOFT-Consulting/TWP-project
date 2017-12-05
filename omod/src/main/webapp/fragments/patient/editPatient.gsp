@@ -33,7 +33,7 @@
         <div class="ke-form-globalerrors" style="display: none"></div>
         <fieldset>
             <p>
-                After successful saving the client demographic details, please remember to upload their passport photograph at registration>>passport photo upload
+                After successful saving the client demographic details, please remember to upload their passport photograph at registration>>passport photo upload. Please find other photo options there.
             </p>
         </fieldset>
         <fieldset>
@@ -72,7 +72,7 @@
                             <tr>
                                 <td class="ke-field-label">Mobile Number</td>
                                 <td>${ui.includeFragment("kenyaui", "widget/field", [object: command, property: "mobileNumber"])}</td>
-                                <td class="ke-field-instructions"><% if (!command.mobileNumber) { %>(if available)<% } %></td>
+                                <td class="ke-field-instructions"><% if (!command.mobileNumber) { %>(required)<% } %></td>
                             </tr>
                             <tr>
                                 <td class="ke-field-label">Other Number</td>

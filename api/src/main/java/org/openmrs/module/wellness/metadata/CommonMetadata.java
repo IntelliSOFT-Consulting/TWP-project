@@ -73,6 +73,7 @@ public class CommonMetadata extends AbstractMetadataBundle {
 		public static final String EMAIL_ADDRESS = "b8d0b331-1d2d-4a9a-b741-1816f498bdb6";
 		public static final String PATIENT_IMAGE = "8ebdc3ac-a1ea-11e7-8dbf-d3167fc0cc32";
 		public static final String FEED_BACK_IMAGE = "fe57cc84-d8b9-11e7-8eb6-ef27cfad58a1";
+		public static final String BEFORE_PHOTO = "6cc374ee-d986-11e7-ac53-179a8fd4b0c5";
 	}
 
 	public static final class _Provider {
@@ -149,6 +150,7 @@ public class CommonMetadata extends AbstractMetadataBundle {
 				String.class, null, false, 4.3, _PersonAttributeType.NEXT_OF_KIN_ADDRESS));
 		install(personAttributeType("Passport photo", "The passport of the client", String.class, null, false, 4.4, _PersonAttributeType.PATIENT_IMAGE));
 		install(personAttributeType("Feedback photo", "The feedback photo of the client", String.class, null, false, 4.5, _PersonAttributeType.FEED_BACK_IMAGE));
+		install(personAttributeType("Before photo", "The before photo of the client", String.class, null, false, 4.5, _PersonAttributeType.BEFORE_PHOTO));
 
 		install(relationshipType("Guardian", "Dependant", "One that guards, watches over, or protects", _RelationshipType.GUARDIAN_DEPENDANT));
 		install(relationshipType("Partner", "Partner", "A spouse is a partner in a marriage, civil union, domestic partnership or common-law marriage a male spouse is a husband and a female spouse is a wife", _RelationshipType.PARTNER));

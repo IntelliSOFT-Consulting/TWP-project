@@ -274,6 +274,7 @@ public class EditPatientFragmentController {
 			require(errors, "personName.familyName");
 			require(errors, "gender");
 			require(errors, "birthdate");
+			require(errors,"mobileNumber");
 
 			// Require death details if patient is deceased
 			if (dead) {

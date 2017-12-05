@@ -17,7 +17,7 @@ public class FeedBackFragmentController {
 
     public void controller(FragmentModel model,
                            @FragmentParam("patient") Patient patient){
-        PersonAttributeType passport = MetadataUtils.existing(PersonAttributeType.class, CommonMetadata._PersonAttributeType.PATIENT_IMAGE);
+        PersonAttributeType passport = MetadataUtils.existing(PersonAttributeType.class, CommonMetadata._PersonAttributeType.BEFORE_PHOTO);
         PersonAttributeType feedBack = MetadataUtils.existing(PersonAttributeType.class, CommonMetadata._PersonAttributeType.FEED_BACK_IMAGE);
 
         String url = "/openmrs/ms/uiframework/resource/wellness/images/logos/passport.png";
