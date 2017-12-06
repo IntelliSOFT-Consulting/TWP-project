@@ -4,6 +4,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.appointmentscheduling.Appointment;
 import org.openmrs.module.appointmentscheduling.api.AppointmentService;
 import org.openmrs.module.kenyacore.CoreUtils;
+import org.openmrs.module.wellness.util.EmrUtils;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.fragment.FragmentModel;
 import org.openmrs.util.OpenmrsUtil;
@@ -18,12 +19,10 @@ public class ManageAppointmentsFragmentController {
         List<Appointment> currentAppointments = new ArrayList<Appointment>();
         Date today = OpenmrsUtil.firstSecondOfDay(new Date());
         Date yesterday = CoreUtils.dateAddDays(today, -1);
-        for(Appointment appointment: Context.getService(AppointmentService.class).getAllAppointments()){
-            if(appointment.getTimeSlot() != null && appointment.getTimeSlot().getStartDate().after(yesterday)){
-                currentAppointments.add(appointment);
-            }
-        }
-        model.addAttribute("allAppointments", ui.simplifyCollection(currentAppointments));
+
+        model.addAttribute("appointmentTypeList", Context.getService(AppointmentService.class).getAllAppointmentTypesSorted(false));
+        model.addAttribute("providerList", Context.getService(AppointmentService.class).getAllProvidersSorted(false));
+        model.addAttribute("today", EmrUtils.formatDates(new Date()));
 
     }
 }

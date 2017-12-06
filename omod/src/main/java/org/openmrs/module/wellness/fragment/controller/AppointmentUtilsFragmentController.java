@@ -20,11 +20,10 @@ public class AppointmentUtilsFragmentController {
     public List<SimpleObject> getActiveAppointmentBlocks(UiUtils ui) {
         List<SimpleObject> ret = new ArrayList<SimpleObject>();
         AppointmentService service = Context.getService(AppointmentService.class);
-        List<Appointment> allAppointments = service.getAllAppointments();
-        for(Appointment appointment: allAppointments) {
-            SimpleObject so = ui.simplifyObject(appointment);
-            ret.add(so);
+        for(Appointment appointment : service.getAllAppointments()){
+            ret.add(ui.simplifyObject(appointment));
         }
+
         return ret;
     }
 }

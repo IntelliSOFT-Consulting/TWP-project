@@ -26,14 +26,12 @@ table.toggle tr:nth-child(odd) {
                 <tr>
                     <td>
                         <span class="ke-field-content">
-                            <label class="ke-field-label">Start date</label>
-                            <input type="text" name="startDate" id="startDate" />
-                        </span>
-                    </td>
-                    <td>
-                        <span class="ke-field-content">
-                            <label class="ke-field-label">End date</label>
-                            <input type="text" name="endDate" id="endDate" />
+                            <label class="ke-field-label">Appointment date</label>
+                            <input type="text" name="appointmentDate" id="appointmentDate" onclick="startDate()" value="${today}"/>
+                            <img
+                                    src="${ui.resourceLink("wellness", "images/buttons/calendarIcon.png")}"
+                                    class="calendarIcon" alt=""
+                                    onClick="document.getElementById('appointmentDate').focus();" />
                         </span>
                     </td>
                 </tr>
@@ -41,7 +39,11 @@ table.toggle tr:nth-child(odd) {
                     <td colspan="2">
                         <span class="ke-field-content">
                             <label class="ke-field-label">Provider</label>
-                            <input type="text" name="provider" id="provider" />
+                            <select name="provider" id="provider">
+                                <% providerList.each{%>
+                                    <option value="${it.providerId}">${it.name}</option>
+                                <%}%>
+                            </select>
                         </span>
                     </td>
                 </tr>
@@ -49,7 +51,11 @@ table.toggle tr:nth-child(odd) {
                     <td colspan="2">
                         <span class="ke-field-content">
                             <label class="ke-field-label">Appointment Type</label>
-                            <input type="text" name="appointmentType" id="appointmentType" />
+                            <select name="appointmentType" id="appointmentType">
+                                <% appointmentTypeList.each{%>
+                                   <option value="${it.appointmentTypeId}">${it.name}</option>
+                                <%}%>
+                            </select>
                         </span>
                     </td>
                 </tr>
@@ -57,7 +63,12 @@ table.toggle tr:nth-child(odd) {
                     <td colspan="2">
                         <span class="ke-field-content">
                             <label class="ke-field-label">Appointment Status</label>
-                            <input type="text" name="appointmentStatus" id="appointmentStatus" />
+                            <select name="appointmentStatus" id="status">
+                                <option value="Cancelled">Cancel</option>
+                                <option value="Missed">Missed</option>
+                                <option value="Scheduled">Scheduled</option>
+                                <option value="Completed">Completed</option>
+                            </select>
                         </span>
                     </td>
                 </tr>
@@ -73,8 +84,7 @@ table.toggle tr:nth-child(odd) {
 <br />
 <div class="ke-panel-frame">
     <div class="ke-panel-heading">Available Appointments</div>
-    <% if(allAppointments){%>
-        <div class="ke-page-content">
+        <div class="ke-page-content"ng-controller="ActiveAppointmentsBlocks" ng-init="init()" >
             <table id="availableAppointments" class="toggle" width="100%">
                     <tr>
                         <th>Client</th>
@@ -85,18 +95,28 @@ table.toggle tr:nth-child(odd) {
                         <th>Status</th>
                         <th>Notes</th>
                     </tr>
-                <% allAppointments.each{%>
-                    <tr>
-                        <td><a href="manageScheduledAppointments.page?appointmentId=${it.id}"> ${it.names}</a></td>
-                        <td>${it.date}</td>
-                        <td>${it.time}</td>
-                        <td>${it.provider}</td>
-                        <td>${it.type}</td>
-                        <td>${it.status}</td>
-                        <td>${it.notes}</td>
+                    <tr ng-repeat="appointment in activeAppointments">
+                        <td><a href="manageScheduledAppointments.page?appointmentId={{appointment.id}}"> {{appointment.names}}</a></td>
+                        <td>{{appointment.date}}</td>
+                        <td>{{appointment.time}}</td>
+                        <td>{{appointment.provider}}</td>
+                        <td>{{appointment.type}}</td>
+                        <td>{{appointment.status}}</td>
+                        <td>{{appointment.notes}}</td>
                     </tr>
-                <%}%>
             </table>
         </div>
-    <%}%>
-</div>
+</div><script type="text/javascript">
+    function startDate() {
+        jQuery("#appointmentDate").datepicker({
+            dateFormat: 'dd/mm/yy',
+            gotoCurrent: true,
+            minDate: new Date()
+        });
+    }
+    jQuery(function () {
+        startDate();
+    })
+</script>
+
+
