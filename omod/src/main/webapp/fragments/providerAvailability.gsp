@@ -150,30 +150,8 @@ table.toggle tr:nth-child(odd) {
             <fieldset id="propertiesFieldset" style="clear: both">
                 <legend>Choose properties</legend>
                 <table>
-                        <tr>
-                            <td>Provider:</td>
-                            <td>
-                                <select name="chosenProviderId" id="chosenProviderId">
-                                    <% providerList.each{%>
-                                        <option value="${it.providerId}">${it.name}</option>
-                                    <%}%>
-                                </select>
-                            </td>
-                        </tr>
-
-
-                        <tr>
-                            <td>Appointment type</td>
-                            <td>
-                                <select name="chosenTypeId" id="chosenTypeId">
-                                    <% appointmentTypeList.each{%>
-                                        <option value="${it.appointmentTypeId}">${it.name}</option>
-                                    <%}%>
-                                </select>
-                            </td>
-                        </tr>
                     <tr>
-                        <td>View</td>
+                        <td>View type</td>
                         <td>
                             <select name="viewSelect" id="viewSelect">
                                 <option value="tableView">Table View</option>

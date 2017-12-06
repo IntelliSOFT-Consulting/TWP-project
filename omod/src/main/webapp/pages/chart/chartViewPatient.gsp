@@ -77,26 +77,25 @@
 <div class="ke-page-content">
 
 	<% if (visit) { %>
-
-	${ ui.includeFragment("wellness", "visitSummary", [ visit: visit ]) }
-	<% if (!visit.voided) { %>
-	${ ui.includeFragment("wellness", "visitCompletedForms", [ visit: visit ]) }
-	<% } %>
+		${ ui.includeFragment("wellness", "visitSummary", [ visit: visit ]) }
+		<% if (!visit.voided) { %>
+			${ ui.includeFragment("wellness", "visitCompletedForms", [ visit: visit ]) }
+		<% } %>
 
 	<% } else if (form) { %>
 
-	<div class="ke-panel-frame">
-		<div class="ke-panel-heading">${ ui.format(form) }</div>
-		<div class="ke-panel-content">
+		<div class="ke-panel-frame">
+			<div class="ke-panel-heading">${ ui.format(form) }</div>
+			<div class="ke-panel-content">
 
-			<% if (encounter) { %>
-			${ ui.includeFragment("wellness", "form/viewHtmlForm", [ encounter: encounter ]) }
-			<% } else { %>
-			<em>Not filled out</em>
-			<% } %>
+				<% if (encounter) { %>
+					${ ui.includeFragment("wellness", "form/viewHtmlForm", [ encounter: encounter ]) }
+				<% } else { %>
+				<em>Not filled out</em>
+				<% } %>
 
+			</div>
 		</div>
-	</div>
 
 	<% } else if (program) { %>
 
@@ -104,15 +103,15 @@
 
 	<% } else if (section == "overview") { %>
 
-	${ ui.includeFragment("wellness", "program/programCarePanels", [ patient: currentPatient, complete: true, activeOnly: false ]) }
+		${ ui.includeFragment("wellness", "program/programCarePanels", [ patient: currentPatient, complete: true, activeOnly: false ]) }
 
 	<%} else if (section == "analysis") { %>
 
-	${ ui.includeFragment("wellness", "analysis", [ patient: currentPatient ]) }
+		${ ui.includeFragment("wellness", "analysis", [ patient: currentPatient ]) }
 
 	<%} else if (section == "feedback") { %>
 
-	${ ui.includeFragment("wellness", "feedBack", [ patient: currentPatient ]) }
+		${ ui.includeFragment("wellness", "feedBack", [ patient: currentPatient ]) }
 	<%}%>
 
 </div>

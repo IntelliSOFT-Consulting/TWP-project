@@ -3,13 +3,26 @@
     <div class="ke-panel-content">
         <form id="upload-feedback-form" method="post" action="${ui.actionLink("wellness", "feedBackUpload", "saveFeedBackPhoto")}" enctype="multipart/form-data">
             <div align="center">
-                <table>
+                <table border="0" width="80%">
                     <tr>
-                        <td><img id="passport" src="${ui.resourceLink("wellness", "images/logos/passport.png")}" /></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <input type='file' name="passportFile" onchange="readURL(this);" id="passportFile"/>
+                        <td align="center">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <img id="passport" src="${fakeUrl}" style="width: 300px; height: 300px;"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type='file' name="passportFile" onchange="readURL(this);" id="passportFile"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td align="right">
+                            <% if(urlPassport){%>
+                            <img id="beforePhoto" src="data:image/jpeg;base64,${urlPassport}" style="width: 75%; height: 75%" />
+                            <%}%>
                         </td>
                     </tr>
                 </table>
@@ -42,7 +55,7 @@
         }
     }
     function viewProfile() {
-        ui.navigate('wellness', 'chat/chartViewPatient', {patientId:${patientId}})
+        ui.navigate('wellness', 'chart/chartViewPatient', {patientId:${patientId}})
     }
 
     jQuery(function () {

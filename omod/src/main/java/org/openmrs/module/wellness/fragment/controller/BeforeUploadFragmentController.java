@@ -1,6 +1,8 @@
 package org.openmrs.module.wellness.fragment.controller;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.openmrs.*;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
@@ -16,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.Arrays;
 import java.util.List;
@@ -25,6 +28,35 @@ public class BeforeUploadFragmentController {
     public void controller(FragmentModel model, PageModel sharedModel){
 
         model.addAttribute("patientId", sharedModel.getAttribute("patientId"));
+        Integer patientId = (Integer) sharedModel.getAttribute("patientId");
+        Patient patient = Context.getPatientService().getPatient(patientId);
+
+        String url = "/openmrs/ms/uiframework/resource/wellness/images/logos/passport.png";
+        String alreadyBeforePhoto = "";
+
+        if(patient.getGender().equals("F")){
+            url = "/openmrs/ms/uiframework/resource/wellness/images/logos/F.png";
+        }
+
+        PersonAttributeType passport = MetadataUtils.existing(PersonAttributeType.class, CommonMetadata._PersonAttributeType.BEFORE_PHOTO);
+        String imgDir = OpenmrsUtil.getApplicationDataDirectory() + "patient_images";
+        PersonAttribute attributeBeforePhotoValue = patient.getAttribute(passport);
+
+        if(attributeBeforePhotoValue != null) {
+
+            try {
+                byte[] binaryDataPassport = IOUtils.toByteArray(new FileInputStream(imgDir+"/"+attributeBeforePhotoValue.getValue()));
+                byte[] encodeBase64 = Base64.encodeBase64(binaryDataPassport);
+                alreadyBeforePhoto = new String(encodeBase64, "UTF-8");
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        model.addAttribute("urlPassport", alreadyBeforePhoto);
+        model.addAttribute("fakeUrl", url);
 
     }
 

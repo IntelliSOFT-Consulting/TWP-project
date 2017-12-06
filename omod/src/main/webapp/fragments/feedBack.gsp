@@ -9,7 +9,7 @@
                         <div class="ke-panel-heading">Before</div>
                         <div class="ke-panel-content">
                             <% if(urlPassport) {%>
-                                <img src="data:image/jpeg;base64,${urlPassport}" align="center" width="60%" height="60%">
+                                <img src="data:image/jpeg;base64,${urlPassport}" align="center" width="75%" height="75%">
                             <%} else {%>
                                 <img src="${fakeUrl}" align="center">
                             <%}%>
@@ -21,7 +21,7 @@
                         <div class="ke-panel-heading">After</div>
                         <div class="ke-panel-content">
                             <% if(urlFeedback) {%>
-                            <img src="data:image/jpeg;base64,${urlFeedback}" align="center" width="60%" height="60%">
+                            <img src="data:image/jpeg;base64,${urlFeedback}" align="center" width="75%" height="75%">
                             <%} else {%>
                             <img src="${fakeUrl}" align="center">
                             <%}%>

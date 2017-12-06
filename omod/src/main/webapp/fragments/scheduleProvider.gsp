@@ -1,7 +1,7 @@
 
 <style>
 table.appointments tr th {
-    background-color: #98AFC7;
+    background-color: #ACD244;
     text-align: left;
 }
 table.appointments tr td {
