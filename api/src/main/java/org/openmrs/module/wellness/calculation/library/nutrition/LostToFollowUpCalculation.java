@@ -16,9 +16,12 @@ package org.openmrs.module.wellness.calculation.library.nutrition;
 import org.openmrs.Concept;
 import org.openmrs.Obs;
 import org.openmrs.Program;
+import org.openmrs.api.context.Context;
 import org.openmrs.calculation.patient.PatientCalculationContext;
 import org.openmrs.calculation.result.CalculationResultMap;
 import org.openmrs.calculation.result.SimpleResult;
+import org.openmrs.module.appointmentscheduling.Appointment;
+import org.openmrs.module.appointmentscheduling.api.AppointmentService;
 import org.openmrs.module.kenyacore.calculation.AbstractPatientCalculation;
 import org.openmrs.module.kenyacore.calculation.Calculations;
 import org.openmrs.module.kenyacore.calculation.Filters;
@@ -29,10 +32,7 @@ import org.openmrs.module.wellness.NutritionConstants;
 import org.openmrs.module.wellness.calculation.EmrCalculationUtils;
 import org.openmrs.module.wellness.metadata.NutritionMetadata;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static org.openmrs.module.wellness.calculation.EmrCalculationUtils.daysSince;
 
@@ -60,32 +60,34 @@ public class LostToFollowUpCalculation extends AbstractPatientCalculation implem
 
         Program nutrition = MetadataUtils.existing(Program.class, NutritionMetadata._Program.NUTRITION);
         Concept reasonForDiscontinuation = Dictionary.getConcept(Dictionary.REASON_FOR_PROGRAM_DISCONTINUATION);
-        Concept transferout = Dictionary.getConcept(Dictionary.TRANSFERRED_OUT);
+        Concept transferOut = Dictionary.getConcept(Dictionary.TRANSFERRED_OUT);
 
         Set<Integer> alive = Filters.alive(cohort, context);
         Set<Integer> inNutritionProgram = Filters.inProgram(nutrition, alive, context);
 
-        //CalculationResultMap lastEncounters = Calculations.lastEncounter(null, inHivProgram, context);
-        CalculationResultMap lastReturnDateObss = Calculations.lastObs(Dictionary.getConcept(Dictionary.RETURN_VISIT_DATE), inNutritionProgram, context);
         CalculationResultMap lastProgramDiscontinuation = Calculations.lastObs(reasonForDiscontinuation, cohort, context);
 
         CalculationResultMap ret = new CalculationResultMap();
+        AppointmentService appointmentService = Context.getService(AppointmentService.class);
         for (Integer ptId : cohort) {
             boolean lost = false;
+            List<Appointment> patientAppointments = appointmentService.getAppointmentsOfPatient(Context.getPatientService().getPatient(ptId));
 
-            // Is patient alive and in the HIV program
-            if (alive.contains(ptId)) {
-
-                // Patient is lost if no encounters in last X days
-                //Encounter lastEncounter = EmrCalculationUtils.encounterResultForPatient(lastEncounters, ptId);
-                Date lastScheduledReturnDate = EmrCalculationUtils.datetimeObsResultForPatient(lastReturnDateObss, ptId);
-                Obs discontuation = EmrCalculationUtils.obsResultForPatient(lastProgramDiscontinuation, ptId);
-                if (lastScheduledReturnDate != null) {
-                    if(daysSince(lastScheduledReturnDate, context) > NutritionConstants.LOST_TO_FOLLOW_UP_THRESHOLD_DAYS){
-                        lost = true;
-                    }
-                    if(discontuation != null && discontuation.getValueCoded().equals(transferout)) {
-                        lost = false;
+            // Is patient is in nutrition program and has an previous appointment
+            if (inNutritionProgram.contains(ptId) && patientAppointments.size() > 0) {
+                Appointment appointment = patientAppointments.get(patientAppointments.size() - 1); //picking the last appointment
+                if(appointment != null) {
+                    Date appointmentDate = appointment.getTimeSlot().getEndDate();
+                    // Patient is lost if no encounters in last X days
+                    //Encounter lastEncounter = EmrCalculationUtils.encounterResultForPatient(lastEncounters, ptId);
+                    Obs discontuation = EmrCalculationUtils.obsResultForPatient(lastProgramDiscontinuation, ptId);
+                    if (appointmentDate != null) {
+                        if (daysSince(appointmentDate, context) > NutritionConstants.LOST_TO_FOLLOW_UP_THRESHOLD_DAYS) {
+                            lost = true;
+                        }
+                        if (discontuation != null && discontuation.getValueCoded().equals(transferOut)) {
+                            lost = false;
+                        }
                     }
                 }
 
