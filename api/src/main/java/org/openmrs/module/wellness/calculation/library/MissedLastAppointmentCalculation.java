@@ -16,9 +16,12 @@ package org.openmrs.module.wellness.calculation.library;
 
 import org.openmrs.Encounter;
 import org.openmrs.Program;
+import org.openmrs.api.context.Context;
 import org.openmrs.calculation.patient.PatientCalculationContext;
 import org.openmrs.calculation.result.CalculationResultMap;
 import org.openmrs.calculation.result.SimpleResult;
+import org.openmrs.module.appointmentscheduling.Appointment;
+import org.openmrs.module.appointmentscheduling.api.AppointmentService;
 import org.openmrs.module.kenyacore.calculation.AbstractPatientCalculation;
 import org.openmrs.module.kenyacore.calculation.Calculations;
 import org.openmrs.module.kenyacore.calculation.Filters;
@@ -27,11 +30,9 @@ import org.openmrs.module.wellness.Dictionary;
 import org.openmrs.module.wellness.calculation.EmrCalculationUtils;
 import org.openmrs.module.wellness.metadata.NutritionMetadata;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
+import org.openmrs.module.wellness.util.EmrUtils;
 
-import java.util.Collection;
-import java.util.Date;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Calculates whether patients have missed their last scheduled return visit. Calculation returns true if the patient is
@@ -55,29 +56,29 @@ public class MissedLastAppointmentCalculation extends AbstractPatientCalculation
 	@Override
 	public CalculationResultMap evaluate(Collection<Integer> cohort, Map<String, Object> parameterValues, PatientCalculationContext context) {
 
-		Program hivProgram = MetadataUtils.existing(Program.class, NutritionMetadata._Program.NUTRITION);
-		Set<Integer> alive = Filters.alive(cohort, context);
-		Set<Integer> inHivProgram = Filters.inProgram(hivProgram, alive, context);
-
-		CalculationResultMap lastReturnDateObss = Calculations.lastObs(Dictionary.getConcept(Dictionary.RETURN_VISIT_DATE), alive, context);
 		CalculationResultMap lastEncounters = Calculations.lastEncounter(null, cohort, context);
-		//Set<Integer> ltfu = CalculationUtils.patientsThatPass(calculate(new LostToFollowUpCalculation(), cohort, context));
-		//Set<Integer> transferredOut = CalculationUtils.patientsThatPass(calculate(new IsTransferOutCalculation(), cohort, context));
 		CalculationResultMap ret = new CalculationResultMap();
+		AppointmentService appointmentService = Context.getService(AppointmentService.class);
+
 		for (Integer ptId : cohort) {
 			boolean missedVisit = false;
+			//get appointments for the patient
+			List<Appointment> patientAppointments = appointmentService.getAppointmentsOfPatient(Context.getPatientService().getPatient(ptId));
 
 			// Is patient alive
-			if (inHivProgram.contains(ptId)) {
-				Date lastScheduledReturnDate = EmrCalculationUtils.datetimeObsResultForPatient(lastReturnDateObss, ptId);
+			if (patientAppointments.size() > 0) {
+				Appointment appointment = patientAppointments.get(patientAppointments.size() - 1); //picking the last appointment
+				if(appointment != null) {
+					Date appointmentDate = appointment.getTimeSlot().getEndDate();
 
-				// Does patient have a scheduled return visit in the past
-				if (lastScheduledReturnDate != null && EmrCalculationUtils.daysSince(lastScheduledReturnDate, context) > 0) {
+					// Does patient have a scheduled return visit in the past
+					if (appointmentDate != null && EmrCalculationUtils.daysSince(appointmentDate, context) > 0) {
 
-					// Has patient returned since
-					Encounter lastEncounter = EmrCalculationUtils.encounterResultForPatient(lastEncounters, ptId);
-					Date lastActualReturnDate = lastEncounter != null ? lastEncounter.getEncounterDatetime() : null;
-					missedVisit = lastActualReturnDate == null || lastActualReturnDate.before(lastScheduledReturnDate);
+						// Has patient returned since
+						Encounter lastEncounter = EmrCalculationUtils.encounterResultForPatient(lastEncounters, ptId);
+						Date lastActualReturnDate = lastEncounter != null ? lastEncounter.getEncounterDatetime() : null;
+						missedVisit = lastActualReturnDate == null || lastActualReturnDate.before(appointmentDate);
+					}
 				}
 
 			}
