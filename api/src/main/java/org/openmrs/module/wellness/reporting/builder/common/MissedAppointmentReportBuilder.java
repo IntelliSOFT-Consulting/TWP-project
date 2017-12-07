@@ -4,7 +4,12 @@ import org.openmrs.PatientIdentifierType;
 import org.openmrs.module.kenyacore.report.CohortReportDescriptor;
 import org.openmrs.module.kenyacore.report.builder.Builds;
 import org.openmrs.module.kenyacore.report.builder.CalculationReportBuilder;
+import org.openmrs.module.kenyacore.report.data.patient.definition.CalculationDataDefinition;
+import org.openmrs.module.wellness.calculation.library.nutrition.LastAppointmentDateCalculation;
+import org.openmrs.module.wellness.calculation.library.nutrition.NumberOfDaysLateCalculation;
+import org.openmrs.module.wellness.metadata.CommonMetadata;
 import org.openmrs.module.wellness.metadata.NutritionMetadata;
+import org.openmrs.module.wellness.reporting.data.converter.CalculationResultConverter;
 import org.openmrs.module.wellness.reporting.data.converter.IdentifierConverter;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.reporting.data.DataDefinition;
@@ -23,14 +28,14 @@ public class MissedAppointmentReportBuilder extends CalculationReportBuilder {
 
     @Override
     protected void addColumns(CohortReportDescriptor report, PatientDataSetDefinition dsd) {
-        PatientIdentifierType upn = MetadataUtils.existing(PatientIdentifierType.class, NutritionMetadata._PatientIdentifierType.NUTRITION_NUMBER);
+
+        PatientIdentifierType upn = MetadataUtils.existing(PatientIdentifierType.class, CommonMetadata._PatientIdentifierType.MOBILE_NUMBER);
         DataDefinition identifierDef = new ConvertedPatientDataDefinition("identifier", new PatientIdentifierDataDefinition(upn.getName(), upn), new IdentifierConverter());
 
         addStandardColumns(report, dsd);
-        /*dsd.addColumn("UPN", identifierDef, "");
-        dsd.addColumn("Appointment date", new CalculationDataDefinition("Appointment date", new LastReturnVisitDateCalculation()), "", new CalculationResultConverter());
+        dsd.addColumn("Mobile Number", identifierDef, "");
+        dsd.addColumn("Appointment date", new CalculationDataDefinition("Appointment date", new LastAppointmentDateCalculation()), "", new CalculationResultConverter());
         dsd.addColumn("Number of days late", new CalculationDataDefinition("Number of days late", new NumberOfDaysLateCalculation()), "", new CalculationResultConverter());
-        dsd.addColumn("Phone number", new CalculationDataDefinition("Phone number", new TelephoneNumberCalculation()), "", new CalculationResultConverter());
-*/
+
     }
 }
