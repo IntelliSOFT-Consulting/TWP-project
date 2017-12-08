@@ -18,6 +18,7 @@ table.toggle tr:nth-child(odd) {
 }
 </style>
 <div class="ke-panel-frame">
+    <form id="filter-appointments" method="post" action="${ui.actionLink("wellness", "manageAppointments", "filter")}">
     <div class="ke-panel-heading">Appointment Management</div>
     <div class="ke-page-content">
         <fieldset>
@@ -80,6 +81,7 @@ table.toggle tr:nth-child(odd) {
             </table>
         </fieldset>
         </div>
+    </form>
 </div>
 <br />
 <div class="ke-panel-frame">
@@ -110,8 +112,7 @@ table.toggle tr:nth-child(odd) {
     function startDate() {
         jQuery("#appointmentDate").datepicker({
             dateFormat: 'dd/mm/yy',
-            gotoCurrent: true,
-            minDate: new Date()
+            gotoCurrent: true
         });
     }
     jQuery(function () {
