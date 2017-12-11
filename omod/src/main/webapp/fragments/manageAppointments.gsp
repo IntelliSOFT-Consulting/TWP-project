@@ -17,8 +17,8 @@ table.toggle tr:nth-child(odd) {
     background-color: #FDEEF4;
 }
 </style>
+<div ng-controller="ActiveAppointmentsBlocks" ng-init="init()">
 <div class="ke-panel-frame">
-    <form id="filter-appointments" method="post" action="${ui.actionLink("wellness", "manageAppointments", "filter")}">
     <div class="ke-panel-heading">Appointment Management</div>
     <div class="ke-page-content">
         <fieldset>
@@ -28,11 +28,7 @@ table.toggle tr:nth-child(odd) {
                     <td>
                         <span class="ke-field-content">
                             <label class="ke-field-label">Appointment date</label>
-                            <input type="text" name="appointmentDate" id="appointmentDate" onclick="startDate()" value="${today}"/>
-                            <img
-                                    src="${ui.resourceLink("wellness", "images/buttons/calendarIcon.png")}"
-                                    class="calendarIcon" alt=""
-                                    onClick="document.getElementById('appointmentDate').focus();" />
+                            <input type="text" name="startDate" id="startDate"  ng-model="startDate"/>
                         </span>
                     </td>
                 </tr>
@@ -40,7 +36,7 @@ table.toggle tr:nth-child(odd) {
                     <td colspan="2">
                         <span class="ke-field-content">
                             <label class="ke-field-label">Provider</label>
-                            <select name="provider" id="provider">
+                            <select name="provider" id="provider" ng-model="provider">
                                 <% providerList.each{%>
                                     <option value="${it.providerId}">${it.name}</option>
                                 <%}%>
@@ -52,7 +48,7 @@ table.toggle tr:nth-child(odd) {
                     <td colspan="2">
                         <span class="ke-field-content">
                             <label class="ke-field-label">Appointment Type</label>
-                            <select name="appointmentType" id="appointmentType">
+                            <select name="appointmentType" id="appointmentType" ng-model="type">
                                 <% appointmentTypeList.each{%>
                                    <option value="${it.appointmentTypeId}">${it.name}</option>
                                 <%}%>
@@ -64,7 +60,7 @@ table.toggle tr:nth-child(odd) {
                     <td colspan="2">
                         <span class="ke-field-content">
                             <label class="ke-field-label">Appointment Status</label>
-                            <select name="appointmentStatus" id="status">
+                            <select name="appointmentStatus" id="status" ng-model="status">
                                 <option value="Cancelled">Cancel</option>
                                 <option value="Missed">Missed</option>
                                 <option value="Scheduled">Scheduled</option>
@@ -75,18 +71,18 @@ table.toggle tr:nth-child(odd) {
                 </tr>
                 <tr>
                     <td>
-                        <input type="button" name="apply" id="apply" value="Apply filters">
+                        <button type="button" name="apply" id="apply" ng-click="refresh()">Apply filters</button>
                     </td>
                 </tr>
             </table>
         </fieldset>
         </div>
-    </form>
+    <input type="text" id="cal-val" ng-model="date" />
 </div>
 <br />
 <div class="ke-panel-frame">
     <div class="ke-panel-heading">Available Appointments</div>
-        <div class="ke-page-content"ng-controller="ActiveAppointmentsBlocks" ng-init="init()" >
+        <div class="ke-page-content">
             <table id="availableAppointments" class="toggle" width="100%">
                     <tr>
                         <th>Client</th>
@@ -108,16 +104,20 @@ table.toggle tr:nth-child(odd) {
                     </tr>
             </table>
         </div>
-</div><script type="text/javascript">
+</div>
+</div>
+<script type="text/javascript">
     function startDate() {
-        jQuery("#appointmentDate").datepicker({
+        jQuery("#startDate").datepicker({
             dateFormat: 'dd/mm/yy',
-            gotoCurrent: true
+            onSelect: function(date) {
+                jQuery('#cal-val').val(date);
+            }
         });
     }
     jQuery(function () {
         startDate();
-    })
+    });
 </script>
 
 

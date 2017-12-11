@@ -157,4 +157,9 @@ public class EmrUtils {
 		DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		return format.parse(s);
 	}
+
+	public static Date formatDateStringWithoutHours(String s) throws ParseException {
+		DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		return format.parse(s);
+	}
 }
