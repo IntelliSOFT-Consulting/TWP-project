@@ -36,6 +36,7 @@
 		}});
 	}
 	function ke_showHelp() {
-		window.open("../help/");
+        kenyaui.openConfirmDialog({ heading: 'Help', message: 'Help materials coming soon...', okCallback: function() {
+        }});
 	}
 </script>

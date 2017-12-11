@@ -39,6 +39,7 @@ public class AppointmentsFragmentController {
                 type = lastAppointment.getAppointmentType().getName();
             }
         }
+        model.addAttribute("list", appointmentList);
         model.addAttribute("date", date);
         model.addAttribute("notes", notes);
         model.addAttribute("time", time);

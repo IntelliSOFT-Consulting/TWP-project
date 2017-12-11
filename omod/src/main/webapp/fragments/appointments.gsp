@@ -1,6 +1,7 @@
 <%
     ui.decorateWith("kenyaui", "panel", [ heading: "Appointments Summary" ])
  %>
+<% if(list.size > 0){%>
     <table width="100%" class="toggle">
         <tr>
             <td>Appointment Date</td>
@@ -27,4 +28,8 @@
             <td>${notes}</td>
         </tr>
     </table>
+<% }  else {%>
+None
+<%}%>
+
 
