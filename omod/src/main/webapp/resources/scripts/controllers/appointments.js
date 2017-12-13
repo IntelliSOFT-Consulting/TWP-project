@@ -30,15 +30,23 @@ kenyaemrApp.controller('ActiveAppointmentsBlocks', ['$scope', '$http', '$timeout
      * @param appId the current app id
      * @param which
      */
-    $scope.init = function() {
-        $scope.refresh();
-    };
+        $scope.init = function() {
+            $scope.initial();
+        };
+
+        $scope.initial = function () {
+            $http.get(ui.fragmentActionLink('wellness', 'appointmentUtils', 'getAllActiveAppointmentBlocks'))
+                .success(function (data) {
+                    $scope.activeAppointments = data;
+
+                });
+        };
 
         /**
          * Refreshes the visit types with active visits
          */
         $scope.refresh = function () {
-            $http.get(ui.fragmentActionLink('wellness', 'appointmentUtils', 'getActiveAppointmentBlocks', { appId: $scope.appId, date: $scope.date, provider: $scope.provider, type:$scope.type, status:$scope.status }))
+            $http.get(ui.fragmentActionLink('wellness', 'appointmentUtils', 'getActiveAppointmentBlocks', { appId: $scope.appId,  provider: $scope.provider, type: $scope.type}))
                 .success(function (data) {
                     $scope.activeAppointments = data;
 

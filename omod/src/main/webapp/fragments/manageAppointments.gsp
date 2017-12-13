@@ -25,18 +25,10 @@ table.toggle tr:nth-child(odd) {
             <legend>Filtering Options</legend>
             <table>
                 <tr>
-                    <td>
-                        <span class="ke-field-content">
-                            <label class="ke-field-label">Appointment date</label>
-                            <input type="text" name="startDate" id="startDate"  ng-model="startDate"/>
-                        </span>
-                    </td>
-                </tr>
-                <tr>
                     <td colspan="2">
                         <span class="ke-field-content">
                             <label class="ke-field-label">Provider</label>
-                            <select name="provider" id="provider" ng-model="provider">
+                            <select name="provider" id="provider" ng-model="provider" ng-change="refresh()">
                                 <% providerList.each{%>
                                     <option value="${it.providerId}">${it.name}</option>
                                 <%}%>
@@ -44,40 +36,9 @@ table.toggle tr:nth-child(odd) {
                         </span>
                     </td>
                 </tr>
-                <tr>
-                    <td colspan="2">
-                        <span class="ke-field-content">
-                            <label class="ke-field-label">Appointment Type</label>
-                            <select name="appointmentType" id="appointmentType" ng-model="type">
-                                <% appointmentTypeList.each{%>
-                                   <option value="${it.appointmentTypeId}">${it.name}</option>
-                                <%}%>
-                            </select>
-                        </span>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <span class="ke-field-content">
-                            <label class="ke-field-label">Appointment Status</label>
-                            <select name="appointmentStatus" id="status" ng-model="status">
-                                <option value="Cancelled">Cancel</option>
-                                <option value="Missed">Missed</option>
-                                <option value="Scheduled">Scheduled</option>
-                                <option value="Completed">Completed</option>
-                            </select>
-                        </span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <button type="button" name="apply" id="apply" ng-click="refresh()">Apply filters</button>
-                    </td>
-                </tr>
             </table>
         </fieldset>
         </div>
-    <input type="text" id="cal-val" ng-model="date" />
 </div>
 <br />
 <div class="ke-panel-frame">
