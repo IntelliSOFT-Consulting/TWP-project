@@ -42,13 +42,96 @@ table.schedules tr:nth-child(odd) {
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Time slots</td>
+                                            <td>Appointment type:</td>
                                             <td>
-                                                <select name="timeSlots" id="timeSlots">
-                                                <% appointmentBlocks.each{%>
-                                                    <option value="${it.blockId}">${it.provider.name}  ${it.appointmentType.name}  ${it.availableDate}  ${it.timeSlots}</option>
+                                                <select name="type" id="type">
+                                                <% appointmentTypes.each{%>
+                                                    <option value="${it.appointmentTypeId}">${it.name}</option>
 
                                                 <%}%>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Provider:</td>
+                                            <td>
+                                                <select name="provider" id="provider">
+                                                    <% provider.each{%>
+                                                    <option value="${it.providerId}">${it.name}</option>
+
+                                                    <%}%>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Date:</td>
+                                            <td>
+                                                <input type="text" id="startDate" name="startDate"  onclick="startDate() "/>
+                                                <img
+                                                        src="${ui.resourceLink("wellness", "images/buttons/calendarIcon.png")}"
+                                                        class="calendarIcon" alt=""
+                                                        onClick="document.getElementById('startDate').focus();" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Start Time</td>
+                                            <td>
+                                                <select name="startHours">
+                                                    <option value="08">08</option>
+                                                    <option value="09">09</option>
+                                                    <option value="10">10</option>
+                                                    <option value="11">11</option>
+                                                    <option value="12">12</option>
+                                                    <option value="13">13</option>
+                                                    <option value="14">14</option>
+                                                    <option value="15">15</option>
+                                                    <option value="16">16</option>
+                                                    <option value="17">17</option>
+                                                    <option value="18">18</option>
+                                                </select>
+                                                <select name="startMinutes">
+                                                    <option value="00">00</option>
+                                                    <option value="10">10</option>
+                                                    <option value="15">15</option>
+                                                    <option value="20">20</option>
+                                                    <option value="25">25</option>
+                                                    <option value="30">30</option>
+                                                    <option value="35">35</option>
+                                                    <option value="40">40</option>
+                                                    <option value="45">45</option>
+                                                    <option value="50">50</option>
+                                                    <option value="55">55</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>End Time:</td>
+                                            <td>
+                                                <select name="endHours">
+                                                    <option value="08">08</option>
+                                                    <option value="09">09</option>
+                                                    <option value="10">10</option>
+                                                    <option value="11">11</option>
+                                                    <option value="12">12</option>
+                                                    <option value="13">13</option>
+                                                    <option value="14">14</option>
+                                                    <option value="15">15</option>
+                                                    <option value="16">16</option>
+                                                    <option value="17">17</option>
+                                                    <option value="18">18</option>
+                                                </select>
+                                                <select name="endMinutes">
+                                                    <option value="00">00</option>
+                                                    <option value="10">10</option>
+                                                    <option value="15">15</option>
+                                                    <option value="20">20</option>
+                                                    <option value="25">25</option>
+                                                    <option value="30">30</option>
+                                                    <option value="35">35</option>
+                                                    <option value="40">40</option>
+                                                    <option value="45">45</option>
+                                                    <option value="50">50</option>
+                                                    <option value="55">55</option>
                                                 </select>
                                             </td>
                                         </tr>
@@ -132,3 +215,15 @@ table.schedules tr:nth-child(odd) {
     </div>
 </div>
 <%}%>
+<script type="text/javascript">
+    function startDate() {
+        jQuery("#startDate").datepicker({
+            dateFormat: 'dd/mm/yy',
+            gotoCurrent: true,
+            minDate: new Date()
+        });
+    }
+    jQuery(function () {
+        startDate();
+    });
+</script>
