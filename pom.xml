@@ -48,7 +48,7 @@
         <reportingVersion>0.9.8.1</reportingVersion>
         <serializationxstreamVersion>0.2.7</serializationxstreamVersion>
         <uiframeworkVersion>3.3.1</uiframeworkVersion>
-        <appointmentschedulingVersion>1.7.0</appointmentschedulingVersion>
+        <appointmentschedulingVersion>1.9.1-SNAPSHOT</appointmentschedulingVersion>
         <uicommonsVersion>2.1</uicommonsVersion>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

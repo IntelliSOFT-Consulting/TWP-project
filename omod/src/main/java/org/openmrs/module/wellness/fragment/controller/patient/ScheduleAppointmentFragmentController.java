@@ -129,7 +129,7 @@ public class ScheduleAppointmentFragmentController {
                 //tie the time slots to the appointment;
                 appointmentNew.setDateCreated(new Date());
                 appointmentNew.setStatus(Appointment.AppointmentStatus.SCHEDULED);
-                appointmentNew.setAppointmentType(appointmentTypeList.get(0));
+                appointmentNew.setAppointmentType(appointmentTypeList.get();
                 appointmentNew.setTimeSlot(slot);
                 appointmentNew.setPatient(patient);
                 appointmentNew.setReason(notes);
