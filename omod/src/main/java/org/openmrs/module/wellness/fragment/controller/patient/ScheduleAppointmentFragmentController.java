@@ -3,6 +3,7 @@ package org.openmrs.module.wellness.fragment.controller.patient;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Patient;
+import org.openmrs.Provider;
 import org.openmrs.Visit;
 import org.openmrs.VisitType;
 import org.openmrs.api.context.Context;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -82,6 +84,7 @@ public class ScheduleAppointmentFragmentController {
         model.addAttribute("appointmentTypes", service.getAllAppointmentTypes());
         model.addAttribute("provider", service.getAllProvidersSorted(false));
         model.addAttribute("appointments", customAppointments);
+        model.addAttribute("today", EmrUtils.formatDates(new Date()));
 
     }
 
@@ -91,9 +94,15 @@ public class ScheduleAppointmentFragmentController {
                      @RequestParam(value = "flow", required = false) String flow,
                      @RequestParam(value = "patientId", required = false) String patientId,
                      @RequestParam(value = "notes", required = false) String notes,
-                     @RequestParam(value = "timeSlots", required = false) Integer timeSlots
-                     )
-                    {
+                     @RequestParam(value = "type", required = false) Integer type,
+                     @RequestParam(value = "provider", required = false) Integer provider,
+                     @RequestParam(value = "startDate", required = false) String startDate,
+                     @RequestParam(value = "startHours", required = false) String startHours,
+                     @RequestParam(value = "startMinutes", required = false) String startMinutes,
+                     @RequestParam(value = "endHours", required = false) String endHours,
+                     @RequestParam(value = "endMinutes", required = false) String endMinutes
+
+                     ) throws ParseException {
                 HttpSession httpSession = request.getSession();
                 AppointmentService appointmentService = Context.getService(AppointmentService.class);
 
@@ -117,22 +126,24 @@ public class ScheduleAppointmentFragmentController {
         else {
             //create a time slot for this appointment
             Appointment appointmentNew = new Appointment();
-            try {
-                TimeSlot slot = new TimeSlot();
-                AppointmentBlock appointmentBlock = appointmentService.getAppointmentBlock(timeSlots);
-                List<AppointmentType> appointmentTypeList = new ArrayList<AppointmentType>(appointmentBlock.getTypes());
-                List<TimeSlot> slotsToThisBlock = appointmentService.getTimeSlotsInAppointmentBlock(appointmentBlock);
-                if (slotsToThisBlock.size() > 0) {
-                    slot = slotsToThisBlock.get(0);
-                }
+            AppointmentType appointmentType = appointmentService.getAppointmentType(type);
+            Provider prov = Context.getProviderService().getProvider(provider);
+            String startTime =startHours+":"+startMinutes;
+            String endTime = endHours+":"+endMinutes;
+            Date startAppointmentDateTime = EmrUtils.formatDateString(startDate+" "+startTime);
+            Date endAppointmentDateTime = EmrUtils.formatDateString(startDate+" "+endTime);
 
+
+            try {
                 //tie the time slots to the appointment;
                 appointmentNew.setDateCreated(new Date());
                 appointmentNew.setStatus(Appointment.AppointmentStatus.SCHEDULED);
-                appointmentNew.setAppointmentType(appointmentTypeList.get(0));
-                appointmentNew.setTimeSlot(slot);
+                appointmentNew.setAppointmentType(appointmentType);
+                appointmentNew.setProvider(prov);
                 appointmentNew.setPatient(patient);
                 appointmentNew.setReason(notes);
+                appointmentNew.setStartDateTime(startAppointmentDateTime);
+                appointmentNew.setEndDateTime(endAppointmentDateTime);
                 appointmentService.saveAppointment(appointmentNew);
                 httpSession.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Appointment Created");
            }

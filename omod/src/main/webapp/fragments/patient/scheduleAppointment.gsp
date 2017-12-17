@@ -66,7 +66,7 @@ table.schedules tr:nth-child(odd) {
                                         <tr>
                                             <td>Date:</td>
                                             <td>
-                                                <input type="text" id="startDate" name="startDate"  onclick="startDate() "/>
+                                                <input type="text" id="startDate" name="startDate"  onclick="startDate()" value="${today}"/>
                                                 <img
                                                         src="${ui.resourceLink("wellness", "images/buttons/calendarIcon.png")}"
                                                         class="calendarIcon" alt=""
