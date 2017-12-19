@@ -46,18 +46,20 @@ public class ScheduleAppointmentFragmentController {
             }
         }
         for(Appointment appointment:patientAppointments) {
-            CustomAppointment customAppointment = new CustomAppointment();
-            customAppointment.setAppointmentId(appointment.getAppointmentId());
-            customAppointment.setProvider(appointment.getTimeSlot().getAppointmentBlock().getProvider());
-            customAppointment.setAppointmentType(appointment.getAppointmentType());
-            customAppointment.setAppointmentDate(EmrUtils.formatDates(appointment.getTimeSlot().getStartDate()));
-            customAppointment.setTimeSlots(EmrUtils.formatTimeFromDate(appointment.getTimeSlot().getStartDate())+"-"+EmrUtils.formatTimeFromDate(appointment.getTimeSlot().getEndDate()));
-            customAppointment.setStatus(appointment.getStatus().getName());
-            if(appointment.getReason() != null){
-                reason = appointment.getReason();
+            if(appointment.getStartDateTime() != null) {
+                CustomAppointment customAppointment = new CustomAppointment();
+                customAppointment.setAppointmentId(appointment.getAppointmentId());
+                customAppointment.setProvider(appointment.getProvider());
+                customAppointment.setAppointmentType(appointment.getAppointmentType());
+                customAppointment.setAppointmentDate(EmrUtils.formatDates(appointment.getStartDateTime()));
+                customAppointment.setTimeSlots(EmrUtils.formatTimeFromDate(appointment.getStartDateTime()) + "-" + EmrUtils.formatTimeFromDate(appointment.getEndDateTime()));
+                customAppointment.setStatus(appointment.getStatus().getName());
+                if (appointment.getReason() != null) {
+                    reason = appointment.getReason();
+                }
+                customAppointment.setNotes(reason);
+                customAppointments.add(customAppointment);
             }
-            customAppointment.setNotes(reason);
-            customAppointments.add(customAppointment);
         }
         //looping through the appointment blocks
         List<AppointmentBlock> allAppointmentBlocks = service.getAllAppointmentBlocks();
@@ -144,6 +146,7 @@ public class ScheduleAppointmentFragmentController {
                 appointmentNew.setReason(notes);
                 appointmentNew.setStartDateTime(startAppointmentDateTime);
                 appointmentNew.setEndDateTime(endAppointmentDateTime);
+                appointmentNew.setLocation(Context.getService(KenyaEmrService.class).getDefaultLocation());
                 appointmentService.saveAppointment(appointmentNew);
                 httpSession.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Appointment Created");
            }

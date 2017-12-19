@@ -16,13 +16,7 @@ import java.util.List;
 public class ManageAppointmentsFragmentController {
 
     public void controller(FragmentModel model, UiUtils ui){
-        List<Appointment> currentAppointments = new ArrayList<Appointment>();
-        Date today = OpenmrsUtil.firstSecondOfDay(new Date());
-        Date yesterday = CoreUtils.dateAddDays(today, -1);
-
-        model.addAttribute("appointmentTypeList", Context.getService(AppointmentService.class).getAllAppointmentTypesSorted(false));
         model.addAttribute("providerList", Context.getService(AppointmentService.class).getAllProvidersSorted(false));
-        model.addAttribute("today", EmrUtils.formatDates(new Date()));
 
     }
 }

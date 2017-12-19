@@ -69,7 +69,7 @@ public class MissedLastAppointmentCalculation extends AbstractPatientCalculation
 			if (patientAppointments.size() > 0) {
 				Appointment appointment = patientAppointments.get(patientAppointments.size() - 1); //picking the last appointment
 				if(appointment != null) {
-					Date appointmentDate = appointment.getTimeSlot().getEndDate();
+					Date appointmentDate = appointment.getEndDateTime();
 
 					// Does patient have a scheduled return visit in the past
 					if (appointmentDate != null && EmrCalculationUtils.daysSince(appointmentDate, context) > 0) {

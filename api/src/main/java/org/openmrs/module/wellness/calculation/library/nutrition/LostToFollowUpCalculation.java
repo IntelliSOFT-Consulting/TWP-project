@@ -77,7 +77,7 @@ public class LostToFollowUpCalculation extends AbstractPatientCalculation implem
             if (inNutritionProgram.contains(ptId) && patientAppointments.size() > 0) {
                 Appointment appointment = patientAppointments.get(patientAppointments.size() - 1); //picking the last appointment
                 if(appointment != null) {
-                    Date appointmentDate = appointment.getTimeSlot().getEndDate();
+                    Date appointmentDate = appointment.getEndDateTime();
                     // Patient is lost if no encounters in last X days
                     //Encounter lastEncounter = EmrCalculationUtils.encounterResultForPatient(lastEncounters, ptId);
                     Obs discontuation = EmrCalculationUtils.obsResultForPatient(lastProgramDiscontinuation, ptId);

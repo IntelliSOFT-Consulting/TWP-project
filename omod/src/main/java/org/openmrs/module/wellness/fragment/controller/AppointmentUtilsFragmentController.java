@@ -26,7 +26,6 @@ public class AppointmentUtilsFragmentController {
      */
     @AppAction(EmrConstants.APP_INTAKE)
     public List<SimpleObject> getActiveAppointmentBlocks(@RequestParam(value = "provider", required = false) Integer provider,
-                                                         @RequestParam(value = "appointmentType", required = false) Integer type,
                                                          UiUtils ui){
 
         List<SimpleObject> ret = new ArrayList<SimpleObject>();
@@ -36,8 +35,8 @@ public class AppointmentUtilsFragmentController {
         Date yesterday = CoreUtils.dateAddDays(today, -1);
 
             for (Appointment appointment : service.getAllAppointments()) {
-                if(provider != null && appointment != null){
-                   if(appointment.getTimeSlot().getAppointmentBlock().getProvider().equals(provider1) && appointment.getTimeSlot().getEndDate().after(yesterday)) {
+                if(provider != null && appointment != null && appointment.getEndDateTime() != null){
+                   if(appointment.getProvider().equals(provider1) && appointment.getEndDateTime().after(yesterday)) {
                         ret.add(ui.simplifyObject(appointment));
                     }
                 }
@@ -53,29 +52,11 @@ public class AppointmentUtilsFragmentController {
         Date yesterday = CoreUtils.dateAddDays(today, -1);
         AppointmentService service = Context.getService(AppointmentService.class);
         for(Appointment appointment : service.getAllAppointments()){
-            if(appointment.getTimeSlot().getEndDate().after(yesterday)) {
+            if(appointment.getEndDateTime() != null && appointment.getEndDateTime().after(yesterday)) {
                 ret.add(ui.simplifyObject(appointment));
             }
         }
         return ret;
     }
 
-    Appointment.AppointmentStatus status(String status){
-
-        Appointment.AppointmentStatus appointmentStatus = null;
-        if(status.equals("Cancelled")){
-            appointmentStatus = Appointment.AppointmentStatus.CANCELLED;
-        }
-        else if(status.equals("Missed")){
-            appointmentStatus = Appointment.AppointmentStatus.MISSED;
-        }
-        else if(status.equals("Scheduled")){
-            appointmentStatus = Appointment.AppointmentStatus.SCHEDULED;
-        }
-        else if(status.equals("Completed")){
-            appointmentStatus = Appointment.AppointmentStatus.COMPLETED;
-        }
-
-        return appointmentStatus;
-    }
 }

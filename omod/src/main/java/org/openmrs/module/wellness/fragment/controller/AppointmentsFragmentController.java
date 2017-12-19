@@ -5,7 +5,6 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.appointmentscheduling.Appointment;
 import org.openmrs.module.appointmentscheduling.api.AppointmentService;
 import org.openmrs.module.wellness.util.EmrUtils;
-import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.FragmentParam;
 import org.openmrs.ui.framework.fragment.FragmentModel;
 
@@ -14,7 +13,6 @@ import java.util.List;
 public class AppointmentsFragmentController {
 
     public void controller(@FragmentParam("patient") Patient patient,
-                           UiUtils ui,
                            FragmentModel model) {
 
         AppointmentService appointmentService = Context.getService(AppointmentService.class);
@@ -30,12 +28,12 @@ public class AppointmentsFragmentController {
 
         if(appointmentList.size() > 0) {
             lastAppointment = appointmentList.get(appointmentList.size() - 1);
-            if(lastAppointment != null){
-                date = EmrUtils.formatDates(lastAppointment.getTimeSlot().getStartDate());
+            if(lastAppointment != null && lastAppointment.getStartDateTime() != null){
+                date = EmrUtils.formatDates(lastAppointment.getStartDateTime());
                 notes = lastAppointment.getReason();
                 status = lastAppointment.getStatus().getName();
-                provider = lastAppointment.getTimeSlot().getAppointmentBlock().getProvider().getName();
-                time = EmrUtils.formatTimeFromDate(lastAppointment.getTimeSlot().getStartDate())+"-"+EmrUtils.formatTimeFromDate(lastAppointment.getTimeSlot().getEndDate());
+                provider = lastAppointment.getProvider().getName();
+                time = EmrUtils.formatTimeFromDate(lastAppointment.getStartDateTime())+"-"+EmrUtils.formatTimeFromDate(lastAppointment.getEndDateTime());
                 type = lastAppointment.getAppointmentType().getName();
             }
         }

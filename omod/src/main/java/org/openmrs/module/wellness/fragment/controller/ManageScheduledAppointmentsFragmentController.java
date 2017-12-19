@@ -29,15 +29,11 @@ public class ManageScheduledAppointmentsFragmentController {
         Appointment appointment = service.getAppointment(appointmentId);
         String status = appointment.getStatus().getName();
         AppointmentType appointmentType = appointment.getAppointmentType();
-        AppointmentBlock appointmentBlock = new AppointmentBlock();
-        if(appointment.getTimeSlot() != null) {
-            appointmentBlock =  appointment.getTimeSlot().getAppointmentBlock();
-        }
 
         //available appointment types fromm a block
-        List<AppointmentType> typesInAblock = new ArrayList<AppointmentType>(appointmentBlock.getTypes());
-        String appointmentDate = EmrUtils.formatDates(appointmentBlock.getStartDate());
-        String time = EmrUtils.formatTimeFromDate(appointmentBlock.getStartDate())+"-"+EmrUtils.formatTimeFromDate(appointmentBlock.getEndDate());
+        //List<AppointmentType> typesInAblock = new ArrayList<AppointmentType>(appointmentBlock.getTypes());
+        String appointmentDate = EmrUtils.formatDates(appointment.getStartDateTime());
+        String time = EmrUtils.formatTimeFromDate(appointment.getStartDateTime())+"-"+EmrUtils.formatTimeFromDate(appointment.getEndDateTime());
         String notes = appointment.getReason();
 
         List<TimeSlot> timeSlots = service.getAllTimeSlots();
@@ -65,12 +61,12 @@ public class ManageScheduledAppointmentsFragmentController {
 
     model.addAttribute("appointmentId", appointmentId);
     model.addAttribute("status", status);
-    model.addAttribute("appointmentType", appointmentType);
-    model.addAttribute("block", appointmentBlock);
-    model.addAttribute("blockTypes", typesInAblock.get(0));
+    model.addAttribute("appointmentTypes", appointmentType);
+    model.addAttribute("provider", service.getAllProvidersSorted(false));
     model.addAttribute("appointmentDate", appointmentDate);
     model.addAttribute("time", time);
     model.addAttribute("notes", notes);
+    model.addAttribute("today", EmrUtils.formatDates(new Date()));
     }
 
     public void post(@RequestParam(value = "appointmentId") Integer appointmentId,
