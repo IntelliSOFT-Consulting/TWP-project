@@ -1,5 +1,6 @@
 package org.openmrs.module.wellness.fragment.controller;
 
+import org.openmrs.Provider;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.appointmentscheduling.Appointment;
 import org.openmrs.module.appointmentscheduling.AppointmentBlock;
@@ -23,62 +24,44 @@ public class ManageScheduledAppointmentsFragmentController {
                            PageModel sharedModel){
 
         AppointmentService service = Context.getService(AppointmentService.class);
-        List<CustomAppointmentBlocks> customAppointmentBlocks = new ArrayList<CustomAppointmentBlocks>();
+
         Integer appointmentId = (Integer) sharedModel.getAttribute("appointmentId");
         //get the appointment with the given id
         Appointment appointment = service.getAppointment(appointmentId);
-        String status = appointment.getStatus().getName();
-        AppointmentType appointmentType = appointment.getAppointmentType();
-
-        //available appointment types fromm a block
-        //List<AppointmentType> typesInAblock = new ArrayList<AppointmentType>(appointmentBlock.getTypes());
-        String appointmentDate = EmrUtils.formatDates(appointment.getStartDateTime());
-        String time = EmrUtils.formatTimeFromDate(appointment.getStartDateTime())+"-"+EmrUtils.formatTimeFromDate(appointment.getEndDateTime());
-        String notes = appointment.getReason();
-
-        List<TimeSlot> timeSlots = service.getAllTimeSlots();
-
-        List<AppointmentType> appointmentTypeList;
-        for(TimeSlot timeSlot: timeSlots){
-            CustomAppointmentBlocks customBlocksEdit = new CustomAppointmentBlocks();
-
-            if(timeSlot != null && timeSlot.getEndDate().after(new Date())) {
-                appointmentTypeList = new ArrayList<AppointmentType>(timeSlot.getAppointmentBlock().getTypes());
-                customBlocksEdit.setBlockId(timeSlot.getAppointmentBlock().getAppointmentBlockId());
-                customBlocksEdit.setAppointmentType(appointmentTypeList.get(0));
-                customBlocksEdit.setProvider(timeSlot.getAppointmentBlock().getProvider());
-                customBlocksEdit.setAvailableDate(EmrUtils.formatDates(timeSlot.getAppointmentBlock().getStartDate()));
-                customBlocksEdit.setTimeSlots(EmrUtils.formatTimeFromDate(timeSlot.getAppointmentBlock().getStartDate())+"-"+EmrUtils.formatTimeFromDate(timeSlot.getAppointmentBlock().getEndDate()));
-
-                customAppointmentBlocks.add(customBlocksEdit);
-            }
 
 
-            model.addAttribute("appointmentBlocks", customAppointmentBlocks);
-
-        }
-
-
-    model.addAttribute("appointmentId", appointmentId);
-    model.addAttribute("status", status);
-    model.addAttribute("appointmentTypes", appointmentType);
-    model.addAttribute("provider", service.getAllProvidersSorted(false));
-    model.addAttribute("appointmentDate", appointmentDate);
-    model.addAttribute("time", time);
-    model.addAttribute("notes", notes);
-    model.addAttribute("today", EmrUtils.formatDates(new Date()));
+        model.addAttribute("appointmentId", appointmentId);
+        model.addAttribute("status", appointment.getStatus().getName());
+        model.addAttribute("appointmentType", appointment.getAppointmentType());
+        model.addAttribute("appointmentTypes", service.getAllAppointmentTypes());
+        model.addAttribute("providers", service.getAllProvidersSorted(false));
+        model.addAttribute("notes", appointment.getReason());
+        model.addAttribute("today", EmrUtils.formatDates(appointment.getStartDateTime()));
+        model.addAttribute("provider", appointment.getProvider());
     }
 
     public void post(@RequestParam(value = "appointmentId") Integer appointmentId,
                      HttpServletRequest request,
                      @RequestParam(value = "status") String status,
-                     @RequestParam(value = "timeSlots") Integer blcok,
-                     @RequestParam(value = "notes") String notes,
+                     @RequestParam(value = "notes", required = false) String notes,
+                     @RequestParam(value = "type", required = false) Integer type,
+                     @RequestParam(value = "provider", required = false) Integer provider,
+                     @RequestParam(value = "startDate", required = false) String startDate,
+                     @RequestParam(value = "startHours", required = false) String startHours,
+                     @RequestParam(value = "startMinutes", required = false) String startMinutes,
+                     @RequestParam(value = "endHours", required = false) String endHours,
+                     @RequestParam(value = "endMinutes", required = false) String endMinutes,
                      @RequestParam(value = "action") String action){
+
         HttpSession session = request.getSession();
         AppointmentService service = Context.getService(AppointmentService.class);
         Appointment appointment = service.getAppointment(appointmentId);
-        AppointmentBlock appointmentBlock = service.getAppointmentBlock(blcok);
+
+        //get the variables from the view
+        AppointmentType appointmentType = service.getAppointmentType(type);
+        Provider provider1 = Context.getProviderService().getProvider(provider);
+        String startDateTime = startDate+" "+startHours+":"+startMinutes;
+        String endDateTime = startDate+" "+endHours+":"+endMinutes;
 
         Appointment.AppointmentStatus appointmentStatus = null;
 
@@ -98,15 +81,15 @@ public class ManageScheduledAppointmentsFragmentController {
 
         try {
 
-            if(action.equals("edit") && appointmentBlock != null){
+            if(action.equals("edit") && appointment != null){
                     //populate the time slot for this appointment
-
-                    List<AppointmentType> appointmentTypeList = new ArrayList<AppointmentType>(appointmentBlock.getTypes());
-                    List<TimeSlot> slotList = new ArrayList<TimeSlot>(service.getTimeSlotsInAppointmentBlock(appointmentBlock));
                     appointment.setReason(notes);
-                    appointment.setAppointmentType(appointmentTypeList.get(0));
-                    appointment.setTimeSlot(slotList.get(0));
+                    appointment.setAppointmentType(appointmentType);
+                    appointment.setStartDateTime(EmrUtils.formatDateString(startDateTime));
+                    appointment.setEndDateTime(EmrUtils.formatDateString(endDateTime));
                     appointment.setStatus(appointmentStatus);
+                    appointment.setProvider(provider1);
+
                     service.saveAppointment(appointment);
 
                     session.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "Appointment Updated !");
@@ -122,8 +105,6 @@ public class ManageScheduledAppointmentsFragmentController {
         catch (Exception e) {
             session.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "Errors occurred "+e.fillInStackTrace());
         }
-
-
 
     }
 }

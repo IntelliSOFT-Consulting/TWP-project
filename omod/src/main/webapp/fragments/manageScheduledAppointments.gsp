@@ -23,6 +23,7 @@
                                     <td>Appointment type:</td>
                                     <td>
                                         <select name="type" id="type">
+                                            <option value="${appointmentType.appointmentTypeId}">${appointmentType.name}</option>
                                             <% appointmentTypes.each{%>
                                             <option value="${it.appointmentTypeId}">${it.name}</option>
 
@@ -34,7 +35,8 @@
                                     <td>Provider:</td>
                                     <td>
                                         <select name="provider" id="provider">
-                                            <% provider.each{%>
+                                            <option value="${provider.providerId}">${provider.name}</option>
+                                            <% providers.each{%>
                                             <option value="${it.providerId}">${it.name}</option>
 
                                             <%}%>
@@ -118,12 +120,11 @@
                                 </tr>
                                 <tr>
                                     <td colspan="2">
-                                        <textarea cols="50" rows="5" name="notes" id="notes"></textarea>
+                                        <textarea cols="50" rows="5" name="notes" id="notes">${notes}</textarea>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Action taken</td>
-                                    <td>
+                                    <td colspan="2">Action taken:
                                         <select name="action" id="action">
                                             <option value="edit">Edit</option>
                                             <option value="delete">Delete</option>
