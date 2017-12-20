@@ -3,6 +3,14 @@
 
     def menuItems = [
             [
+                 label: "Overview",
+                 href: ui.pageLink("wellness", "order/orderViewPatient", [ patientId: currentPatient.id, section: "overview" ]),
+                 active: (selection == "section-overview"),
+                 iconProvider: "wellness",
+                 icon: "buttons/perform.png"
+            ],
+
+            [
                     label: "Lab requests",
                     href: ui.pageLink("wellness", "order/orderViewPatient", [ patientId: currentPatient.id, section: "lab" ]),
                     active: (selection == "section-lab"),
@@ -27,7 +35,10 @@
 
 </div>
 <div class="ke-page-content">
-    <% if (section == "lab") { %>
+    <% if(section == "overview") { %>
+    ${ ui.includeFragment("wellness", "order/labResults", [ patient: currentPatient]) }
+
+    <%} else if (section == "lab") { %>
 
         ${ ui.includeFragment("wellness", "order/lab", [ patient: currentPatient]) }
 

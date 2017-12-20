@@ -82,6 +82,8 @@ public class EmrActivator implements ModuleActivator {
 		Context.getService(ReportService.class).deleteOldReportRequests();
 		//create a directory for loading patient image
 		File imgFolder = new File(OpenmrsUtil.getApplicationDataDirectory(), "/patient_images");
+		File labResults = new File(OpenmrsUtil.getApplicationDataDirectory(), "/lab_results");
+
 		if (!imgFolder.exists()) {
 			try {
 				FileUtils.forceMkdir(imgFolder);
@@ -91,6 +93,17 @@ public class EmrActivator implements ModuleActivator {
 			}
 		} else {
 			log.info("Folder for patient_images Already Exists");
+		}
+		if(!labResults.exists()){
+			try {
+				FileUtils.forceMkdir(labResults);
+				log.info("Created Folder to Store laboratory results");
+			} catch (IOException ex) {
+				log.error(ex);
+			}
+		}
+		else {
+			log.info("Folder for lab_results Already Exists");
 		}
 		log.info("Wellness started");
 	}

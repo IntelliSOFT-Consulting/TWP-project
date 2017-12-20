@@ -28,7 +28,7 @@ public class OrderViewPatientPageController {
         String selection = null;
 
         if (StringUtils.isEmpty(section)) {
-            section = "lab";
+            section = "overview";
         }
         selection = "section-" + section;
 

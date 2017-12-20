@@ -162,4 +162,14 @@ public class EmrUtils {
 		DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
 		return format.parse(s);
 	}
+
+	public static String getDateTimeMinuteSeconds(Date date){
+
+		Format formatter;
+		formatter = new SimpleDateFormat("dd-MM-yyyy HH:MM:SS.FFF");
+		String s = formatter.format(date);
+
+		return s;
+
+	}
 }
