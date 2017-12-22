@@ -83,6 +83,9 @@ public class EmrActivator implements ModuleActivator {
 		//create a directory for loading patient image
 		File imgFolder = new File(OpenmrsUtil.getApplicationDataDirectory(), "/patient_images");
 		File labResults = new File(OpenmrsUtil.getApplicationDataDirectory(), "/lab_results");
+		File labResults_success = new File(OpenmrsUtil.getApplicationDataDirectory(), "/lab_results_success");
+		File patient_data_import = new File(OpenmrsUtil.getApplicationDataDirectory(), "/patient_data_import");
+		File patient_data_import_success = new File(OpenmrsUtil.getApplicationDataDirectory(), "/patient_data_import_success");
 
 		if (!imgFolder.exists()) {
 			try {
@@ -104,6 +107,41 @@ public class EmrActivator implements ModuleActivator {
 		}
 		else {
 			log.info("Folder for lab_results Already Exists");
+		}
+
+		if(!labResults_success.exists()){
+			try {
+				FileUtils.forceMkdir(labResults_success);
+				log.info("Created Folder to Store laboratory results that has successfully processed");
+			} catch (IOException ex) {
+				log.error(ex);
+			}
+		}
+		else {
+			log.info("Folder for lab_results_success Already Exists");
+		}
+
+		if(!patient_data_import.exists()){
+			try {
+				FileUtils.forceMkdir(patient_data_import);
+				log.info("Created Folder to store patient data to be imported");
+			} catch (IOException ex) {
+				log.error(ex);
+			}
+		}
+		else {
+			log.info("Folder for patient_data_import Already Exists");
+		}
+		if(!patient_data_import_success.exists()){
+			try {
+				FileUtils.forceMkdir(patient_data_import_success);
+				log.info("Created Folder to store patient data to has been successfully imported");
+			} catch (IOException ex) {
+				log.error(ex);
+			}
+		}
+		else {
+			log.info("Folder for patient_data_import_success Already Exists");
 		}
 		log.info("Wellness started");
 	}

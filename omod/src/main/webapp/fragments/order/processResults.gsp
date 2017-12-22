@@ -34,6 +34,11 @@ table.results tr:nth-child(odd) {
                     </table>
                 </div>
             <%}%>
+            <% if(files.size == 0){%>
+                <div>
+                    No files uploaded yet.
+                </div>
+            <%}%>
             <div class="ke-panel-footer">
                 <button type="submit" id="submit">
                     <img src="${ui.resourceLink("wellness", "images/buttons/upload_results.png")}"/> Process results

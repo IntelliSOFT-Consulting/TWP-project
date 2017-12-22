@@ -1,6 +1,7 @@
 package org.openmrs.module.wellness.fragment.controller.order;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
 import org.openmrs.module.wellness.util.EmrUtils;
 import org.openmrs.ui.framework.fragment.FragmentModel;
 import org.openmrs.util.OpenmrsUtil;
@@ -32,12 +33,17 @@ public class UploadResultsFragmentController {
             if (!resultsDir.exists()) {
                 FileUtils.forceMkdir(resultsDir);
             }
-            byte[] bytes = file.getBytes();
-            String fileName = EmrUtils.getDateTimeMinuteSeconds(new Date());
-            FileOutputStream fos = new FileOutputStream(resultsDir + "/" +fileName+".csv");
-            fos.write(bytes);
-            fos.close();
-            session.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "File uploaded successfully!");
+            if(file != null && file.getName().endsWith(".csv")) {
+                byte[] bytes = file.getBytes();
+                String fileName = EmrUtils.getDateTimeMinuteSeconds(new Date());
+                FileOutputStream fos = new FileOutputStream(resultsDir + "/" + fileName + ".csv");
+                fos.write(bytes);
+                fos.close();
+                session.setAttribute(WebConstants.OPENMRS_MSG_ATTR, "File uploaded successfully!");
+            }
+            else {
+                session.setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "The file is not supported. Only csv files allowed");
+            }
 
         }
         catch (Exception e){
