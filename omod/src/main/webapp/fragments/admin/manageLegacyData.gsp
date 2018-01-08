@@ -10,7 +10,7 @@
                 |Date|First Name|Last Name|Program|Agent|Height|Weight|Goal Weight|Gender|B.P|Medical History|Medication|Other|Source|Postal Address|Town/City|DOB|ID/PP No|Mobile No|WhatsApp Group|DeliveryAddress|
                 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
             </pre>
-            <form id="upload-legacy-data" method="post" action="${ui.actionLink("wellness", "order/manageLegacyData", "uploadLegacyData")}" enctype="multipart/form-data">
+            <form id="upload-legacy-data" method="post" action="${ui.actionLink("wellness", "admin/manageLegacyData", "uploadLegacyData")}" enctype="multipart/form-data">
                 Select the file: <input type="file" name="file" id="file" />
                 <br />
                 <div class="ke-panel-footer">
