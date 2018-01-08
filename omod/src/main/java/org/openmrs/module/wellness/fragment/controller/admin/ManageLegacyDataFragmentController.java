@@ -16,8 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.FileOutputStream;
+import java.io.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -31,27 +30,7 @@ public class ManageLegacyDataFragmentController {
     public void uploadLegacyData(@RequestParam(value = "file", required = false) MultipartFile multipartFile, HttpServletRequest request){
         PersonService service = Context.getPersonService();
         //declare the variables to hold the values from the csv line record
-        String enrollmentDate = "";
-        String fName = "";
-        String lName = "";
-        String program = "";
-        String agent = "";
-        String height = "";
-        String weight = "";
-        String gWeight = "";
-        String gender = "";
-        String bp = "";
-        String mHistory = "";
-        String medication = "";
-        String other = "";
-        String source = "";
-        String pAddress = "";
-        String town = "";
-        String dob = "";
-        String id_pp_number = "";
-        String mobileNumber = "";
-        String whatUpGroupUse = "";
-        String delveryAddress = "";
+
 
         File import_legacy_data = new File(OpenmrsUtil.getApplicationDataDirectory(), "/patient_data_import");
 
@@ -139,6 +118,54 @@ public class ManageLegacyDataFragmentController {
     }
 
     public void processLegacyData(String fileName, File file){
-        
+
+        String csvFile = file+"/"+fileName+".csv";
+        String line = "";
+        String cvsSplitBy = ",";
+        String headLine = "";
+
+        //the variables to hold the column values
+        String enrollmentDate = "";
+        String fName = "";
+        String lName = "";
+        String program = "";
+        String agent = "";
+        String height = "";
+        String weight = "";
+        String gWeight = "";
+        String gender = "";
+        String bp = "";
+        String mHistory = "";
+        String medication = "";
+        String other = "";
+        String source = "";
+        String pAddress = "";
+        String town = "";
+        String dob = "";
+        String id_pp_number = "";
+        String mobileNumber = "";
+        String whatUpGroupUse = "";
+        String delveryAddress = "";
+
+        try  {
+            BufferedReader br = new BufferedReader(new FileReader(csvFile));
+                headLine = br.readLine();
+
+            while ((line = br.readLine()) != null) {
+
+                // use comma as separator
+                String[] records = line.split(cvsSplitBy);
+
+                enrollmentDate = records[0];
+                fName = records[2];
+                fName = records[3];
+
+                System.out.println(records[0]);
+
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
