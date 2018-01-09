@@ -2,11 +2,13 @@ package org.openmrs.module.wellness.fragment.controller.admin;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
-import org.openmrs.Person;
-import org.openmrs.PersonAddress;
-import org.openmrs.PersonName;
+import org.openmrs.*;
+import org.openmrs.api.PatientService;
 import org.openmrs.api.PersonService;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.metadatadeploy.MetadataUtils;
+import org.openmrs.module.wellness.api.KenyaEmrService;
+import org.openmrs.module.wellness.metadata.CommonMetadata;
 import org.openmrs.module.wellness.util.EmrUtils;
 import org.openmrs.ui.framework.fragment.FragmentModel;
 import org.openmrs.util.OpenmrsUtil;
@@ -17,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.*;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -27,7 +30,7 @@ public class ManageLegacyDataFragmentController {
 
     }
 
-    public void uploadLegacyData(@RequestParam(value = "file", required = false) MultipartFile multipartFile, HttpServletRequest request){
+    public void uploadLegacyData(@RequestParam(value = "file", required = false) MultipartFile multipartFile, HttpServletRequest request) throws ParseException {
         PersonService service = Context.getPersonService();
         //declare the variables to hold the values from the csv line record
 
@@ -37,14 +40,25 @@ public class ManageLegacyDataFragmentController {
         //upload the file to the server
         if(multipartFile != null) {
             copyTheLegacyDataIntoRespectiveFolder(multipartFile, request, import_legacy_data);
-            processLegacyData(multipartFile.getName(), import_legacy_data);
+            processLegacyData(multipartFile.getName(), import_legacy_data, service);
         }
 
 
     }
 
-    public void uploadClientsNames(String fName, String lName, String gender, Date dob, String postAddress, String town, String deliveryAddress, PersonService service){
+    public void uploadClientsNames(String fName, String lName, String gender, String dob, String postAddress, String town, String deliveryAddress, PersonService service, Set<PatientIdentifier> identifiers) throws ParseException {
+        PatientService patientService = Context.getPatientService();
+        Date defaultDate;
+
+        if(dob == null || StringUtils.isEmpty(dob) || StringUtils.isBlank(dob)){
+            defaultDate = new Date();
+        }
+        else {
+            defaultDate = EmrUtils.formatDateStringWithoutHoursTwp(dob);
+        }
+
         if(fName != null && lName != null) {
+            Integer personId;
 
             PersonName personName = new PersonName();
             personName.setGivenName(fName);
@@ -53,42 +67,85 @@ public class ManageLegacyDataFragmentController {
             //create the person object
             Person person = new Person();
             person.addName(personName);
-            person.setBirthdate(dob);
+            person.setBirthdate(defaultDate);
             person.setGender(gender);
             person.setBirthdateEstimated(false);
             person.setDead(false);
             person.setVoided(false);
-            person.setAddresses(addressSet(postAddress, town, deliveryAddress, service));
+            //add person addresses
+            if(postAddress != null && StringUtils.isNotEmpty(postAddress)) {
+                PersonAddress postAdress = new PersonAddress();
+                postAdress.setAddress1(postAddress);
+                person.addAddress(postAdress);
+            }
 
-            //save the person
+            //set town
+            if(town != null && StringUtils.isNotEmpty(town)) {
+                PersonAddress town1 = new PersonAddress();
+                town1.setCityVillage(town);
+                person.addAddress(town1);
+            }
+
+            //set delivery address
+            if(deliveryAddress != null && StringUtils.isNotEmpty(deliveryAddress)) {
+                PersonAddress delAddress = new PersonAddress();
+                delAddress.setAddress2(deliveryAddress);
+                person.addAddress(delAddress);
+            }
+
+
+            //save the person and return the person object person_id
+
+            //personId = person.getPersonId();
+            //save patient with identifiers
+            Patient patient = new Patient();
+            patient.setIdentifiers(identifiers);
+            patient.setPatientId(person.getPersonId());
+            patient.setCreator(Context.getAuthenticatedUser());
+            patient.setDateCreated(new Date());
+            patient.setVoided(false);
+            //check the several aspect of the patient
             service.savePerson(person);
+            System.out.println("Patient:::: "+patient.getGivenName()+" has gender>>"+patient.getGender()+" for person>>"+person.getPersonId());
+            //patientService.savePatient(patient);
+
+
 
         }
     }
 
-    public Set<PersonAddress> addressSet(String postAddress, String town, String deliveryAddress, PersonService service){
-        Set<PersonAddress> addresses = new HashSet<PersonAddress>();
-        //set post address
-        if(postAddress != null && StringUtils.isNotEmpty(postAddress)) {
-            PersonAddress postAdress = new PersonAddress();
-            postAdress.setAddress1(postAddress);
-            service.savePersonAddress(postAdress);
+    public Set<PatientIdentifier> identifiersCalculationSet(String idNumber, String mobileNumber){
+        Set<PatientIdentifier> identifierSet = new HashSet<PatientIdentifier>();
+
+        PatientIdentifier idNumberIdentifier = new PatientIdentifier();
+        PatientIdentifier mobileNumberIdentifier = new PatientIdentifier();
+        PatientIdentifierType idNumberIdType = MetadataUtils.existing(PatientIdentifierType.class, CommonMetadata._PatientIdentifierType.NATIONAL_ID);
+        PatientIdentifierType mobileNumIdType = MetadataUtils.existing(PatientIdentifierType.class, CommonMetadata._PatientIdentifierType.MOBILE_NUMBER);
+
+        if(idNumber != null){
+            idNumberIdentifier.setIdentifierType(idNumberIdType);
+            idNumberIdentifier.setLocation(Context.getService(KenyaEmrService.class).getDefaultLocation());
+            idNumberIdentifier.setIdentifier(idNumber);
+            idNumberIdentifier.setPreferred(true);
+
+            //add to a set
+            identifierSet.add(idNumberIdentifier);
         }
 
-        //set town
-        if(town != null && StringUtils.isNotEmpty(town)) {
-            PersonAddress town1 = new PersonAddress();
-            town1.setCityVillage(town);
+        if(mobileNumber != null){
+            mobileNumberIdentifier.setIdentifierType(mobileNumIdType);
+            mobileNumberIdentifier.setLocation(Context.getService(KenyaEmrService.class).getDefaultLocation());
+            mobileNumberIdentifier.setIdentifier(mobileNumber);
+            mobileNumberIdentifier.setPreferred(false );
+
+            //add to the set
+            identifierSet.add(mobileNumberIdentifier);
         }
 
-        //set delivery address
-        if(deliveryAddress != null && StringUtils.isNotEmpty(deliveryAddress)) {
-            PersonAddress delAddress = new PersonAddress();
-            delAddress.setAddress2(deliveryAddress);
-        }
 
 
-        return addresses;
+        return identifierSet;
+
     }
 
     public void copyTheLegacyDataIntoRespectiveFolder(MultipartFile multipartFile, HttpServletRequest request, File file){
@@ -117,7 +174,7 @@ public class ManageLegacyDataFragmentController {
         }
     }
 
-    public void processLegacyData(String fileName, File file){
+    public void processLegacyData(String fileName, File file, PersonService service) throws ParseException {
 
         String csvFile = file+"/"+fileName+".csv";
         String line = "";
@@ -158,9 +215,35 @@ public class ManageLegacyDataFragmentController {
 
                 enrollmentDate = records[0];
                 fName = records[2];
-                fName = records[3];
+                lName = records[3];
+                program = records[4];
+                agent = records[5];
+                height = records[6];
+                weight = records[7];
+                gWeight = records[8];
+                gender = records[9];
+                bp = records[10];
+                mHistory = records[11];
+                medication = records[12];
+                other = records[13];
+                source = records[14];
+                pAddress = records[15];
+                town = records[16];
+                dob = records[17];
+                id_pp_number = records[18];
+                mobileNumber = records[19];
+                if(records.length > 20) {
+                    whatUpGroupUse = records[20];
+                }
+                if(records.length > 21) {
+                    delveryAddress = records[21];
+                }
+                //start calling the respective methods to create the client in the database
+                System.out.println("Given Name is "+fName);
+                System.out.println("Last Name is "+fName);
+                System.out.println("Date of birth is  "+dob);
+                uploadClientsNames(fName, lName, gender, dob, pAddress, town, delveryAddress, service, identifiersCalculationSet(id_pp_number, mobileNumber));
 
-                System.out.println(records[0]);
 
             }
 

@@ -156,6 +156,11 @@ public class EmrUtils {
 		return format.parse(s);
 	}
 
+	public static Date formatDateStringWithoutHoursTwp(String s) throws ParseException {
+		DateFormat format = new SimpleDateFormat("MM/dd/yyyy");
+		return format.parse(s);
+	}
+
 	public static String getDateTimeMinuteSeconds(Date date){
 
 		Format formatter;
