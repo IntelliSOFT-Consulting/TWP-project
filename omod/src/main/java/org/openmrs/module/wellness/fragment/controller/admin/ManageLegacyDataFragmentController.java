@@ -50,7 +50,6 @@ public class ManageLegacyDataFragmentController {
     public void uploadClientsNames(String fName, String lName, String gender, String dob, String postAddress, String town, String deliveryAddress, PersonService service, Set<PatientIdentifier> identifiers) throws ParseException {
         PatientService patientService = Context.getPatientService();
         Date defaultDate;
-        Set<PersonAddress> addresses = new HashSet<PersonAddress>();
 
         if(dob == null || StringUtils.isEmpty(dob) || StringUtils.isBlank(dob)){
             defaultDate = new Date();
@@ -97,7 +96,6 @@ public class ManageLegacyDataFragmentController {
 
             //save the person and return the person object person_id
 
-            //personId = person.getPersonId();
             //save patient with identifiers
             Patient patient = new Patient();
             patient.setPersonId(person.getPersonId());
@@ -123,7 +121,7 @@ public class ManageLegacyDataFragmentController {
 
         PatientIdentifier idNumberIdentifier = new PatientIdentifier();
         PatientIdentifier mobileNumberIdentifier = new PatientIdentifier();
-        PatientIdentifier openmrsId = new PatientIdentifier();
+        PatientIdentifier openmrsId;
 
         PatientIdentifierType idNumberIdType = MetadataUtils.existing(PatientIdentifierType.class, CommonMetadata._PatientIdentifierType.NATIONAL_ID);
         PatientIdentifierType mobileNumIdType = MetadataUtils.existing(PatientIdentifierType.class, CommonMetadata._PatientIdentifierType.MOBILE_NUMBER);
@@ -154,9 +152,6 @@ public class ManageLegacyDataFragmentController {
             //add to the set
             identifierSet.add(mobileNumberIdentifier);
         }
-
-
-
         return identifierSet;
 
     }
@@ -256,7 +251,6 @@ public class ManageLegacyDataFragmentController {
                 }
                 //start calling the respective methods to create the client in the database
                 uploadClientsNames(fName, lName, gender, dob, pAddress, town, delveryAddress, service, identifiersCalculationSet(id_pp_number, mobileNumber));
-
 
             }
 
