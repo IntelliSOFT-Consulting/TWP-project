@@ -27,6 +27,7 @@ import org.openmrs.module.kenyacore.form.FormDescriptor;
 import org.openmrs.module.kenyacore.form.FormManager;
 import org.openmrs.module.kenyaui.KenyaUiUtils;
 import org.openmrs.module.wellness.wrapper.PatientWrapper;
+import org.openmrs.module.wellness.wrapper.PersonWrapper;
 import org.openmrs.ui.framework.SimpleObject;
 import org.openmrs.ui.framework.UiUtils;
 import org.openmrs.ui.framework.annotation.FragmentParam;
@@ -57,16 +58,25 @@ public class PatientSummaryFragmentController {
 		}
 
 		model.addAttribute("patient", patient);
-		String email = "";
 		String pobox = "";
 		String town = "";
 		String home = "";
+		String email = "";
 		if(patient.getAddresses().size() > 0) {
 			for(PersonAddress address : patient.getAddresses()) {
-				email = address.getAddress3();
-				pobox = address.getAddress1();
-				town = address.getCityVillage();
-				home = address.getAddress2();
+				if(address.getAddress1() != null){
+					pobox = address.getAddress1();
+				}
+				if(address.getCityVillage() != null){
+					town = address.getCityVillage();
+				}
+				if(address.getAddress2() != null){
+					home = address.getAddress2();
+				}
+				if(address.getAddress3() != null){
+					email = address.getAddress3();
+				}
+
 			}
 
 		}

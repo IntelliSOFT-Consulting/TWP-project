@@ -6,6 +6,7 @@ import org.openmrs.*;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.PersonService;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.wellness.api.KenyaEmrService;
 import org.openmrs.module.wellness.metadata.CommonMetadata;
@@ -49,6 +50,7 @@ public class ManageLegacyDataFragmentController {
     public void uploadClientsNames(String fName, String lName, String gender, String dob, String postAddress, String town, String deliveryAddress, PersonService service, Set<PatientIdentifier> identifiers) throws ParseException {
         PatientService patientService = Context.getPatientService();
         Date defaultDate;
+        Set<PersonAddress> addresses = new HashSet<PersonAddress>();
 
         if(dob == null || StringUtils.isEmpty(dob) || StringUtils.isBlank(dob)){
             defaultDate = new Date();
@@ -58,7 +60,6 @@ public class ManageLegacyDataFragmentController {
         }
 
         if(fName != null && lName != null) {
-            Integer personId;
 
             PersonName personName = new PersonName();
             personName.setGivenName(fName);
@@ -99,15 +100,18 @@ public class ManageLegacyDataFragmentController {
             //personId = person.getPersonId();
             //save patient with identifiers
             Patient patient = new Patient();
+            patient.setPersonId(person.getPersonId());
             patient.setIdentifiers(identifiers);
-            patient.setPatientId(person.getPersonId());
+            patient.setGender(person.getGender());
+            patient.addName(person.getPersonName());
+            patient.setBirthdate(person.getBirthdate());
+            patient.setAddresses(person.getAddresses());
             patient.setCreator(Context.getAuthenticatedUser());
             patient.setDateCreated(new Date());
             patient.setVoided(false);
-            //check the several aspect of the patient
-            service.savePerson(person);
-            System.out.println("Patient:::: "+patient.getGivenName()+" has gender>>"+patient.getGender()+" for person>>"+person.getPersonId());
-            //patientService.savePatient(patient);
+
+
+            patientService.savePatient(patient);
 
 
 
@@ -119,14 +123,23 @@ public class ManageLegacyDataFragmentController {
 
         PatientIdentifier idNumberIdentifier = new PatientIdentifier();
         PatientIdentifier mobileNumberIdentifier = new PatientIdentifier();
+        PatientIdentifier openmrsId = new PatientIdentifier();
+
         PatientIdentifierType idNumberIdType = MetadataUtils.existing(PatientIdentifierType.class, CommonMetadata._PatientIdentifierType.NATIONAL_ID);
         PatientIdentifierType mobileNumIdType = MetadataUtils.existing(PatientIdentifierType.class, CommonMetadata._PatientIdentifierType.MOBILE_NUMBER);
+        PatientIdentifierType openmrsIdType = MetadataUtils.existing(PatientIdentifierType.class, CommonMetadata._PatientIdentifierType.OPENMRS_ID);
+
+        //every patient should have a openMRS id
+        String generated = Context.getService(IdentifierSourceService.class).generateIdentifier(openmrsIdType, "Registration");
+        openmrsId = new PatientIdentifier(generated, openmrsIdType, Context.getService(KenyaEmrService.class).getDefaultLocation());
+        openmrsId.setPreferred(true);
+        identifierSet.add(openmrsId);
+
 
         if(idNumber != null){
             idNumberIdentifier.setIdentifierType(idNumberIdType);
             idNumberIdentifier.setLocation(Context.getService(KenyaEmrService.class).getDefaultLocation());
             idNumberIdentifier.setIdentifier(idNumber);
-            idNumberIdentifier.setPreferred(true);
 
             //add to a set
             identifierSet.add(idNumberIdentifier);
@@ -238,10 +251,10 @@ public class ManageLegacyDataFragmentController {
                 if(records.length > 21) {
                     delveryAddress = records[21];
                 }
+                if(mobileNumber.length() > 0){
+                    mobileNumber ="0"+mobileNumber;
+                }
                 //start calling the respective methods to create the client in the database
-                System.out.println("Given Name is "+fName);
-                System.out.println("Last Name is "+fName);
-                System.out.println("Date of birth is  "+dob);
                 uploadClientsNames(fName, lName, gender, dob, pAddress, town, delveryAddress, service, identifiersCalculationSet(id_pp_number, mobileNumber));
 
 
