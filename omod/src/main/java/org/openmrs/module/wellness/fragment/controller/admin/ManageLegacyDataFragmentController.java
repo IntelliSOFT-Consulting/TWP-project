@@ -5,11 +5,13 @@ import org.apache.commons.lang.StringUtils;
 import org.openmrs.*;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.PersonService;
+import org.openmrs.api.UserService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
 import org.openmrs.module.wellness.api.KenyaEmrService;
 import org.openmrs.module.wellness.metadata.CommonMetadata;
+import org.openmrs.module.wellness.metadata.SecurityMetadata;
 import org.openmrs.module.wellness.util.EmrUtils;
 import org.openmrs.ui.framework.fragment.FragmentModel;
 import org.openmrs.util.OpenmrsUtil;
@@ -21,9 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.text.ParseException;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class ManageLegacyDataFragmentController {
 
@@ -188,6 +188,7 @@ public class ManageLegacyDataFragmentController {
         String line = "";
         String cvsSplitBy = ",";
         String headLine = "";
+        Set<String> agents = new HashSet<String>();
 
         //the variables to hold the column values
         String enrollmentDate = "";
@@ -251,11 +252,59 @@ public class ManageLegacyDataFragmentController {
                 }
                 //start calling the respective methods to create the client in the database
                 uploadClientsNames(fName, lName, gender, dob, pAddress, town, delveryAddress, service, identifiersCalculationSet(id_pp_number, mobileNumber));
+                //create users and providers here
+                loadUserAndProviders(agent.trim());
+
+
 
             }
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void loadUserAndProviders(String userName) throws ParseException {
+        UserService userService = Context.getUserService();
+        if(userService.getUserByUsername(userName) == null){
+            //create person for this record
+            PersonName userPerson = new PersonName();
+            userPerson.setFamilyName(userName);
+            userPerson.setGivenName(userName);
+
+            Person person = new Person();
+            person.addName(userPerson);
+            person.setBirthdate(EmrUtils.formatDateStringWithoutHours("10/10/1980"));
+            person.setGender("F");
+            person.setCreator(Context.getAuthenticatedUser());
+
+            //save the person
+            //Context.getPersonService().savePerson(person);
+            //create a user object
+            Set<Role> roles = new HashSet<Role>();
+            roles.add(userService.getRole(SecurityMetadata._Role.CLINICIAN));
+            roles.add(userService.getRole(SecurityMetadata._Role.DATA_CLERK));
+            roles.add(userService.getRole(SecurityMetadata._Role.INTAKE));
+            roles.add(userService.getRole(SecurityMetadata._Role.REGISTRATION));
+            roles.add(userService.getRole(SecurityMetadata._Role.MANAGER));
+            roles.add(userService.getRole(SecurityMetadata._Role.SYSTEM_ADMIN));
+
+            User user = new User();
+            user.setPerson(person);
+            user.setUsername(userName);
+            user.setRoles(roles);
+
+            //save the user in the database
+            userService.saveUser(user, "Twp00001");
+            //make those users providers
+            Provider provider = new Provider();
+            provider.setPerson(person);
+            provider.setIdentifier(userName);
+
+            //save the provider
+            Context.getProviderService().saveProvider(provider);
+
+
         }
     }
 }
