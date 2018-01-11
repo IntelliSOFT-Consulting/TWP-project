@@ -3,14 +3,14 @@ package org.openmrs.module.wellness.fragment.controller.admin;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.openmrs.*;
-import org.openmrs.api.PatientService;
-import org.openmrs.api.PersonService;
-import org.openmrs.api.UserService;
+import org.openmrs.api.*;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.idgen.service.IdentifierSourceService;
 import org.openmrs.module.metadatadeploy.MetadataUtils;
+import org.openmrs.module.wellness.Dictionary;
 import org.openmrs.module.wellness.api.KenyaEmrService;
 import org.openmrs.module.wellness.metadata.CommonMetadata;
+import org.openmrs.module.wellness.metadata.NutritionMetadata;
 import org.openmrs.module.wellness.metadata.SecurityMetadata;
 import org.openmrs.module.wellness.util.EmrUtils;
 import org.openmrs.ui.framework.fragment.FragmentModel;
@@ -31,7 +31,7 @@ public class ManageLegacyDataFragmentController {
 
     }
 
-    public void uploadLegacyData(@RequestParam(value = "file", required = false) MultipartFile multipartFile, HttpServletRequest request) throws ParseException {
+    public void uploadLegacyData(@RequestParam(value = "file", required = false) MultipartFile multipartFile, HttpServletRequest request, Patient patient) throws ParseException {
         PersonService service = Context.getPersonService();
         //declare the variables to hold the values from the csv line record
 
@@ -41,7 +41,7 @@ public class ManageLegacyDataFragmentController {
         //upload the file to the server
         if(multipartFile != null) {
             copyTheLegacyDataIntoRespectiveFolder(multipartFile, request, import_legacy_data);
-            processLegacyData(multipartFile.getName(), import_legacy_data, service);
+            processLegacyData(multipartFile.getName(), import_legacy_data, service, patient);
         }
 
 
@@ -182,7 +182,7 @@ public class ManageLegacyDataFragmentController {
         }
     }
 
-    public void processLegacyData(String fileName, File file, PersonService service) throws ParseException {
+    public void processLegacyData(String fileName, File file, PersonService service, Patient patient) throws ParseException {
 
         String csvFile = file+"/"+fileName+".csv";
         String line = "";
@@ -253,7 +253,7 @@ public class ManageLegacyDataFragmentController {
                 //create users and providers here
                 loadUserAndProviders(agent.trim());
                 //importing encounter information that include obs
-                importEncounterAndObsForClient(EmrUtils.formatDateStringWithoutHoursTwp(enrollmentDate), program, height, weight, gWeight, bp, mHistory, medication, other, source, whatUpGroupUse, agent);
+                importEncounterAndObsForClient(EmrUtils.formatDateStringWithoutHoursTwp(enrollmentDate), program, height, weight, gWeight, bp, mHistory, medication, other, source, whatUpGroupUse, agent, patient);
             }
 
         } catch (IOException e) {
@@ -305,7 +305,61 @@ public class ManageLegacyDataFragmentController {
         }
     }
 
-    public void importEncounterAndObsForClient(Date encounterDate, String program, String height, String weight, String goalWeight, String bp, String mHistory, String medication, String other, String source, String whatapp, String agent){
-        
+    public void importEncounterAndObsForClient(Date encounterDate, String program, String height, String weight, String goalWeight, String bp, String mHistory, String medication, String other, String source, String whatapp, String agent, Patient patient){
+
+        UserService userService = Context.getUserService();
+        User user = userService.getUserByUsername(agent);
+        if(user == null) {
+            user = Context.getAuthenticatedUser();
+        }
+
+        ProviderService providerService = Context.getProviderService();
+        Provider provider = providerService.getProviderByIdentifier(agent);
+        if(provider == null){
+            provider = providerService.getProviderByUuid(CommonMetadata._Provider.UNKNOWN);
+        }
+
+        EncounterService encounterService = Context.getEncounterService();
+        FormService formService = Context.getFormService();
+
+        EncounterRole role = encounterService.getEncounterRoleByUuid("a0b03050-c99b-11e0-9572-0800200c9a66");
+
+        EncounterType encounterType = encounterService.getEncounterTypeByUuid(NutritionMetadata._EncounterType.NUTRITION_ENROLLMENT);
+        Form enrollmentForm = formService.getFormByUuid(NutritionMetadata._Form.NUTRITION_ENROLLMENT);
+
+        //save a nutrition program in the database
+        ProgramWorkflowService programWorkflowService = Context.getProgramWorkflowService();
+        Program nutritionalProgram = programWorkflowService.getProgramByUuid(NutritionMetadata._Program.NUTRITION);
+        PatientProgram patientProgram = new PatientProgram();
+        patientProgram.setDateEnrolled(encounterDate);
+        patientProgram.setLocation(Context.getService(KenyaEmrService.class).getDefaultLocation());
+        patientProgram.setProgram(nutritionalProgram);
+        patientProgram.setCreator(user);
+        patientProgram.setDateCreated(new Date());
+
+        programWorkflowService.savePatientProgram(patientProgram);
+
+        Encounter clientEncounter = new Encounter();
+        clientEncounter.setEncounterDatetime(encounterDate);
+        clientEncounter.setEncounterType(encounterType);
+        clientEncounter.addProvider(role, provider);
+        clientEncounter.setCreator(user);
+        clientEncounter.setDateCreated(new Date());
+        clientEncounter.setLocation(Context.getService(KenyaEmrService.class).getDefaultLocation());
+        clientEncounter.setForm(enrollmentForm);
+        clientEncounter.setPatient(patient);
+
+        //set the observations for this encounter
+        Obs programObs = new Obs();
+        programObs.setConcept(Dictionary.getConcept("c3ac2b0b-35ce-4cad-9586-095886f2335a"));
+        programObs.setValueCoded(programOptions(program));
+
+
+    }
+
+    Concept programOptions(String program){
+        Concept concept = null;
+
+        return concept;
     }
 }
