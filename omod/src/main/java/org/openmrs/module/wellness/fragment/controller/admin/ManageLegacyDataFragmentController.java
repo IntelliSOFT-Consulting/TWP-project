@@ -188,8 +188,6 @@ public class ManageLegacyDataFragmentController {
         String line = "";
         String cvsSplitBy = ",";
         String headLine = "";
-        Set<String> agents = new HashSet<String>();
-
         //the variables to hold the column values
         String enrollmentDate = "";
         String fName = "";
@@ -254,9 +252,8 @@ public class ManageLegacyDataFragmentController {
                 uploadClientsNames(fName, lName, gender, dob, pAddress, town, delveryAddress, service, identifiersCalculationSet(id_pp_number, mobileNumber));
                 //create users and providers here
                 loadUserAndProviders(agent.trim());
-
-
-
+                //importing encounter information that include obs
+                importEncounterAndObsForClient(EmrUtils.formatDateStringWithoutHoursTwp(enrollmentDate), program, height, weight, gWeight, bp, mHistory, medication, other, source, whatUpGroupUse, agent);
             }
 
         } catch (IOException e) {
@@ -306,5 +303,9 @@ public class ManageLegacyDataFragmentController {
 
 
         }
+    }
+
+    public void importEncounterAndObsForClient(Date encounterDate, String program, String height, String weight, String goalWeight, String bp, String mHistory, String medication, String other, String source, String whatapp, String agent){
+        
     }
 }
