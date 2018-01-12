@@ -31,8 +31,7 @@ public class ManageLegacyDataFragmentController {
 
     }
 
-    public void uploadLegacyData(@RequestParam(value = "file", required = false) MultipartFile multipartFile, HttpServletRequest request, Patient patient) throws ParseException {
-        PersonService service = Context.getPersonService();
+    public void uploadLegacyData(@RequestParam(value = "file", required = false) MultipartFile multipartFile, HttpServletRequest request) throws ParseException {
         //declare the variables to hold the values from the csv line record
 
 
@@ -41,13 +40,13 @@ public class ManageLegacyDataFragmentController {
         //upload the file to the server
         if(multipartFile != null) {
             copyTheLegacyDataIntoRespectiveFolder(multipartFile, request, import_legacy_data);
-            processLegacyData(multipartFile.getName(), import_legacy_data, service, patient);
+            processLegacyData(multipartFile.getName(), import_legacy_data);
         }
 
 
     }
 
-    public void uploadClientsNames(String fName, String lName, String gender, String dob, String postAddress, String town, String deliveryAddress, PersonService service, Set<PatientIdentifier> identifiers) throws ParseException {
+    public void uploadClientsNames(String fName, String lName, String gender, String dob, String postAddress, String town, String deliveryAddress, Set<PatientIdentifier> identifiers, String encounterDate, String program, String agent) throws ParseException {
         PatientService patientService = Context.getPatientService();
         Date defaultDate;
 
@@ -110,6 +109,8 @@ public class ManageLegacyDataFragmentController {
 
 
             patientService.savePatient(patient);
+            //save the encounter and obs
+            importEncounterAndObsForClient(EmrUtils.formatDateStringWithoutHoursTwp(encounterDate), program, agent, patient);
 
 
 
@@ -182,7 +183,7 @@ public class ManageLegacyDataFragmentController {
         }
     }
 
-    public void processLegacyData(String fileName, File file, PersonService service, Patient patient) throws ParseException {
+    public void processLegacyData(String fileName, File file) throws ParseException {
 
         String csvFile = file+"/"+fileName+".csv";
         String line = "";
@@ -245,15 +246,13 @@ public class ManageLegacyDataFragmentController {
                 if(records.length > 21) {
                     delveryAddress = records[21];
                 }
-                if(mobileNumber.length() > 0){
+                if(mobileNumber.length() > 0 && !mobileNumber.startsWith("0")){
                     mobileNumber ="0"+mobileNumber;
                 }
-                //start calling the respective methods to create the client in the database
-                uploadClientsNames(fName, lName, gender, dob, pAddress, town, delveryAddress, service, identifiersCalculationSet(id_pp_number, mobileNumber));
                 //create users and providers here
                 loadUserAndProviders(agent.trim());
-                //importing encounter information that include obs
-                importEncounterAndObsForClient(EmrUtils.formatDateStringWithoutHoursTwp(enrollmentDate), program, height, weight, gWeight, bp, mHistory, medication, other, source, whatUpGroupUse, agent, patient);
+                //start calling the respective methods to create the client in the database
+                uploadClientsNames(fName, lName, gender, dob, pAddress, town, delveryAddress, identifiersCalculationSet(id_pp_number, mobileNumber), enrollmentDate, program, agent);
             }
 
         } catch (IOException e) {
@@ -305,7 +304,7 @@ public class ManageLegacyDataFragmentController {
         }
     }
 
-    public void importEncounterAndObsForClient(Date encounterDate, String program, String height, String weight, String goalWeight, String bp, String mHistory, String medication, String other, String source, String whatapp, String agent, Patient patient){
+    public void importEncounterAndObsForClient(Date encounterDate, String program, String agent, Patient patient){
 
         UserService userService = Context.getUserService();
         User user = userService.getUserByUsername(agent);
@@ -331,6 +330,7 @@ public class ManageLegacyDataFragmentController {
         ProgramWorkflowService programWorkflowService = Context.getProgramWorkflowService();
         Program nutritionalProgram = programWorkflowService.getProgramByUuid(NutritionMetadata._Program.NUTRITION);
         PatientProgram patientProgram = new PatientProgram();
+        patientProgram.setPatient(patient);
         patientProgram.setDateEnrolled(encounterDate);
         patientProgram.setLocation(Context.getService(KenyaEmrService.class).getDefaultLocation());
         patientProgram.setProgram(nutritionalProgram);
@@ -349,17 +349,52 @@ public class ManageLegacyDataFragmentController {
         clientEncounter.setForm(enrollmentForm);
         clientEncounter.setPatient(patient);
 
+        //create a set to hold all the obs
+        Set<Obs> allObsSet = new HashSet<Obs>();
+
         //set the observations for this encounter
+        //add program
         Obs programObs = new Obs();
+        programObs.setObsDatetime(encounterDate);
         programObs.setConcept(Dictionary.getConcept("c3ac2b0b-35ce-4cad-9586-095886f2335a"));
         programObs.setValueCoded(programOptions(program));
+        programObs.setCreator(user);
+        programObs.setDateCreated(new Date());
+        programObs.setPerson(Context.getPersonService().getPerson(patient.getPatientId()));
+        programObs.setEncounter(clientEncounter);
+        programObs.setLocation(clientEncounter.getLocation());
+
+        //add this programObs to the set
+        allObsSet.add(programObs);
+
+        //add those to an encounter
+        clientEncounter.setObs(allObsSet);
+        //save the encounter
+        encounterService.saveEncounter(clientEncounter);
 
 
     }
 
     Concept programOptions(String program){
         Concept concept = null;
-
+            if(program != null && StringUtils.isNotEmpty(program) && program.trim().equals("Run")){
+                concept = Dictionary.getConcept("e00a0300-880a-4240-bc54-6006d699630e");
+            }
+            else if(program != null && StringUtils.isNotEmpty(program) && program.trim().equals("Marathon")){
+                concept = Dictionary.getConcept("e00e7df6-7752-483a-95a1-56052aecd10e");
+            }
+            else if(program != null && StringUtils.isNotEmpty(program) && program.trim().equals("Sprint")){
+                concept = Dictionary.getConcept("70896d5a-a14b-40b0-8a24-8729f883b3e9");
+            }
+            else if(program != null && StringUtils.isNotEmpty(program) && program.trim().equals("Walk")){
+                concept = Dictionary.getConcept("159310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+            }
+            else if(program != null && StringUtils.isNotEmpty(program) && program.trim().equals("Walk/stroll")){
+                concept = Dictionary.getConcept("159310AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+            }
+            else if(program != null && StringUtils.isNotEmpty(program) && program.trim().equals("Stroll")){
+                concept = Dictionary.getConcept("cf6aa2ea-07ea-4707-88b4-abc691d5f3c2");
+            }
         return concept;
     }
 }
