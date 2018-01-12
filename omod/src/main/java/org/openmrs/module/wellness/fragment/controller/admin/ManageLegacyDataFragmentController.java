@@ -46,7 +46,7 @@ public class ManageLegacyDataFragmentController {
 
     }
 
-    public void uploadClientsNames(String fName, String lName, String gender, String dob, String postAddress, String town, String deliveryAddress, Set<PatientIdentifier> identifiers, String encounterDate, String program, String agent) throws ParseException {
+    public void uploadClientsNames(String fName, String lName, String gender, String dob, String postAddress, String town, String deliveryAddress, Set<PatientIdentifier> identifiers, String encounterDate, String program, String agent, String weight, String height, String gWeight, String source, String whatsApp) throws ParseException {
         PatientService patientService = Context.getPatientService();
         Date defaultDate;
 
@@ -110,7 +110,7 @@ public class ManageLegacyDataFragmentController {
 
             patientService.savePatient(patient);
             //save the encounter and obs
-            importEncounterAndObsForClient(EmrUtils.formatDateStringWithoutHoursTwp(encounterDate), program, agent, patient);
+            importEncounterAndObsForClient(EmrUtils.formatDateStringWithoutHoursTwp(encounterDate), program, agent, patient, weight, height, gWeight, source, whatsApp);
 
 
 
@@ -252,7 +252,7 @@ public class ManageLegacyDataFragmentController {
                 //create users and providers here
                 loadUserAndProviders(agent.trim());
                 //start calling the respective methods to create the client in the database
-                uploadClientsNames(fName, lName, gender, dob, pAddress, town, delveryAddress, identifiersCalculationSet(id_pp_number, mobileNumber), enrollmentDate, program, agent);
+                uploadClientsNames(fName, lName, gender, dob, pAddress, town, delveryAddress, identifiersCalculationSet(id_pp_number, mobileNumber), enrollmentDate, program, agent, weight, height, gWeight, source, whatUpGroupUse);
             }
 
         } catch (IOException e) {
@@ -304,7 +304,7 @@ public class ManageLegacyDataFragmentController {
         }
     }
 
-    public void importEncounterAndObsForClient(Date encounterDate, String program, String agent, Patient patient){
+    public void importEncounterAndObsForClient(Date encounterDate, String program, String agent, Patient patient, String weight, String height, String gWeight, String source, String whatsApp){
 
         UserService userService = Context.getUserService();
         User user = userService.getUserByUsername(agent);
@@ -353,19 +353,107 @@ public class ManageLegacyDataFragmentController {
         Set<Obs> allObsSet = new HashSet<Obs>();
 
         //set the observations for this encounter
-        //add program
+        //add program obs
         Obs programObs = new Obs();
-        programObs.setObsDatetime(encounterDate);
-        programObs.setConcept(Dictionary.getConcept("c3ac2b0b-35ce-4cad-9586-095886f2335a"));
-        programObs.setValueCoded(programOptions(program));
-        programObs.setCreator(user);
-        programObs.setDateCreated(new Date());
-        programObs.setPerson(Context.getPersonService().getPerson(patient.getPatientId()));
-        programObs.setEncounter(clientEncounter);
-        programObs.setLocation(clientEncounter.getLocation());
+        if(program != null && StringUtils.isNotEmpty(program)) {
+            programObs.setObsDatetime(encounterDate);
+            programObs.setConcept(Dictionary.getConcept("c3ac2b0b-35ce-4cad-9586-095886f2335a"));
+            programObs.setValueCoded(programOptions(program));
+            programObs.setCreator(user);
+            programObs.setDateCreated(new Date());
+            programObs.setPerson(Context.getPersonService().getPerson(patient.getPatientId()));
+            programObs.setEncounter(clientEncounter);
+            programObs.setLocation(clientEncounter.getLocation());
+        }
+
+        //add weight obs
+        Obs weightObs = new Obs();
+        if(isOnlyNumbers(weight)) {
+            weightObs.setObsDatetime(encounterDate);
+            weightObs.setConcept(Dictionary.getConcept("5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"));
+            weightObs.setValueNumeric(Double.parseDouble(weight));
+            weightObs.setCreator(user);
+            weightObs.setDateCreated(new Date());
+            weightObs.setPerson(Context.getPersonService().getPerson(patient.getPatientId()));
+            weightObs.setEncounter(clientEncounter);
+            weightObs.setLocation(clientEncounter.getLocation());
+        }
+
+        //add height obs
+        Obs heightObs = new Obs();
+        if(isOnlyNumbers(height)) {
+            heightObs.setObsDatetime(encounterDate);
+            heightObs.setConcept(Dictionary.getConcept("5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"));
+            heightObs.setValueNumeric(Double.parseDouble(height));
+            heightObs.setCreator(user);
+            heightObs.setDateCreated(new Date());
+            heightObs.setPerson(Context.getPersonService().getPerson(patient.getPatientId()));
+            heightObs.setEncounter(clientEncounter);
+            heightObs.setLocation(clientEncounter.getLocation());
+        }
+
+        //add goal weight obs
+        Obs gWeightObs = new Obs();
+        if(isOnlyNumbers(gWeight)) {
+            gWeightObs.setObsDatetime(encounterDate);
+            gWeightObs.setConcept(Dictionary.getConcept("163102AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"));
+            gWeightObs.setValueNumeric(Double.parseDouble(gWeight));
+            gWeightObs.setCreator(user);
+            gWeightObs.setDateCreated(new Date());
+            gWeightObs.setPerson(Context.getPersonService().getPerson(patient.getPatientId()));
+            gWeightObs.setEncounter(clientEncounter);
+            gWeightObs.setLocation(clientEncounter.getLocation());
+        }
+
+        //add source. this combine other and names obs
+        Obs sourceSomeoneObs = new Obs();
+        if(source != null && StringUtils.isNotEmpty(source) && !isInTheLIst(source)) {
+            sourceSomeoneObs.setObsDatetime(encounterDate);
+            sourceSomeoneObs.setConcept(Dictionary.getConcept("87eeeb4b-fbe7-4fb9-82e6-4dd8b33be1fd"));
+            sourceSomeoneObs.setValueText(source);
+            sourceSomeoneObs.setCreator(user);
+            sourceSomeoneObs.setDateCreated(new Date());
+            sourceSomeoneObs.setPerson(Context.getPersonService().getPerson(patient.getPatientId()));
+            sourceSomeoneObs.setEncounter(clientEncounter);
+            sourceSomeoneObs.setLocation(clientEncounter.getLocation());
+        }
+
+        //add sources that are coded
+        Obs sourceCodedObs = new Obs();
+        if(source != null && StringUtils.isNotEmpty(source) && isInTheLIst(source)) {
+            sourceCodedObs.setObsDatetime(encounterDate);
+            sourceCodedObs.setConcept(Dictionary.getConcept("b5824d70-f0bd-4f6b-aed9-90b4121dfaa5"));
+            sourceCodedObs.setValueCoded(codedSources(source));
+            sourceCodedObs.setCreator(user);
+            sourceCodedObs.setDateCreated(new Date());
+            sourceCodedObs.setPerson(Context.getPersonService().getPerson(patient.getPatientId()));
+            sourceCodedObs.setEncounter(clientEncounter);
+            sourceCodedObs.setLocation(clientEncounter.getLocation());
+        }
+
+        //add whats app group
+        Obs whatAppGroupObs = new Obs();
+        if(whatsApp != null && StringUtils.isNotEmpty(whatsApp)){
+            whatAppGroupObs.setObsDatetime(encounterDate);
+            whatAppGroupObs.setConcept(Dictionary.getConcept("54e82f9e-8e2a-474f-980f-f8dfec24c92b"));
+            whatAppGroupObs.setValueCoded(whatAppGroupCodes(whatsApp));
+            whatAppGroupObs.setCreator(user);
+            whatAppGroupObs.setDateCreated(new Date());
+            whatAppGroupObs.setPerson(Context.getPersonService().getPerson(patient.getPatientId()));
+            whatAppGroupObs.setEncounter(clientEncounter);
+            whatAppGroupObs.setLocation(clientEncounter.getLocation());
+        }
+
+
 
         //add this programObs to the set
         allObsSet.add(programObs);
+        allObsSet.add(weightObs);
+        allObsSet.add(heightObs);
+        allObsSet.add(gWeightObs);
+        allObsSet.add(sourceSomeoneObs);
+        allObsSet.add(sourceCodedObs);
+        allObsSet.add(whatAppGroupObs);
 
         //add those to an encounter
         clientEncounter.setObs(allObsSet);
@@ -395,6 +483,62 @@ public class ManageLegacyDataFragmentController {
             else if(program != null && StringUtils.isNotEmpty(program) && program.trim().equals("Stroll")){
                 concept = Dictionary.getConcept("cf6aa2ea-07ea-4707-88b4-abc691d5f3c2");
             }
+        return concept;
+    }
+
+    Boolean isOnlyNumbers(String input){
+        boolean isTrue = false;
+        if(input != null && StringUtils.isNotEmpty(input) && Integer.parseInt(input) > 0){
+            isTrue = true;
+        }
+        else if(input != null && StringUtils.isNotEmpty(input) && Double.parseDouble(input) > 0.0){
+            isTrue = true;
+        }
+        return isTrue;
+    }
+
+    Boolean isInTheLIst(String input){
+        boolean isInTheList = false;
+        List<String> listOfCotacts = Arrays.asList(
+                "Facebook",
+                "Magazine",
+                "Website",
+                "Instagram"
+        );
+        if(listOfCotacts.contains(input)){
+            isInTheList = true;
+        }
+
+        return isInTheList;
+     }
+
+    Concept codedSources(String source){
+        Concept concept = null;
+        if(source != null && StringUtils.isNotEmpty(source) && source.trim().equals("Facebook")){
+            concept = Dictionary.getConcept("c909d2cd-9924-4dda-a225-5f4817df4a4c");
+        }
+        else if(source != null && StringUtils.isNotEmpty(source) && source.trim().equals("Magazine")){
+            concept = Dictionary.getConcept("32f304f6-78c4-4814-85c8-55a2ee4d365d");
+        }
+        else if(source != null && StringUtils.isNotEmpty(source) && source.trim().equals("Website")){
+            concept = Dictionary.getConcept("99682e4a-2dbc-4b00-8ebf-815ef8e66836");
+        }
+        else if(source != null && StringUtils.isNotEmpty(source) && source.trim().equals("Instagram")){
+            concept = Dictionary.getConcept("7e5d240d-0972-4e32-aec5-b283e5a17f09");
+        }
+        return concept;
+
+    }
+
+    Concept whatAppGroupCodes(String input){
+        Concept concept = null;
+        if(input != null && StringUtils.isNotEmpty(input) && input.trim().equals("Yes")){
+            concept = Dictionary.getConcept("1065AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        }
+        else if(input != null && StringUtils.isNotEmpty(input) && input.trim().equals("No")){
+            concept = Dictionary.getConcept("1066AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        }
+
         return concept;
     }
 }
