@@ -46,7 +46,7 @@ public class ManageLegacyDataFragmentController {
 
     }
 
-    public void uploadClientsNames(String fName, String lName, String gender, String dob, String postAddress, String town, String deliveryAddress, Set<PatientIdentifier> identifiers, String encounterDate, String program, String agent, String weight, String height, String gWeight, String source, String whatsApp) throws ParseException {
+    public void uploadClientsNames(String fName, String lName, String gender, String dob, String postAddress, String town, String deliveryAddress, Set<PatientIdentifier> identifiers, String encounterDate, String program, String agent, String weight, String height, String gWeight, String source, String whatsApp, String bp) throws ParseException {
         PatientService patientService = Context.getPatientService();
         Date defaultDate;
 
@@ -110,7 +110,7 @@ public class ManageLegacyDataFragmentController {
 
             patientService.savePatient(patient);
             //save the encounter and obs
-            importEncounterAndObsForClient(EmrUtils.formatDateStringWithoutHoursTwp(encounterDate), program, agent, patient, weight, height, gWeight, source, whatsApp);
+            importEncounterAndObsForClient(EmrUtils.formatDateStringWithoutHoursTwp(encounterDate), program, agent, patient, weight, height, gWeight, source, whatsApp, bp);
 
 
 
@@ -252,7 +252,7 @@ public class ManageLegacyDataFragmentController {
                 //create users and providers here
                 loadUserAndProviders(agent.trim());
                 //start calling the respective methods to create the client in the database
-                uploadClientsNames(fName, lName, gender, dob, pAddress, town, delveryAddress, identifiersCalculationSet(id_pp_number, mobileNumber), enrollmentDate, program, agent, weight, height, gWeight, source, whatUpGroupUse);
+                uploadClientsNames(fName, lName, gender, dob, pAddress, town, delveryAddress, identifiersCalculationSet(id_pp_number, mobileNumber), enrollmentDate, program, agent, weight, height, gWeight, source, whatUpGroupUse, bp);
             }
 
         } catch (IOException e) {
@@ -304,7 +304,7 @@ public class ManageLegacyDataFragmentController {
         }
     }
 
-    public void importEncounterAndObsForClient(Date encounterDate, String program, String agent, Patient patient, String weight, String height, String gWeight, String source, String whatsApp){
+    public void importEncounterAndObsForClient(Date encounterDate, String program, String agent, Patient patient, String weight, String height, String gWeight, String source, String whatsApp, String pressure){
 
         UserService userService = Context.getUserService();
         User user = userService.getUserByUsername(agent);
@@ -354,8 +354,9 @@ public class ManageLegacyDataFragmentController {
 
         //set the observations for this encounter
         //add program obs
-        Obs programObs = new Obs();
+
         if(program != null && StringUtils.isNotEmpty(program)) {
+            Obs programObs = new Obs();
             programObs.setObsDatetime(encounterDate);
             programObs.setConcept(Dictionary.getConcept("c3ac2b0b-35ce-4cad-9586-095886f2335a"));
             programObs.setValueCoded(programOptions(program));
@@ -364,11 +365,14 @@ public class ManageLegacyDataFragmentController {
             programObs.setPerson(Context.getPersonService().getPerson(patient.getPatientId()));
             programObs.setEncounter(clientEncounter);
             programObs.setLocation(clientEncounter.getLocation());
+
+            allObsSet.add(programObs);
         }
 
         //add weight obs
-        Obs weightObs = new Obs();
+
         if(isOnlyNumbers(weight)) {
+            Obs weightObs = new Obs();
             weightObs.setObsDatetime(encounterDate);
             weightObs.setConcept(Dictionary.getConcept("5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"));
             weightObs.setValueNumeric(Double.parseDouble(weight));
@@ -377,11 +381,14 @@ public class ManageLegacyDataFragmentController {
             weightObs.setPerson(Context.getPersonService().getPerson(patient.getPatientId()));
             weightObs.setEncounter(clientEncounter);
             weightObs.setLocation(clientEncounter.getLocation());
+
+            allObsSet.add(weightObs);
         }
 
         //add height obs
-        Obs heightObs = new Obs();
+
         if(isOnlyNumbers(height)) {
+            Obs heightObs = new Obs();
             heightObs.setObsDatetime(encounterDate);
             heightObs.setConcept(Dictionary.getConcept("5090AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"));
             heightObs.setValueNumeric(Double.parseDouble(height));
@@ -390,11 +397,14 @@ public class ManageLegacyDataFragmentController {
             heightObs.setPerson(Context.getPersonService().getPerson(patient.getPatientId()));
             heightObs.setEncounter(clientEncounter);
             heightObs.setLocation(clientEncounter.getLocation());
+
+            allObsSet.add(heightObs);
         }
 
         //add goal weight obs
-        Obs gWeightObs = new Obs();
+
         if(isOnlyNumbers(gWeight)) {
+            Obs gWeightObs = new Obs();
             gWeightObs.setObsDatetime(encounterDate);
             gWeightObs.setConcept(Dictionary.getConcept("163102AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"));
             gWeightObs.setValueNumeric(Double.parseDouble(gWeight));
@@ -403,11 +413,14 @@ public class ManageLegacyDataFragmentController {
             gWeightObs.setPerson(Context.getPersonService().getPerson(patient.getPatientId()));
             gWeightObs.setEncounter(clientEncounter);
             gWeightObs.setLocation(clientEncounter.getLocation());
+
+            allObsSet.add(gWeightObs);
         }
 
         //add source. this combine other and names obs
-        Obs sourceSomeoneObs = new Obs();
+
         if(source != null && StringUtils.isNotEmpty(source) && !isInTheLIst(source)) {
+            Obs sourceSomeoneObs = new Obs();
             sourceSomeoneObs.setObsDatetime(encounterDate);
             sourceSomeoneObs.setConcept(Dictionary.getConcept("87eeeb4b-fbe7-4fb9-82e6-4dd8b33be1fd"));
             sourceSomeoneObs.setValueText(source);
@@ -416,11 +429,14 @@ public class ManageLegacyDataFragmentController {
             sourceSomeoneObs.setPerson(Context.getPersonService().getPerson(patient.getPatientId()));
             sourceSomeoneObs.setEncounter(clientEncounter);
             sourceSomeoneObs.setLocation(clientEncounter.getLocation());
+
+            allObsSet.add(sourceSomeoneObs);
         }
 
         //add sources that are coded
-        Obs sourceCodedObs = new Obs();
+
         if(source != null && StringUtils.isNotEmpty(source) && isInTheLIst(source)) {
+            Obs sourceCodedObs = new Obs();
             sourceCodedObs.setObsDatetime(encounterDate);
             sourceCodedObs.setConcept(Dictionary.getConcept("b5824d70-f0bd-4f6b-aed9-90b4121dfaa5"));
             sourceCodedObs.setValueCoded(codedSources(source));
@@ -429,11 +445,14 @@ public class ManageLegacyDataFragmentController {
             sourceCodedObs.setPerson(Context.getPersonService().getPerson(patient.getPatientId()));
             sourceCodedObs.setEncounter(clientEncounter);
             sourceCodedObs.setLocation(clientEncounter.getLocation());
+
+            allObsSet.add(sourceCodedObs);
         }
 
         //add whats app group
-        Obs whatAppGroupObs = new Obs();
+
         if(whatsApp != null && StringUtils.isNotEmpty(whatsApp)){
+            Obs whatAppGroupObs = new Obs();
             whatAppGroupObs.setObsDatetime(encounterDate);
             whatAppGroupObs.setConcept(Dictionary.getConcept("54e82f9e-8e2a-474f-980f-f8dfec24c92b"));
             whatAppGroupObs.setValueCoded(whatAppGroupCodes(whatsApp));
@@ -442,19 +461,41 @@ public class ManageLegacyDataFragmentController {
             whatAppGroupObs.setPerson(Context.getPersonService().getPerson(patient.getPatientId()));
             whatAppGroupObs.setEncounter(clientEncounter);
             whatAppGroupObs.setLocation(clientEncounter.getLocation());
+
+            allObsSet.add(whatAppGroupObs);
         }
 
+        //loading the systollic pressure to the DB
 
+        if(pressure != null && StringUtils.isNotEmpty(pressure)){
+            Obs systolicPressure = new Obs();
+            systolicPressure.setObsDatetime(encounterDate);
+            systolicPressure.setConcept(Dictionary.getConcept("5085AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"));
+            systolicPressure.setValueNumeric(pressureValueSystollic(pressure));
+            systolicPressure.setCreator(user);
+            systolicPressure.setDateCreated(new Date());
+            systolicPressure.setPerson(Context.getPersonService().getPerson(patient.getPatientId()));
+            systolicPressure.setEncounter(clientEncounter);
+            systolicPressure.setLocation(clientEncounter.getLocation());
 
-        //add this programObs to the set
-        allObsSet.add(programObs);
-        allObsSet.add(weightObs);
-        allObsSet.add(heightObs);
-        allObsSet.add(gWeightObs);
-        allObsSet.add(sourceSomeoneObs);
-        allObsSet.add(sourceCodedObs);
-        allObsSet.add(whatAppGroupObs);
+            allObsSet.add(systolicPressure);
+        }
 
+        //loading the diastolic pressure
+
+        if(pressure != null && StringUtils.isNotEmpty(pressure)){
+            Obs diastolicPressure = new Obs();
+            diastolicPressure.setObsDatetime(encounterDate);
+            diastolicPressure.setConcept(Dictionary.getConcept("5086AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"));
+            diastolicPressure.setValueNumeric(pressureValueDiastollic(pressure));
+            diastolicPressure.setCreator(user);
+            diastolicPressure.setDateCreated(new Date());
+            diastolicPressure.setPerson(Context.getPersonService().getPerson(patient.getPatientId()));
+            diastolicPressure.setEncounter(clientEncounter);
+            diastolicPressure.setLocation(clientEncounter.getLocation());
+
+            allObsSet.add(diastolicPressure);
+        }
         //add those to an encounter
         clientEncounter.setObs(allObsSet);
         //save the encounter
@@ -488,10 +529,7 @@ public class ManageLegacyDataFragmentController {
 
     Boolean isOnlyNumbers(String input){
         boolean isTrue = false;
-        if(input != null && StringUtils.isNotEmpty(input) && Integer.parseInt(input) > 0){
-            isTrue = true;
-        }
-        else if(input != null && StringUtils.isNotEmpty(input) && Double.parseDouble(input) > 0.0){
+        if(input != null && StringUtils.isNotEmpty(input) && Double.parseDouble(input) > 0.0){
             isTrue = true;
         }
         return isTrue;
@@ -540,5 +578,25 @@ public class ManageLegacyDataFragmentController {
         }
 
         return concept;
+    }
+
+    Double pressureValueSystollic(String value){
+        Double pressureValue = null;
+
+        String[] pressureSplit = value.split("/");
+        if(pressureSplit.length > 0) {
+            pressureValue = Double.parseDouble(pressureSplit[0]);
+        }
+        return pressureValue;
+    }
+
+    Double pressureValueDiastollic(String value){
+        Double pressureValue = null;
+
+        String[] pressureSplit = value.split("/");
+        if(pressureSplit.length > 1) {
+            pressureValue = Double.parseDouble(pressureSplit[1]);
+        }
+        return pressureValue;
     }
 }
