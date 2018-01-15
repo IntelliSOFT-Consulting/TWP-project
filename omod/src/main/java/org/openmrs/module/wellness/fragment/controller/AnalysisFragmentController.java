@@ -66,10 +66,11 @@ public class AnalysisFragmentController {
                  height = obs.getValueNumeric() + " Dated:" + EmrUtils.formatDates(obs.getObsDatetime());
              }
          }
-        if(bmiMap != null){
-            Obs obs = EmrCalculationUtils.obsResultForPatient(bmiMap, patient.getPatientId());
-            if(obs != null) {
-                bmi = obs.getValueNumeric() + " Dated:" + EmrUtils.formatDates(obs.getObsDatetime());
+        if(weightMap != null && heightMap != null){
+            Obs obsWeight = EmrCalculationUtils.obsResultForPatient(weightMap, patient.getPatientId());
+            Obs obsHeight = EmrCalculationUtils.obsResultForPatient(heightMap, patient.getPatientId());
+            if(obsWeight != null && obsHeight != null) {
+                bmi = bmiFormular(obsHeight.getValueNumeric(), obsWeight.getValueNumeric()).toString();
             }
         }
 
@@ -163,6 +164,14 @@ public class AnalysisFragmentController {
         model.addAttribute("bodyWater", bodyWater);
         model.addAttribute("visceralFatRating", visceralFatRating);
         model.addAttribute("bodyWaterRating", bodyWaterRating);
+    }
+
+    Double bmiFormular(double h, double w){
+
+        double heightInMeters = h/100;
+
+        return (w /(heightInMeters * heightInMeters));
+
     }
 
 }
