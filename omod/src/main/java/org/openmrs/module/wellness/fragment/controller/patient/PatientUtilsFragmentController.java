@@ -119,7 +119,7 @@ public class PatientUtilsFragmentController {
 			List<Appointment> allAppointments = Context.getService(AppointmentService.class).getAppointmentsOfPatient(p);
 			if(allAppointments.size() > 0) {
 				for(Appointment appointment:allAppointments) {
-					if (appointment.getTimeSlot().getStartDate().after(startOfDay) && appointment.getTimeSlot().getEndDate().before(endOfDay)) {
+					if (appointment.getStartDateTime().after(startOfDay) && appointment.getEndDateTime().before(endOfDay)) {
 						actualAppointment = appointment;
 						break;
 					}
