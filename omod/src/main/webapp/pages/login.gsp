@@ -26,7 +26,7 @@ body {
 			<img src="${ ui.resourceLink("wellness", "images/htmlforms/background/left-1.jpg") }" width="100%" />
 		</td>
 		<td valign="top" width="20%">
-			<div style="text-align: center; padding-top: 10px">
+			<div style="text-align: center; padding-top: 100px">
 				<form method="post" action="${ loginServletUrl }" autocomplete="off">
 					<table style="margin-left: auto; margin-right: auto; border: 0" cellpadding="3" cellspacing="0">
 						<tr>
